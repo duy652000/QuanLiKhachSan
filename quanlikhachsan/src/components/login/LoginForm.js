@@ -1,28 +1,33 @@
 import React, { useState } from "react";
-import  './LoginForm.css';
 
+import  './LoginForm.css';
 function LoginForm({ Login, error }) {
-  const [details, setDetails] = useState({ name: "", password: "" });
+  const [details, setDetails] = useState({ email: "", password: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Login(details);
+
+    Login(details)
+    
   };
+ 
 
   return (
+
+  
     <form onSubmit={handleSubmit}>
       <div className="form-inner">
         <h2>Login</h2>
         {error != "" ? <div className="error-login">{error}</div> : ""}
         <br></br>
         <div className="form-group">
-          <label htmlFor="name">Name </label>
+          <label htmlFor="name">Email </label>
           <input
-            type="name"
-            name="name"
-            id="name"
-            onChange={(e) => setDetails({ ...details, name: e.target.value })}
-            value={details.name}
+            type="email"
+            name="email"
+            id="email"
+            onChange={(e) => setDetails({ ...details, email: e.target.value })}
+            value={details.email}
           />
         </div>
 
@@ -38,10 +43,11 @@ function LoginForm({ Login, error }) {
             value={details.password}
           />
         </div>
-
+      
         <button type="submit">Đăng Nhập</button>
       </div>
     </form>
+   
   );
 }
 
