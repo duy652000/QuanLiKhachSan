@@ -3,6 +3,7 @@ import "./App.css";
 import LoginForm from "./components/login/LoginForm";
 
 function App() {
+
   const adminUser = {
     name: "duy652000",
     password: "123123",
@@ -11,6 +12,8 @@ function App() {
   const [user, setUser] = useState({ name: "" });
   const [error, setError] = useState("");
 
+
+  
   const Login = (details) => {
     if (
       details.name == adminUser.name &&
@@ -27,6 +30,10 @@ function App() {
     setError("");
     e.preventDefault();
   };
+
+
+
+
   return (
     <div className="App">
       {user.name != "" ? (
