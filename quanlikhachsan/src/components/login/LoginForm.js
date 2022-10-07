@@ -4,15 +4,12 @@ import { Link } from "react-router-dom";
 import  './LoginForm.css';
 function LoginForm({ auth,Login, error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
-  const [disable,setDisable] =useState(false)
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     Login(details)
-    if(auth)setDisable(true)
-    else{
-      setDisable(false)
-    }
+   
     
     
   };
@@ -49,11 +46,8 @@ function LoginForm({ auth,Login, error }) {
             value={details.password}
           />
         </div>
-      {auth?
-      <Link to='/'>
-        <button type="submit">Đăng Nhập</button>
-      </Link> :
-     ( <button type="submit">Đăng Nhập</button>)}
+      
+     <button type="submit">Đăng Nhập</button>
       </div>
     </form>
    
