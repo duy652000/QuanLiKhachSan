@@ -1,23 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import  './LoginForm.css';
-function LoginForm({ auth,Login, error }) {
+import "./LoginForm.css";
+function LoginForm({ auth, Login, error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Login(details)
-   
-    
-    
+    Login(details);
   };
- 
 
   return (
-
-  
     <form onSubmit={handleSubmit}>
       <div className="form-inner">
         <h2>Login</h2>
@@ -46,11 +39,10 @@ function LoginForm({ auth,Login, error }) {
             value={details.password}
           />
         </div>
-      
-     <button type="submit">Đăng Nhập</button>
+
+        <button type="submit">Đăng Nhập</button>
       </div>
     </form>
-   
   );
 }
 

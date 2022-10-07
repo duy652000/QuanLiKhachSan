@@ -7,24 +7,14 @@ function LoginPage() {
     const [auth, setAuth] = useState(false);
     const [user, setUser] = useState({ email: "" });
     const [error, setError] = useState("");
- 
-    const adminUser = [
-      {
-        email: "vokhanhduy2000@gmail.com",
-        password: "123123",
-      },
-      {
-        email: "vokhanhduy@gmail.com",
-        password: "123",
-      },
-      ,
-      {
-        email: "vkd@gmail.com",
-        password: "12345",
-      },
-    ];
-
-   
+    const [adminUser, setAdminUser] = useState([]);
+    useEffect(() => {
+      fetch(`https://localhost:8000/login`)
+        .then((response) => response.json())
+        .then((adminUser) => {
+          setAdminUser(adminUser);
+        });
+    }, []);
 
     const Login = (details) => {
       const checkTrueEmail = (element) => element.email == details.email;
@@ -33,7 +23,6 @@ function LoginPage() {
       const checkFalsePass = (element) => element.password !== details.password;
       const checkFull = (element) =>
         element.email == details.email && element.password == details.password;
-    
 
       if (adminUser.some(checkFull)) {
         setAuth(true);
@@ -47,15 +36,23 @@ function LoginPage() {
       } else if (details.password === "") {
         setAuth(false);
         setError("Xin vui lòng nhập đầy đủ Password !");
-      } else if (adminUser.some(checkFalsePass) && adminUser.some(checkTrueEmail)) {
+      } else if (
+        adminUser.some(checkFalsePass) &&
+        adminUser.some(checkTrueEmail)
+      ) {
         setError("password không đúng . Xin vui lòng nhập lại !");
-      } else if (adminUser.some(checkFalseEmail) && adminUser.some(checkTruePass)){
+      } else if (
+        adminUser.some(checkFalseEmail) &&
+        adminUser.some(checkTruePass)
+      ) {
         setError("email không tồn tại . Xin vui lòng nhập lại !");
         // window.location.reload();
-
+      } else if (
+        adminUser.some(checkFalsePass) &&
+        adminUser.some(checkFalseEmail)
+      ) {
+        setError("email không tồn tại . Xin vui lòng nhập lại !");
       }
-      else if (adminUser.some(checkFalsePass) && adminUser.some(checkFalseEmail)) {
-        setError("email và password không đúng . Xin vui lòng nhập lại !");}
     };
 
     const Logout = (e) => {
