@@ -4,7 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+// const cors =require("cors");
+// const app = express();
+// app.use(cors({
+//   origin:"http://127.0.0.1:8000",
+//   methods:["GET","POST","PUT","DELETE"]
+// }))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

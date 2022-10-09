@@ -21,15 +21,17 @@ function Login() {
     
     
     
-    let item = { email: email, password: password };
-    console.log(email, password);
+    let item = { email,password };
+    // console.log(email, password);
 
-    let result = await fetch("", {
+    let result = await fetch(`http://127.0.0.1:3000/login`, {
       method: "POST",
+      mode: 'no-cors',
+
       body: JSON.stringify(item),
       headers: {
         "Content-type": "application/json",
-        Accept: "application/json",
+        "Accept": "application/json",
       },
     });
 
