@@ -1,61 +1,65 @@
 import React, { useEffect, useState } from "react";
+
 import { MDBContainer, MDBInput } from "mdb-react-ui-kit";
+
 import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 function Login() {
   const history = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      history("*");
-    }
-  });
+
+//   useEffect(() => {
+//     if (localStorage.getItem("token")) {
+//       history("*");
+//     }
+// });
+
   const [details, setDetails] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [errorPass, setErrorPass] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+
+
   const handleLogin = (e) => {
     e.preventDefault();
+
     Login(details);
-    // console.log(details);
+
+    
   };
 
-  // async function Login(detail) {
-  //   const res = await axios.post('http://localhost:8000/login',detail)
-  //   console.log(res)
-  // }
   async function Login(detail) {
-    const formData = new FormData();
-    formData.append("email", detail.email);
-    formData.append("password", detail.password);
-
-    let data = detail;
-    //
     try {
-      let result = await fetch("http://127.0.0.1:8000/login", {
-        method: "POST",
-        mode: "no-cors",
+      
+      let res = await axios.post("http://localhost:8000/login", detail, {
         headers: {
-          Accept: "/",
+          "Content-Type": "application/json",
+          Authorization: `Bearer`,
         },
-        body: formData,
       });
-      result = await result.json();
-      console.log(result);
-       // localStorage.setItem("token", JSON.stringify(result));
 
-    // history("/");
-
+      res = await res.data.access_token;
+      // let data = res.user;
+      let token = res.access_token;
+      localStorage.setItem("token", JSON.stringify(token));
 
     } catch (error) {
-      console.warn(error);
+    
+      setErrorPass(((error.response.data.password)));
+      setErrorEmail(((error.response.data.email)));
+      setError(error.response.data.error);
+     
     }
-
-
-   
   }
+ 
+ 
 
   return (
     <form onSubmit={handleLogin}>
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <div className="form-group">
+          <p>{error}</p>
           <MDBInput
             wrapperClass="mb-4"
             placeholder="Email address"
@@ -67,7 +71,9 @@ function Login() {
             }}
             value={details.email}
           />
+          <p>{errorEmail}</p>
         </div>
+
         <div className="form-group">
           <MDBInput
             wrapperClass="mb-4"
@@ -80,6 +86,7 @@ function Login() {
             }
             value={details.password}
           />
+          <p>{errorPass}</p>
         </div>
 
         <button type="submit" className="mb-4 btn btn-primary">
