@@ -6,7 +6,7 @@ function Protected(props) {
     const history =useNavigate();
     useEffect(() => {
         if (!(localStorage.getItem("token"))) {
-            history.push("/login");
+            history("/login");
         }
       },[]);
   return (

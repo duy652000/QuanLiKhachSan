@@ -11,8 +11,8 @@ function App() {
       <div className="App">
         <Routes>
           
-          {/* <Route path="*" element={<Protected Cmp={Dashboard} />} /> */}
-          <Route path="*" element={<Dashboard />} />
+          <Route path="*" element={<Protected Cmp={Dashboard} />} />
+          {/* <Route path="*" element={<Dashboard />} /> */}
 
           
 

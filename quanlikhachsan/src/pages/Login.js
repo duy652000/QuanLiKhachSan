@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBInput } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const history = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      history.push("*");
+      history("*");
     }
   });
   const [details, setDetails] = useState({ email: "", password: "" });
@@ -15,6 +16,11 @@ function Login() {
     Login(details);
     // console.log(details);
   };
+
+  // async function Login(detail) {
+  //   const res = await axios.post('http://localhost:8000/login',detail)
+  //   console.log(res)
+  // }
   async function Login(detail) {
     const formData = new FormData();
     formData.append("email", detail.email);
@@ -33,14 +39,17 @@ function Login() {
       });
       result = await result.json();
       console.log(result);
+       // localStorage.setItem("token", JSON.stringify(result));
+
+    // history("/");
+
+
     } catch (error) {
       console.warn(error);
     }
-    //
 
-    // localStorage.setItem("token", JSON.stringify(result));
 
-    // history("/");
+   
   }
 
   return (
