@@ -10,6 +10,7 @@ function Login() {
   const history = useNavigate();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   //check token
   useEffect(() => {
@@ -18,11 +19,16 @@ function Login() {
     }
   });
 =======
+=======
+>>>>>>> parent of 8094664 (v9)
 //   useEffect(() => {
 //     if (localStorage.getItem("token")) {
 //       history("*");
 //     }
 // });
+<<<<<<< HEAD
+>>>>>>> parent of 8094664 (v9)
+=======
 >>>>>>> parent of 8094664 (v9)
 
   const [details, setDetails] = useState({ email: "", password: "" });
@@ -32,7 +38,11 @@ function Login() {
   // const [dataLogin, setDataLogin] = useState("");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   // xử li submit
+=======
+
+>>>>>>> parent of 8094664 (v9)
 =======
 
 >>>>>>> parent of 8094664 (v9)
@@ -60,8 +70,12 @@ function Login() {
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
 <<<<<<< HEAD
+<<<<<<< HEAD
       
       history("/");
+=======
+
+>>>>>>> parent of 8094664 (v9)
 =======
 
 >>>>>>> parent of 8094664 (v9)
