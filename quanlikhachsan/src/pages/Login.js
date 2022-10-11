@@ -42,7 +42,7 @@ function Login() {
       res = await res.data;
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
-      
+
       history("/");
     } catch (error) {
     
@@ -59,7 +59,7 @@ function Login() {
     <form onSubmit={handleLogin} >
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <div className="form-group">
-          <p>{error}</p>
+          <p>{error}{errorEmail}<br/>{errorPass}</p>
           <MDBInput
             wrapperClass="mb-4"
             placeholder="Email address"
@@ -71,7 +71,6 @@ function Login() {
             }}
             value={details.email}
           />
-          <p>{errorEmail}</p>
         </div>
 
         <div className="form-group">
@@ -86,7 +85,6 @@ function Login() {
             }
             value={details.password}
           />
-          <p>{errorPass}</p>
         </div>
 
         <button type="submit" className="mb-4 btn btn-primary">
