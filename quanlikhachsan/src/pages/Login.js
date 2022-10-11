@@ -9,6 +9,7 @@ import axios from "axios";
 function Login() {
   const history = useNavigate();
 
+<<<<<<< HEAD
 
   //check token
   useEffect(() => {
@@ -16,6 +17,13 @@ function Login() {
       history("*");
     }
   });
+=======
+//   useEffect(() => {
+//     if (localStorage.getItem("token")) {
+//       history("*");
+//     }
+// });
+>>>>>>> parent of 8094664 (v9)
 
   const [details, setDetails] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -23,37 +31,50 @@ function Login() {
   const [errorEmail, setErrorEmail] = useState("");
   // const [dataLogin, setDataLogin] = useState("");
 
+<<<<<<< HEAD
   // xử li submit
+=======
+
+>>>>>>> parent of 8094664 (v9)
   const handleLogin = (e) => {
     e.preventDefault();
 
     Login(details);
+
+    
   };
 
   //call api
   async function Login(detail) {
     try {
+      
       let res = await axios.post("http://localhost:8000/login", detail, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer`,
         },
       });
-      res = await res.data;
 
-      // let nameLogin = res.user.name;
-
-      // setDataLogin(nameLogin);
+      res = await res.data.access_token;
+      // let data = res.user;
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
+<<<<<<< HEAD
       
       history("/");
+=======
+
+>>>>>>> parent of 8094664 (v9)
     } catch (error) {
-      setErrorPass(error.response.data.password);
-      setErrorEmail(error.response.data.email);
+    
+      setErrorPass(((error.response.data.password)));
+      setErrorEmail(((error.response.data.email)));
       setError(error.response.data.error);
+     
     }
   }
+ 
+ 
 
   return (
     <form onSubmit={handleLogin} >
