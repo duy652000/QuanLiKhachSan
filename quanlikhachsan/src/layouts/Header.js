@@ -5,7 +5,9 @@ import Logout from "../components/logout/Logout";
 
 
 function Header() {
+
   return (
+
     <div>
       <Navbar bg="dark" variant="dark">
         <Container>
@@ -24,6 +26,7 @@ function Header() {
                  <Link to="/login">Đăng Nhập</Link>
             }
           </Nav>
+          <Logout/>
         </Container>
       </Navbar>
     </div>

@@ -1,9 +1,15 @@
 import React, { useEffect } from 'react'
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'
 
 
 function Logout() {
- const logout =()=>  localStorage.clear();
+   const history = useNavigate();
+ const logout =()=>  {
+   localStorage.clear("token")
+   history("/")
+};
+ 
  return (
     <Button onClick={logout}>Logout</Button>
  )

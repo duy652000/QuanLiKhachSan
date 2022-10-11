@@ -7,9 +7,11 @@ import Rooms from "../components/rooms/Rooms";
 import Staffs from "../components/staffs/Staffs";
 
 function Dashboard() {
+
   let history = useNavigate();
+
   useEffect(() =>{
-    if(localStorage.getItem("token")){
+    if(!localStorage.getItem("token")){
       history("/login")
     }
   })

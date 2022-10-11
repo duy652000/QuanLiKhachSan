@@ -9,11 +9,9 @@ import axios from "axios";
 function Login() {
   const history = useNavigate();
 
-
-  //check token
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      history("*");
+      history("/");
     }
   });
 
@@ -23,16 +21,18 @@ function Login() {
   const [errorEmail, setErrorEmail] = useState("");
   // const [dataLogin, setDataLogin] = useState("");
 
-  // xử li submit
   const handleLogin = (e) => {
     e.preventDefault();
 
     Login(details);
+
+    
   };
 
   //call api
   async function Login(detail) {
     try {
+      
       let res = await axios.post("http://localhost:8000/login", detail, {
         headers: {
           "Content-Type": "application/json",
@@ -40,20 +40,20 @@ function Login() {
         },
       });
       res = await res.data;
-
-      // let nameLogin = res.user.name;
-
-      // setDataLogin(nameLogin);
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
       
       history("/");
     } catch (error) {
-      setErrorPass(error.response.data.password);
-      setErrorEmail(error.response.data.email);
+    
+      setErrorPass(((error.response.data.password)));
+      setErrorEmail(((error.response.data.email)));
       setError(error.response.data.error);
+     
     }
   }
+ 
+ 
 
   return (
     <form onSubmit={handleLogin} >
@@ -104,4 +104,4 @@ function Login() {
   );
 }
 
-export default Login();
+export default Login;
