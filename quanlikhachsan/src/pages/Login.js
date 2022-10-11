@@ -9,8 +9,6 @@ import axios from "axios";
 function Login() {
   const history = useNavigate();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   //check token
   useEffect(() => {
@@ -18,18 +16,6 @@ function Login() {
       history("*");
     }
   });
-=======
-=======
->>>>>>> parent of 8094664 (v9)
-//   useEffect(() => {
-//     if (localStorage.getItem("token")) {
-//       history("*");
-//     }
-// });
-<<<<<<< HEAD
->>>>>>> parent of 8094664 (v9)
-=======
->>>>>>> parent of 8094664 (v9)
 
   const [details, setDetails] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -37,58 +23,37 @@ function Login() {
   const [errorEmail, setErrorEmail] = useState("");
   // const [dataLogin, setDataLogin] = useState("");
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   // xử li submit
-=======
-
->>>>>>> parent of 8094664 (v9)
-=======
-
->>>>>>> parent of 8094664 (v9)
   const handleLogin = (e) => {
     e.preventDefault();
 
     Login(details);
-
-    
   };
 
   //call api
   async function Login(detail) {
     try {
-      
       let res = await axios.post("http://localhost:8000/login", detail, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer`,
         },
       });
+      res = await res.data;
 
-      res = await res.data.access_token;
-      // let data = res.user;
+      // let nameLogin = res.user.name;
+
+      // setDataLogin(nameLogin);
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
-<<<<<<< HEAD
-<<<<<<< HEAD
       
       history("/");
-=======
-
->>>>>>> parent of 8094664 (v9)
-=======
-
->>>>>>> parent of 8094664 (v9)
     } catch (error) {
-    
-      setErrorPass(((error.response.data.password)));
-      setErrorEmail(((error.response.data.email)));
+      setErrorPass(error.response.data.password);
+      setErrorEmail(error.response.data.email);
       setError(error.response.data.error);
-     
     }
   }
- 
- 
 
   return (
     <form onSubmit={handleLogin} >
