@@ -9,6 +9,8 @@ import axios from "axios";
 function Login() {
   const history = useNavigate();
 
+
+  //check token
   useEffect(() => {
     if (localStorage.getItem("token")) {
       history("*");
@@ -19,13 +21,16 @@ function Login() {
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
+  // const [dataLogin, setDataLogin] = useState("");
 
+  // xử li submit
   const handleLogin = (e) => {
     e.preventDefault();
 
     Login(details);
   };
 
+  //call api
   async function Login(detail) {
     try {
       let res = await axios.post("http://localhost:8000/login", detail, {
@@ -35,9 +40,13 @@ function Login() {
         },
       });
       res = await res.data;
+
+      // let nameLogin = res.user.name;
+
+      // setDataLogin(nameLogin);
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
-
+      
       history("/");
     } catch (error) {
       setErrorPass(error.response.data.password);
@@ -47,7 +56,7 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} >
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <div className="form-group">
           <p>{error}</p>
@@ -95,4 +104,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Login();
