@@ -23,6 +23,7 @@ function Header() {
                  <Link to="/login">Đăng Nhập</Link>
             }
           </Nav>
+          <Logout/>
         </Container>
       </Navbar>
     </div>

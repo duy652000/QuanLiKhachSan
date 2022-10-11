@@ -9,7 +9,7 @@ import Staffs from "../components/staffs/Staffs";
 function Dashboard() {
   let history = useNavigate();
   useEffect(() =>{
-    if(localStorage.getItem("token")){
+    if(!localStorage.getItem("token")){
       history("/login")
     }
   })
@@ -17,9 +17,6 @@ function Dashboard() {
     
       <div className="Dashboard">
         <Header />
-        
-        
-
         <h1>Dashboard</h1>
         <Routes>
           <Route path="/register" element={<Register />} />

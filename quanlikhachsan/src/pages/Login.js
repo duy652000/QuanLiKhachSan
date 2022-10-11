@@ -9,51 +9,42 @@ import axios from "axios";
 function Login() {
   const history = useNavigate();
 
-//   useEffect(() => {
-//     if (localStorage.getItem("token")) {
-//       history("*");
-//     }
-// });
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      history("*");
+    }
+  });
 
   const [details, setDetails] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
 
-
   const handleLogin = (e) => {
     e.preventDefault();
 
     Login(details);
-
-    
   };
 
   async function Login(detail) {
     try {
-      
       let res = await axios.post("http://localhost:8000/login", detail, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer`,
         },
       });
-
-      res = await res.data.access_token;
-      // let data = res.user;
+      res = await res.data;
       let token = res.access_token;
       localStorage.setItem("token", JSON.stringify(token));
 
+      history("/");
     } catch (error) {
-    
-      setErrorPass(((error.response.data.password)));
-      setErrorEmail(((error.response.data.email)));
+      setErrorPass(error.response.data.password);
+      setErrorEmail(error.response.data.email);
       setError(error.response.data.error);
-     
     }
   }
- 
- 
 
   return (
     <form onSubmit={handleLogin}>
