@@ -18,7 +18,7 @@ function Sidebar() {
 
             {/* <!-- Nav Item - Dashboard --> */}
             <li className="nav-item active">
-                <Link to="/local" className="nav-link">
+                <Link to="/" className="nav-link">
                     <i className="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></Link>
             </li>

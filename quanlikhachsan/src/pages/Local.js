@@ -35,7 +35,7 @@ function Local() {
             {/* <!-- Begin Page Content --> */}
             {/* <Content/> */}
             <Routes>
-              <Route path="/local" element={<Content/>}/>
+              <Route path="*" element={<Content/>}/>
               <Route path="/room" element={<Room/>} />
             </Routes>
             
