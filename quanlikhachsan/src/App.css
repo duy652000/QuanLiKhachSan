@@ -1,8 +1,49 @@
 
-
+/* root */
+.white{
+  color: white !important;
+}
 /* Header */
 .navbar_warapper a{
-  padding-left: 30px;
+  padding-right: 30px;
   text-decoration: none;
 }
+
+/* room manager */
+.btn-rooms .btn-change-room {
+  color: rgb(0, 0, 0) !important;
+  background-color: #f7f7f7 !important;
+  border-color: #f7f7f7!important;
+  margin-left: 30px;
+  border-right: 1px solid rgba(150, 149, 149,0.2)  !important;
+}
+.btn-rooms .btn-change-room:hover{
+  text-decoration: none !important;
+  color: rgba(231, 0, 0, 0.8) !important;  
+}
+.sort-rooms{
+  display: flex;
+  margin: auto;
+}
+/* form sort room */
+.select.select.status-room {
+  width: 189px;
+}
+.submit-sort-room {
+  margin-left: 72px;
+  /* color: #fff;
+  background-color: rgba(99, 56, 253, 0.8) !important;
+  outline-color: rgba(99, 56, 253, 0.8) !important; */
+}
+.circle-red {
+ color: #fff;
+  background-color:  rgba(231, 0, 0, 0.8);
+  display: inline-block;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+
 

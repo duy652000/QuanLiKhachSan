@@ -6,12 +6,12 @@ function Sidebar() {
     <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       
             {/* <!-- Sidebar - Brand --> */}
-            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
                 <div className="sidebar-brand-icon rotate-n-15">
                     <i className="fas fa-laugh-wink"></i>
                 </div>
                 <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
+            </Link>
 
             {/* <!-- Divider --> */}
             <hr className="sidebar-divider my-0"/>
@@ -115,9 +115,9 @@ function Sidebar() {
             {/* <hr className="sidebar-divider d-none d-md-block"/> */}
 
             {/* <!-- Sidebar Toggler (Sidebar) --> */}
-            {/* <div className="text-center d-none d-md-inline">
+            <div className="text-center d-none d-md-inline">
                 <button className="rounded-circle border-0" id="sidebarToggle"></button>
-            </div> */}
+            </div>
        
 
           
