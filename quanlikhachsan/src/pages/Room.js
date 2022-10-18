@@ -18,8 +18,8 @@ function Room() {
           <h6 className="mt-2 font-weight-bold text-primary  ">
             Quản Lý Phòng{" "}
           </h6>
-          <div class="">
-            <button type="button" class="btn btn-primary fw-bold">
+          <div className="">
+            <button type="button" className="btn btn-primary fw-bold">
               + Thêm Khách Hàng
             </button>
           </div>
@@ -31,7 +31,7 @@ function Room() {
               <form action="/action_page.php">
                 <div className="d-flex justify-content-between">
                   <div className="mr-5">
-                    <label className="mr-3 font-weight-bold " for="fname">
+                    <label className="mr-3 font-weight-bold ">
                       Từ ngày{" "}
                     </label>
                     <input
@@ -45,7 +45,7 @@ function Room() {
                     />
                   </div>
                   <div className="ml-5">
-                    <label className="mr-3 font-weight-bold" for="lname">
+                    <label className="mr-3 font-weight-bold" >
                       Đến ngày{" "}
                     </label>
                     <input
@@ -70,7 +70,7 @@ function Room() {
                   <div>
                     <label
                       className="mr-3 font-weight-bold"
-                      for="inlineFormSelectPref"
+                      
                     >
                       Trạng thái
                     </label>
@@ -96,7 +96,7 @@ function Room() {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-gear-fill"
+                  className="bi bi-gear-fill"
                   viewBox="0 0 16 16"
                 >
                   <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
@@ -110,7 +110,7 @@ function Room() {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-gear-fill"
+                  className="bi bi-gear-fill"
                   viewBox="0 0 16 16"
                 >
                   <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
@@ -122,37 +122,37 @@ function Room() {
             <hr />
             <div className="d-flex justify-content-between">
               <div>
-                <button type="button" class="btn btn-primary">
+                <button type="button" className="btn btn-primary">
                   5
                 </button>
                 <span> : Trống</span>
               </div>
               <div>
-                <button type="button" class="btn btn-success">
+                <button type="button" className="btn btn-success">
                   5
                 </button>
                 <span> : Đang ở</span>
               </div>
               <div>
-                <button type="button" class="btn btn-warning">
+                <button type="button" className="btn btn-warning">
                   5
                 </button>
                 <span> : Đặt cọc</span>
               </div>
               <div>
-                <button type="button" class="btn btn-info">
+                <button type="button" className="btn btn-info">
                   5
                 </button>
                 <span> : Sắp checkin</span>
               </div>
               <div>
-                <button type="button" class="btn btn-danger">
+                <button type="button" className="btn btn-danger">
                   5
                 </button>
                 <span> : Đến hạn checkout</span>
               </div>
               <div>
-                <button type="button" class="btn btn-secondary">
+                <button type="button" className="btn btn-secondary">
                   5
                 </button>
                 <span> : Không xác định</span>
