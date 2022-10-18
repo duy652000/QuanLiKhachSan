@@ -26,7 +26,7 @@
   margin: auto;
 }
 /* form sort room */
-.select.select.status-room {
+.status-room {
   width: 189px;
 }
 .submit-sort-room {
