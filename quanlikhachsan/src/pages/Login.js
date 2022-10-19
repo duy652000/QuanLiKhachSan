@@ -38,6 +38,8 @@ function Login() {
       localStorage.setItem("token", JSON.stringify(token));
 
       history("/");
+      
+    
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);

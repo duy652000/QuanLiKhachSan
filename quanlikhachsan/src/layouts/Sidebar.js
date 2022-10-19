@@ -20,7 +20,7 @@ function Sidebar() {
             <li className="nav-item active">
                 <Link to="/" className="nav-link">
                     <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
-                    <span>Quản Lý</span></Link>
+                    <span>Thống Kê</span></Link>
             </li>
 
                {/* <!-- Nav Item - Room --> */}
@@ -29,26 +29,33 @@ function Sidebar() {
                 <i className="bi bi-door-closed"></i> &nbsp;
                     <span>Quản Lý Đặt Phòng</span></Link>
             </li>
+              {/* <!-- Nav Item - custom --> */}
+              <li className="nav-item">
+                <Link to="/room" className="nav-link" >
+                <i className="bi bi-person-plus"></i> &nbsp;
+                    <span>Quản Lý Khách Hàng</span></Link>
+            </li>
 
-                 {/* <!-- Nav Item - Room --> */}
+                 {/* <!-- Nav Item - service --> */}
                  <li className="nav-item">
                 <Link to="/room" className="nav-link" >
                 <i className="bi bi-bag-plus"></i> &nbsp;
                     <span>Quản Lý Dịch Vụ</span></Link>
             </li>
 
-               {/* <!-- Nav Item - Room --> */}
+               {/* <!-- Nav Item - bill --> */}
                <li className="nav-item">
                 <Link to="/room" className="nav-link" >
                 <i className="bi bi-receipt-cutoff"></i> &nbsp;
                     <span>Quản Lý Hóa Đơn</span></Link>
             </li>
-               {/* <!-- Nav Item - Room --> */}
+               {/* <!-- Nav Item - account --> */}
                <li className="nav-item">
-                <Link to="/room" className="nav-link" >
+                <Link to="/user" className="nav-link" >
                 <i className="bi bi-people-fill"></i> &nbsp;
                     <span>Quản Lý Tài Khoản</span></Link>
             </li>
+           
       
            
             {/* <!-- Sidebar Toggler (Sidebar) --> */}

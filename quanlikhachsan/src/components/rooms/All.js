@@ -3,7 +3,7 @@ import React from "react";
 function All() {
   return (
     <div className="card-body white">
-      <h6 class="m-0 font-weight-bold text-primary">All</h6>
+      <h6 className="m-0 font-weight-bold text-primary">All</h6>
       <hr />
       <section className="py-2">
         <div className="container px-2 px-lg-2 mt-0">

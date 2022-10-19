@@ -1,5 +1,8 @@
 
 /* root */
+.black{
+  color: #000 !important;
+}
 .white{
   color: white !important;
 }
@@ -26,7 +29,7 @@
   margin: auto;
 }
 /* form sort room */
-.status-room {
+.select-size{
   width: 189px;
 }
 .submit-sort-room {
@@ -44,6 +47,7 @@
   height: 22px;
   text-align: center;
 }
+
 
 
 

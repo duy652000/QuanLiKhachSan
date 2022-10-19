@@ -3,7 +3,7 @@ import React from 'react'
 function Normal() {
   return (
     <div className="card-body">
-      <h6 class="m-0 font-weight-bold text-primary">Normal</h6>
+      <h6 className="m-0 font-weight-bold text-primary">Normal</h6>
       <hr/>
     <section className="py-2">
       <div className="container px-2 px-lg-2 mt-0">

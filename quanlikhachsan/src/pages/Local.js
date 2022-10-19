@@ -8,6 +8,7 @@ import Footer from "../layouts/Footer";
 import Sidebar from "../layouts/Sidebar";
 import Topbar from "../layouts/Topbar";
 import Room from "./Room";
+import User from "./User";
 
 function Local() {
   let history = useNavigate();
@@ -49,7 +50,7 @@ function Local() {
             <Routes>
               <Route path="*" element={<Content/>}/>
               <Route path="/room/*" element={<Room/>} />
-              <Route path="/room/*" element={<Room/>} />             
+              <Route path="/user/*" element={<User/>} />             
               <Route path="/room/*" element={<Room/>} />
             </Routes>
             {/* <Content/> */}
