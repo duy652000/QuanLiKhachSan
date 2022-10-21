@@ -35,9 +35,13 @@ function Login() {
       });
       res = await res.data;
       let token = res.access_token;
+      // console.log(res.access_token)
+   
+
       localStorage.setItem("token", JSON.stringify(token));
 
       history("/");
+    
       
     
     } catch (error) {

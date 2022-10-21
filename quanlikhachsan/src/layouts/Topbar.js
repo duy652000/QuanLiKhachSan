@@ -1,5 +1,6 @@
 import React from "react";
 import Logout from "../components/logout/Logout";
+import UserName from "../components/profile/UserName";
 
 function Topbar() {
   return (
@@ -82,9 +83,9 @@ function Topbar() {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-              Douglas McGee
-            </span>
+           {/* User name*/}
+            <UserName/>
+           {/* User name */}
             <img
               className="img-profile rounded-circle"
               src="img/undraw_profile.svg"
