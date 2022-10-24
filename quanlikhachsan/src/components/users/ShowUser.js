@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 
 
 function ShowUser() {
+  
+ 
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">

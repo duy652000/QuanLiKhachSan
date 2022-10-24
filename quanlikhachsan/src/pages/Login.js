@@ -42,7 +42,7 @@ function Login() {
 
       history("/");
     
-      
+      window.location.reload(true);
     
     } catch (error) {
       setErrorPass(error.response.data.password);

@@ -52,8 +52,8 @@ function Sidebar() {
                {/* <!-- Nav Item - account --> */}
                <li className="nav-item">
                 <Link to="/user" className="nav-link" >
-                <i className="bi bi-people-fill"></i> &nbsp;
-                    <span>Quản Lý Tài Khoản</span></Link>
+                <i className="bi bi-people-fill" ></i> &nbsp;
+                    <span>Quản Lý Tài Khoản</span>   </Link>
             </li>
            
       

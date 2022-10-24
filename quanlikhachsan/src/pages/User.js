@@ -4,6 +4,7 @@ import ShowUser from "../components/users/ShowUser";
 import UpdateUser from "../components/users/UpdateUser";
 
 function Custom() {
+
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -18,7 +19,7 @@ function Custom() {
 
       <Routes>
         <Route path="" element={<ShowUser />} />
-        <Route path="update" element={<UpdateUser />} />
+        <Route path="update" element={<UpdateUser /> } />
       </Routes>
 
     </div>
