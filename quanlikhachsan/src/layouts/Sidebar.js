@@ -39,30 +39,30 @@ function Sidebar() {
         </Link>
       </li>
         {/* <!-- Nav Item - Service --> */}
-        <li class="nav-item">
+        <li className="nav-item">
         <a
-          class="nav-link collapsed"
+          className="nav-link collapsed"
           href="#"
           data-toggle="collapse"
           data-target="#collapseTwo"
           aria-expanded="true"
           aria-controls="collapseTwo"
         >
-          <i class="fas fa-fw fa-cog"></i>&nbsp;&nbsp;
+          <i className="fas fa-fw fa-cog"></i>&nbsp;&nbsp;
           <span>Dịch Vụ</span>
         </a>
         <div
           id="collapseTwo"
-          class="collapse"
+          className="collapse"
           aria-labelledby="headingTwo"
           data-parent="#accordionSidebar"
         >
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header"> Dịch Vụ :</h6>
-            <Link class="collapse-item" to="/Service">
+          <div className="bg-white py-2 collapse-inner rounded">
+            <h6 className="collapse-header"> Dịch Vụ :</h6>
+            <Link className="collapse-item" to="/Service">
               Quản lý dịch vụ
             </Link>
-            <Link class="collapse-item" to="/Oder">
+            <Link className="collapse-item" to="/Oder">
               Đặt dịch vụ
             </Link>
           </div>

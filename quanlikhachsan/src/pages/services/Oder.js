@@ -7,8 +7,8 @@ function Oder() {
 
         {/* <!-- Page Heading --> */}
         <h1 className="h3 mb-2 text-gray-800">Đặt Dịch Vụ</h1>
-        <p className="mb-4">DataTables is a third parclassNamety plugin that is used to generate the demo table below.
-            For more information about DataTables, please visit the </p>
+        <p className="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+            For more information about DataTables, please visit the .</p>
 
         {/* <!-- DataTales Example --> */}
         <div className="card shadow mb-4">
