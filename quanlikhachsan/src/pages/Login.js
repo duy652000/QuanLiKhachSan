@@ -9,7 +9,9 @@ function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
+      
       history("/");
+      window.location.reload(true);
     }
   });
 

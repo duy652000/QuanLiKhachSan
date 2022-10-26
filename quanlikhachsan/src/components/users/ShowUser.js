@@ -9,7 +9,7 @@ function ShowUser() {
     <div className="card shadow mb-4">
       <div className="card-header py-3">
         <h6 className="m-0 font-weight-bold text-primary">
-          <a type="button" class="btn btn-success">
+          <a type="button" className="btn btn-success">
             {" "}
             Thêm Account
           </a>
@@ -83,26 +83,26 @@ function ShowUser() {
                   <div className="d-flex black">
                     {/* thoát */}
                     <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
+                      <i className="bi bi-box-arrow-right"></i>
                     </a>
                     &nbsp;
                     {/* ẩn */}
                     <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
+                      {<i className="bi bi-eye"></i> ? (
+                        <i className="bi bi-eye"></i>
                       ) : (
-                        <i class="bi bi-eye-slash"></i>
+                        <i className="bi bi-eye-slash"></i>
                       )}
                     </a>
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black hover-text"></i>
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </a>
                   </div>
                 </td>
@@ -124,26 +124,26 @@ function ShowUser() {
                   <div className="d-flex black">
                     {/* thoát */}
                     <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
+                      <i className="bi bi-box-arrow-right"></i>
                     </a>
                     &nbsp;
                     {/* ẩn */}
                     <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
+                      {<i className="bi bi-eye"></i> ? (
+                        <i className="bi bi-eye"></i>
                       ) : (
-                        <i class="bi bi-eye-slash"></i>
+                        <i className="bi bi-eye-slash"></i>
                       )}
                     </a>
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
+                      <i className="bi bi-pencil hover-text black"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </a>
                   </div>
                 </td>
@@ -162,26 +162,26 @@ function ShowUser() {
                   <div className="d-flex black">
                     {/* thoát */}
                     <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
+                      <i className="bi bi-box-arrow-right"></i>
                     </a>
                     &nbsp;
                     {/* ẩn */}
                     <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
+                      {<i className="bi bi-eye"></i> ? (
+                        <i className="bi bi-eye"></i>
                       ) : (
-                        <i class="bi bi-eye-slash"></i>
+                        <i className="bi bi-eye-slash"></i>
                       )}
                     </a>
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
+                      <i className="bi bi-pencil hover-text black"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </a>
                   </div>
                 </td>
@@ -200,831 +200,34 @@ function ShowUser() {
                   <div className="d-flex black">
                     {/* thoát */}
                     <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
+                      <i className="bi bi-box-arrow-right"></i>
                     </a>
                     &nbsp;
                     {/* ẩn */}
                     <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
+                      {<i className="bi bi-eye"></i> ? (
+                        <i className="bi bi-eye"></i>
                       ) : (
-                        <i class="bi bi-eye-slash"></i>
+                        <i className="bi bi-eye-slash"></i>
                       )}
                     </a>
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
+                      <i className="bi bi-pencil hover-text black"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
+                      <i className="bi bi-trash"></i>
                     </a>
                   </div>
                 </td>
               </tr>
 
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
 
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
 
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>908</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>4343</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1212</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i class="bi bi-eye"></i> ? (
-                        <i class="bi bi-eye"></i>
-                      ) : (
-                        <i class="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i class="bi bi-pencil hover-text black"></i>
-                    </Link >
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i class="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
+             
             </tbody>
           </table>
         </div>

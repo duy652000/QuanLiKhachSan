@@ -9,6 +9,8 @@ import Sidebar from "../layouts/Sidebar";
 import Topbar from "../layouts/Topbar";
 import Room from "./Room";
 import User from "./User";
+import Oder from "./services/Oder";
+import Service from "./services/Service";
 
 function Local() {
   let history = useNavigate();
@@ -50,7 +52,10 @@ function Local() {
             <Routes>
               <Route path="*" element={<Content/>}/>
               <Route path="/room/*" element={<Room/>} />
-              <Route path="/user/*" element={<User/>} />             
+              {/* <Route path="/user/*" element={<Reload Cmp={User} />    }/>   */}
+              <Route path="/user/*" element={<User/>} />      
+              <Route path="/oder/*" element={<Oder/>} />             
+              <Route path="/service/*" element={<Service/>} />             
               <Route path="/room/*" element={<Room/>} />
             </Routes>
             {/* <Content/> */}

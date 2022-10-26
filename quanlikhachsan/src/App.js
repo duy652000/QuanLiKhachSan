@@ -1,7 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import "./App.css";
 
-import Dashboard from "./pages/Dashboard";
+
 import Login from "./pages/Login";
 import Protected from "./components/Protected";
 import Local from "./pages/Local";

@@ -1,4 +1,5 @@
 import React from "react";
+import GetRoom from "../handleroom/GetRoom"
 
 function All() {
   return (
@@ -45,6 +46,7 @@ function All() {
                     </a>
                     &nbsp; &nbsp;
                     <a href="">
+                      
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -92,12 +94,9 @@ function All() {
                 {/* <!-- Product actions--> */}
                 <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                   <div className="text-center">
-                    <a
-                      className="btn btn-outline-dark mt-2 mr-2 mb-2 white  bg-dark white "
-                      href="#"
-                    >
-                      Đặt Chỗ
-                    </a>
+                   
+                      <GetRoom/>
+                    
                     <a
                       className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
                       href="#"

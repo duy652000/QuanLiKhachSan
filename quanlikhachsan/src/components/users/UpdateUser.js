@@ -7,9 +7,9 @@ function AddUser() {
       <div className="card-header py-3  d-flex justify-content-between">
         <h6 className="mt-2 font-weight-bold text-primary">Update Account</h6>
         <div className="">
-          <Link type="button" to="/user" className="btn btn-primary fw-bold">
+          <a type="button" href="/user" className="btn btn-primary fw-bold">
           <i class="bi bi-arrow-return-right"></i> Back
-          </Link>
+          </a>
         </div>
       </div>
 
