@@ -1,17 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, Routes, Route } from "react-router-dom";
 
 
-function ShowUser() {
+function ShowService() {
   
  
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
         <h6 className="m-0 font-weight-bold text-primary">
-          <Link to="add"type="button" className="btn btn-success">
+          <Link to="add" type="button" className="btn btn-success">
             {" "}
-            Thêm Account
+            Thêm Dịch Vụ
           </Link>
         </h6>
       </div>
@@ -207,4 +207,4 @@ function ShowUser() {
   );
 }
 
-export default ShowUser;
+export default ShowService;

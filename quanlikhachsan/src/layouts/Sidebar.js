@@ -58,10 +58,10 @@ function Sidebar() {
           data-parent="#accordionSidebar"
         >
           <div className="bg-white py-2 collapse-inner rounded">
-            <h6 className="collapse-header"> Dịch Vụ :</h6>
-            <Link className="collapse-item" to="/Service">
+            {/* <h6 className="collapse-header"> Dịch Vụ :</h6> */}
+            <a className="collapse-item" href="/service">
               Quản lý dịch vụ
-            </Link>
+            </a>
             <Link className="collapse-item" to="/Oder">
               Đặt dịch vụ
             </Link>
@@ -71,10 +71,10 @@ function Sidebar() {
 
       {/* <!-- Nav Item - custom --> */}
       <li className="nav-item">
-        <Link to="/room" className="nav-link">
+        <a href="/customer" className="nav-link">
           <i className="bi bi-person-plus"></i> &nbsp;
           <span>Quản Lý Khách Hàng</span>
-        </Link>
+        </a>
       </li>
 
     

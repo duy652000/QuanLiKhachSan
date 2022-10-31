@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function UpdateUser() {
+function UpdateService() {
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
-        <h6 className="mt-2 font-weight-bold text-primary">Update Account</h6>
+        <h6 className="mt-2 font-weight-bold text-primary">Update Dịch Vụ</h6>
         <div className="">
-          <a type="button" href="/user" className="btn btn-primary fw-bold">
+          <a type="button" href="/service" className="btn btn-primary fw-bold">
           <i class="bi bi-arrow-return-right"></i> Back
           </a>
         </div>
@@ -109,4 +109,4 @@ function UpdateUser() {
   );
 }
 
-export default UpdateUser;
+export default UpdateService;
