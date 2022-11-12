@@ -8,9 +8,9 @@ function Sidebar() {
       id="accordionSidebar"
     >
       {/* <!-- Sidebar - Brand --> */}
-      <Link
+      <a
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        to="/"
+        href="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
           <i className="fas fa-laugh-wink"></i>
@@ -18,7 +18,7 @@ function Sidebar() {
         <div className="sidebar-brand-text mx-3">
           SB Admin <sup>2</sup>
         </div>
-      </Link>
+      </a>
 
       {/* <!-- Divider --> */}
       <hr className="sidebar-divider my-0" />

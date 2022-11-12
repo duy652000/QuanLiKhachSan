@@ -25,14 +25,11 @@ function ShowService() {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Seckey</th>
-                <th>Vai Trò</th>
-                <th>Tên đăng nhập</th>
-                <th>Số điện thoại</th>
-                <th>E-mail</th>
-                <th>Trạng thái</th>
-                <th>Đã tạo lúc</th>
-                <th>Lần đăng nhập cuối</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Mô tả </th>
+                <th>Thời gian tạo </th>
+                <th>Thời gian cập nhật </th>
                 <th></th>
               </tr>
             </thead>
@@ -41,13 +38,10 @@ function ShowService() {
               {/*  */}
 
               <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>1</td>
+                <td>Nước suối</td>
+                <td>10000</td>
+                <td>Thức uống</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -82,13 +76,10 @@ function ShowService() {
               {/*  */}
 
               <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>1</td>
+                <td>Nước suối</td>
+                <td>10000</td>
+                <td>Thức uống</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -109,7 +100,7 @@ function ShowService() {
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black"></i>
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
@@ -119,14 +110,12 @@ function ShowService() {
                   </div>
                 </td>
               </tr>
+
               <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>1</td>
+                <td>Nước suối</td>
+                <td>10000</td>
+                <td>Thức uống</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -147,7 +136,7 @@ function ShowService() {
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black"></i>
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
@@ -157,14 +146,12 @@ function ShowService() {
                   </div>
                 </td>
               </tr>
+
               <tr>
-                <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
-                <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>1</td>
+                <td>Nước suối</td>
+                <td>10000</td>
+                <td>Thức uống</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -185,7 +172,7 @@ function ShowService() {
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black"></i>
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
                     </Link >
                     &nbsp;
                     {/* xóa */}
@@ -195,6 +182,7 @@ function ShowService() {
                   </div>
                 </td>
               </tr>
+
 
 
 

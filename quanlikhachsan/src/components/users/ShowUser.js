@@ -1,15 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 function ShowUser() {
-  
- 
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
         <h6 className="m-0 font-weight-bold text-primary">
-          <Link to="add"type="button" className="btn btn-success">
+          <Link to="add" type="button" className="btn btn-success">
             {" "}
             Thêm Account
           </Link>
@@ -25,29 +22,28 @@ function ShowUser() {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Seckey</th>
-                <th>Vai Trò</th>
-                <th>Tên đăng nhập</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Số điện thoại</th>
-                <th>E-mail</th>
-                <th>Trạng thái</th>
-                <th>Đã tạo lúc</th>
-                <th>Lần đăng nhập cuối</th>
+                <th>Địa chỉ</th>
+                <th>CCCD</th>
+                <th>Create at</th>
+                <th>Update at</th>
                 <th></th>
               </tr>
             </thead>
-            
+
             <tbody>
               {/*  */}
 
               <tr>
                 <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
+                <td>Dii</td>
                 <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>09000000</td>
+                <td>180 tạ quan bửu ,p4 ,q8</td>
+                <td>989765312</td>
+           
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -69,7 +65,7 @@ function ShowUser() {
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
                       <i className="bi bi-pencil hover-text black hover-text"></i>
-                    </Link >
+                    </Link>
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
@@ -83,12 +79,12 @@ function ShowUser() {
 
               <tr>
                 <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
+                <td>Dii</td>
                 <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>09000000</td>
+                <td>180 tạ quan bửu ,p4 ,q8</td>
+                <td>989765312</td>
+           
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -109,8 +105,8 @@ function ShowUser() {
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black"></i>
-                    </Link >
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
+                    </Link>
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
@@ -121,12 +117,12 @@ function ShowUser() {
               </tr>
               <tr>
                 <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
+                <td>Dii</td>
                 <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>09000000</td>
+                <td>180 tạ quan bửu ,p4 ,q8</td>
+                <td>989765312</td>
+           
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -147,8 +143,8 @@ function ShowUser() {
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black"></i>
-                    </Link >
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
+                    </Link>
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
@@ -159,12 +155,12 @@ function ShowUser() {
               </tr>
               <tr>
                 <td>1410</td>
-                <td>ASDA7SAS9IAS898ADS</td>
-                <td>pv</td>
-                <td>quochoi</td>
-                <td>090000000</td>
+                <td>Dii</td>
                 <td>vkd@gmail.com</td>
-                <td>Kích hoạt</td>
+                <td>09000000</td>
+                <td>180 tạ quan bửu ,p4 ,q8</td>
+                <td>989765312</td>
+           
                 <td>11::10:10 12-11-2022</td>
                 <td>11::10:10 12-11-2022</td>
                 <td>
@@ -185,8 +181,8 @@ function ShowUser() {
                     &nbsp;
                     {/* chỉnh sửa */}
                     <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black"></i>
-                    </Link >
+                      <i className="bi bi-pencil hover-text black hover-text"></i>
+                    </Link>
                     &nbsp;
                     {/* xóa */}
                     <a type="button">
@@ -195,10 +191,6 @@ function ShowUser() {
                   </div>
                 </td>
               </tr>
-
-
-
-             
             </tbody>
           </table>
         </div>
