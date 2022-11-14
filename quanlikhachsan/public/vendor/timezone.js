@@ -1,7 +1,6 @@
 
-
-
 $(document).ready(function () {
+
     var getUSATime = function(){
         document.getElementById("USATime").innerHTML=new Date().toLocaleString("en-US",{timeZone:'America/New_York',timeStyle:'medium',hourCycle:'h23'});
     }

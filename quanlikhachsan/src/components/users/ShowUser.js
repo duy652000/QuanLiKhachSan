@@ -1,7 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function ShowUser() {
+  ////////////////////
+  //call api
+  async function Login(detail) {
+    try {
+      let res = await axios.post("http://localhost:8000/login", detail, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer`,
+        },
+      });
+      res = await res.data;
+      let token = res.access_token;
+     
+    
+      window.location.reload(true);
+    
+    } catch (error) {
+      
+    }}
+
+  ////////////////////
+
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
