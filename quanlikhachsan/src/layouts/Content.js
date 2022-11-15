@@ -1,6 +1,69 @@
 import React from "react";
+import $ from "jquery";
+import { memo } from "react";
 
 function Content() {
+  /// jquery time zone
+  window.onload = function () {
+    // var getUSATime = function () {
+    //   var timeUSA = new Date().toLocaleString("en-US", {
+    //     timeZone: "America/New_York",
+    //     timeStyle: "medium",
+    //     hourCycle: "h23",
+    //   });
+    //   document.getElementById("USATime").innerHTML =timeUSA.substring(0,5)
+    // };
+    // getUSATime();
+    // const myInterval = setInterval(getUSATime, 60000);
+    //clearInterval(myInterval);
+
+    var getUSATime = function () {
+
+      
+      document.getElementById("USATime").innerHTML = new Date().toLocaleString(
+        "en-US",
+        { timeZone: "America/New_York", timeStyle: "medium", hourCycle: "h23" }
+      );
+    };
+    // getUSATime();
+    // setInterval(getUSATime, 1000);
+    getUSATime();
+    const myInterval = setInterval(getUSATime, 1000);
+   
+
+    var getVNTime = function () {
+      document.getElementById("VNTime").innerHTML = new Date().toLocaleString(
+        "en-US",
+        { timeZone: "Asia/Ho_Chi_Minh", timeStyle: "medium", hourCycle: "h23" }
+      );
+    };
+
+    getVNTime();
+    setInterval(getVNTime, 1000);
+
+    var getJPTime = function () {
+      document.getElementById("JPTime").innerHTML = new Date().toLocaleString(
+        "en-US",
+        { timeZone: "Asia/Tokyo", timeStyle: "medium", hourCycle: "h23" }
+      );
+    };
+
+    getJPTime();
+    setInterval(getJPTime, 1000);
+
+    var getUSUKTime = function () {
+      document.getElementById("USUKTime").innerHTML = new Date().toLocaleString(
+        "en-US",
+        { timeZone: "Europe/London", timeStyle: "medium", hourCycle: "h23" }
+      );
+    };
+    getUSUKTime();
+    setInterval(getUSUKTime, 1000);
+    // clearInterval(myInterval);
+  };
+   
+
+  ///
   return (
     <div className="container-fluid">
       {/* <!-- Page Heading --> */}
@@ -32,7 +95,9 @@ function Content() {
                   ></div>
                 </div>
                 <div className="col-auto">
-                  <i className=" fa-2x text-gray-300"><span className="fi fi-vn"></span> </i>
+                  <i className=" fa-2x text-gray-300">
+                    <span className="fi fi-vn"></span>{" "}
+                  </i>
                 </div>
               </div>
             </div>
@@ -54,8 +119,9 @@ function Content() {
                   ></div>
                 </div>
                 <div className="col-auto">
-                <i className=" fa-2x text-gray-300"><span className="fi fi-us"></span> </i>
-
+                  <i className=" fa-2x text-gray-300">
+                    <span className="fi fi-us"></span>{" "}
+                  </i>
                 </div>
               </div>
             </div>
@@ -77,8 +143,9 @@ function Content() {
                   ></div>
                 </div>
                 <div className="col-auto">
-                <i className=" fa-2x text-gray-300"><span className="fi fi-jp"></span> </i>
-
+                  <i className=" fa-2x text-gray-300">
+                    <span className="fi fi-jp"></span>{" "}
+                  </i>
                 </div>
               </div>
             </div>
@@ -100,8 +167,9 @@ function Content() {
                   ></div>
                 </div>
                 <div className="col-auto">
-                <i className=" fa-2x text-gray-300 "><span className="fi fi-gb"></span> </i>
-
+                  <i className=" fa-2x text-gray-300 ">
+                    <span className="fi fi-gb"></span>{" "}
+                  </i>
                 </div>
               </div>
             </div>
@@ -329,4 +397,4 @@ function Content() {
   );
 }
 
-export default Content;
+export default memo(Content);

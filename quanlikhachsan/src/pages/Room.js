@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Normal from "../components/rooms/Normal";
@@ -194,4 +194,4 @@ function Room() {
   );
 }
 
-export default Room;
+export default memo(Room);

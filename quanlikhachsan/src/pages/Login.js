@@ -9,7 +9,6 @@ function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      
       history("/");
       window.location.reload(true);
     }
@@ -38,14 +37,12 @@ function Login() {
       res = await res.data;
       let token = res.access_token;
       // console.log(res.access_token)
-   
 
       localStorage.setItem("token", JSON.stringify(token));
 
       history("/");
-    
+
       window.location.reload(true);
-    
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);
@@ -68,10 +65,30 @@ function Login() {
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
                         <p>
+                            {/* {
+                              <div
+                                class="alert alert-dark alert-dismissible fade show"
+                                role="alert"
+                              >
+                                {error}
+                            {errorEmail}
+                            <br />
+                            {errorPass}
+                                <button
+                                  type="button"
+                                  class="close"
+                                  data-dismiss="alert"
+                                  aria-label="Close"
+                                >
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                            } */}
                           {error}
                           {errorEmail}
                           <br />
                           {errorPass}
+                         
                         </p>
                       </div>
                       <form className="user" onSubmit={handleLogin}>
@@ -108,10 +125,7 @@ function Login() {
                           />
                         </div>
                         <div className="form-group">
-                          <div className="custom-control custom-checkbox small">
-                            
-                          
-                          </div>
+                          <div className="custom-control custom-checkbox small"></div>
                         </div>
                         <button
                           type="submit"

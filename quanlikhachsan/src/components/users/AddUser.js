@@ -1,111 +1,217 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AddUser() {
-    return (
-        <div className="card shadow mb-4">
-          <div className="card-header py-3  d-flex justify-content-between">
-            <h6 className="mt-2 font-weight-bold text-primary">Add Account</h6>
-            <div className="">
-              <a type="button" href="/user" className="btn btn-primary fw-bold">
-              <i class="bi bi-arrow-return-right"></i> Back
-              </a>
-            </div>
-          </div>
-    
-          
-    
-          <div className="card-body">
-            <div className="table-responsive">
-              <form className="ml-1">
-                <div className="form-group">
-                  <label Htmlfor="exampleInputEmail1">Tên đăng nhập</label>
-                  <input
-                    type="text "
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    placeholder="name "
-                  />
-                </div>
-                <div className="form-group">
-                  <label Htmlfor="exampleInputEmail1">Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                  />
-                </div>
-                <div className="form-group">
-                  <label Htmlfor="telephone number">Số điện thoại</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id=""
-                    placeholder="number telephone"
-                  />
-                </div>
-                <div className="form-group">
-                  <label Htmlfor="exampleInputPassword1">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Password"
-                  />
-                </div>
-                <div className="form-group">
-                  <label Htmlfor="Status">Trạng thái</label>
-                  <br />
-                  <select type="select " className="form-control">
-                    <option>Ẩn</option>
-                    <option>Kích hoạt</option>
-                  </select>
-                </div>
-    
-                <label Htmlfor="Status">Vai trò</label>
-    
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label className="form-check-label" Htmlfor="exampleCheck1">
-                    admin
-                  </label>
-                </div>
-    
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label className="form-check-label" Htmlfor="exampleCheck1">
-                    user
-                  </label>
-                </div>
-    
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label className="form-check-label" Htmlfor="exampleCheck1">
-                    manager
-                  </label>
-                </div>
-    
-                <button type="submit" className="btn btn-primary">
-                  Lưu
-                </button>
-              </form>
-            </div>
-          </div>
+  /////////////////
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    group_id: "",
+  });
+  const [error, setError] = useState("");
+
+  const history = useNavigate();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    register(details);
+  };
+  //call api
+  async function register(detail) {
+    try {
+      let res = await axios.post("http://localhost:8000/register", detail, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer`,
+        },
+      });
+      res = await res;
+
+      history("/user");
+    } catch (error) {
+      setError(JSON.parse(error.response.data));
+    }
+    console.log(error);
+  }
+  ////////////////
+
+  return (
+    <div className="card shadow mb-4">
+      <div className="card-header py-3  d-flex justify-content-between">
+        <h6 className="mt-2 font-weight-bold text-primary">Add Account</h6>
+        <div className="">
+          <Link type="button" to="/user" className="btn btn-primary fw-bold">
+            <i className="bi bi-arrow-return-right"></i> Back
+          </Link>
         </div>
-      );
+      </div>
+
+      <div className="card-body">
+        <div className="table-responsive">
+          <form className="ml-1" onSubmit={handleRegister}>
+            <div className="form-group">
+              <label htmlFor="name">Tên tài khoản</label>
+              <div className="text-danger">{error.name}</div>
+
+              <input
+                type="text "
+                className="form-control"
+                id="name"
+                name="name"
+                placeholder="Tên tài khoản ..."
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    name: e.target.value,
+                  });
+                }}
+                value={details.name}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <div className="text-danger">{error.email}</div>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                placeholder="nhập email"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    email: e.target.value,
+                  });
+                }}
+                value={details.email}
+              />
+            </div>
+            {/* <div className="form-group">
+              <label htmlFor="telephone number">Số điện thoại</label>
+              <input
+                type="text"
+                className="form-control"
+                id=""
+                placeholder="number telephone"
+              />
+            </div> */}
+            <div className="form-group">
+              <label htmlFor="exampleInputPassword1">Mật khẩu</label>
+              <div className="text-danger">{error.password}</div>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="Password"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    password: e.target.value,
+                  });
+                }}
+                value={details.password}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleInputPassword1">Xác nhận mật khẩu</label>
+              <input
+                type="password"
+                className="form-control"
+                id="password_confirmation"
+                name="password_confirmation"
+                placeholder="Password"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    password_confirmation: e.target.value,
+                  });
+                }}
+                value={details.password_confirmation}
+              />
+            </div>
+
+            {/* <div className="form-group">
+              <label htmlFor="Status">Trạng thái</label>
+              <br />
+              <select type="select " className="form-control">
+                <option>Ẩn</option>
+                <option>Kích hoạt</option>
+              </select>
+            </div> */}
+
+            <label htmlFor="Status">Vai trò</label>
+            <div className="text-danger">{error.group_id}</div>
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check1"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    group_id: e.target.value,
+                  });
+                }}
+                value="1"
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                admin
+              </label>
+            </div>
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check2"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    group_id: e.target.value,
+                  });
+                }}
+                value="2"
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                user
+              </label>
+            </div>
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check3"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    group_id: e.target.value,
+                  });
+                }}
+                value="3"
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                manager
+              </label>
+            </div>
+
+            <button type="submit" className="btn btn-primary">
+              Lưu
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default AddUser
+export default AddUser;

@@ -25,10 +25,10 @@ function Sidebar() {
 
       {/* <!-- Nav Item - Dashboard --> */}
       <li className="nav-item active">
-        <Link to="/" className="nav-link">
+        <a href="/" className="nav-link">
           <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
           <span>Thống Kê</span>
-        </Link>
+        </a>
       </li>
 
       {/* <!-- Nav Item - Room --> */}
@@ -59,9 +59,9 @@ function Sidebar() {
         >
           <div className="bg-white py-2 collapse-inner rounded">
             {/* <h6 className="collapse-header"> Dịch Vụ :</h6> */}
-            <a className="collapse-item" href="/service">
+            <Link className="collapse-item" to="/service">
               Quản lý dịch vụ
-            </a>
+            </Link>
             <Link className="collapse-item" to="/Oder">
               Đặt dịch vụ
             </Link>
@@ -71,10 +71,10 @@ function Sidebar() {
 
       {/* <!-- Nav Item - custom --> */}
       <li className="nav-item">
-        <a href="/customer" className="nav-link">
+        <Link to="/customer" className="nav-link">
           <i className="bi bi-person-plus"></i> &nbsp;
           <span>Quản Lý Khách Hàng</span>
-        </a>
+        </Link>
       </li>
 
     
@@ -88,10 +88,10 @@ function Sidebar() {
       </li>
       {/* <!-- Nav Item - account --> */}
       <li className="nav-item">
-        <a href="/user" className="nav-link">
+        <Link to="/user" className="nav-link">
           <i className="bi bi-people-fill"></i> &nbsp;
           <span>Quản Lý Tài Khoản</span>{" "}
-        </a>
+        </Link>
       </li>
 
       {/* <!-- Sidebar Toggler (Sidebar) --> */}

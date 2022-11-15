@@ -11,7 +11,7 @@ function Logout() {
 };
  
  return (
-   //  <Button onClick={logout}>Logout</Button>
+
     <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal" onClick={logout}>
     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
     Logout

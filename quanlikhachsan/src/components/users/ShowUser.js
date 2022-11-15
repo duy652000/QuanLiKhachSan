@@ -1,27 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import  { useEffect, useState } from "react";
+
 
 function ShowUser() {
+  const [data, setData] = useState([]);
   ////////////////////
-  //call api
-  async function Login(detail) {
-    try {
-      let res = await axios.post("http://localhost:8000/login", detail, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer`,
-        },
-      });
-      res = await res.data;
-      let token = res.access_token;
-     
+   const token = JSON.parse(localStorage.getItem("token"));
+   //get infor
+   const getData = async ()=> {
+    console.log(token);
+    //await here
+    let res = await axios.get("http://localhost:8000/all-account", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    });
+    res = await res.data.data;
+    setData(res);
     
-      window.location.reload(true);
     
-    } catch (error) {
-      
-    }}
+  }
+  useEffect(() => {
+    getData();
+    console.log(data)
+  },[token]);
+
+
+  
+
+  //////
 
   ////////////////////
 
@@ -50,25 +60,27 @@ function ShowUser() {
                 <th>Số điện thoại</th>
                 <th>Địa chỉ</th>
                 <th>CCCD</th>
-                <th>Create at</th>
-                <th>Update at</th>
+                <th>Ngày tạo</th>
+                <th>Ngày cập nhật</th>
                 <th></th>
               </tr>
             </thead>
 
             <tbody>
               {/*  */}
-
-              <tr>
+              {
+                data.map((item)=>
+                
+              <tr key={item.id}>
                 <td>1410</td>
-                <td>Dii</td>
-                <td>vkd@gmail.com</td>
-                <td>09000000</td>
-                <td>180 tạ quan bửu ,p4 ,q8</td>
-                <td>989765312</td>
+                <td>{item.name}</td>
+                <td>{item.email}</td>
+                <td>{item.phone}</td>
+                <td>{item.address}</td>
+                <td>{item.CCCD}</td>
            
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
+                <td>{item.created_at}</td>
+                <td>{item.updated_at}</td>
                 <td>
                   <div className="d-flex black">
                     {/* thoát */}
@@ -96,124 +108,15 @@ function ShowUser() {
                     </a>
                   </div>
                 </td>
-              </tr>
+              </tr>)
+              
+            }
 
               {/*  */}
-
-              <tr>
-                <td>1410</td>
-                <td>Dii</td>
-                <td>vkd@gmail.com</td>
-                <td>09000000</td>
-                <td>180 tạ quan bửu ,p4 ,q8</td>
-                <td>989765312</td>
-           
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i className="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i className="bi bi-eye"></i> ? (
-                        <i className="bi bi-eye"></i>
-                      ) : (
-                        <i className="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black hover-text"></i>
-                    </Link>
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i className="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>Dii</td>
-                <td>vkd@gmail.com</td>
-                <td>09000000</td>
-                <td>180 tạ quan bửu ,p4 ,q8</td>
-                <td>989765312</td>
-           
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i className="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i className="bi bi-eye"></i> ? (
-                        <i className="bi bi-eye"></i>
-                      ) : (
-                        <i className="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black hover-text"></i>
-                    </Link>
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i className="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>1410</td>
-                <td>Dii</td>
-                <td>vkd@gmail.com</td>
-                <td>09000000</td>
-                <td>180 tạ quan bửu ,p4 ,q8</td>
-                <td>989765312</td>
-           
-                <td>11::10:10 12-11-2022</td>
-                <td>11::10:10 12-11-2022</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i className="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i className="bi bi-eye"></i> ? (
-                        <i className="bi bi-eye"></i>
-                      ) : (
-                        <i className="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black hover-text"></i>
-                    </Link>
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i className="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>
+              
+             
+        
+             
             </tbody>
           </table>
         </div>

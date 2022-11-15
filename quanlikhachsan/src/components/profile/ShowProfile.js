@@ -1,31 +1,59 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { data } from "jquery";
 
 function ShowProfile() {
-  const [data,setData]=useState([])
+  const token = JSON.parse(localStorage.getItem("token"));
+  //const [data, setData] = useState([]);
+  const [details, setDetails] = useState({});
 
-  /////call api view account
-  useEffect( async ()=> {
-    let res = await axios.get("http://localhost:8000/all-account", {
+  //get infor
+  const getData = async () => {
+    //await here
+    let res = await axios.get("http://localhost:8000/view-account", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer`,
+        Authorization: `Bearer ${token}`,
       },
     });
- 
+    res = await res.data;
+   
     console.log(res)
 
-    
+    setDetails({name: res.name, 
+                email: res.email,
+                phone: res.phone});                
 
-      res = await res.json();
-
-      
-      
-    
-  },[]);
+   
+    //
+  };
+  useEffect(() => {
+    getData();
+  }, [token]);
 
   //////
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    console.log(details);
+    // updateProfile(details);
+  };
+
+  //change infor
+  // async function updateProfile(detail) {
+  //   try {
+  //     let res = await axios.post("http://localhost:8000/", detail, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer`,
+  //       },
+  //     });
+  //     window.location.reload(true);
+
+  //   } catch (error) {
+
+  //   }
+  // }
+  ////
 
   return (
     <div className="container-fluid">
@@ -49,6 +77,7 @@ function ShowProfile() {
             <div className="tab-pane active" id="home">
               <hr />
               <form
+                onSubmit={handleUpdate}
                 className="form"
                 action="##"
                 method="post"
@@ -71,14 +100,21 @@ function ShowProfile() {
                 </div>
                 <div className="form-group">
                   <div className="col-xs-6">
-                    <label htmlFor="last_name">
+                    <label htmlFor="name">
                       <h4>Tên</h4>
                     </label>
                     <input
+                      onChange={(e) => {
+                        setDetails({
+                          ...details,
+                          name: e.target.value,
+                        });
+                      }}
+                      value={details.name?details.name:''}
                       type="text"
                       className="form-control"
-                      name="last_name"
-                      id="last_name"
+                      name="name"
+                      id="name"
                       placeholder="Điền tên..."
                       title="enter your last name if any."
                     />
@@ -91,13 +127,20 @@ function ShowProfile() {
                       <h4>Email</h4>
                     </label>
                     <input
+                      onChange={(e) => {
+                        setDetails({
+                          ...details,
+                          email: e.target.value,
+                        });
+                      }}
+                      value={details.email?details.email:' '}
                       type="email"
                       className="form-control"
                       name="email"
                       id="email"
                       placeholder="you@email.com"
                       title="enter your email."
-                    />
+                    />Ï
                   </div>
                 </div>
 
@@ -107,6 +150,13 @@ function ShowProfile() {
                       <h4>Số điên thoại</h4>
                     </label>
                     <input
+                      onChange={(e) => {
+                        setDetails({
+                          ...details,
+                          phone: e.target.value,
+                        });
+                      }}
+                      value={details.phone?details.phone:''}
                       type="text"
                       className="form-control"
                       name="phone"
