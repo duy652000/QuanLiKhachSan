@@ -67,7 +67,8 @@ function ShowProfile() {
               className="avatar img-circle img-thumbnail"
               alt="avatar"
             />
-            <h6>Profile</h6>
+            
+            <h6 className="mt-2">Profile</h6>
           </div>
           <br />
         </div>
@@ -83,25 +84,11 @@ function ShowProfile() {
                 method="post"
                 id="registrationForm"
               >
-                <div className="form-group">
-                  <div className="col-xs-6">
-                    <label htmlFor="first_name">
-                      <h4>Họ và tên lót</h4>
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="first_name"
-                      id="first_name"
-                      placeholder="Điền họ và tên lót..."
-                      title="enter your first name if any."
-                    />
-                  </div>
-                </div>
+                
                 <div className="form-group">
                   <div className="col-xs-6">
                     <label htmlFor="name">
-                      <h4>Tên</h4>
+                      <h6>Tên</h6>
                     </label>
                     <input
                       onChange={(e) => {
@@ -121,10 +108,11 @@ function ShowProfile() {
                   </div>
                 </div>
 
+
                 <div className="form-group">
                   <div className="col-xs-6">
                     <label htmlFor="email">
-                      <h4>Email</h4>
+                      <h6>Email</h6>
                     </label>
                     <input
                       onChange={(e) => {
@@ -140,14 +128,15 @@ function ShowProfile() {
                       id="email"
                       placeholder="you@email.com"
                       title="enter your email."
-                    />Ï
+                    />
                   </div>
                 </div>
+
 
                 <div className="form-group">
                   <div className="col-xs-6">
                     <label htmlFor="phone">
-                      <h4>Số điên thoại</h4>
+                      <h6>Số điên thoại</h6>
                     </label>
                     <input
                       onChange={(e) => {
@@ -166,51 +155,115 @@ function ShowProfile() {
                     />
                   </div>
                 </div>
+
                 <div className="form-group">
                   <div className="col-xs-6">
-                    <label htmlFor="password">
-                      <h4>Mật khẩu</h4>
+                    <label htmlFor="address">
+                      <h6>Địa chỉ</h6>
                     </label>
                     <input
-                      type="password"
+                      onChange={(e) => {
+                        setDetails({
+                          ...details,
+                          phone: e.target.value,
+                        });
+                      }}
+                      value={details.phone?details.phone:''}
+                      type="text"
                       className="form-control"
-                      name="password"
-                      id="password"
-                      placeholder="mật khẫu cũ..."
-                      title="enter your password."
+                      name="address"
+                      id="address"
+                      placeholder="Điền địa chỉ...  "
+                      
                     />
                   </div>
                 </div>
+
                 <div className="form-group">
                   <div className="col-xs-6">
-                    <label htmlFor="password">
-                      <h4>Mật khẩu mới</h4>
+                    <label htmlFor="cccd">
+                      <h6>Căn cước công dân</h6>
                     </label>
                     <input
-                      type="password"
+                      onChange={(e) => {
+                        setDetails({
+                          ...details,
+                          CCCD: e.target.value,
+                        });
+                      }}
+                      value={details.CCCD?details.CCCD:''}
+                      type="text"
                       className="form-control"
-                      name="password1"
-                      id="password1"
-                      placeholder="mật khẩu mới..."
-                      title="enter your password."
+                      name="CCCD"
+                      id="CCCD"
+                      placeholder="Điền số căn cước..."
+                      
                     />
                   </div>
                 </div>
-                <div className="form-group">
-                  <div className="col-xs-6">
-                    <label htmlFor="password2">
-                      <h4>Xác nhận mật khẩu mới</h4>
+
+
+
+                <label htmlFor="phone">
+                      <h6>Vai Trò</h6>
                     </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password2"
-                      id="password2"
-                      placeholder="xác nhận mật khẩu..."
-                      title="enter your password2."
-                    />
-                  </div>
-                </div>
+            {/* <div className="text-danger">{error.group_id}</div> */}
+                <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check1"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    group_id: e.target.value,
+                  });
+                }}
+                value="1"
+              />
+              <label className="form-check-label" htmlFor="admin">
+                admin
+              </label>
+            </div>
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check2"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    group_id: e.target.value,
+                  });
+                }}
+                value="2"
+              />
+              <label className="form-check-label" htmlFor="user">
+                user
+              </label>
+            </div>
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check3"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    group_id: e.target.value,
+                  });
+                }}
+                value="3"
+              />
+              <label className="form-check-label" htmlFor="manager">
+                manager
+              </label>
+            </div>
                 <div className="form-group">
                   <div className="col-xs-12">
                     <br />

@@ -21,7 +21,7 @@ function Service() {
       <Routes>
         <Route path="" element={<ShowService />} />
         <Route path="add" element={<AddService />} />
-        <Route path="update" element={<UpdateService /> } />
+        <Route path="update/:id" element={<UpdateService /> } />
       </Routes>
 
     </div>

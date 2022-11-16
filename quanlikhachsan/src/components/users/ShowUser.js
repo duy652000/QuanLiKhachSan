@@ -72,7 +72,7 @@ function ShowUser() {
                 data.map((item)=>
                 
               <tr key={item.id}>
-                <td>1410</td>
+                <td>{item.id +1}</td>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.phone}</td>
