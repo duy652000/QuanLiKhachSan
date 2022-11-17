@@ -8,6 +8,8 @@ function Logout() {
  const logout =()=>  {
    localStorage.clear("token")
    history("/")
+   alert("Đăng xuất !")
+   
 };
  
  return (

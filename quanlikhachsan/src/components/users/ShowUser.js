@@ -10,6 +10,7 @@ function ShowUser() {
    const token = JSON.parse(localStorage.getItem("token"));
    //get infor
    const getData = async ()=> {
+    try{
     console.log(token);
     //await here
     let res = await axios.get("http://localhost:8000/all-account", {
@@ -20,6 +21,10 @@ function ShowUser() {
     });
     res = await res.data.data;
     setData(res);
+    }catch(error){
+      localStorage.clear("token")
+      alert("Hết phiên đăng nhập")
+    }
     
     
   }

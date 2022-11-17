@@ -101,19 +101,12 @@ function Topbar() {
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
             </Link>
-            <a className="dropdown-item" href="#">
-              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-              Settings
-            </a>
-            <a className="dropdown-item" href="#">
-              <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-              Activity Log
-            </a>
+            <Link className="dropdown-item" to="/profile/change_password">
+              <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+              Change Password
+            </Link>
             <div className="dropdown-divider"></div>
-            {/* <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                    <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                </a> */}
+            
             <Logout />
           </div>
         </li>

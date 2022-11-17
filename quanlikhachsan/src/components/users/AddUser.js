@@ -32,6 +32,8 @@ function AddUser() {
       res = await res;
 
       history("/user");
+      alert("Thêm người dùng thành công !");
+
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }

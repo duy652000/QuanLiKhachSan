@@ -9,6 +9,7 @@ function ShowProfile() {
   //get infor
   const getData = async () => {
     //await here
+    try{
     let res = await axios.get("http://localhost:8000/view-account", {
       headers: {
         "Content-Type": "application/json",
@@ -25,6 +26,11 @@ function ShowProfile() {
 
    
     //
+    }catch (error) {
+    //   localStorage.clear("token")
+    // alert("Hết phiên đăng nhập !");
+
+    }
   };
   useEffect(() => {
     getData();

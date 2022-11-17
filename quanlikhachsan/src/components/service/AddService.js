@@ -31,6 +31,8 @@ async function addService(detail) {
     res = await res;
 
     history("/service");
+    alert("Thêm dịch vụ thành công !");
+
   } catch (error) {
     setError(JSON.parse(error.response.data));
   }

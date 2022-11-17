@@ -36,13 +36,11 @@ function Login() {
       });
       res = await res.data;
       let token = res.access_token;
-      // console.log(res.access_token)
-
       localStorage.setItem("token", JSON.stringify(token));
-
       history("/");
-
       window.location.reload(true);
+      // alert("Đăng nhập thành công !");
+
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);
@@ -65,7 +63,7 @@ function Login() {
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
                         <p>
-                            {/* {
+                          {/* {
                               <div
                                 class="alert alert-dark alert-dismissible fade show"
                                 role="alert"
@@ -88,7 +86,6 @@ function Login() {
                           {errorEmail}
                           <br />
                           {errorPass}
-                         
                         </p>
                       </div>
                       <form className="user" onSubmit={handleLogin}>
