@@ -1,6 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AddCustomer() {
+  /////////////////
+  const [details, setDetails] = useState({
+    firtname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    status: "",
+    CCCD: "",
+    created_at: "",
+    update_at: "",
+  });
+  const [error, setError] = useState("");
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const history = useNavigate();
+
+  const handleAddCustomer = (e) => {
+    e.preventDefault();
+    // console.log(details);
+    
+    addCustomer(details);
+  };
+  //call api
+  async function addCustomer(detail) {
+    try {
+      let res = await axios.post("http://localhost:8000/client/create", detail, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      res = await res;
+
+      history("/service");
+      alert("Thêm dịch vụ thành công !");
+    } catch (error) {
+      console.log(JSON.parse(error.response.data))
+      setError(JSON.parse(error.response.data));
+    }
+    console.log(error);
+  }
+  ////////////////
+
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
@@ -9,74 +54,161 @@ function AddCustomer() {
         </h6>
         <div className="">
           <a type="button" href="/customer" className="btn btn-primary fw-bold">
-            <i class="bi bi-arrow-return-right"></i> Back
+            <i className="bi bi-arrow-return-right"></i> Back
           </a>
         </div>
       </div>
 
       <div className="card-body">
         <div className="table-responsive">
-          <form className="ml-1">
+          <form className="ml-1" onClick={handleAddCustomer}>
+            
+
+
             <div className="form-group">
-              <label Htmlfor="exampleInputEmail1">Tên</label>
+              <label htmlFor="exampleInputEmail1">Họ và tên lót </label>
+              <p className="text-danger">{error.firtname}</p>
               <input
                 type="text "
                 className="form-control"
                 id="fistName"
-                placeholder="Fist name "
+                placeholder="Điền họ và tên lót ... "
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    firtname: e.target.value,
+                  });
+                }}
+                value={details.firtname}
               />
             </div>
 
+
+
+
             <div className="form-group">
-              <label Htmlfor="exampleInputEmail1">Họ</label>
+              <label htmlFor="exampleInputEmail1">Tên</label>
+              <p className="text-danger">{error.lastname}</p>
               <input
                 type="text "
                 className="form-control"
                 id="lastName"
-                placeholder="Last name "
+                placeholder="Điền tên ... "
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    lastname: e.target.value,
+                  });
+                }}
+                value={details.lastname}
               />
             </div>
+
+
+
             <div className="form-group">
-              <label Htmlfor="exampleInputEmail1">Email</label>
+              <label htmlFor="exampleInputEmail1">Email</label>
+              <p className="text-danger">{error.email}</p>
               <input
                 type="email"
                 className="form-control"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
-                placeholder="Enter email"
+                placeholder="Điền email ..."
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    email: e.target.value,
+                  });
+                }}
+                value={details.email}
               />
             </div>
+
+
+
             <div className="form-group">
-              <label Htmlfor="telephone number">Số điện thoại</label>
+              <label htmlFor="telephone number">Số điện thoại</label>
+              <p className="text-danger">{error.phone}</p>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="so dien thoai"
-                placeholder="Number telephone"
+                placeholder="Điền số điện thoại ..."
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    phone: e.target.value,
+                  });
+                }}
+                value={details.phone}
               />
             </div>
+
+
+
             <div className="form-group">
-              <label Htmlfor="exampleInputPassword1">Birthday</label>
+              <label htmlFor="telephone number">Căn cước công dân</label>
+              <p className="text-danger">{error.CCCD}</p>
               <input
-                type="date"
+                type="number"
                 className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
+                id="so dien thoai"
+                placeholder="Điền căn cước công dân ..."
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    CCCD: e.target.value,
+                  });
+                }}
+                value={details.CCCD}
               />
-              <br/>
-              <div className="form-group">
-                <label Htmlfor="exampleInputEmail1">CCCD</label>
-                <input
-                  type="text "
-                  className="form-control"
-                  id="CCCD"
-                  placeholder="Căn cước công dân "
-                />
-              </div>
             </div>
+
+      
+            <label htmlFor="Status">Trạng thái </label>
+            <div className="text-danger">{error.status}</div>
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="kichhoat"
+                className="form-check-input"
+                id="kichhoat"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    status: e.target.value,
+                  });
+                }}
+                value="1"
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                Kích Hoạt
+              </label>
+            </div>
+
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="an"
+                className="form-check-input"
+                id="an"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    status: e.target.value,
+                  });
+                }}
+                value="0"
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                Ẩn
+              </label>
+            </div>
+
            
 
-            
             <button type="submit" className="btn btn-primary">
               Lưu
             </button>

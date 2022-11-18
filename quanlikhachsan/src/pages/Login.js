@@ -62,26 +62,8 @@ function Login() {
                     <div className="p-5">
                       <div className="text-center">
                         <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                        <p>
-                          {/* {
-                              <div
-                                class="alert alert-dark alert-dismissible fade show"
-                                role="alert"
-                              >
-                                {error}
-                            {errorEmail}
-                            <br />
-                            {errorPass}
-                                <button
-                                  type="button"
-                                  class="close"
-                                  data-dismiss="alert"
-                                  aria-label="Close"
-                                >
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                            } */}
+                        <p className="text-danger">
+                          
                           {error}
                           {errorEmail}
                           <br />

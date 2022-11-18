@@ -21,7 +21,7 @@ function Customer() {
       <Routes>
         <Route path="" element={<ShowCustomer/>} />
         <Route path="add" element={<AddCustomer/>} />
-        <Route path="update" element={<UpdateCustomer/> } />
+        <Route path="update/:id" element={<UpdateCustomer/> } />
       </Routes>
 
     </div>

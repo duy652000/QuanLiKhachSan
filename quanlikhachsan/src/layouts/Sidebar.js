@@ -33,10 +33,10 @@ function Sidebar() {
 
       {/* <!-- Nav Item - Room --> */}
       <li className="nav-item">
-        <Link to="/room" className="nav-link">
+        <a href="/room" className="nav-link">
           <i className="bi bi-door-closed"></i> &nbsp;
           <span>Quản Lý Đặt Phòng</span>
-        </Link>
+        </a>
       </li>
         {/* <!-- Nav Item - Service --> */}
         <li className="nav-item">
@@ -59,39 +59,39 @@ function Sidebar() {
         >
           <div className="bg-white py-2 collapse-inner rounded">
             {/* <h6 className="collapse-header"> Dịch Vụ :</h6> */}
-            <Link className="collapse-item" to="/service">
+            <a className="collapse-item" href="/service">
               Quản lý dịch vụ
-            </Link>
-            <Link className="collapse-item" to="/Oder">
+            </a>
+            <a className="collapse-item" href="/Oder">
               Đặt dịch vụ
-            </Link>
+            </a>
           </div>
         </div>
       </li>
 
       {/* <!-- Nav Item - custom --> */}
       <li className="nav-item">
-        <Link to="/customer" className="nav-link">
+        <a href="/customer" className="nav-link">
           <i className="bi bi-person-plus"></i> &nbsp;
           <span>Quản Lý Khách Hàng</span>
-        </Link>
+        </a>
       </li>
 
     
 
       {/* <!-- Nav Item - bill --> */}
       <li className="nav-item">
-        <Link to="/room" className="nav-link">
+        <a href="/room" className="nav-link">
           <i className="bi bi-receipt-cutoff"></i> &nbsp;
           <span>Quản Lý Hóa Đơn</span>
-        </Link>
+        </a>
       </li>
       {/* <!-- Nav Item - account --> */}
       <li className="nav-item">
-        <Link to="/user" className="nav-link">
+        <a href="/user" className="nav-link">
           <i className="bi bi-people-fill"></i> &nbsp;
           <span>Quản Lý Tài Khoản</span>{" "}
-        </Link>
+        </a>
       </li>
 
       {/* <!-- Sidebar Toggler (Sidebar) --> */}

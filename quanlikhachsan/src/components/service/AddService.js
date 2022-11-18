@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddService() {
+
+
  /////////////////
  const [details, setDetails] = useState({
   name: "",
@@ -12,6 +14,8 @@ function AddService() {
  
 });
 const [error, setError] = useState("");
+const token = JSON.parse(localStorage.getItem("token"));
+
 const history = useNavigate();
 
 const handleAddService = (e) => {
@@ -25,7 +29,7 @@ async function addService(detail) {
     let res = await axios.post("http://localhost:8000/service/add", detail, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer`,
+        Authorization: `Bearer ${token}`,
       },
     });
     res = await res;

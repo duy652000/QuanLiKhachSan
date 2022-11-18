@@ -1,42 +1,50 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import axios from "axios";
-import  { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";
 
 function ShowUser() {
   const [data, setData] = useState([]);
+  const history = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"));
+
+
   ////////////////////
-   const token = JSON.parse(localStorage.getItem("token"));
-   //get infor
-   const getData = async ()=> {
-    try{
-    console.log(token);
-    //await here
-    let res = await axios.get("http://localhost:8000/all-account", {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-    res = await res.data.data;
-    setData(res);
-    }catch(error){
-      localStorage.clear("token")
-      alert("Hết phiên đăng nhập")
+  //get infor
+  const getData = async () => {
+    try {
+      console.log(token);
+      //await here
+      let res = await axios.get("http://localhost:8000/all-account", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      res = await res.data.data;
+      setData(res);
+    } catch (error) {
+      localStorage.clear("token");
+      history("/login")
+      alert("Hết phiên đăng nhập");
+      
     }
-    
-    
-  }
+  };
   useEffect(() => {
     getData();
-    console.log(data)
-  },[token]);
+    console.log(data);
+  }, [token]);
 
+  //////
+
+
+
+
+ 
 
   
 
-  //////
+
 
   ////////////////////
 
@@ -65,6 +73,7 @@ function ShowUser() {
                 <th>Số điện thoại</th>
                 <th>Địa chỉ</th>
                 <th>CCCD</th>
+                <th>Trạng thái</th>
                 <th>Ngày tạo</th>
                 <th>Ngày cập nhật</th>
                 <th></th>
@@ -73,55 +82,64 @@ function ShowUser() {
 
             <tbody>
               {/*  */}
-              {
-                data.map((item)=>
-                
-              <tr key={item.id}>
-                <td>{item.id +1}</td>
-                <td>{item.name}</td>
-                <td>{item.email}</td>
-                <td>{item.phone}</td>
-                <td>{item.address}</td>
-                <td>{item.CCCD}</td>
-           
-                <td>{item.created_at}</td>
-                <td>{item.updated_at}</td>
-                <td>
-                  <div className="d-flex black">
-                    {/* thoát */}
-                    <a type="button">
-                      <i className="bi bi-box-arrow-right"></i>
-                    </a>
-                    &nbsp;
-                    {/* ẩn */}
-                    <a type="button">
-                      {<i className="bi bi-eye"></i> ? (
-                        <i className="bi bi-eye"></i>
-                      ) : (
-                        <i className="bi bi-eye-slash"></i>
-                      )}
-                    </a>
-                    &nbsp;
-                    {/* chỉnh sửa */}
-                    <Link type="button" to="update">
-                      <i className="bi bi-pencil hover-text black hover-text"></i>
-                    </Link>
-                    &nbsp;
-                    {/* xóa */}
-                    <a type="button">
-                      <i className="bi bi-trash"></i>
-                    </a>
-                  </div>
-                </td>
-              </tr>)
-              
-            }
+              {data.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.address}</td>
+                  <td>{item.CCCD}</td>
+                  <td>{item.status}</td>
+                  <td>{item.created_at}</td>
+                  <td>{item.updated_at}</td>
+                  <td>
+                    <div className="d-flex black">
+                      {/* thoát */}
+                      <Link to="/user" type="button"  >
+                        <i className="bi bi-box-arrow-right hover-text black"></i>
+                      </Link>
+                      &nbsp;
+                      {/* ẩn */}
+                      <a type="button" onClick={
+                         async function Hiden() {
+                          try {
+                            
+                            let res = await axios.post(`http://localhost:8000/hiden/id=${item.id}`, item.id, {
+                              headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                              },
+                            });
+                            res = await res;
+                            console.log(res)
+                            window.location.reload(true);
+                            alert("Thay đổi trạng thái thành công !");
+                        
+                          } catch (error) {
+                           alert("Thay đổi trạng thái không thành công !")
+                          }
+                          
+                        }
+                      }>
+                        <i className="bi bi-eye hover-text black hover-text"></i>
+                      </a>
+                      &nbsp;
+                      {/* chỉnh sửa */}
+                      <Link type="button" to={`update/${item.id}`}>
+                        <i className="bi bi-pencil hover-text black hover-text"></i>
+                      </Link>
+                      &nbsp;
+                      {/* xóa */}
+                      <a type="button">
+                        <i className="bi bi-trash hover-text"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              ))}
 
               {/*  */}
-              
-             
-        
-             
             </tbody>
           </table>
         </div>

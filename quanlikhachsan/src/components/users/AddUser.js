@@ -4,6 +4,8 @@ import axios from "axios";
 
 function AddUser() {
   /////////////////
+  const token = JSON.parse(localStorage.getItem("token"));
+
   const [details, setDetails] = useState({
     name: "",
     email: "",
@@ -26,7 +28,7 @@ function AddUser() {
       let res = await axios.post("http://localhost:8000/register", detail, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer`,
+          Authorization: `Bearer ${token}`,
         },
       });
       res = await res;
@@ -92,15 +94,7 @@ function AddUser() {
                 value={details.email}
               />
             </div>
-            {/* <div className="form-group">
-              <label htmlFor="telephone number">Số điện thoại</label>
-              <input
-                type="text"
-                className="form-control"
-                id=""
-                placeholder="number telephone"
-              />
-            </div> */}
+    
             <div className="form-group">
               <label htmlFor="exampleInputPassword1">Mật khẩu</label>
               <div className="text-danger">{error.password}</div>
@@ -108,6 +102,7 @@ function AddUser() {
                 type="password"
                 className="form-control"
                 id="password"
+                autoComplete="on"
                 name="password"
                 placeholder="Password"
                 onChange={(e) => {
@@ -125,6 +120,7 @@ function AddUser() {
                 type="password"
                 className="form-control"
                 id="password_confirmation"
+                autoComplete="on"
                 name="password_confirmation"
                 placeholder="Password"
                 onChange={(e) => {
@@ -136,15 +132,6 @@ function AddUser() {
                 value={details.password_confirmation}
               />
             </div>
-
-            {/* <div className="form-group">
-              <label htmlFor="Status">Trạng thái</label>
-              <br />
-              <select type="select " className="form-control">
-                <option>Ẩn</option>
-                <option>Kích hoạt</option>
-              </select>
-            </div> */}
 
             <label htmlFor="Status">Vai trò</label>
             <div className="text-danger">{error.group_id}</div>

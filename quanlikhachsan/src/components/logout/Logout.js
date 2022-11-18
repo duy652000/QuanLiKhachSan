@@ -4,17 +4,27 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Logout() {
-   const history = useNavigate();
+  const history = useNavigate();
+  const logoutConfirm=()=>{   
+    let text = "Đăng xuất !";
+    if (window.confirm(text) == true) {
+      text = "You pressed OK!";
+      logout()
+    } else {
+      text = "You canceled!";
+
+    }
+    document.getElementById("demo").innerHTML = text;
+  }
  const logout =()=>  {
    localStorage.clear("token")
-   history("/")
-   alert("Đăng xuất !")
-   
+   history("/") 
 };
+
  
  return (
 
-    <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal" onClick={logout}>
+    <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal" onClick={logoutConfirm}>
     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
     Logout
    </a>

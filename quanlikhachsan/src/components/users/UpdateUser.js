@@ -1,100 +1,261 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function UpdateUser() {
+
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [error, setError] = useState("");
+  const [details, setDetails] = useState({});
+  const history = useNavigate();
+  const {id} = useParams();
+
+
+
+  //get infor
+  const getDataUser = async () => {
+    //await here
+    try {
+      console.log(token)
+      let res = await axios.post(`http://localhost:8000/account/id=${id}`,id, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      res = await res.data;
+      let kq =res.data;
+      setDetails({
+        name: kq.name,
+        email: kq.email,
+        phone: kq.phone,
+        address: kq.address,
+        CCCD: kq.CCCD,
+        role: "",
+      });
+
+
+
+    } catch (error) {
+      console.log(error);
+      alert("Hết phiên đăng nhập !");
+      localStorage.clear("token");
+      history("/login");
+    }
+  };
+
+  useEffect(() => {
+    getDataUser();
+  }, [token]);
+  //////
+
+ 
+ // update 
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    
+    updateProfile(details);
+  };
+
+  // change infor
+  async function updateProfile(detail) {
+    try {
+      let res = await axios.post(
+        `http://localhost:8000/update-account/?id=${id}`,
+        detail,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res;
+      history("/service");
+    } catch (error) {}
+    console.log("error", error);
+    // setError(JSON.parse(error.response.data));
+  }
+  //
+
+
+
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
         <h6 className="mt-2 font-weight-bold text-primary">Update Account</h6>
         <div className="">
-          <a type="button" href="/user" className="btn btn-primary fw-bold">
-          <i class="bi bi-arrow-return-right"></i> Back
-          </a>
+          <Link type="button" to="/user" className="btn btn-primary fw-bold">
+            <i className="bi bi-arrow-return-right"></i> Back
+          </Link>
         </div>
       </div>
 
-      
-
       <div className="card-body">
         <div className="table-responsive">
-          <form className="ml-1">
+          <form className="ml-1" onClick={handleUpdate}>
             <div className="form-group">
-              <label Htmlfor="exampleInputEmail1">Tên đăng nhập</label>
+              <label htmlFor="exampleInputEmail1">Tên</label>
+              <p className="text-danger">{error.name}</p>
+
               <input
                 type="text "
                 className="form-control"
-                id="exampleInputEmail1"
+                id="name"
                 placeholder="name "
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    name: e.target.value,
+                  });
+                }}
+                value={details.name ? details.name : ""}
               />
             </div>
             <div className="form-group">
-              <label Htmlfor="exampleInputEmail1">Email</label>
+              <label htmlFor="exampleInputEmail1">Email</label>
+              <p className="text-danger">{error.email}</p>
+
               <input
                 type="email"
                 className="form-control"
-                id="exampleInputEmail1"
+                id="email"
+                name="email"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    email: e.target.value,
+                  });
+                }}
+                value={details.email ? details.email : ""}
               />
             </div>
             <div className="form-group">
-              <label Htmlfor="telephone number">Số điện thoại</label>
+              <label htmlFor="phone">Số điện thoại</label>
+              <p className="text-danger">{error.phone}</p>
+
+              <input
+                type="number"
+                className="form-control"
+                id="phone"
+                name="phone"
+                placeholder="Điền số điện thoại ..."
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    phone: e.target.value,
+                  });
+                }}
+                value={details.phone ? details.phone : ""}
+                
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="CCCD">Căn cước công dân </label>
+              <p className="text-danger">{error.CCCD}</p>
+
+              <input
+                type="number"
+                className="form-control"
+                id="CCCD"
+                name="CCCD"
+                placeholder="Điền số căn cước công dân ... "
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    CCCD: e.target.value,
+                  });
+                }}
+                value={details.CCCD ? details.CCCD : ""}
+                
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="address">Địa chỉ</label>
+              <p className="text-danger">{error.address}</p>
+
               <input
                 type="text"
                 className="form-control"
-                id=""
-                placeholder="number telephone"
+                id="address"
+                name="address"
+                placeholder="Điền địa chỉ ..."
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    address: e.target.value,
+                  });
+                }}
+                value={details.address ? details.address : ""}
+                
               />
-            </div>
-            <div className="form-group">
-              <label Htmlfor="exampleInputPassword1">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Password"
-              />
-            </div>
-            <div className="form-group">
-              <label Htmlfor="Status">Trạng thái</label>
-              <br />
-              <select type="select " className="form-control">
-                <option>Ẩn</option>
-                <option>Kích hoạt</option>
-              </select>
             </div>
 
-            <label Htmlfor="Status">Vai trò</label>
+            
+
+            <label htmlFor="role">
+              <h6>Vai Trò</h6>
+            </label>
+            <p className="text-danger">{error.role}</p>
 
             <div className="form-group form-check ml-1">
               <input
-                type="checkbox"
+                type="radio"
+                name="1"
                 className="form-check-input"
-                id="exampleCheck1"
+                id="Check1"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    role: e.target.value,
+                  });
+                }}
+                value="1"
               />
-              <label className="form-check-label" Htmlfor="exampleCheck1">
+              <label className="form-check-label" htmlFor="admin">
                 admin
               </label>
             </div>
 
             <div className="form-group form-check ml-1">
               <input
-                type="checkbox"
+                type="radio"
+                name="1"
                 className="form-check-input"
-                id="exampleCheck1"
+                id="Check2"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    role: e.target.value,
+                  });
+                }}
+                value="2"
               />
-              <label className="form-check-label" Htmlfor="exampleCheck1">
+              <label className="form-check-label" htmlFor="user">
                 user
               </label>
             </div>
 
             <div className="form-group form-check ml-1">
               <input
-                type="checkbox"
+                type="radio"
+                name="1"
                 className="form-check-input"
-                id="exampleCheck1"
+                id="Check3"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    role: e.target.value,
+                  });
+                }}
+                value="3"
               />
-              <label className="form-check-label" Htmlfor="exampleCheck1">
+              <label className="form-check-label" htmlFor="manager">
                 manager
               </label>
             </div>

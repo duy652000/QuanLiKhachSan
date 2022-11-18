@@ -21,7 +21,7 @@ function Account() {
       <Routes>
         <Route path="" element={<ShowUser />} />
         <Route path="add" element={<AddUser />} />
-        <Route path="update" element={<UpdateUser /> } />
+        <Route path="update/:id" element={<UpdateUser/> } />
       </Routes>
 
     </div>

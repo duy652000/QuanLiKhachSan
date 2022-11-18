@@ -18,6 +18,7 @@ function ShowService() {
     });
     res = await res.data.data;
     setData(res);
+    
   };
   useEffect(() => {
     getData();
@@ -50,6 +51,7 @@ function ShowService() {
                 <th>Id</th>
                 <th>Tên</th>
                 <th>Giá</th>
+                <th>Trạng thái</th>
                 <th>Mô tả </th>
                 <th>Ngày tạo </th>
                 <th>Ngày cập nhật </th>
@@ -60,11 +62,13 @@ function ShowService() {
             <tbody>
               {/*  */}
               {data.map((item) => (
+                
                 <tr key={item.id}>
-                  <td>{item.id + 1}</td>
+                  <td>{item.id }</td>
                   <td>{item.name}</td>
                   <td>{item.price}</td>
-                  <td>{item.description}</td>
+                  <td>{item.status}</td>
+                  <td>{item.description}</td> 
                   <td>{item.created_at}</td>
                   <td>{item.updated_at}</td>
                   <td>
@@ -75,12 +79,28 @@ function ShowService() {
                       </a>
                       &nbsp;
                       {/* ẩn */}
-                      <a type="button">
-                        {<i className="bi bi-eye"></i> ? (
-                          <i className="bi bi-eye"></i>
-                        ) : (
-                          <i className="bi bi-eye-slash"></i>
-                        )}
+                      <a type="button" onClick={
+                         async function Hiden() {
+                          try {
+                            
+                            let res = await axios.post(`http://localhost:8000/service/hiden/id=${item.id}`, item.id, {
+                              headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                              },
+                            });
+                            res = await res;
+                            console.log(res)
+                            window.location.reload(true);
+                            alert("Thay đổi trạng thái thành công !");
+                        
+                          } catch (error) {
+                           alert("Thay đổi trạng thái không thành công !")
+                          }
+                          
+                        }
+                      }>
+                        <i className="bi bi-eye hover-text black hover-text"></i>
                       </a>
                       &nbsp;
                       {/* chỉnh sửa */}
@@ -95,6 +115,7 @@ function ShowService() {
                     </div>
                   </td>
                 </tr>
+
               ))}
               
             </tbody>

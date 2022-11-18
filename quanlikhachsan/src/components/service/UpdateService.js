@@ -20,7 +20,6 @@ function UpdateService() {
     });
     res = await res.data;
     let kq = res.data[0];
-    
 
     setDetails({name: kq.name,
                 price: kq.price,
@@ -33,37 +32,47 @@ function UpdateService() {
   }, [token]);
   //////
 
+ 
+
+
+
+ // call update 
   const handleUpdate = (e) => {
     e.preventDefault();
-    // console.log(details);
-    // updateProfile(details);
+    console.log(details);
+    updateService(details);
   };
 
-  // change infor
-  async function updateProfile(detail) {
+
+
+
+  // update infor
+  async function updateService(detail) {
     try {
       let res = await axios.post(
-        "http://localhost:8000/service/service-info",
+        `http://localhost:8000/service/edit/?id=${id}`,
         detail,
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       res = await res;
       history("/service");
     } catch (error) {}
-   
     setError(JSON.parse(error.response.data));
   }
   //
 
+
+
+
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
-        <h6 className="mt-2 font-weight-bold text-primary">Add Service</h6>
+        <h6 className="mt-2 font-weight-bold text-primary">Update Service</h6>
         <div className="">
           <Link type="button" to="/service" className="btn btn-primary fw-bold">
             <i className="bi bi-arrow-return-right"></i> Back

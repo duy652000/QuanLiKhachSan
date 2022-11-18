@@ -97,14 +97,14 @@ function Topbar() {
             className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown"
           >
-            <Link className="dropdown-item" to="/profile">
+            <a className="dropdown-item" href="/profile">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
-            </Link>
-            <Link className="dropdown-item" to="/profile/change_password">
+            </a>
+            <a className="dropdown-item" href="/profile/change_password">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Change Password
-            </Link>
+            </a>
             <div className="dropdown-divider"></div>
             
             <Logout />
