@@ -9,6 +9,9 @@ function UpdateUser() {
   const [details, setDetails] = useState({});
   const history = useNavigate();
   const {id} = useParams();
+  const danh ="danh"
+
+  
 
 
 
@@ -17,7 +20,7 @@ function UpdateUser() {
     //await here
     try {
       console.log(token)
-      let res = await axios.post(`http://localhost:8000/account/id=${id}`,id, {
+      let res = await axios.get(`http://localhost:8000/account/id=${id}`,{
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -26,6 +29,7 @@ function UpdateUser() {
 
       res = await res.data;
       let kq =res.data;
+      console.log(kq)
       setDetails({
         name: kq.name,
         email: kq.email,
@@ -38,7 +42,7 @@ function UpdateUser() {
 
 
     } catch (error) {
-      console.log(error);
+      console.log("error",error);
       alert("Hết phiên đăng nhập !");
       localStorage.clear("token");
       history("/login");
@@ -54,6 +58,8 @@ function UpdateUser() {
  // update 
   const handleUpdate = (e) => {
     e.preventDefault();
+    // console.log(details);
+
     
     updateProfile(details);
   };
@@ -71,14 +77,18 @@ function UpdateUser() {
           },
         }
       );
+  
       res = await res;
       history("/service");
+
     } catch (error) {}
-    console.log("error", error);
-    // setError(JSON.parse(error.response.data));
+    // console.log("error", error);
+    setError(JSON.parse(error.response.data));
   }
   //
+////
 
+///
 
 
   return (

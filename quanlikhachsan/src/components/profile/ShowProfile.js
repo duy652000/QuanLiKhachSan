@@ -6,6 +6,7 @@ function ShowProfile() {
   const token = JSON.parse(localStorage.getItem("token"));
   const [details, setDetails] = useState({});
   const [error, setError] = useState("");
+
   const history = useNavigate();
 
   //get infor
@@ -21,7 +22,9 @@ function ShowProfile() {
       });
       res = await res.data;
       console.log(res);
+      
       setDetails({
+        id:res.id,
         name: res.name,
         email: res.email,
         phone: res.phone,
@@ -56,7 +59,7 @@ function ShowProfile() {
   async function updateProfile(detail) {
     try {
       let res = await axios.post(
-        "http://localhost:8000/update-profile",
+        `http://localhost:8000/update-profile/?id=${detail.id}`,
         detail,
         {
           headers: {
@@ -268,24 +271,6 @@ function ShowProfile() {
                   </label>
                 </div>
 
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="radio"
-                    name="1"
-                    className="form-check-input"
-                    id="Check3"
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        role: e.target.value,
-                      });
-                    }}
-                    value="3"
-                  />
-                  <label className="form-check-label" htmlFor="manager">
-                    manager
-                  </label>
-                </div>
                 <div className="form-group">
                   <div className="col-xs-12">
                     <br />
