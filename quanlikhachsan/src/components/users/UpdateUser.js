@@ -3,33 +3,28 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function UpdateUser() {
-
   const token = JSON.parse(localStorage.getItem("token"));
   const [error, setError] = useState("");
   const [details, setDetails] = useState({});
   const history = useNavigate();
-  const {id} = useParams();
-  const danh ="danh"
-
-  
-
-
+  const { id } = useParams();
+  const danh = "danh";
 
   //get infor
   const getDataUser = async () => {
     //await here
     try {
-      console.log(token)
-      let res = await axios.get(`http://localhost:8000/account/id=${id}`,{
+      console.log(token);
+      let res = await axios.get(`http://localhost:8000/account/id=${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       res = await res.data;
-      let kq =res.data;
-      console.log(kq)
+      let kq = res.data;
+      console.log(kq);
       setDetails({
         name: kq.name,
         email: kq.email,
@@ -38,11 +33,8 @@ function UpdateUser() {
         CCCD: kq.CCCD,
         role: "",
       });
-
-
-
     } catch (error) {
-      console.log("error",error);
+      console.log("error", error);
       alert("Hết phiên đăng nhập !");
       localStorage.clear("token");
       history("/login");
@@ -54,13 +46,11 @@ function UpdateUser() {
   }, [token]);
   //////
 
- 
- // update 
+  // update
   const handleUpdate = (e) => {
     e.preventDefault();
-    // console.log(details);
+    console.log(details);
 
-    
     updateProfile(details);
   };
 
@@ -68,7 +58,7 @@ function UpdateUser() {
   async function updateProfile(detail) {
     try {
       let res = await axios.post(
-        `http://localhost:8000/update-account/?id=${id}`,
+        `http://localhost:8000/update-account/id=${id}`,
         detail,
         {
           headers: {
@@ -77,19 +67,18 @@ function UpdateUser() {
           },
         }
       );
-  
-      res = await res;
-      history("/service");
 
-    } catch (error) {}
-    // console.log("error", error);
-    setError(JSON.parse(error.response.data));
+      res = await res;
+      history("/user");
+    } catch (error) {
+      console.log("error", error);
+      setError(JSON.parse(error.response.data));
+    }
   }
   //
-////
+  ////
 
-///
-
+  ///
 
   return (
     <div className="card shadow mb-4">
@@ -160,7 +149,6 @@ function UpdateUser() {
                   });
                 }}
                 value={details.phone ? details.phone : ""}
-                
               />
             </div>
 
@@ -181,7 +169,6 @@ function UpdateUser() {
                   });
                 }}
                 value={details.CCCD ? details.CCCD : ""}
-                
               />
             </div>
 
@@ -202,11 +189,8 @@ function UpdateUser() {
                   });
                 }}
                 value={details.address ? details.address : ""}
-                
               />
             </div>
-
-            
 
             <label htmlFor="role">
               <h6>Vai Trò</h6>

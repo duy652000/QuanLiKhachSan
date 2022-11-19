@@ -15,13 +15,13 @@ function Account() {
       <p className="mb-4"></p>
 
       {/* <!-- DataTales Example --> */}
-      {/* <ShowUser/> */}
+     
      
 
       <Routes>
-        <Route path="" element={<ShowUser />} />
-        <Route path="add" element={<AddUser />} />
-        <Route path="update/:id" element={<UpdateUser/> } />
+        <Route path="*" element={<ShowUser />} />
+        <Route path="add/*" element={<AddUser />} />
+        <Route path="update/:id/*" element={<UpdateUser/> } />
       </Routes>
 
     </div>

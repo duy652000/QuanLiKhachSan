@@ -1,13 +1,14 @@
 import React from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Moment from 'react-moment';
 
 function ShowUser() {
   const [data, setData] = useState([]);
+  const [status, setStatus] = useState("");
   const history = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
-
 
   ////////////////////
   //get infor
@@ -25,9 +26,8 @@ function ShowUser() {
       setData(res);
     } catch (error) {
       localStorage.clear("token");
-      history("/login")
+      history("/login");
       alert("Hết phiên đăng nhập");
-      
     }
   };
   useEffect(() => {
@@ -36,15 +36,6 @@ function ShowUser() {
   }, [token]);
 
   //////
-
-
-
-
- 
-
-  
-
-
 
   ////////////////////
 
@@ -90,39 +81,51 @@ function ShowUser() {
                   <td>{item.phone}</td>
                   <td>{item.address}</td>
                   <td>{item.CCCD}</td>
-                  <td>{item.status}</td>
-                  <td>{item.created_at}</td>
-                  <td>{item.updated_at}</td>
+                  <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
+                  </td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
+                  </td>
                   <td>
                     <div className="d-flex black">
                       {/* thoát */}
-                      <Link to="/user" type="button"  >
+                      <Link to="/user" type="button">
                         <i className="bi bi-box-arrow-right hover-text black"></i>
                       </Link>
                       &nbsp;
                       {/* ẩn */}
-                      <a type="button" onClick={
-                         async function Hiden() {
+                      <a
+                        type="button"
+                        onClick={async function Hiden() {
                           try {
-                            
-                            let res = await axios.post(`http://localhost:8000/hiden/id=${item.id}`, item.id, {
-                              headers: {
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                              },
-                            });
+                            let res = await axios.post(
+                              `http://localhost:8000/hiden/id=${item.id}`,
+                              item.id,
+                              {
+                                headers: {
+                                  "Content-Type": "application/json",
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            );
                             res = await res;
-                            console.log(res)
+                            console.log(res);
                             window.location.reload(true);
                             alert("Thay đổi trạng thái thành công !");
-                        
                           } catch (error) {
-                           alert("Thay đổi trạng thái không thành công !")
+                            alert("Thay đổi trạng thái không thành công !");
                           }
-                          
-                        }
-                      }>
-                        <i className="bi bi-eye hover-text black hover-text"></i>
+                        }}
+                      >
+                        {item.status == 1 ? (
+                          <i className="bi bi-eye-slash hover-text black hover-text">
+                            {" "}
+                          </i>
+                        ) : (
+                          <i className="bi bi-eye hover-text black hover-text"></i>
+                        )}
                       </a>
                       &nbsp;
                       {/* chỉnh sửa */}

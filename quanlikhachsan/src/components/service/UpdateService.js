@@ -24,7 +24,7 @@ function UpdateService() {
     setDetails({name: kq.name,
                 price: kq.price,
                 description: kq.description,
-                status:""});
+                status:kq.status});
     
   };
   useEffect(() => {
@@ -50,7 +50,7 @@ function UpdateService() {
   async function updateService(detail) {
     try {
       let res = await axios.post(
-        `http://localhost:8000/service/edit/?id=${id}`,
+        `http://localhost:8000/service/edit/id=${id}`,
         detail,
         {
           headers: {
@@ -62,6 +62,7 @@ function UpdateService() {
       res = await res;
       history("/service");
     } catch (error) {}
+    console.log(error)
     setError(JSON.parse(error.response.data));
   }
   //
@@ -149,9 +150,9 @@ function UpdateService() {
             <div className="form-group form-check ml-1">
               <input
                 type="radio"
-                name="2"
+                name="5"
                 className="form-check-input"
-                id="check1"
+                id="check11"
                 onChange={(e) => {
                   setDetails({
                     ...details,
@@ -168,9 +169,9 @@ function UpdateService() {
             <div className="form-group form-check ml-1">
               <input
                 type="radio"
-                name="2"
+                name="5"
                 className="form-check-input"
-                id="check0"
+                id="check00"
                 onChange={(e) => {
                   setDetails({
                     ...details,

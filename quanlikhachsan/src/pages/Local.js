@@ -62,7 +62,7 @@ function Local() {
               <Route path="/service/*" element={<Service/>} />             
               <Route path="/room/*" element={<Room/>} />
               <Route path="/profile" element={<ShowProfile/>} />
-              <Route path="/profile/change_password" element={<ChangePassword/>} />
+              <Route path="/change_password" element={<ChangePassword/>} />
             </Routes>
             {/* <Content/> */}
 

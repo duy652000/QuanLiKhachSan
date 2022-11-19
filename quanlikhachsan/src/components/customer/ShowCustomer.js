@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Moment from 'react-moment';
+
 
 function ShowCustomer() {
   const [data, setData] = useState([]);
@@ -69,10 +71,14 @@ function ShowCustomer() {
                   <td>{item.lastname}</td>
                   <td>{item.email}</td>
                   <td>{item.phone}</td>
-                  <td>{item.status}</td>
+                  <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
                   <td>{item.CCCD}</td>
-                  <td>{item.created_at}</td>
-                  <td>{item.update_at}</td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
+                  </td>
+                  <td>
+                    <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
+                  </td>
                   <td>
                     <div className="d-flex black">
                       {/* thoát */}
@@ -103,7 +109,13 @@ function ShowCustomer() {
                           }
                         }}
                       >
-                        <i className="bi bi-eye hover-text black hover-text"></i>
+                         {item.status == 1 ? (
+                          <i className="bi bi-eye-slash hover-text black hover-text">
+                            {" "}
+                          </i>
+                        ) : (
+                          <i className="bi bi-eye hover-text black hover-text"></i>
+                        )}
                       </a>
                       &nbsp;
                       {/* chỉnh sửa */}
