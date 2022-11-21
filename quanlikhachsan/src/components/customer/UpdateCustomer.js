@@ -28,8 +28,7 @@ function UpdateCustomer() {
       lastname: kq.lastname,
       phone: kq.phone,
       email: kq.email,
-      CMND: kq.CMND,
-      status: "",
+      CCCD: kq.CCCD,
     });
   };
   useEffect(() => {
@@ -48,7 +47,7 @@ function UpdateCustomer() {
   async function updateService(detail) {
     try {
       let res = await axios.post(
-        `http://localhost:8000//client/edit/id=${id}`,
+        `http://localhost:8000/client/edit/id=${id}`,
         detail,
         {
           headers: {
@@ -58,9 +57,11 @@ function UpdateCustomer() {
         }
       );
       res = await res;
-      history("/service");
-    } catch (error) {}
-    setError(JSON.parse(error.response.data));
+      history("/customer");
+    } catch (error) {
+      console.log(error);
+      setError(JSON.parse(error.response.data));
+    }
   }
   //
 
@@ -71,7 +72,11 @@ function UpdateCustomer() {
           Update Thông Tin Khách Hàng
         </h6>
         <div className="">
-          <Link type="button" to="/customer" className="btn btn-primary fw-bold">
+          <Link
+            type="button"
+            to="/customer"
+            className="btn btn-primary fw-bold"
+          >
             <i className="bi bi-arrow-return-right"></i> Back
           </Link>
         </div>
@@ -79,10 +84,10 @@ function UpdateCustomer() {
 
       <div className="card-body">
         <div className="table-responsive">
-          <form className="ml-1" onClick={handleUpdate}>
+          <form className="ml-1" onSubmit={handleUpdate}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Họ và tên lót</label>
-              <div className="text-danger">{error.firtname}</div>
+              <p className="text-danger">{error.firtname}</p>
               <input
                 type="text "
                 className="form-control"
@@ -95,13 +100,12 @@ function UpdateCustomer() {
                     firtname: e.target.value,
                   });
                 }}
-                value={details.firtname?details.firtname:""}
+                value={details.firtname ? details.firtname : ""}
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Tên</label>
-              <div className="text-danger">{error.lastname}</div>
+              <p className="text-danger">{error.lastname}</p>
 
               <input
                 type="text "
@@ -115,12 +119,13 @@ function UpdateCustomer() {
                     lastname: e.target.value,
                   });
                 }}
-                value={details.lastname?details.lastname:""}
+                value={details.lastname ? details.lastname : ""}
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="email">Email</label>
+              <p className="text-danger">{error.email}</p>
+
               <input
                 type="email"
                 className="form-control"
@@ -134,12 +139,13 @@ function UpdateCustomer() {
                     email: e.target.value,
                   });
                 }}
-                value={details.email?details.email:""}
-                
+                value={details.email ? details.email : ""}
               />
             </div>
             <div className="form-group">
               <label htmlFor="phone">Số điện thoại</label>
+              <p className="text-danger">{error.phone}</p>
+
               <input
                 type="number"
                 className="form-control"
@@ -152,12 +158,13 @@ function UpdateCustomer() {
                     phone: e.target.value,
                   });
                 }}
-                value={details.phone?details.phone:""}
+                value={details.phone ? details.phone : ""}
               />
             </div>
-
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">CCCD</label>
+              <p className="text-danger">{error.CCCD}</p>
+
               <input
                 type="numbe"
                 className="form-control"
@@ -167,58 +174,20 @@ function UpdateCustomer() {
                 onChange={(e) => {
                   setDetails({
                     ...details,
-                    CMND: e.target.value,
+                    CCCD: e.target.value,
                   });
                 }}
-                value={details.CMND?details.CMND:""}
+                value={details.CCCD ? details.CCCD : ""}
               />
-            </div>
-
-            <label htmlFor="Status">Trạng Thái</label>
-            <div className="text-danger">{error.status}</div>
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="2"
-                className="form-check-input"
-                id="check1"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="1"
-              />
-              <label className="form-check-label" htmlFor="kichhoat">
-                Kích Hoạt
-              </label>
-            </div>
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="2"
-                className="form-check-input"
-                id="check0"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="0"
-              />
-              <label className="form-check-label" htmlFor="An">
-                Ẩn
-              </label>
             </div>
 
             <button type="submit" className="btn btn-primary">
               Lưu
             </button>
+
           </form>
+
+          
         </div>
       </div>
     </div>

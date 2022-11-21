@@ -8,7 +8,7 @@ function UpdateUser() {
   const [details, setDetails] = useState({});
   const history = useNavigate();
   const { id } = useParams();
-  const danh = "danh";
+
 
   //get infor
   const getDataUser = async () => {
@@ -31,7 +31,7 @@ function UpdateUser() {
         phone: kq.phone,
         address: kq.address,
         CCCD: kq.CCCD,
-        role: "",
+       
       });
     } catch (error) {
       console.log("error", error);
@@ -93,7 +93,7 @@ function UpdateUser() {
 
       <div className="card-body">
         <div className="table-responsive">
-          <form className="ml-1" onClick={handleUpdate}>
+          <form className="ml-1" onSubmit={handleUpdate}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Tên</label>
               <p className="text-danger">{error.name}</p>
@@ -192,67 +192,50 @@ function UpdateUser() {
               />
             </div>
 
-            <label htmlFor="role">
-              <h6>Vai Trò</h6>
-            </label>
-            <p className="text-danger">{error.role}</p>
+            <label htmlFor="phone">
+                  <h6>Vai Trò</h6>
+                </label>
+                <p className="text-danger">{error.role}</p>
 
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="1"
-                className="form-check-input"
-                id="Check1"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    role: e.target.value,
-                  });
-                }}
-                value="1"
-              />
-              <label className="form-check-label" htmlFor="admin">
-                admin
-              </label>
-            </div>
+                <div className="form-group form-check ml-1">
+                  <input
+                    type="radio"
+                    name="1"
+                    className="form-check-input"
+                    id="Check1"
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        role: e.target.value,
+                      });
+                    }}
+                    value="1"
+                  />
+                  <label className="form-check-label" htmlFor="admin">
+                    admin
+                  </label>
+                </div>
 
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="1"
-                className="form-check-input"
-                id="Check2"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    role: e.target.value,
-                  });
-                }}
-                value="2"
-              />
-              <label className="form-check-label" htmlFor="user">
-                user
-              </label>
-            </div>
+                <div className="form-group form-check ml-1">
+                  <input
+                    type="radio"
+                    name="1"
+                    className="form-check-input"
+                    id="Check2"
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        role: e.target.value,
+                      });
+                    }}
+                    value="2"
+                  />
+                  <label className="form-check-label" htmlFor="user">
+                    user
+                  </label>
+                </div>
 
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="1"
-                className="form-check-input"
-                id="Check3"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    role: e.target.value,
-                  });
-                }}
-                value="3"
-              />
-              <label className="form-check-label" htmlFor="manager">
-                manager
-              </label>
-            </div>
+
 
             <button type="submit" className="btn btn-primary">
               Lưu

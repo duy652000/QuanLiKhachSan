@@ -39,7 +39,7 @@ function ShowProfile() {
       localStorage.clear("token");
       history("/login");
       alert("Hết phiên đăng nhập !");
-      history("/login");
+     
     }
   };
 
@@ -67,7 +67,9 @@ function ShowProfile() {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
+        );
+        
+        history("/");
       window.location.reload(true);
     } catch (error) {
       console.log(JSON.parse(error.response.data));
@@ -174,7 +176,8 @@ function ShowProfile() {
                       className="form-control"
                       name="phone"
                       id="phone"
-                      placeholder="0900000000"
+                      pattern="[0-9]{10}"
+                      placeholder="Điền số điện thoại ..."
                       title="enter your phone number if any."
                     />
                   </div>
@@ -212,6 +215,7 @@ function ShowProfile() {
                     <p className="text-danger">{error.CCCD}</p>
 
                     <input
+                        pattern="[0-9]{10}"
                       onChange={(e) => {
                         setDetails({
                           ...details,
