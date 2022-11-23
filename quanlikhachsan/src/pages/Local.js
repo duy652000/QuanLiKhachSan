@@ -14,6 +14,7 @@ import Service from "./services/Service";
 import Customer from "./Customer";
 import ShowProfile from "../components/profile/ShowProfile";
 import ChangePassword from "../components/profile/ChangePassword";
+import Bill from "./Bill";
 
 function Local() {
   let history = useNavigate();
@@ -60,7 +61,7 @@ function Local() {
               <Route path="/oder/*" element={<Oder/>} />     
               <Route path="/customer/*" element={<Customer/>} />             
               <Route path="/service/*" element={<Service/>} />             
-              <Route path="/room/*" element={<Room/>} />
+              <Route path="/bill/*" element={<Bill/>} />
               <Route path="/profile" element={<ShowProfile/>} />
               <Route path="/change_password" element={<ChangePassword/>} />
             </Routes>

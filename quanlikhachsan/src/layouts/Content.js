@@ -1,5 +1,4 @@
 import React from "react";
-import $ from "jquery";
 import { memo } from "react";
 
 function Content() {

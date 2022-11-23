@@ -38,8 +38,8 @@ function Sidebar() {
           <span>Quản Lý Đặt Phòng</span>
         </a>
       </li>
-        {/* <!-- Nav Item - Service --> */}
-        <li className="nav-item">
+      {/* <!-- Nav Item - Service --> */}
+      <li className="nav-item">
         <a
           className="nav-link collapsed"
           href="#"
@@ -77,11 +77,9 @@ function Sidebar() {
         </a>
       </li>
 
-    
-
       {/* <!-- Nav Item - bill --> */}
       <li className="nav-item">
-        <a href="/room" className="nav-link">
+        <a href="/bill" className="nav-link">
           <i className="bi bi-receipt-cutoff"></i> &nbsp;
           <span>Quản Lý Hóa Đơn</span>
         </a>
