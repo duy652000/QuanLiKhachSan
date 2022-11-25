@@ -36,6 +36,8 @@ function Room() {
           Authorization: `Bearer ${token}`,
         },
       });
+      let count = await res.data.total;
+      setDataCountAllRoom(count);
       res = await res.data.data;
       setDataAllRoom(res);
     } catch (error) {
@@ -49,7 +51,6 @@ function Room() {
   // get free room data
   const getDataFreeRoom = async () => {
     try {
-      console.log(token);
       //await here
       let res = await axios.get(
         "http://localhost:8000/room/filter?status_room=1",
@@ -60,6 +61,9 @@ function Room() {
           },
         }
       );
+      let count = await res.data.client.length;
+      setDataCountFreeRoom(count);
+
       res = await res.data.client;
 
       setDataFreeRoom(res);
@@ -69,7 +73,6 @@ function Room() {
   // get booked room data
   const getDataBookedRoom = async () => {
     try {
-      console.log(token);
       //await here
       let res = await axios.get(
         "http://localhost:8000/room/filter?status_room=2",
@@ -80,6 +83,8 @@ function Room() {
           },
         }
       );
+      let count = await res.data.client.length;
+      setDataCountBookedRoom(count);
       res = await res.data.client;
 
       setDataBookedRoom(res);
@@ -89,7 +94,6 @@ function Room() {
   // get clean room data
   const getDataCleanRoom = async () => {
     try {
-      console.log(token);
       //await here
       let res = await axios.get(
         "http://localhost:8000/room/filter?status_room=3",
@@ -100,6 +104,9 @@ function Room() {
           },
         }
       );
+      let count = await res.data.client.length;
+
+      setDataCountCleanRoom(count);
       res = await res.data.client;
 
       setDataCleanRoom(res);
@@ -126,9 +133,9 @@ function Room() {
           </h6>
 
           <div className="">
-            <button type="button" className="btn btn-primary fw-bold">
+            <Link type="button" to="/customer/add" className="btn btn-primary fw-bold">
               + Thêm Khách Hàng
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -197,16 +204,16 @@ function Room() {
         <div className="card-header py-3">
           <Nav className="me-auto navbar_warapper btn-rooms">
             <Link className="btn-change-room" to="">
-              All <span className="circle-red"> 5</span>
+              All <span className="circle-red"> {dataCountAllRoom}</span>
             </Link>
             <Link className="btn-change-room" to="free">
-              Trống <span className="circle-red">6</span>
+              Trống <span className="circle-red">{dataCountFreeRoom}</span>
             </Link>
             <Link className="btn-change-room" to="booked">
-              Đã đặt <span className="circle-red">12</span>
+              Đã đặt <span className="circle-red">{dataCountBookedRoom}</span>
             </Link>
             <Link className="btn-change-room" to="clean">
-              Dọn dẹp <span className="circle-red"> 2</span>
+              Dọn dẹp <span className="circle-red">{dataCountCleanRoom}</span>
             </Link>
           </Nav>
         </div>

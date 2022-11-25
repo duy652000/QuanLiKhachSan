@@ -14,7 +14,7 @@ function Logout() {
       text = "You canceled!";
 
     }
-    document.getElementById("demo").innerHTML = text;
+   
   }
  const logout =()=>  {
    localStorage.clear("token")

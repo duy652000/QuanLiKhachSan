@@ -56,8 +56,8 @@ function ShowCustomer() {
                 <th>Số điện thoại </th>
                 <th>Trạng thái</th>
                 <th>CCCD</th>
-                <th>Create at</th>
-                <th>Update at</th>
+                <th>Ngày tạo</th>
+                <th>Ngày cập nhật</th>
                 <th></th>
               </tr>
             </thead>

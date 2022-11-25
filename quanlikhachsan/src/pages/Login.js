@@ -18,7 +18,6 @@ function Login() {
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
-  // const [dataLogin, setDataLogin] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -40,13 +39,13 @@ function Login() {
       history("/");
       window.location.reload(true);
       // alert("Đăng nhập thành công !");
-
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);
       setError(error.response.data.error);
     }
   }
+
   return (
     <div className="bg-gradient-primary">
       <div className="container">
@@ -59,11 +58,11 @@ function Login() {
                 <div className="row">
                   <div className="col-lg-6 d-none d-lg-block bg-login-image"></div>
                   <div className="col-lg-6">
-                    <div className="p-5">
+                    <div className="p-5 ">
                       <div className="text-center">
+                        <div className="mt-5 pt-5"></div>
                         <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
                         <p className="text-danger">
-                          
                           {error}
                           {errorEmail}
                           <br />
@@ -112,33 +111,8 @@ function Login() {
                         >
                           Login
                         </button>
-                        <hr />
-                        <a
-                          href="index.html"
-                          className="btn btn-google btn-user btn-block"
-                        >
-                          <i className="fab fa-google fa-fw"></i> Login with
-                          Google
-                        </a>
-                        <a
-                          href="index.html"
-                          className="btn btn-facebook btn-user btn-block"
-                        >
-                          <i className="fab fa-facebook-f fa-fw"></i> Login with
-                          Facebook
-                        </a>
+                        <div className="mb-5 pb-5"></div>
                       </form>
-                      <hr />
-                      <div className="text-center">
-                        <a className="small" href="forgot-password.html">
-                          Forgot Password?
-                        </a>
-                      </div>
-                      <div className="text-center">
-                        <a className="small" href="register.html">
-                          Create an Account!
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </div>
