@@ -36,11 +36,22 @@ function ShowService() {
           <Link to="add" type="button" className="btn btn-success">
             {" "}
             Thêm Dịch Vụ
+
+            
           </Link>
+
+
+         
+           
+     
         </h6>
+        
+
+        
       </div>
       <div className="card-body">
         <div className="table-responsive">
+          
           <table
             id="example"
             className="table table-striped"

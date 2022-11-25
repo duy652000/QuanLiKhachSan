@@ -1,8 +1,6 @@
 import React from "react";
-import { useNavigate ,Route , Routes} from "react-router-dom";
+import { useNavigate, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-
-import ButtonScrollToTop from "../components/scroll/ButtonScrollToTop";
 import Content from "../layouts/Content";
 import Footer from "../layouts/Footer";
 import Sidebar from "../layouts/Sidebar";
@@ -25,72 +23,50 @@ function Local() {
   });
   return (
     <div id="page-top">
-
-     {/* // <!-- Page Wrapper --> */}
+      {/* // <!-- Page Wrapper --> */}
       <div id="wrapper">
-
-
         {/* <!-- Sidebar --> */}
         <Sidebar />
         {/* <!-- End of Sidebar --> */}
 
-
-
         {/* <!-- Content Wrapper --> */}
         <div id="content-wrapper" className="d-flex flex-column">
-
-
           {/* <!-- Main Content --> */}
           <div id="content">
-
-
             {/* <!-- Topbar --> */}
             <Topbar />
             {/* <!-- End of Topbar --> */}
-
-
 
             {/* <!-- Begin Page Content --> */}
 
             {/* <Content/> */}
             <Routes>
-              <Route path="*" element={<Content/>}/>
-              <Route path="/room/*" element={<Room/>} />
-              {/* <Route path="/user/*" element={<Reload Cmp={User} />    }/>   */}
-              <Route path="/user/*" element={<User/>} />      
-              <Route path="/oder/*" element={<Oder/>} />     
-              <Route path="/customer/*" element={<Customer/>} />             
-              <Route path="/service/*" element={<Service/>} />             
-              <Route path="/bill/*" element={<Bill/>} />
-              <Route path="/profile" element={<ShowProfile/>} />
-              <Route path="/change_password" element={<ChangePassword/>} />
+              <Route path="*" element={<Content />} />
+              <Route path="/room/*" element={<Room />} />
+              <Route path="/user/*" element={<User />} />
+              <Route path="/oder/*" element={<Oder />} />
+              <Route path="/customer/*" element={<Customer />} />
+              <Route path="/service/*" element={<Service />} />
+              <Route path="/bill/*" element={<Bill />} />
+              <Route path="/profile" element={<ShowProfile />} />
+              <Route path="/change_password" element={<ChangePassword />} />
             </Routes>
             {/* <Content/> */}
 
             {/* <!-- /.container-fluid --> */}
-
-
           </div>
           {/* <!-- End of Main Content --> */}
-
 
           {/* <!-- Footer --> */}
           <Footer />
           {/* <!-- End of Footer --> */}
-
-          
         </div>
         {/* <!-- End of Content Wrapper --> */}
-        
-     
       </div>
-       {/* <!-- End of Page Wrapper --> */}
-
-
-      <ButtonScrollToTop/>
-      </div>
+      {/* <!-- End of Page Wrapper --> */}
 
     
+    </div>
   );
 }
 

@@ -1,12 +1,14 @@
 import React, { memo } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import Normal from "../components/rooms/Normal";
-import Hight from "../components/rooms/Hight";
-import Vip from "../components/rooms/Vip";
+import Free from "../components/rooms/Free";
+import Booked from "../components/rooms/Booked";
+import Clean from "../components/rooms/Clean";
 import All from "../components/rooms/All";
 
 function Room() {
+ 
+
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -18,6 +20,7 @@ function Room() {
           <h6 className="mt-2 font-weight-bold text-primary  ">
             Quản Lý Phòng{" "}
           </h6>
+          
           <div className="">
             <button type="button" className="btn btn-primary fw-bold">
               + Thêm Khách Hàng
@@ -120,43 +123,26 @@ function Room() {
               </p>
             </div>
             <hr />
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-around">
               <div>
                 <button type="button" className="btn btn-primary">
-                  5
+                  
                 </button>
                 <span> : Trống</span>
               </div>
               <div>
-                <button type="button" className="btn btn-success">
-                  5
-                </button>
-                <span> : Đang ở</span>
-              </div>
-              <div>
                 <button type="button" className="btn btn-warning">
-                  5
+                  
                 </button>
-                <span> : Đặt cọc</span>
-              </div>
-              <div>
-                <button type="button" className="btn btn-info">
-                  5
-                </button>
-                <span> : Sắp checkin</span>
+                <span> : Đã đặt</span>
               </div>
               <div>
                 <button type="button" className="btn btn-danger">
-                  5
+                  
                 </button>
-                <span> : Đến hạn checkout</span>
+                <span> : Cần dọn dẹp</span>
               </div>
-              <div>
-                <button type="button" className="btn btn-secondary">
-                  5
-                </button>
-                <span> : Không xác định</span>
-              </div>
+             
             </div>
           </div>
         </div>
@@ -168,24 +154,24 @@ function Room() {
             <Link className="btn-change-room" to="">
               All <span className="circle-red"> 5</span>
             </Link>
-            <Link className="btn-change-room" to="normal">
-              Thường <span className="circle-red">6</span>
+            <Link className="btn-change-room" to="free">
+              Trống <span className="circle-red">6</span>
             </Link>
-            <Link className="btn-change-room" to="hight">
-              Cao Cấp <span className="circle-red">12</span>
+            <Link className="btn-change-room" to="booked">
+              Đã đặt <span className="circle-red">12</span>
             </Link>
-            <Link className="btn-change-room" to="vip">
-              Vip <span className="circle-red"> 2</span>
+            <Link className="btn-change-room" to="clean">
+              Dọn dẹp <span className="circle-red"> 2</span>
             </Link>
           </Nav>
         </div>
 
         {/* content */}
         <Routes>
-          <Route path="" element={<All />} />
-          <Route path="normal" element={<Normal />} />
-          <Route path="hight" element={<Hight />} />
-          <Route path="vip" element={<Vip />} />
+          <Route path="" element={<All/>} />
+          <Route path="free" element={<Free data />} />
+          <Route path="booked" element={<Booked />} />
+          <Route path="clean" element={<Clean />} />
         </Routes>
         {/* content */}
       </div>

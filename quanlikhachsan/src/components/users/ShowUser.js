@@ -110,9 +110,8 @@ function ShowUser() {
                                 },
                               }
                             );
-                            res = await res;
-                            console.log(res);
-                            window.location.reload(true);
+                            // res = await res;
+                           window.location.reload(true);
                             alert("Thay đổi trạng thái thành công !");
                           } catch (error) {
                             alert("Thay đổi trạng thái không thành công !");

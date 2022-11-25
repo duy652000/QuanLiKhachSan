@@ -4,7 +4,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function All() {
+
+
+
+
+function Free() {
+
+
   const [data, setData] = useState([]);
   const history = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
@@ -16,19 +22,17 @@ function All() {
     try {
       console.log(token);
       //await here
-      let res = await axios.get("http://localhost:8000/room/getlist", {
+      let res = await axios.get("http://localhost:8000/room/filter?status_room=1", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-      res = await res.data.data;
-      // console.log(res);
+      res = await res.data.client;
+      
       setData(res);
     } catch (error) {
-      localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập");
+      
     }
   };
 
@@ -50,15 +54,17 @@ function All() {
 
   ////////////////////
 
+
   return (
     <div className="card-body white">
-      <h6 className="m-0 font-weight-bold text-primary">All</h6>
+      <h6 className="m-0 font-weight-bold text-primary">Trống</h6>
       <hr />
       <section className="py-2">
         <div className="container px-2 px-lg-2 mt-0">
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
-            {data.map((item) => (
+
+            { data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
                   {/* <!-- Product details--> */}
@@ -97,7 +103,7 @@ function All() {
                   </div>
                 </div>
               </div>
-            ))}
+            ))??"Không có phòng nào"}
             {/* product */}
           </div>
         </div>
@@ -106,4 +112,4 @@ function All() {
   );
 }
 
-export default All;
+export default Free
