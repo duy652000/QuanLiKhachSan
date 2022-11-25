@@ -1,39 +1,9 @@
 import React from "react";
 import GetRoom from "../handleroom/GetRoom";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
-function All() {
-  const [data, setData] = useState([]);
-  const history = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  ////////////////////
-  //get infor
-  const getData = async () => {
-    try {
-      //await here
-      let res = await axios.get("http://localhost:8000/room/getlist", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      res = await res.data.data;
-
-      setData(res);
-    } catch (error) {
-      localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập");
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [token]);
-
+function All({dataAll}) {
+ 
+  const data = dataAll;
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";

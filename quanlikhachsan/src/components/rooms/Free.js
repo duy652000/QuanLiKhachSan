@@ -1,43 +1,10 @@
 import React from "react";
 import GetRoom from "../handleroom/GetRoom";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
-
-
-
-
-function Free() {
-  const [data, setData] = useState([]);
-  const history = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
-
-
-  ////////////////////
-  //get infor
-  const getData = async () => {
-    try {
-      console.log(token);
-      //await here
-      let res = await axios.get("http://localhost:8000/room/filter?status_room=1", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      res = await res.data.client;
-      
-      setData(res);
-    } catch (error) {
-      
-    }
-  };
-
-  useEffect(() => {
-    getData();
-    console.log(data);
-  }, [token]);
+function Free({dataFree}) {
+  
+  //get data
+  const data = dataFree
 
   const className = (status) => {
     if (status === 1) {
@@ -49,9 +16,7 @@ function Free() {
     }
   };
 
-
   ////////////////////
-
 
   return (
     <div className="card-body white">
@@ -62,7 +27,7 @@ function Free() {
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
 
-            { data.map((item) => (
+            {data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
                   {/* <!-- Product details--> */}
@@ -101,7 +66,7 @@ function Free() {
                   </div>
                 </div>
               </div>
-            ))??"Không có phòng nào"}
+            )) ?? "Không có phòng nào"}
             {/* product */}
           </div>
         </div>
@@ -110,4 +75,4 @@ function Free() {
   );
 }
 
-export default Free
+export default Free;

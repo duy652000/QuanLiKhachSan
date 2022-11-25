@@ -7,29 +7,113 @@ import Clean from "../components/rooms/Clean";
 import All from "../components/rooms/All";
 import StatusRoom from "../components/rooms/StatusRoom";
 import DayCheckIn from "../components/rooms/DayCheckIn";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Room() {
-  const dataall = "all";
-  const datafree = "free";
-  const databooked = "booked";
-  const dataclean = "clean";
+  const [dataAllRoom, setDataAllRoom] = useState([]);
+  const [dataFreeRoom, setDataFreeRoom] = useState([]);
+  const [dataBookedRoom, setDataBookedRoom] = useState([]);
+  const [dataCleanRoom, setDataCleanRoom] = useState([]);
 
-  
-// get all room data 
+  const [dataCountAllRoom, setDataCountAllRoom] = useState([]);
+  const [dataCountFreeRoom, setDataCountFreeRoom] = useState([]);
+  const [dataCountBookedRoom, setDataCountBookedRoom] = useState([]);
+  const [dataCountCleanRoom, setDataCountCleanRoom] = useState([]);
 
+  const history = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"));
 
-// get free room data 
+  // get all room data
+  ///////////get infor
+  const getDataAllRoom = async () => {
+    try {
+      //await here
+      let res = await axios.get("http://localhost:8000/room/getlist", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      res = await res.data.data;
+      setDataAllRoom(res);
+    } catch (error) {
+      localStorage.clear("token");
+      history("/login");
+      alert("Hết phiên đăng nhập");
+    }
+  };
+  ///////////////
 
+  // get free room data
+  const getDataFreeRoom = async () => {
+    try {
+      console.log(token);
+      //await here
+      let res = await axios.get(
+        "http://localhost:8000/room/filter?status_room=1",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data.client;
 
-// get booked room data 
+      setDataFreeRoom(res);
+    } catch (error) {}
+  };
 
+  // get booked room data
+  const getDataBookedRoom = async () => {
+    try {
+      console.log(token);
+      //await here
+      let res = await axios.get(
+        "http://localhost:8000/room/filter?status_room=2",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data.client;
 
-// get clean room data 
+      setDataBookedRoom(res);
+    } catch (error) {}
+  };
 
+  // get clean room data
+  const getDataCleanRoom = async () => {
+    try {
+      console.log(token);
+      //await here
+      let res = await axios.get(
+        "http://localhost:8000/room/filter?status_room=3",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data.client;
 
+      setDataCleanRoom(res);
+    } catch (error) {}
+  };
 
+  ///////////
 
-
+  useEffect(() => {
+    getDataAllRoom();
+    getDataFreeRoom();
+    getDataBookedRoom();
+    getDataCleanRoom();
+  }, [token]);
 
   return (
     // <!-- Begin Page Content -->
@@ -129,10 +213,13 @@ function Room() {
 
         {/* content */}
         <Routes>
-          <Route path="" element={<All dataAll={dataall} />} />
-          <Route path="free" element={<Free dataFree={datafree} />} />
-          <Route path="booked" element={<Booked dataBooked={databooked}/>} />
-          <Route path="clean" element={<Clean dataClean={dataclean} />} />
+          <Route path="" element={<All dataAll={dataAllRoom} />} />
+          <Route path="free" element={<Free dataFree={dataFreeRoom} />} />
+          <Route
+            path="booked"
+            element={<Booked dataBooked={dataBookedRoom} />}
+          />
+          <Route path="clean" element={<Clean dataClean={dataCleanRoom} />} />
         </Routes>
         {/* content */}
       </div>

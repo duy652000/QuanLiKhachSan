@@ -1,40 +1,10 @@
 import React from "react";
 import GetRoom from "../handleroom/GetRoom";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
-function Clean() {
-
-  const [data, setData] = useState([]);
-  const history = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
-
-
+function Clean({dataClean}) {
   ////////////////////
-  //get infor
-  const getData = async () => {
-    try {
-      console.log(token);
-      //await here
-      let res = await axios.get("http://localhost:8000/room/filter?status_room=3", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      res = await res.data.client;
-      
-      setData(res);
-    } catch (error) {
-     
-    }
-  };
-
-  useEffect(() => {
-    getData();
-    console.log(data);
-  }, [token]);
+  //get data
+  const data = dataClean;
 
   const className = (status) => {
     if (status === 1) {
@@ -46,9 +16,8 @@ function Clean() {
     }
   };
 
-
   ////////////////////
-  
+
   return (
     <div className="card-body white">
       <h6 className="m-0 font-weight-bold text-primary">Dọn dẹp</h6>
@@ -58,7 +27,7 @@ function Clean() {
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
 
-            { data.map((item) => (
+            {data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
                   {/* <!-- Product details--> */}
@@ -97,7 +66,7 @@ function Clean() {
                   </div>
                 </div>
               </div>
-            ))??"Không có phòng nào"}
+            )) ?? "Không có phòng nào"}
             {/* product */}
           </div>
         </div>
@@ -105,4 +74,4 @@ function Clean() {
     </div>
   );
 }
-export default Clean
+export default Clean;
