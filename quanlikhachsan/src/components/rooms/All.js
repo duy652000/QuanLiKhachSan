@@ -9,12 +9,10 @@ function All() {
   const history = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
-
   ////////////////////
   //get infor
   const getData = async () => {
     try {
-      console.log(token);
       //await here
       let res = await axios.get("http://localhost:8000/room/getlist", {
         headers: {
@@ -23,7 +21,7 @@ function All() {
         },
       });
       res = await res.data.data;
-      // console.log(res);
+
       setData(res);
     } catch (error) {
       localStorage.clear("token");
@@ -34,7 +32,6 @@ function All() {
 
   useEffect(() => {
     getData();
-    console.log(data);
   }, [token]);
 
   const className = (status) => {
@@ -46,7 +43,6 @@ function All() {
       return "card bg-danger decription-room";
     }
   };
-
 
   ////////////////////
 

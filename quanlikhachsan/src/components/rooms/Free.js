@@ -9,8 +9,6 @@ import { useEffect, useState } from "react";
 
 
 function Free() {
-
-
   const [data, setData] = useState([]);
   const history = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
