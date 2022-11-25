@@ -32,8 +32,10 @@ function ChangePassword() {
       });
       res = await res;
       console.log(res)
-      history("/");
       alert("Thay đổi mật khẩu thành công !");
+      localStorage.clear("token");
+      history("/login");
+      
     
     } catch (error) {
       console.log(JSON.parse(error.response.data));
@@ -59,7 +61,7 @@ function ChangePassword() {
               className="form"
               role="form"
             //   autoComplete="off"
-              onClick={handleChangePassword}
+              onSubmit={handleChangePassword}
             >
               <div className="form-group">
                 <label htmlFor="inputPasswordOld">Mật khẩu cũ</label>

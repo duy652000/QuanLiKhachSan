@@ -81,11 +81,7 @@ function ShowCustomer() {
                   </td>
                   <td>
                     <div className="d-flex black">
-                      {/* thoát */}
-                      <a type="button">
-                        <i className="bi bi-box-arrow-right"></i>
-                      </a>
-                      &nbsp;
+                     
                       {/* ẩn */}
                       <a
                         type="button"
@@ -118,15 +114,12 @@ function ShowCustomer() {
                         )}
                       </a>
                       &nbsp;
+                      &nbsp;
                       {/* chỉnh sửa */}
                       <Link type="button" to={`update/${item.id}`}>
                         <i className="bi bi-pencil hover-text black hover-text"></i>
                       </Link>
-                      &nbsp;
-                      {/* xóa */}
-                      <a type="button">
-                        <i className="bi bi-trash"></i>
-                      </a>
+                    
                     </div>
                   </td>
                 </tr>

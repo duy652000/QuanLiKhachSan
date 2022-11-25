@@ -172,19 +172,13 @@ function Room() {
                 </div>
                 <br></br>
 
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-start">
                   <input
                     className="submit-sort-room btn btn-primary"
                     type="submit"
                     value="Submit"
                   />
-                  <div>
-                    <label className="mr-3 font-weight-bold">Trạng thái</label>
-                    <select className="select status-room shadow">
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                    </select>
-                  </div>
+                 
                 </div>
               </form>
             </div>

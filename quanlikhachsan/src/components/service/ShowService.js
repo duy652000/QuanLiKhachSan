@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 
 function ShowService() {
   const [data, setData] = useState([]);
@@ -36,22 +36,11 @@ function ShowService() {
           <Link to="add" type="button" className="btn btn-success">
             {" "}
             Thêm Dịch Vụ
-
-            
           </Link>
-
-
-         
-           
-     
         </h6>
-        
-
-        
       </div>
       <div className="card-body">
         <div className="table-responsive">
-          
           <table
             id="example"
             className="table table-striped"
@@ -87,11 +76,6 @@ function ShowService() {
                   </td>
                   <td>
                     <div className="d-flex black">
-                      {/* thoát */}
-                      <a type="button">
-                        <i className="bi bi-box-arrow-right"></i>
-                      </a>
-                      &nbsp;
                       {/* ẩn */}
                       <a
                         type="button"
@@ -125,15 +109,11 @@ function ShowService() {
                         )}
                       </a>
                       &nbsp;
+                      &nbsp;
                       {/* chỉnh sửa */}
                       <Link type="button" to={`update/${item.id}`}>
                         <i className="bi bi-pencil hover-text black hover-text"></i>
                       </Link>
-                      &nbsp;
-                      {/* xóa */}
-                      <a type="button">
-                        <i className="bi bi-trash"></i>
-                      </a>
                     </div>
                   </td>
                 </tr>
