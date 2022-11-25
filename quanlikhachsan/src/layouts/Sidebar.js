@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from '../assets/images/logoNavbar.png';
 
 function Sidebar() {
   return (
@@ -13,10 +14,10 @@ function Sidebar() {
         href="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
-          <i className="fas fa-laugh-wink"></i>
+        <img src={logo} alt="Logo" className="logo-navbar" />
         </div>
-        <div className="sidebar-brand-text mx-3">
-          SB Admin <sup>2</sup>
+        <div className="sidebar-brand-text mx-2">
+          Hotel manager
         </div>
       </a>
 

@@ -133,46 +133,7 @@ async function addService(detail) {
                   />
                 </div>
 
-            <label htmlFor="Status">Trạng Thái</label>
-            <div className="text-danger">{error.status}</div>
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="2"
-                className="form-check-input"
-                id="check1"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="1"
-              />
-              <label className="form-check-label" htmlFor="kichhoat">
-                Kích Hoạt
-              </label>
-            </div>
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="2"
-                className="form-check-input"
-                id="check0"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="0"
-              />
-              <label className="form-check-label" htmlFor="An">
-                Ẩn
-              </label>
-            </div>
+          
     
                
               

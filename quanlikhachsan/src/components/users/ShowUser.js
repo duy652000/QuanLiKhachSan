@@ -59,7 +59,7 @@ function ShowUser() {
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Tên</th>
                 <th>Email</th>
                 <th>Số điện thoại</th>
                 <th>Địa chỉ</th>
@@ -90,11 +90,7 @@ function ShowUser() {
                   </td>
                   <td>
                     <div className="d-flex black">
-                      {/* thoát */}
-                      <Link to="/user" type="button">
-                        <i className="bi bi-box-arrow-right hover-text black"></i>
-                      </Link>
-                      &nbsp;
+                    
                       {/* ẩn */}
                       <a
                         type="button"
@@ -131,11 +127,8 @@ function ShowUser() {
                       <Link type="button" to={`update/${item.id}`}>
                         <i className="bi bi-pencil hover-text black hover-text"></i>
                       </Link>
-                      &nbsp;
-                      {/* xóa */}
-                      <a type="button">
-                        <i className="bi bi-trash hover-text"></i>
-                      </a>
+                 
+                     
                     </div>
                   </td>
                 </tr>

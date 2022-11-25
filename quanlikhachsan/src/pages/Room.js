@@ -145,10 +145,10 @@ function Room() {
               {/* form search  */}
               <form action="/action_page.php">
                 <div className="d-flex justify-content-between">
-                  <div className="mr-5">
-                    <label className="mr-3 font-weight-bold ">Từ ngày </label>
+                  <div className="">
+                    <label className="mr-3  ">Từ ngày : </label>
                     <input
-                      className="status-room shadow"
+                      className="status-room "
                       type="date"
                       id="start"
                       name="trip-start"
@@ -158,9 +158,9 @@ function Room() {
                     />
                   </div>
                   <div className="ml-5">
-                    <label className="mr-3 font-weight-bold">Đến ngày </label>
+                    <label className="mr-3 ">Đến ngày : </label>
                     <input
-                      className="status-room shadow"
+                      className="status-room "
                       type="date"
                       id="start"
                       name="trip-start"
@@ -169,15 +169,17 @@ function Room() {
                       max="2018-12-31"
                     />
                   </div>
+
+                  <input
+                    className="submit-sort-room btn btn-primary pb-1 mb-2"
+                    type="submit"
+                    value="Submit"
+                  />
                 </div>
                 <br></br>
 
                 <div className="d-flex justify-content-start">
-                  <input
-                    className="submit-sort-room btn btn-primary"
-                    type="submit"
-                    value="Submit"
-                  />
+                  
                  
                 </div>
               </form>

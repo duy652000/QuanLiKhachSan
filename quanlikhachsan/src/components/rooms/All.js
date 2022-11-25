@@ -1,8 +1,8 @@
-import React from "react";
-import GetRoom from "../handleroom/GetRoom";
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import OderRoomForm from "../handleroom/OderRoomForm";
 
-function All({dataAll}) {
- 
+function All({ dataAll }) {
   const data = dataAll;
   const className = (status) => {
     if (status === 1) {
@@ -27,18 +27,10 @@ function All({dataAll}) {
             {data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
-                  {/* <!-- Product details--> */}
                   <div className="card-body p-2">
-                    {/* icon */}
                     <div className="d-flex justify-content-center"></div>
-                    {/* icon */}
-
                     <div className="text-center ">
-                      {/* <!-- Product name--> */}
-                      {/* <h5 className="fw-bolder">Thường | 301</h5> */}
                       <h4 className="fw-bolder">{item.name_room}</h4>
-
-                      {/* <!-- Product price--> */}
                       <h6 className="fw-bolder">Giá : {item.price + " vnd"}</h6>
                       <br />
                       {/* day */}
@@ -47,11 +39,26 @@ function All({dataAll}) {
                     19/10/2022 */}
                     </div>
                   </div>
-
-                  {/* <!-- Product actions--> */}
                   <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
-                      <GetRoom />
+                    
+                      <Button
+                        variant="primary"
+                        type="button"
+                        className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "
+                        data-toggle="modal"
+                        data-target="#OderRoomModal"
+                        data-whatever="@getbootstrap"
+                      >
+                        Đặt phòng
+                      </Button>     
+                      {/* <OderRoomForm dataItem={item}  variant="primary"
+                        type="button"
+                        className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "> Đặt phòng </OderRoomForm> */}
+                    
+                      {/* modal oder room form */}
+                      <OderRoomForm dataItem={item}/>
+                      {/* modal oder room form */}
 
                       <a
                         className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"

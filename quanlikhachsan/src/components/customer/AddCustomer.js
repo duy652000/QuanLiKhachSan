@@ -22,24 +22,28 @@ function AddCustomer() {
   const handleAddCustomer = (e) => {
     e.preventDefault();
     // console.log(details);
-    
+
     addCustomer(details);
   };
   //call api
   async function addCustomer(detail) {
     try {
-      let res = await axios.post("http://localhost:8000/client/create", detail, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      let res = await axios.post(
+        "http://localhost:8000/client/create",
+        detail,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       res = await res;
 
       history("/service");
       alert("Thêm dịch vụ thành công !");
     } catch (error) {
-      console.log(JSON.parse(error.response.data))
+      console.log(JSON.parse(error.response.data));
       setError(JSON.parse(error.response.data));
     }
     console.log(error);
@@ -62,9 +66,6 @@ function AddCustomer() {
       <div className="card-body">
         <div className="table-responsive">
           <form className="ml-1" onClick={handleAddCustomer}>
-            
-
-
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Họ và tên lót </label>
               <p className="text-danger">{error.firtname}</p>
@@ -83,9 +84,6 @@ function AddCustomer() {
               />
             </div>
 
-
-
-
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Tên</label>
               <p className="text-danger">{error.lastname}</p>
@@ -103,8 +101,6 @@ function AddCustomer() {
                 value={details.lastname}
               />
             </div>
-
-
 
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Email</label>
@@ -125,8 +121,6 @@ function AddCustomer() {
               />
             </div>
 
-
-
             <div className="form-group">
               <label htmlFor="telephone number">Số điện thoại</label>
               <p className="text-danger">{error.phone}</p>
@@ -145,8 +139,6 @@ function AddCustomer() {
               />
             </div>
 
-
-
             <div className="form-group">
               <label htmlFor="telephone number">Căn cước công dân</label>
               <p className="text-danger">{error.CCCD}</p>
@@ -164,50 +156,6 @@ function AddCustomer() {
                 value={details.CCCD}
               />
             </div>
-
-      
-            <label htmlFor="Status">Trạng thái </label>
-            <div className="text-danger">{error.status}</div>
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="kichhoat"
-                className="form-check-input"
-                id="kichhoat"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="1"
-              />
-              <label className="form-check-label" htmlFor="exampleCheck1">
-                Kích Hoạt
-              </label>
-            </div>
-
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="an"
-                className="form-check-input"
-                id="an"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="0"
-              />
-              <label className="form-check-label" htmlFor="exampleCheck1">
-                Ẩn
-              </label>
-            </div>
-
-           
 
             <button type="submit" className="btn btn-primary">
               Lưu

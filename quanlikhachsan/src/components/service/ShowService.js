@@ -7,8 +7,10 @@ function ShowService() {
   const [data, setData] = useState([]);
   ////////////////////
   const token = JSON.parse(localStorage.getItem("token"));
+  const history = useNavigate();
   //get infor
   const getData = async () => {
+    try{
     console.log(token);
     //await here
     let res = await axios.get("http://localhost:8000/service/service-info", {
@@ -19,7 +21,17 @@ function ShowService() {
     });
     res = await res.data.data;
     setData(res);
+  } catch (error) {
+    localStorage.clear("token");
+      history("/login");
+      alert("Hết phiên đăng nhập");
+    
+  }
+
   };
+
+
+
   useEffect(() => {
     getData();
     console.log(data);

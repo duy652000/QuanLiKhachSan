@@ -60,7 +60,7 @@ function ShowBill() {
                 <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Name</th>
+                    <th>Tên</th>
                     <th>Email</th>
                     <th>Số điện thoại</th>
                     <th>Địa chỉ</th>

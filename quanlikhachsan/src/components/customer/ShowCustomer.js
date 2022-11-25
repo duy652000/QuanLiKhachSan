@@ -6,11 +6,13 @@ import Moment from 'react-moment';
 
 function ShowCustomer() {
   const [data, setData] = useState([]);
+  const history = useNavigate()
   ////////////////////
   const token = JSON.parse(localStorage.getItem("token"));
   //get infor
   const getData = async () => {
-    console.log(token);
+
+    try{
     //await here
     let res = await axios.get("http://localhost:8000/client/client-profile", {
       headers: {
@@ -21,6 +23,11 @@ function ShowCustomer() {
     res = await res.data.data;
     console.log("res", res);
     setData(res);
+  }catch(error){
+    localStorage.clear("token");
+      history("/login");
+      alert("Hết phiên đăng nhập");
+  }
   };
   useEffect(() => {
     getData();
@@ -66,7 +73,7 @@ function ShowCustomer() {
               {/*  */}
               {data.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id + 1}</td>
+                  <td>{item.id }</td>
                   <td>{item.firtname}</td>
                   <td>{item.lastname}</td>
                   <td>{item.email}</td>

@@ -1,5 +1,5 @@
 import React from "react";
-import GetRoom from "../handleroom/GetRoom";
+
 
 function Clean({dataClean}) {
   ////////////////////
@@ -54,7 +54,7 @@ function Clean({dataClean}) {
                   {/* <!-- Product actions--> */}
                   <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
-                      <GetRoom />
+                   
 
                       <a
                         className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"

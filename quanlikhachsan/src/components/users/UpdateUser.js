@@ -35,9 +35,7 @@ function UpdateUser() {
       });
     } catch (error) {
       console.log("error", error);
-      alert("Hết phiên đăng nhập !");
-      localStorage.clear("token");
-      history("/login");
+      
     }
   };
 

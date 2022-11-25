@@ -5,47 +5,54 @@ import axios from "axios";
 function UpdateService() {
   const token = JSON.parse(localStorage.getItem("token"));
   const [error, setError] = useState("");
-  const [details, setDetails] = useState({name:"",price:"",description:""});
+  const [details, setDetails] = useState({
+    name: "",
+    price: "",
+    description: "",
+  });
   const history = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
 
   //get infor
   const getData = async () => {
     //await here
-    let res = await axios.get(`http://localhost:8000/service/service-info/?id=${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    let res = await axios.get(
+      `http://localhost:8000/service/service-info/?id=${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     res = await res.data;
     let kq = res.data[0];
-    setDetails({name: kq.name,
-                price: kq.price,
-                description: kq.description,
-                });
-    
+    if (kq == null) {
+      history("/service");
+    }else {
+      setDetails({
+        name: kq.name,
+        price: kq.price,
+        description: kq.description,
+      });
+    }
   };
   useEffect(() => {
     getData();
   }, [token]);
   //////
 
-
- // call update 
+  // call update
   const handleUpdate = (e) => {
     e.preventDefault();
     // console.log(details);
     updateService(details);
   };
 
-
-
-
   // update infor
   async function updateService(detail) {
     try {
-      console.log(detail)
+      console.log(detail);
       let res = await axios.post(
         `http://localhost:8000/service/edit/id=${id}`,
         detail,
@@ -58,17 +65,11 @@ function UpdateService() {
       );
       res = await res;
       history("/service");
-      alert("Cập nhật thành công !")
-    } catch (error) {}
-    console.log("Error",error)
-    console.log(error)
-    // console.log(JSON.parse(error.response.data));
-    // setError(JSON.parse(error.response.data));
+      alert("Cập nhật thành công !");
+    } catch (Error) {
+      console.log("Error", error);
+    }
   }
-  //
-
-
-
 
   return (
     <div className="card shadow mb-4">
@@ -100,7 +101,7 @@ function UpdateService() {
                     name: e.target.value,
                   });
                 }}
-                value={details.name}
+                value={details.name ? details.name : ""}
               />
             </div>
 
@@ -120,7 +121,7 @@ function UpdateService() {
                     price: e.target.value,
                   });
                 }}
-                value={details.price}
+                value={details.price ? details.price : ""}
               />
             </div>
 
@@ -137,53 +138,12 @@ function UpdateService() {
                 onChange={(e) => {
                   setDetails({
                     ...details,
-                    description:e.target.value,
+                    description: e.target.value,
                   });
                 }}
-                value={details.description}
+                value={details.description ? details.description : ""}
               />
             </div>
-{/* 
-            <label htmlFor="Status">Trạng Thái</label>
-            <div className="text-danger">{error.status}</div>
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="5"
-                className="form-check-input"
-                id="check11"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="1"
-              />
-              <label className="form-check-label" htmlFor="kichhoat">
-                Kích Hoạt
-              </label>
-            </div>
-
-            <div className="form-group form-check ml-1">
-              <input
-                type="radio"
-                name="5"
-                className="form-check-input"
-                id="check00"
-                onChange={(e) => {
-                  setDetails({
-                    ...details,
-                    status: e.target.value,
-                  });
-                }}
-                value="0"
-              />
-              <label className="form-check-label" htmlFor="An">
-                Ẩn
-              </label>
-            </div> */}
 
             <button type="submit" className="btn btn-primary">
               Lưu

@@ -1,5 +1,8 @@
 
 /* root */
+.logo-navbar{
+  width: 39px;
+}
 .line-page{
   width: 100%;
   border-bottom: 1px solid #ced4da;

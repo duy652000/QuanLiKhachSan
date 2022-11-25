@@ -12,6 +12,7 @@ function UpdateCustomer() {
   //get infor
   const getData = async () => {
     //await here
+    try{
     let res = await axios.get(
       `http://localhost:8000/client/client-profile/?id=${id}`,
       {
@@ -30,6 +31,10 @@ function UpdateCustomer() {
       email: kq.email,
       CCCD: kq.CCCD,
     });
+  }catch(error){
+    console.log("erro",error)
+
+  }
   };
   useEffect(() => {
     getData();
@@ -59,8 +64,8 @@ function UpdateCustomer() {
       res = await res;
       history("/customer");
     } catch (error) {
-      console.log(error);
-      setError(JSON.parse(error.response.data));
+      console.log("error",error);
+      
     }
   }
   //
