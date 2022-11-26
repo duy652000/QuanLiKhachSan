@@ -12,7 +12,7 @@ function UpdateCustomer() {
   //get infor
   const getData = async () => {
     //await here
-    try{
+
     let res = await axios.get(
       `http://localhost:8000/client/client-profile/?id=${id}`,
       {
@@ -24,17 +24,16 @@ function UpdateCustomer() {
     );
     res = await res.data;
     let kq = res.data[0];
-    setDetails({
-      firtname: kq.firtname,
-      lastname: kq.lastname,
-      phone: kq.phone,
-      email: kq.email,
-      CCCD: kq.CCCD,
-    });
-  }catch(error){
-    console.log("erro",error)
-
-  }
+    if (kq == null) {
+      history("/customer");
+    }else {
+      setDetails({
+        name: kq.name,
+        price: kq.price,
+        description: kq.description,
+      });
+    }
+ 
   };
   useEffect(() => {
     getData();

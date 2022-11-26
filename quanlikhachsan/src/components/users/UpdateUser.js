@@ -24,15 +24,15 @@ function UpdateUser() {
 
       res = await res.data;
       let kq = res.data;
-      console.log(kq);
-      setDetails({
-        name: kq.name,
-        email: kq.email,
-        phone: kq.phone,
-        address: kq.address,
-        CCCD: kq.CCCD,
-       
-      });
+      if (kq == null) {
+        history("/user");
+      }else {
+        setDetails({
+          name: kq.name,
+          price: kq.price,
+          description: kq.description,
+        });
+      }
     } catch (error) {
       console.log("error", error);
       

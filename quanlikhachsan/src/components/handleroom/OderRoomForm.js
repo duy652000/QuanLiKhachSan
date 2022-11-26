@@ -47,8 +47,8 @@ function OderRoomForm({dataItem}) {
               <input
                 type="text"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="maKH"
+                placeholder="Điền mã khách hàng ..."
               />
             </div>
             <div className="col-sm-6">
@@ -56,8 +56,8 @@ function OderRoomForm({dataItem}) {
               <input
                 type="text"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="tenKH"
+                placeholder="Điền tên khách hàng ..."
               />
             </div>
           </div>
@@ -75,8 +75,8 @@ function OderRoomForm({dataItem}) {
               <input
                 type="text"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="tenPhong"
+                placeholder="Điền tên phòng ..."
                 defaultValue={item.name_room?item.name_room:""}
               />
             </div>
@@ -85,8 +85,8 @@ function OderRoomForm({dataItem}) {
               <input
                 type="text"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="giaphong"
+                placeholder="Điền giá phòng ..."
                 defaultValue={item.price?item.price:""}
               />
             </div>
@@ -96,19 +96,19 @@ function OderRoomForm({dataItem}) {
             <div className="col-sm-6">
               <label htmlFor="inputLastname">Ngày đến :</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="ngayden"
+                placeholder="Điền ngày đến ..."
               />
             </div>
             <div className="col-sm-6">
               <label htmlFor="inputLastname">Ngày đi :</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="ngaydi"
+                placeholder="Điền ngày đi ..."
               />
             </div>
           </div>
@@ -119,24 +119,91 @@ function OderRoomForm({dataItem}) {
 
           <div className="form-group row mt-3">
             <div className="col-sm-6">
-              <label htmlFor="inputLastname">Tên phòng :</label>
+              <label htmlFor="inputLastname">Tên dịch vụ :</label>
               <input
                 type="text"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="tendv"
+                placeholder="Điền tên dịch vụ ..."
               />
             </div>
             <div className="col-sm-6">
-              <label htmlFor="inputLastname">Giá phòng :</label>
+              <label htmlFor="inputLastname">Giá :</label>
               <input
                 type="text"
                 className="form-control"
-                id="inputLastname"
-                placeholder="Last name"
+                id="giadv"
+                placeholder="Điền giá dịch vụ ..."
               />
             </div>
-          </div>
+
+            
+           
+                      <div className="col-sm-6">
+                        <label htmlFor="inputFirstname">Số lượng :</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="inputFirstname"
+                          placeholder="First name"
+                        />
+                      </div>
+
+                      <div className="col-sm-6">
+                        <button
+                          type="button"
+                          className="btn btn-primary px-4 float-left mt-4 pt-2"
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </div>
+
+                    <table
+                    id="example"
+                    className="table table-striped"
+                    style={{ width: "100%" }}
+                  >
+                    <thead>
+                      <tr>
+                        <th>Tên phòng</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {/*  */}
+                      {/* {data.map((item) => ( */}
+                      <tr>
+                        <td>301</td>
+                        <td>1000</td>
+                        <td>2</td>
+                        <td>2000</td>
+                      </tr>
+
+                      {/* ))} */}
+                      <tr>
+                        <td>301</td>
+                        <td>1000</td>
+                        <td>2</td>
+                        <td>2000</td>
+                      </tr>
+
+                      {/* total  */}
+                      <tr>
+                        <td>Tổng tiền :</td>
+                        <td></td>
+                        <td></td>
+                        <td>4000</td>
+                      </tr>
+                      {/*  */}
+
+                      {/*  */}
+                    </tbody>
+                  </table>
+        
         </form>
       </div>
       {/* body */}

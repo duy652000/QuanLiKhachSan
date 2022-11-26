@@ -110,7 +110,9 @@ function Room() {
       res = await res.data.client;
 
       setDataCleanRoom(res);
-    } catch (error) {}
+    } catch (error) {
+      
+    }
   };
 
   ///////////

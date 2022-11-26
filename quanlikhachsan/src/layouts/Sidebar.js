@@ -79,12 +79,12 @@ function Sidebar() {
       </li>
 
       {/* <!-- Nav Item - bill --> */}
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <Link to="/bill" className="nav-link">
           <i className="bi bi-receipt-cutoff"></i> &nbsp;
           <span>Quản Lý Hóa Đơn</span>
         </Link>
-      </li>
+      </li> */}
       {/* <!-- Nav Item - account --> */}
       <li className="nav-item">
         <Link to="/user" className="nav-link">

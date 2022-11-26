@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
+import OderRoomForm from "../handleroom/OderRoomForm";
+
 
 
 function Free({dataFree}) {
@@ -54,6 +57,24 @@ function Free({dataFree}) {
                   {/* <!-- Product actions--> */}
                   <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
+
+                    <Button
+                        variant="primary"
+                        type="button"
+                        className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "
+                        data-toggle="modal"
+                        data-target="#OderRoomModal"
+                        data-whatever="@getbootstrap"
+                      >
+                        Đặt phòng
+                      </Button>     
+                      {/* <OderRoomForm dataItem={item}  variant="primary"
+                        type="button"
+                        className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "> Đặt phòng </OderRoomForm> */}
+                    
+                      {/* modal oder room form */}
+                      <OderRoomForm dataItem={item}/>
+                      {/* modal oder room form */}
                      
 
                       <a
