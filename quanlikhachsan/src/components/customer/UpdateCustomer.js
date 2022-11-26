@@ -73,7 +73,7 @@ function UpdateCustomer() {
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
         <h6 className="mt-2 font-weight-bold text-primary">
-          Update Thông Tin Khách Hàng
+          Cập nhật khách hàng
         </h6>
         <div className="">
           <Link
@@ -81,7 +81,7 @@ function UpdateCustomer() {
             to="/customer"
             className="btn btn-primary fw-bold"
           >
-            <i className="bi bi-arrow-return-right"></i> Back
+            <i className="bi bi-arrow-return-right"></i> Trở lại
           </Link>
         </div>
       </div>

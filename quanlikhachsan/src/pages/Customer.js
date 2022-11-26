@@ -22,7 +22,7 @@ function Customer() {
     <input
       type="text"
       className="form-control border-0 small"
-      placeholder="Search for..."
+      placeholder="Tìm kiếm ......"
       aria-label="Search"
       aria-describedby="basic-addon2"
     />

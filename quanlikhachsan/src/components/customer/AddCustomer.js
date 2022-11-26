@@ -58,7 +58,7 @@ function AddCustomer() {
         </h6>
         <div className="">
           <a type="button" href="/customer" className="btn btn-primary fw-bold">
-            <i className="bi bi-arrow-return-right"></i> Back
+            <i className="bi bi-arrow-return-right"></i> Trở lại
           </a>
         </div>
       </div>

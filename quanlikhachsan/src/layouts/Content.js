@@ -69,7 +69,7 @@ function Content() {
     <div className="container-fluid">
       {/* <!-- Page Heading --> */}
       <div className="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Giờ Quốc Tế</h1>
+        <h1 className="h3 mb-0 text-dark-800 font-weight-bold ">Giờ Quốc Tế</h1>
        
       </div>
 
@@ -77,11 +77,11 @@ function Content() {
       <div className="row">
         {/* <!-- Earnings (Monthly) Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4">
-          <div className="card border-left-primary shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-light">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
                     Hà Nội
                   </div>
                   <div
@@ -101,11 +101,11 @@ function Content() {
 
         {/* <!-- Earnings (Monthly) Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4">
-          <div className="card border-left-success shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-light">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
                     New York
                   </div>
                   <div
@@ -125,11 +125,11 @@ function Content() {
 
         {/* <!-- Earnings (Monthly) Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4">
-          <div className="card border-left-info shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-light">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
                     Nhật Bản
                   </div>
                   <div
@@ -149,11 +149,11 @@ function Content() {
 
         {/* <!-- Pending Requests Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4 ">
-          <div className="card border-left-warning shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-light">
             <div className="card-body ">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-primary text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
                     London
                   </div>
                   <div

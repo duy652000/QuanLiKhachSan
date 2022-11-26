@@ -81,10 +81,10 @@ function UpdateUser() {
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
-        <h6 className="mt-2 font-weight-bold text-primary">Update Account</h6>
+        <h6 className="mt-2 font-weight-bold text-primary">Cập nhật tài khoản</h6>
         <div className="">
           <Link type="button" to="/user" className="btn btn-primary fw-bold">
-            <i className="bi bi-arrow-return-right"></i> Back
+            <i className="bi bi-arrow-return-right"></i> Trở lại
           </Link>
         </div>
       </div>

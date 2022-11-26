@@ -41,7 +41,7 @@ function Topbar() {
                 <input
                   type="text"
                   className="form-control bg-light border-0 small"
-                  placeholder="Search for..."
+                  placeholder="Tìm kiếm ......"
                   aria-label="Search"
                   aria-describedby="basic-addon2"
                 />
@@ -83,11 +83,11 @@ function Topbar() {
           >
             <Link className="dropdown-item" to="/profile">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-              Profile
+              Thông tin cá nhân
             </Link>
             <Link className="dropdown-item" to="/change_password">
               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-              Change Password
+              Đổi mật khẩu
             </Link>
             <div className="dropdown-divider"></div>
             

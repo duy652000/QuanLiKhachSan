@@ -51,10 +51,10 @@ async function addService(detail) {
     return (
         <div className="card shadow mb-4">
           <div className="card-header py-3  d-flex justify-content-between">
-            <h6 className="mt-2 font-weight-bold text-primary">Add Service</h6>
+            <h6 className="mt-2 font-weight-bold text-primary">Thêm dịch vụ</h6>
             <div className="">
               <Link type="button" to="/service" className="btn btn-primary fw-bold">
-              <i className="bi bi-arrow-return-right"></i> Back
+              <i className="bi bi-arrow-return-right"></i> Trở lại
               </Link>
             </div>
           </div>

@@ -61,7 +61,7 @@ function Login() {
                     <div className="p-5 ">
                       <div className="text-center">
                         <div className="mt-5 pt-5"></div>
-                        <h1 className="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                        <h1 className="h4 text-gray-1000 mb-4  font-weight-bold">Welcome Back!</h1>
                         <p className="text-danger">
                           {error}
                           {errorEmail}
@@ -109,7 +109,7 @@ function Login() {
                           type="submit"
                           className="btn btn-primary btn-user btn-block"
                         >
-                          Login
+                          Đăng nhập
                         </button>
                         <div className="mb-5 pb-5"></div>
                       </form>
