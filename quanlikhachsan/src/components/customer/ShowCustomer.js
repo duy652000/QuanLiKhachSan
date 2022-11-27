@@ -56,9 +56,9 @@ function ShowCustomer() {
           >
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Họ và tên lót</th>
+                <th width="8%">Id</th>
                 <th>Tên</th>
+                <th>Họ và tên lót</th>
                 <th>Email</th>
                 <th>Số điện thoại </th>
                 <th>Trạng thái</th>
@@ -73,7 +73,7 @@ function ShowCustomer() {
               {/*  */}
               {data.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id }</td>
+                  <td>KH-{item.id }</td>
                   <td>{item.firtname}</td>
                   <td>{item.lastname}</td>
                   <td>{item.email}</td>

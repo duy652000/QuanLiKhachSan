@@ -50,7 +50,7 @@ function Room() {
 
   // get free room data
   const getDataFreeRoom = async () => {
-    try {
+    
       //await here
       let res = await axios.get(
         "http://localhost:8000/room/filter?status_room=1",
@@ -67,12 +67,12 @@ function Room() {
       res = await res.data.client;
 
       setDataFreeRoom(res);
-    } catch (error) {}
+   
   };
 
   // get booked room data
   const getDataBookedRoom = async () => {
-    try {
+   
       //await here
       let res = await axios.get(
         "http://localhost:8000/room/filter?status_room=2",
@@ -88,12 +88,12 @@ function Room() {
       res = await res.data.client;
 
       setDataBookedRoom(res);
-    } catch (error) {}
+   
   };
 
   // get clean room data
   const getDataCleanRoom = async () => {
-    try {
+  
       //await here
       let res = await axios.get(
         "http://localhost:8000/room/filter?status_room=3",
@@ -110,9 +110,7 @@ function Room() {
       res = await res.data.client;
 
       setDataCleanRoom(res);
-    } catch (error) {
-      
-    }
+   
   };
 
   ///////////

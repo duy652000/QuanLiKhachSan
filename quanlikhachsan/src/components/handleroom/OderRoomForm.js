@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function OderRoomForm({ dataItem }) {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [dataCustomer, setDataCustomer] = useState([]);
+  const [idCustomer, setIdCustomer] = useState("1");
+
+  const getDataCustomer = async () => {
+    //await here
+    let res = await axios.get("http://localhost:8000/client/client-profile", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    res = await res.data.data;
+    setDataCustomer(res);
+  };
+  useEffect(() => {
+    getDataCustomer();
+  }, [token]);
+  
+
   const item = dataItem;
-  console.log(item);
   return (
     <>
       {/* modal */}
@@ -36,7 +56,6 @@ function OderRoomForm({ dataItem }) {
               <form>
                 {/* thông tin khách hàng */}
 
-                {/* <div className="line-page "></div> */}
                 <h5 className="my-3">Thông tin khách hàng </h5>
                 <div className="line-page "></div>
 
@@ -48,20 +67,36 @@ function OderRoomForm({ dataItem }) {
                       className="form-control"
                       id="maKH"
                       placeholder="Điền mã khách hàng ..."
+                      onChange={(e) => {
+                        setIdCustomer({
+                          ...idCustomer,
+                          id: e.target.value,
+                        });
+                      }}
+                      value={idCustomer? idCustomer :""}
                     />
                   </div>
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Tên khách hàng :</label>
-                  
-                    <select id="cars" className="form-control"> Tên khách hàng :
-                      <option >Dii</option>
-                      <option >Hien</option>
-                      <option >Teo</option>
-                     
-                    
+
+                    <select id="cars" className="form-control"
+                     onChange={(e) => {
+                      const selectIdCustomer = e.target.value;
+                      setIdCustomer(selectIdCustomer)}}>
+                      {" "}
+                      Tên khách hàng :
+
+
+                      {dataCustomer.map((item) => (
+                        <option key={item.id}
+                        value={item.id}
+                        >
+                          {" "}
+                          KH-
+                          {item.id} {item.firtname} {item.lastname}
+                        </option>
+                      ))}
                     </select>
-                  
-                  
                   </div>
                 </div>
                 {/* thông tin khách hàng */}
@@ -167,7 +202,7 @@ function OderRoomForm({ dataItem }) {
                 >
                   <thead>
                     <tr>
-                      <th>Tên phòng</th>
+                      <th>Tên dịch vụ</th>
                       <th>Giá</th>
                       <th>Số lượng</th>
                       <th>Thành tiền</th>
@@ -178,7 +213,7 @@ function OderRoomForm({ dataItem }) {
                     {/*  */}
                     {/* {data.map((item) => ( */}
                     <tr>
-                      <td>301</td>
+                      <td>Ủi</td>
                       <td>1000</td>
                       <td>2</td>
                       <td>2000</td>
@@ -186,7 +221,7 @@ function OderRoomForm({ dataItem }) {
 
                     {/* ))} */}
                     <tr>
-                      <td>301</td>
+                      <td>Giặt</td>
                       <td>1000</td>
                       <td>2</td>
                       <td>2000</td>
