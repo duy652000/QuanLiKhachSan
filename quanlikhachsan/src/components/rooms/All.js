@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
+import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
 
-function All({ dataAll }) {
-  const data = dataAll;
+function All() {
+  const  {dataAllRoom} =useContext(AppContext)
+  
+  const data = dataAllRoom;
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";

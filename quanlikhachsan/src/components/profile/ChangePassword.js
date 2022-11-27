@@ -54,7 +54,7 @@ function ChangePassword() {
         {/* <!-- form card change password --> */}
         <div className="card card-outline-secondary">
           <div className="card-header">
-            <h3 className="mb-0">Change Password</h3>
+            <h3 className="mb-0 font-weight-bold">Change Password</h3>
           </div>
           <div className="card-body">
             <form
@@ -63,7 +63,7 @@ function ChangePassword() {
             //   autoComplete="off"
               onSubmit={handleChangePassword}
             >
-              <div className="form-group">
+              <div className="form-group mt-4">
                 <label htmlFor="inputPasswordOld">Mật khẩu cũ</label>
                 <div className="text-danger">
                   {error.old_password}

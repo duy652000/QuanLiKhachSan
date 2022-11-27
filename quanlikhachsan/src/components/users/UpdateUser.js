@@ -24,15 +24,21 @@ function UpdateUser() {
 
       res = await res.data;
       let kq = res.data;
+      console.log(kq)
       if (kq == null) {
         history("/user");
       }else {
         setDetails({
           name: kq.name,
-          price: kq.price,
-          description: kq.description,
+          email: kq.email,
+          phone: kq.phone,
+          CCCD: kq.CCCD,
+          address: kq.address,
+
+
         });
       }
+      console.log(details)
     } catch (error) {
       console.log("error", error);
       
@@ -65,7 +71,6 @@ function UpdateUser() {
           },
         }
       );
-
       res = await res;
       history("/user");
     } catch (error) {
@@ -74,9 +79,6 @@ function UpdateUser() {
     }
   }
   //
-  ////
-
-  ///
 
   return (
     <div className="card shadow mb-4">

@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../Context/AppContext";
 
 
 function Booked({dataBooked}) {
   //////////////////// get data
-  const data =dataBooked;
+  const {dataFreeRoom} = useContext(AppContext)
+  const data =dataFreeRoom;
 
   const className = (status) => {
     if (status === 1) {

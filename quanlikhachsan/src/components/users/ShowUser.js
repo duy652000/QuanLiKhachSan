@@ -1,43 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import Moment from 'react-moment';
+import Moment from "react-moment";
+import { AppContext } from "../../Context/AppContext";
 
 function ShowUser() {
-  const [data, setData] = useState([]);
-  const [status, setStatus] = useState("");
-  const history = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
+  const history = useNavigate();
+  const { userData } = useContext(AppContext);
+  const data = userData;
 
-  ////////////////////
-  //get infor
-  const getData = async () => {
+  async function Hiden(id) {
     try {
-      console.log(token);
-      //await here
-      let res = await axios.get("http://localhost:8000/all-account", {
+      let res = await axios.post(`http://localhost:8000/hiden/id=${id}`, id, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-      res = await res.data.data;
-      setData(res);
+      window.location.reload(true);
+      alert("Thay đổi trạng thái thành công !");
     } catch (error) {
-      localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập");
+      alert("Thay đổi trạng thái không thành công !");
     }
+  }
+  const handleHiden = (e, id) => {
+    e.preventDefault();
+    Hiden(id);
   };
-  useEffect(() => {
-    getData();
-    console.log(data);
-  }, [token]);
-
-  
-
-  ////////////////////
 
   return (
     <div className="card shadow mb-4">
@@ -45,7 +35,7 @@ function ShowUser() {
         <h6 className="m-0 font-weight-bold text-primary">
           <Link to="add" type="button" className="btn btn-success">
             {" "}
-            Thêm Account
+            Thêm tài khoản
           </Link>
         </h6>
       </div>
@@ -90,30 +80,8 @@ function ShowUser() {
                   </td>
                   <td>
                     <div className="d-flex black">
-                    
                       {/* ẩn */}
-                      <a
-                        type="button"
-                        onClick={async function Hiden() {
-                          try {
-                            let res = await axios.post(
-                              `http://localhost:8000/hiden/id=${item.id}`,
-                              item.id,
-                              {
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  Authorization: `Bearer ${token}`,
-                                },
-                              }
-                            );
-                            // res = await res;
-                           window.location.reload(true);
-                            alert("Thay đổi trạng thái thành công !");
-                          } catch (error) {
-                            alert("Thay đổi trạng thái không thành công !");
-                          }
-                        }}
-                      >
+                      <a type="button" onClick={handleHiden(item.id)}>
                         {item.status == 1 ? (
                           <i className="bi bi-eye-slash hover-text black hover-text">
                             {" "}
@@ -127,8 +95,6 @@ function ShowUser() {
                       <Link type="button" to={`update/${item.id}`}>
                         <i className="bi bi-pencil hover-text black hover-text"></i>
                       </Link>
-                 
-                     
                     </div>
                   </td>
                 </tr>

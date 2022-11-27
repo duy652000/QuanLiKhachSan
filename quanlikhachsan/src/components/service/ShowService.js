@@ -1,45 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
+import { AppContext } from "../../Context/AppContext";
 
 function ShowService() {
-  const [data, setData] = useState([]);
-  ////////////////////
+
+  const { serviceData } = useContext(AppContext);
+  const data = serviceData;
   const token = JSON.parse(localStorage.getItem("token"));
-  const history = useNavigate();
-  //get infor
-  const getData = async () => {
-    try{
-    console.log(token);
-    //await here
-    let res = await axios.get("http://localhost:8000/service/service-info", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    res = await res.data.data;
-    setData(res);
-  } catch (error) {
-    localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập");
-    
-  }
-
-  };
-
-
-
-  useEffect(() => {
-    getData();
-    console.log(data);
-  }, [token]);
-
-  //////
-
-  ////////////////////
 
   return (
     <div className="card shadow mb-4">
@@ -120,8 +89,7 @@ function ShowService() {
                           <i className="bi bi-eye hover-text black hover-text"></i>
                         )}
                       </a>
-                      &nbsp;
-                      &nbsp;
+                      &nbsp; &nbsp;
                       {/* chỉnh sửa */}
                       <Link type="button" to={`update/${item.id}`}>
                         <i className="bi bi-pencil hover-text black hover-text"></i>

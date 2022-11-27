@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Free from "../components/rooms/Free";
@@ -7,121 +7,15 @@ import Clean from "../components/rooms/Clean";
 import All from "../components/rooms/All";
 import StatusRoom from "../components/rooms/StatusRoom";
 import DayCheckIn from "../components/rooms/DayCheckIn";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { AppContext } from "../Context/AppContext";
 
 function Room() {
-  const [dataAllRoom, setDataAllRoom] = useState([]);
-  const [dataFreeRoom, setDataFreeRoom] = useState([]);
-  const [dataBookedRoom, setDataBookedRoom] = useState([]);
-  const [dataCleanRoom, setDataCleanRoom] = useState([]);
-
-  const [dataCountAllRoom, setDataCountAllRoom] = useState([]);
-  const [dataCountFreeRoom, setDataCountFreeRoom] = useState([]);
-  const [dataCountBookedRoom, setDataCountBookedRoom] = useState([]);
-  const [dataCountCleanRoom, setDataCountCleanRoom] = useState([]);
-
-  const history = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  // get all room data
-  ///////////get infor
-  const getDataAllRoom = async () => {
-    try {
-      //await here
-      let res = await axios.get("http://localhost:8000/room/getlist", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      let count = await res.data.total;
-      setDataCountAllRoom(count);
-      res = await res.data.data;
-      setDataAllRoom(res);
-    } catch (error) {
-      localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập");
-    }
-  };
-  ///////////////
-
-  // get free room data
-  const getDataFreeRoom = async () => {
-    
-      //await here
-      let res = await axios.get(
-        "http://localhost:8000/room/filter?status_room=1",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      let count = await res.data.client.length;
-      setDataCountFreeRoom(count);
-
-      res = await res.data.client;
-
-      setDataFreeRoom(res);
-   
-  };
-
-  // get booked room data
-  const getDataBookedRoom = async () => {
-   
-      //await here
-      let res = await axios.get(
-        "http://localhost:8000/room/filter?status_room=2",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      let count = await res.data.client.length;
-      setDataCountBookedRoom(count);
-      res = await res.data.client;
-
-      setDataBookedRoom(res);
-   
-  };
-
-  // get clean room data
-  const getDataCleanRoom = async () => {
-  
-      //await here
-      let res = await axios.get(
-        "http://localhost:8000/room/filter?status_room=3",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      let count = await res.data.client.length;
-
-      setDataCountCleanRoom(count);
-      res = await res.data.client;
-
-      setDataCleanRoom(res);
-   
-  };
-
-  ///////////
-
-  useEffect(() => {
-    getDataAllRoom();
-    getDataFreeRoom();
-    getDataBookedRoom();
-    getDataCleanRoom();
-  }, [token]);
-
+  const {
+    dataCountAllRoom,
+    dataCountFreeRoom,
+    dataCountBookedRoom,
+    dataCountCleanRoom,
+  } = useContext(AppContext);
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -133,7 +27,11 @@ function Room() {
           </h6>
 
           <div className="">
-            <Link type="button" to="/customer/add" className="btn btn-primary fw-bold">
+            <Link
+              type="button"
+              to="/customer/add"
+              className="btn btn-primary fw-bold"
+            >
               + Thêm Khách Hàng
             </Link>
           </div>
@@ -178,10 +76,7 @@ function Room() {
                 </div>
                 <br></br>
 
-                <div className="d-flex justify-content-start">
-                  
-                 
-                </div>
+                <div className="d-flex justify-content-start"></div>
               </form>
             </div>
 
@@ -216,13 +111,10 @@ function Room() {
 
         {/* content */}
         <Routes>
-          <Route path="" element={<All dataAll={dataAllRoom} />} />
-          <Route path="free" element={<Free dataFree={dataFreeRoom} />} />
-          <Route
-            path="booked"
-            element={<Booked dataBooked={dataBookedRoom} />}
-          />
-          <Route path="clean" element={<Clean dataClean={dataCleanRoom} />} />
+          <Route path="" element={<All />} />
+          <Route path="free" element={<Free />} />
+          <Route path="booked" element={<Booked />} />
+          <Route path="clean" element={<Clean />} />
         </Routes>
         {/* content */}
       </div>

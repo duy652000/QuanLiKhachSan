@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../Context/AppContext";
 
-
-function Clean({dataClean}) {
-  ////////////////////
+function Clean() {
   //get data
-  const data = dataClean;
+  const {dataCleanRoom} = useContext(AppContext)
+  const data = dataCleanRoom;
 
   const className = (status) => {
     if (status === 1) {
@@ -54,8 +54,6 @@ function Clean({dataClean}) {
                   {/* <!-- Product actions--> */}
                   <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
-                   
-
                       <a
                         className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
                         href="#"

@@ -26,14 +26,15 @@ function UpdateCustomer() {
     let kq = res.data[0];
     if (kq == null) {
       history("/customer");
-    }else {
+    } else {
       setDetails({
-        name: kq.name,
-        price: kq.price,
-        description: kq.description,
+        firtname: kq.firtname,
+        lastname: kq.lastname,
+        email: kq.email,
+        phone: kq.phone,
+        CCCD: kq.CCCD,
       });
     }
- 
   };
   useEffect(() => {
     getData();
@@ -63,8 +64,7 @@ function UpdateCustomer() {
       res = await res;
       history("/customer");
     } catch (error) {
-      console.log("error",error);
-      
+      setError(error);
     }
   }
   //
@@ -188,10 +188,7 @@ function UpdateCustomer() {
             <button type="submit" className="btn btn-primary">
               Lưu
             </button>
-
           </form>
-
-          
         </div>
       </div>
     </div>

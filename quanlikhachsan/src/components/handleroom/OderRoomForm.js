@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../Context/AppContext";
 
 function OderRoomForm({ dataItem }) {
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [dataCustomer, setDataCustomer] = useState([]);
+  
+  const { customerData ,serviceData } = useContext(AppContext);
   const [idCustomer, setIdCustomer] = useState("1");
 
-  const getDataCustomer = async () => {
-    //await here
-    let res = await axios.get("http://localhost:8000/client/client-profile", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    res = await res.data.data;
-    setDataCustomer(res);
-  };
-  useEffect(() => {
-    getDataCustomer();
-  }, [token]);
-  
 
+  const [amountService, setAmountService] = useState("0");
+  const [priceService, setPriceService] = useState(serviceData[0].price);
+  const[sumService,setSumService] =useState("0");
+
+  const handleSumService = (e) => {
+    e.preventDefault();
+    setSumService(priceService*amountService);
+  };
+
+
+  const dataCustomer = customerData;
   const item = dataItem;
+
   return (
     <>
       {/* modal */}
@@ -73,24 +70,24 @@ function OderRoomForm({ dataItem }) {
                           id: e.target.value,
                         });
                       }}
-                      value={idCustomer? idCustomer :""}
+                      value={idCustomer ? idCustomer : ""}
                     />
                   </div>
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Tên khách hàng :</label>
 
-                    <select id="cars" className="form-control"
-                     onChange={(e) => {
-                      const selectIdCustomer = e.target.value;
-                      setIdCustomer(selectIdCustomer)}}>
+                    <select
+                      id="cars"
+                      className="form-control"
+                      onChange={(e) => {
+                        const selectIdCustomer = e.target.value;
+                        setIdCustomer(selectIdCustomer);
+                      }}
+                    >
                       {" "}
                       Tên khách hàng :
-
-
                       {dataCustomer.map((item) => (
-                        <option key={item.id}
-                        value={item.id}
-                        >
+                        <option key={item.id} value={item.id}>
                           {" "}
                           KH-
                           {item.id} {item.firtname} {item.lastname}
@@ -156,14 +153,27 @@ function OderRoomForm({ dataItem }) {
                 <div className="line-page "></div>
 
                 <div className="form-group row mt-3">
-                  <div className="col-sm-4">
+                  <div className="col-sm-5">
                     <label htmlFor="inputLastname">Tên dịch vụ :</label>
-                    <input
-                      type="text"
+                    <select
+                      id="cars"
                       className="form-control"
-                      id="tendv"
-                      placeholder="Điền tên dịch vụ ..."
-                    />
+                      onChange={(e) => {
+                        const selectDataService= e.target.value;
+                        setPriceService(selectDataService);
+
+                      }}
+                    >
+                      {" "}
+                      Tên khách hàng :
+                      {serviceData.map((item) => (
+                        <option key={item.id} value={item.price}>
+                          {" "}
+                          DV-
+                          {item.id} {item.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div className="col-sm-4">
                     <label htmlFor="inputLastname">Giá :</label>
@@ -172,73 +182,41 @@ function OderRoomForm({ dataItem }) {
                       className="form-control"
                       id="giadv"
                       placeholder="Điền giá dịch vụ ..."
+                      onChange={(e) => {
+                        setIdCustomer({
+                          ...priceService,
+                          price: e.target.value,
+                        });
+                      }}
+                      value={priceService?priceService : ""}
                     />
                   </div>
 
-                  <div className="col-sm-2">
-                    <label htmlFor="inputFirstname">Số lượng :</label>
+                  <div className="col-sm-3">
+                    <label htmlFor="inputFirstname"> Số lượng</label>
                     <input
                       type="number"
                       className="form-control"
                       id="inputFirstname"
                       placeholder="Số lượng ..."
+                      onChange={(e) => {
+                        const amout = e.target.value;
+                        setAmountService(amout);
+                      }}
+                      value={amountService?amountService:""}
                     />
                   </div>
 
-                  <div className="col-sm-2 mt-2">
+                  <div className="col-sm-12 mt-2 d-flex justify-content-end">
                     <button
                       type="button"
                       className="btn btn-primary px-4 float-left mt-4 pt-2"
+                      onClick={handleSumService}
                     >
                       Add
                     </button>
                   </div>
                 </div>
-
-                <table
-                  id="example"
-                  className="table table-striped"
-                  style={{ width: "100%" }}
-                >
-                  <thead>
-                    <tr>
-                      <th>Tên dịch vụ</th>
-                      <th>Giá</th>
-                      <th>Số lượng</th>
-                      <th>Thành tiền</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {/*  */}
-                    {/* {data.map((item) => ( */}
-                    <tr>
-                      <td>Ủi</td>
-                      <td>1000</td>
-                      <td>2</td>
-                      <td>2000</td>
-                    </tr>
-
-                    {/* ))} */}
-                    <tr>
-                      <td>Giặt</td>
-                      <td>1000</td>
-                      <td>2</td>
-                      <td>2000</td>
-                    </tr>
-
-                    {/* total  */}
-                    <tr>
-                      <td>Tổng tiền :</td>
-                      <td></td>
-                      <td></td>
-                      <td>4000</td>
-                    </tr>
-                    {/*  */}
-
-                    {/*  */}
-                  </tbody>
-                </table>
 
                 <h6 className="my-3 float-left">Thông tin tổng hóa đơn</h6>
                 <br />
@@ -247,7 +225,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3 ">
                   <p className="float-left ">Tổng phí phòng :</p>
                   <p className="float-right">
-                    2000 <span> VND</span>
+                  {item.price} <span> VND</span>
                   </p>
                 </div>
 
@@ -256,7 +234,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <p className="float-left">Tổng phí dịch vụ :</p>
                   <p className="float-right">
-                    2000 <span> VND</span>
+                  {sumService} <span> VND</span>
                   </p>
                 </div>
                 <div className=" mt-5 line-page-bold"></div>

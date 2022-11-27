@@ -1,42 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Moment from 'react-moment';
-
+import Moment from "react-moment";
+import { AppContext } from "../../Context/AppContext";
 
 function ShowCustomer() {
-  const [data, setData] = useState([]);
-  const history = useNavigate()
-  ////////////////////
+  const { customerData } = useContext(AppContext);
+  const data = customerData;
   const token = JSON.parse(localStorage.getItem("token"));
-  //get infor
-  const getData = async () => {
 
-    try{
-    //await here
-    let res = await axios.get("http://localhost:8000/client/client-profile", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    res = await res.data.data;
-    console.log("res", res);
-    setData(res);
-  }catch(error){
-    localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập");
-  }
-  };
-  useEffect(() => {
-    getData();
-    console.log(data);
-  }, [token]);
-
-  //////
-
-  ////////////////////
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3">
@@ -73,7 +45,7 @@ function ShowCustomer() {
               {/*  */}
               {data.map((item) => (
                 <tr key={item.id}>
-                  <td>KH-{item.id }</td>
+                  <td>KH-{item.id}</td>
                   <td>{item.firtname}</td>
                   <td>{item.lastname}</td>
                   <td>{item.email}</td>
@@ -88,7 +60,6 @@ function ShowCustomer() {
                   </td>
                   <td>
                     <div className="d-flex black">
-                     
                       {/* ẩn */}
                       <a
                         type="button"
@@ -112,7 +83,7 @@ function ShowCustomer() {
                           }
                         }}
                       >
-                         {item.status == 1 ? (
+                        {item.status == 1 ? (
                           <i className="bi bi-eye-slash hover-text black hover-text">
                             {" "}
                           </i>
@@ -120,13 +91,11 @@ function ShowCustomer() {
                           <i className="bi bi-eye hover-text black hover-text"></i>
                         )}
                       </a>
-                      &nbsp;
-                      &nbsp;
+                      &nbsp; &nbsp;
                       {/* chỉnh sửa */}
                       <Link type="button" to={`update/${item.id}`}>
                         <i className="bi bi-pencil hover-text black hover-text"></i>
                       </Link>
-                    
                     </div>
                   </td>
                 </tr>

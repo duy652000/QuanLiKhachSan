@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
+import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
 
 
 
-function Free({dataFree}) {
-  
+function Free() {
+ const {dataFreeRoom} = useContext(AppContext)
   //get data
-  const data = dataFree
+  const data = dataFreeRoom
 
   const className = (status) => {
     if (status === 1) {
