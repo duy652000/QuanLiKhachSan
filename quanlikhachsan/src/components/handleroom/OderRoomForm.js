@@ -1,30 +1,28 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function OderRoomForm({ dataItem }) {
-
-
- 
-
-
-
   const { customerData, serviceData } = useContext(AppContext);
   const dataCustomer = customerData;
 
   const [idCustomer, setIdCustomer] = useState(dataCustomer[0].id);
 
-  const [dayCome,setDayCome]=useState()
-  const [dayGo,setDayGo]=useState()
-
+  const [dayCome, setDayCome] = useState();
+  const [dayGo, setDayGo] = useState();
 
   const [amountService, setAmountService] = useState("0");
   const [priceService, setPriceService] = useState([serviceData[0].price]);
-  const [idService,setIdService] = useState(serviceData[0].id)
+  const [idService, setIdService] = useState(serviceData[0].id);
 
   const [sumService, setSumService] = useState("0");
   const [sumBill, setSumBill] = useState("0");
 
+  const [error, setError] = useState("");
+  const token = JSON.parse(localStorage.getItem("token"));
 
+  const history = useNavigate();
 
   const handleSumService = (e) => {
     e.preventDefault();
@@ -32,38 +30,52 @@ function OderRoomForm({ dataItem }) {
     setSumBill(priceService * amountService + dataItem[2]);
     setDetails({
       client_id: idCustomer,
-       room_id: dataItem[0] ,
-       day_in:dayCome,
-       day_out:dayGo,
-       total_room_rate:dataItem[2],
-       total_service_fee:priceService * amountService,
-       total_money:priceService * amountService + dataItem[2],
-       service_id:idService,
-       amount:amountService
-    })
+      room_id: dataItem[0],
+      day_in: dayCome,
+      day_out: dayGo,
+      total_room_rate: dataItem[2],
+      total_service_fee: priceService * amountService,
+      total_money: priceService * amountService + dataItem[2],
+      service_id: idService,
+      amount: amountService,
+    });
   };
 
-  const [details, setDetails] = useState({ client_id: idCustomer,
-    room_id: dataItem[0] ,
-    day_in:dayCome,
-    day_out:dayGo,
-    total_room_rate:dataItem[2],
-    total_service_fee:sumService,
-    total_money:sumBill,
-    service_id:idService,
-    amount:amountService});
-
+  const [details, setDetails] = useState({
+    client_id: "",
+    room_id: "",
+    day_in: "",
+    day_out: "",
+    total_room_rate: "",
+    total_service_fee: "",
+    total_money: "",
+    service_id: "",
+    amount: "",
+  });
 
   const handleOderBill = (e) => {
     e.preventDefault();
-   
     console.log(details)
-
-
-   
+    addBill(details);
   };
 
- 
+  //call api
+  async function addBill(detail) {
+    try {
+      let res = await axios.post("http://localhost:8000/bill/create", detail, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      res = await res;
+      history("/room");
+      alert("Đặt phòng thành công !");
+    } catch (error) {
+      setError(JSON.parse(error.response.data));
+    }
+    console.log(error);
+  }
 
   return (
     <>
@@ -87,7 +99,6 @@ function OderRoomForm({ dataItem }) {
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
-                
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -179,15 +190,14 @@ function OderRoomForm({ dataItem }) {
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Ngày đến :</label>
                     <input
-                      
                       type="date"
                       className="form-control"
                       id="ngayden"
                       placeholder="Điền ngày đến ..."
                       onChange={(e) => {
                         const dayCome = e.target.value;
-                        const date =Date.parse(dayCome)
-                       
+                        const date = Date.parse(dayCome);
+
                         setDayCome(date);
                       }}
                     />
@@ -201,7 +211,7 @@ function OderRoomForm({ dataItem }) {
                       placeholder="Điền ngày đi ..."
                       onChange={(e) => {
                         const dayGo = e.target.value;
-                        const date =Date.parse(dayGo)
+                        const date = Date.parse(dayGo);
                         setDayGo(date);
                       }}
                     />
@@ -221,7 +231,7 @@ function OderRoomForm({ dataItem }) {
                       className="form-control"
                       onChange={(e) => {
                         const selectDataService = e.target.value;
-                        const arr = selectDataService.split(",")
+                        const arr = selectDataService.split(",");
                         setPriceService(arr[0]);
                         setIdService(arr[1]);
                       }}
@@ -229,7 +239,7 @@ function OderRoomForm({ dataItem }) {
                       {" "}
                       Tên khách hàng :
                       {serviceData.map((item) => (
-                        <option key={item.id} value={[item.price,item.id]}>
+                        <option key={item.id} value={[item.price, item.id]}>
                           {" "}
                           DV-
                           {item.id} {item.name}
@@ -248,7 +258,7 @@ function OderRoomForm({ dataItem }) {
                       onChange={(e) => {
                         setIdCustomer({
                           ...priceService,
-                          price: e.target.value,  
+                          price: e.target.value,
                         });
                       }}
                       value={priceService ? priceService : ""}
@@ -305,7 +315,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <h6 className="float-left">Tổng hóa đơn :</h6>
                   <h6 className="float-right">
-                  {sumBill} <span> VND</span>
+                    {sumBill} <span> VND</span>
                   </h6>
                 </div>
                 <div className=" mt-5  line-page-bold"></div>
@@ -322,7 +332,11 @@ function OderRoomForm({ dataItem }) {
               >
                 Đóng
               </button>
-              <button onClick={handleOderBill} type="button" className="btn btn-primary">
+              <button
+                onClick={handleOderBill}
+                type="button"
+                className="btn btn-primary"
+              >
                 Đặt phòng
               </button>
             </div>

@@ -65,7 +65,7 @@ function AddCustomer() {
 
       <div className="card-body">
         <div className="table-responsive">
-          <form className="ml-1" onClick={handleAddCustomer}>
+          <form className="ml-1" onSubmit={handleAddCustomer}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Họ và tên lót </label>
               <p className="text-danger">{error.firtname}</p>

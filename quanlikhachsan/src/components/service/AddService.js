@@ -11,7 +11,6 @@ function AddService() {
   price: "",
   status: "",
   description: "",
- 
 });
 const [error, setError] = useState("");
 const token = JSON.parse(localStorage.getItem("token"));
@@ -63,7 +62,7 @@ async function addService(detail) {
     
           <div className="card-body">
             <div className="table-responsive">
-              <form className="ml-1" onClick={handleAddService}>
+              <form className="ml-1" onSubmit={handleAddService}>
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Tên dịch vụ</label>
             <div className="text-danger">{error.name}</div>
