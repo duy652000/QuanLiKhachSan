@@ -5,15 +5,18 @@ import Login from "./pages/Login";
 import Protected from "./components/Protected";
 import Local from "./pages/Local";
 import { AppProvider } from "./Context/AppContext";
+import FormVertifi from "./pages/FormVertifi";
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-          <AppProvider>
+         <AppProvider>
         <Routes>
-            <Route path="*" element={<Protected Cmp={Local} />} />
-            <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Protected Cmp={Local} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/formVertifi" element={<FormVertifi />} />
         </Routes>
           </AppProvider>
       </div>

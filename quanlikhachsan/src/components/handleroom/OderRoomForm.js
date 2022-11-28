@@ -1,24 +1,69 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function OderRoomForm({ dataItem }) {
-  
-  const { customerData ,serviceData } = useContext(AppContext);
-  const [idCustomer, setIdCustomer] = useState("1");
+
+
+ 
+
+
+
+  const { customerData, serviceData } = useContext(AppContext);
+  const dataCustomer = customerData;
+
+  const [idCustomer, setIdCustomer] = useState(dataCustomer[0].id);
+
+  const [dayCome,setDayCome]=useState()
+  const [dayGo,setDayGo]=useState()
 
 
   const [amountService, setAmountService] = useState("0");
-  const [priceService, setPriceService] = useState(serviceData[0].price);
-  const[sumService,setSumService] =useState("0");
+  const [priceService, setPriceService] = useState([serviceData[0].price]);
+  const [idService,setIdService] = useState(serviceData[0].id)
+
+  const [sumService, setSumService] = useState("0");
+  const [sumBill, setSumBill] = useState("0");
+
+
 
   const handleSumService = (e) => {
     e.preventDefault();
-    setSumService(priceService*amountService);
+    setSumService(priceService * amountService);
+    setSumBill(priceService * amountService + dataItem[2]);
+    setDetails({
+      client_id: idCustomer,
+       room_id: dataItem[0] ,
+       day_in:dayCome,
+       day_out:dayGo,
+       total_room_rate:dataItem[2],
+       total_service_fee:priceService * amountService,
+       total_money:priceService * amountService + dataItem[2],
+       service_id:idService,
+       amount:amountService
+    })
   };
 
+  const [details, setDetails] = useState({ client_id: idCustomer,
+    room_id: dataItem[0] ,
+    day_in:dayCome,
+    day_out:dayGo,
+    total_room_rate:dataItem[2],
+    total_service_fee:sumService,
+    total_money:sumBill,
+    service_id:idService,
+    amount:amountService});
 
-  const dataCustomer = customerData;
-  const item = dataItem;
+
+  const handleOderBill = (e) => {
+    e.preventDefault();
+   
+    console.log(details)
+
+
+   
+  };
+
+ 
 
   return (
     <>
@@ -42,6 +87,7 @@ function OderRoomForm({ dataItem }) {
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
+                
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -52,7 +98,6 @@ function OderRoomForm({ dataItem }) {
             <div className="modal-body text-dark">
               <form>
                 {/* thông tin khách hàng */}
-
                 <h5 className="my-3">Thông tin khách hàng </h5>
                 <div className="line-page "></div>
 
@@ -60,8 +105,9 @@ function OderRoomForm({ dataItem }) {
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Mã khách hàng :</label>
                     <input
+                      disabled={true}
                       type="text"
-                      className="form-control"
+                      className="form-control bg-white"
                       id="maKH"
                       placeholder="Điền mã khách hàng ..."
                       onChange={(e) => {
@@ -108,21 +154,23 @@ function OderRoomForm({ dataItem }) {
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Tên phòng :</label>
                     <input
+                      disabled={true}
                       type="text"
-                      className="form-control"
+                      className="form-control bg-white"
                       id="tenPhong"
                       placeholder="Điền tên phòng ..."
-                      defaultValue={item.name_room ? item.name_room : ""}
+                      defaultValue={dataItem[1]}
                     />
                   </div>
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Giá Phòng :</label>
                     <input
+                      disabled={true}
                       type="text"
-                      className="form-control"
+                      className="form-control bg-white"
                       id="giaphong"
                       placeholder="Điền giá phòng ..."
-                      defaultValue={item.price ? item.price : ""}
+                      defaultValue={dataItem[2]}
                     />
                   </div>
                 </div>
@@ -131,10 +179,17 @@ function OderRoomForm({ dataItem }) {
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Ngày đến :</label>
                     <input
+                      
                       type="date"
                       className="form-control"
                       id="ngayden"
                       placeholder="Điền ngày đến ..."
+                      onChange={(e) => {
+                        const dayCome = e.target.value;
+                        const date =Date.parse(dayCome)
+                       
+                        setDayCome(date);
+                      }}
                     />
                   </div>
                   <div className="col-sm-6">
@@ -144,10 +199,16 @@ function OderRoomForm({ dataItem }) {
                       className="form-control"
                       id="ngaydi"
                       placeholder="Điền ngày đi ..."
+                      onChange={(e) => {
+                        const dayGo = e.target.value;
+                        const date =Date.parse(dayGo)
+                        setDayGo(date);
+                      }}
                     />
                   </div>
                 </div>
 
+                {/* thông tin dịch vụ */}
                 <div className="line-page mt-5"></div>
                 <h5 className="my-3">Thông tin dịch vụ </h5>
                 <div className="line-page "></div>
@@ -159,15 +220,16 @@ function OderRoomForm({ dataItem }) {
                       id="cars"
                       className="form-control"
                       onChange={(e) => {
-                        const selectDataService= e.target.value;
-                        setPriceService(selectDataService);
-
+                        const selectDataService = e.target.value;
+                        const arr = selectDataService.split(",")
+                        setPriceService(arr[0]);
+                        setIdService(arr[1]);
                       }}
                     >
                       {" "}
                       Tên khách hàng :
                       {serviceData.map((item) => (
-                        <option key={item.id} value={item.price}>
+                        <option key={item.id} value={[item.price,item.id]}>
                           {" "}
                           DV-
                           {item.id} {item.name}
@@ -176,19 +238,20 @@ function OderRoomForm({ dataItem }) {
                     </select>
                   </div>
                   <div className="col-sm-4">
-                    <label htmlFor="inputLastname">Giá :</label>
+                    <label htmlFor="inputLastname">Giá dịch vụ:</label>
                     <input
+                      disabled={true}
                       type="text"
-                      className="form-control"
+                      className="form-control bg-white"
                       id="giadv"
                       placeholder="Điền giá dịch vụ ..."
                       onChange={(e) => {
                         setIdCustomer({
                           ...priceService,
-                          price: e.target.value,
+                          price: e.target.value,  
                         });
                       }}
-                      value={priceService?priceService : ""}
+                      value={priceService ? priceService : ""}
                     />
                   </div>
 
@@ -203,7 +266,7 @@ function OderRoomForm({ dataItem }) {
                         const amout = e.target.value;
                         setAmountService(amout);
                       }}
-                      value={amountService?amountService:""}
+                      value={amountService ? amountService : ""}
                     />
                   </div>
 
@@ -225,7 +288,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3 ">
                   <p className="float-left ">Tổng phí phòng :</p>
                   <p className="float-right">
-                  {item.price} <span> VND</span>
+                    {dataItem[2]} <span> VND</span>
                   </p>
                 </div>
 
@@ -234,7 +297,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <p className="float-left">Tổng phí dịch vụ :</p>
                   <p className="float-right">
-                  {sumService} <span> VND</span>
+                    {sumService} <span> VND</span>
                   </p>
                 </div>
                 <div className=" mt-5 line-page-bold"></div>
@@ -242,7 +305,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <h6 className="float-left">Tổng hóa đơn :</h6>
                   <h6 className="float-right">
-                    4000 <span> VND</span>
+                  {sumBill} <span> VND</span>
                   </h6>
                 </div>
                 <div className=" mt-5  line-page-bold"></div>
@@ -259,7 +322,7 @@ function OderRoomForm({ dataItem }) {
               >
                 Đóng
               </button>
-              <button type="button" className="btn btn-primary">
+              <button onClick={handleOderBill} type="button" className="btn btn-primary">
                 Đặt phòng
               </button>
             </div>

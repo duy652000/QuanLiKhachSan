@@ -126,9 +126,6 @@ export const AppProvider = ({ children }) => {
 
 
 
-
-
-
   // get data user
   const getDataUser = async () => {
     let res = await axios.get("http://localhost:8000/all-account", {

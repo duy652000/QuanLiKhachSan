@@ -1,12 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
-
+import axios from "axios";
 function All() {
-  const  {dataAllRoom} =useContext(AppContext)
-  
+  const { dataAllRoom } = useContext(AppContext);
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [idRoom,setIdRoom] =useState()
+  const [nameRoom,setNameRoom] =useState()
+  const [priceRoom,setPriceRoom] =useState()
+
+
+
+  async function getDataRoomById(id) {
+    let res = await axios.get(
+      `http://localhost:8000/room/getlist?id=${id}`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    res = await res.data.data[0];
+    console.log("res", res.price)
+
+    
+    setIdRoom(res.id)
+    setNameRoom(res.name_room)
+    setPriceRoom(res.price)
+  }
+ 
+  //
+
   const data = dataAllRoom;
+  // console.log(data)
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";
@@ -27,6 +56,7 @@ function All() {
         <div className="container px-2 px-lg-2 mt-0">
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
+
             {data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
@@ -36,16 +66,16 @@ function All() {
                       <h4 className="fw-bolder">{item.name_room}</h4>
                       <h6 className="fw-bolder">Giá : {item.price + " vnd"}</h6>
                       <br />
-                      {/* day */}
-                      {/* 17/10/2022
-                    <br />
-                    19/10/2022 */}
                     </div>
                   </div>
                   <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                     <div className="text-center">
-                    
                       <Button
+                        onClick={function handleGetDataRoom(e) {
+                          e.preventDefault();
+                          console.log(item.id);
+                          getDataRoomById(item.id);
+                        }}
                         variant="primary"
                         type="button"
                         className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "
@@ -54,14 +84,14 @@ function All() {
                         data-whatever="@getbootstrap"
                       >
                         Đặt phòng
-                      </Button>     
+                      </Button>
+                      <OderRoomForm dataItem={[idRoom ,nameRoom,priceRoom]} />
+                      {/* modal oder room form */}
+                      {/* modal oder room form */}
+
                       {/* <OderRoomForm dataItem={item}  variant="primary"
                         type="button"
                         className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "> Đặt phòng </OderRoomForm> */}
-                    
-                      {/* modal oder room form */}
-                      <OderRoomForm dataItem={item}/>
-                      {/* modal oder room form */}
 
                       <a
                         className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"

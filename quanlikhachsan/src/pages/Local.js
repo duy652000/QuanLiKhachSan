@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, Route, Routes } from "react-router-dom";
+
 import { useEffect } from "react";
 import Content from "../layouts/Content";
 import Footer from "../layouts/Footer";
@@ -13,6 +14,7 @@ import Customer from "./Customer";
 import ShowProfile from "../components/profile/ShowProfile";
 import ChangePassword from "../components/profile/ChangePassword";
 import Bill from "./Bill";
+import FormVertifi from "./FormVertifi";
 
 function Local() {
   let history = useNavigate();
@@ -40,6 +42,7 @@ function Local() {
             {/* <!-- Begin Page Content --> */}
 
             {/* <Content/> */}
+
             <Routes>
               <Route path="*" element={<Content />} />
               <Route path="/room/*" element={<Room />} />
@@ -50,7 +53,10 @@ function Local() {
               <Route path="/bill/*" element={<Bill />} />
               <Route path="/profile" element={<ShowProfile />} />
               <Route path="/change_password" element={<ChangePassword />} />
+              
+
             </Routes>
+
             {/* <Content/> */}
 
             {/* <!-- /.container-fluid --> */}
@@ -64,8 +70,6 @@ function Local() {
         {/* <!-- End of Content Wrapper --> */}
       </div>
       {/* <!-- End of Page Wrapper --> */}
-
-    
     </div>
   );
 }

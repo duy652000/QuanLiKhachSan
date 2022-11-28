@@ -93,6 +93,14 @@ function Sidebar() {
         </Link>
       </li>
 
+       {/* <!-- Nav Item - vertifi --> */}
+       <li className="nav-item">
+        <Link to="/formVertifi" className="nav-link">
+          <i className="bi bi-people-fill"></i> &nbsp;
+          <span>Form vertifi</span>{" "}
+        </Link>
+      </li>
+
       {/* <!-- Sidebar Toggler (Sidebar) --> */}
       <div className="text-center d-none d-md-inline">
         <button className="rounded-circle border-0" id="sidebarToggle"></button>

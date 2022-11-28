@@ -10,24 +10,10 @@ function ShowUser() {
   const { userData } = useContext(AppContext);
   const data = userData;
 
-  async function Hiden(id) {
-    try {
-      let res = await axios.post(`http://localhost:8000/hiden/id=${id}`, id, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      window.location.reload(true);
-      alert("Thay đổi trạng thái thành công !");
-    } catch (error) {
-      alert("Thay đổi trạng thái không thành công !");
-    }
-  }
-  const handleHiden = (e, id) => {
-    e.preventDefault();
-    Hiden(id);
-  };
+  // const handleHiden = (e,id) => {
+  //   e.preventDefault();
+  //   Hiden(id);
+  // };
 
   return (
     <div className="card shadow mb-4">
@@ -81,7 +67,27 @@ function ShowUser() {
                   <td>
                     <div className="d-flex black">
                       {/* ẩn */}
-                      <a type="button" onClick={handleHiden(item.id)}>
+                      <a
+                        type="submit"
+                        onClick={async function Hiden() {
+                          try {
+                            let res = await axios.post(
+                              `http://localhost:8000/hiden/id=${item.id}`,
+                              item.id,
+                              {
+                                headers: {
+                                  "Content-Type": "application/json",
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            );
+                            window.location.reload(true);
+                            alert("Thay đổi trạng thái thành công !");
+                          } catch (error) {
+                            alert("Thay đổi trạng thái không thành công !");
+                          }
+                        }}
+                      >
                         {item.status == 1 ? (
                           <i className="bi bi-eye-slash hover-text black hover-text">
                             {" "}
