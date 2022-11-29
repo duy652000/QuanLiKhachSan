@@ -9,6 +9,9 @@ function ShowProfile() {
 
   const history = useNavigate();
 
+  //get infor
+
+  //////
 
   const handleUpdate = (e) => {
     e.preventDefault();

@@ -13,17 +13,23 @@ import Customer from "./Customer";
 import ShowProfile from "../components/profile/ShowProfile";
 import ChangePassword from "../components/profile/ChangePassword";
 import Bill from "./Bill";
-import Logout from "../components/logout/Logout";
+
 
 function Local() {
-  const timeOut =parseInt((localStorage.getItem("expires_in")))
  
   let history = useNavigate();
+
+  const timeOut =parseInt(localStorage.getItem("expires_in"));
+  const timeLogOut= timeOut*1000;
+
+
+
   useEffect(() => {
     setTimeout(() => {
-      localStorage.clear("token","expires_in")
+      localStorage.clear("token")
       history("/login")
-    },timeOut*1000);
+    },timeLogOut);
+    
     if (!localStorage.getItem("token")) {
       history("/login");
     }

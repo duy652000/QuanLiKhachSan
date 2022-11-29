@@ -1,5 +1,17 @@
 
 /* root */
+.hight-load{
+  min-height: 120px;
+   
+}
+.load-spinner{
+  display: flex;
+  justify-content:center;
+  text-align: center;
+  align-items: center;
+  width: 30px;
+  min-height: 20px;
+}
 .line-page-bold{
   width: 100%;
   border-bottom: 1px solid #000;

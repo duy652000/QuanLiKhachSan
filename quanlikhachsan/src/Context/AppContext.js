@@ -162,10 +162,10 @@ export const AppProvider = ({ children }) => {
     getDataUser();
     getDataCustomer();
     getDataService();
-    getDataAllRoom();
-    getDataFreeRoom();
-    getDataBookedRoom();
-    getDataCleanRoom();
+    // getDataAllRoom();
+    // getDataFreeRoom();
+    // getDataBookedRoom();
+    // getDataCleanRoom();
   }, [token]);
 
   return (
