@@ -45,14 +45,12 @@ function UpdateService() {
   // call update
   const handleUpdate = (e) => {
     e.preventDefault();
-    
     updateService(details);
   };
 
   // update infor
   async function updateService(detail) {
     try {
-      console.log(detail);
       let res = await axios.post(
         `http://localhost:8000/service/edit/id=${id}`,
         detail,
@@ -65,12 +63,9 @@ function UpdateService() {
       );
       res = await res;
       history("/service");
-      
       alert("Cập nhật thành công !");
-      window.location.reload(true);
-      
+      window.location.reload(true); 
     } catch (Error) {
-      console.log("Error", error);
     }
   }
 

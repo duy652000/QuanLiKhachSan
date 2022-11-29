@@ -15,7 +15,7 @@ function ShowBill() {
     //get infor
     const getData = async () => {
       try {
-        console.log(token);
+       
         //await here
         let res = await axios.get("http://localhost:8000/all-account", {
           headers: {
@@ -33,7 +33,6 @@ function ShowBill() {
     };
     useEffect(() => {
       getData();
-      console.log(data);
     }, [token]);
   
     
@@ -109,7 +108,7 @@ function ShowBill() {
                                   }
                                 );
                                 res = await res;
-                                console.log(res);
+                          
                                 window.location.reload(true);
                                 alert("Thay đổi trạng thái thành công !");
                               } catch (error) {

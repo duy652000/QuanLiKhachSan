@@ -58,13 +58,12 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-    console.log(details )
     addBill(details);
   };
 
   //call api
   async function addBill(detail) {
-    // try {
+    try {
       let res = await axios.post("http://localhost:8000/bill/create", detail, {
         headers: {
           "Content-Type": "application/json",
@@ -74,14 +73,10 @@ function OderRoomForm({ dataItem }) {
       res = await res;
       history("/room");
       alert("Đặt phòng thành công !");
-    // } catch (error) {
-      // console.log("error",JSON.parse(error.response.data).day_in[0])
-    //   setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
-      
-    //   setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
-      
-    //   console.log("error",errorDayIn)
-    // }
+    } catch (error) {
+      setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
+      setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
+    }
     
   }
 

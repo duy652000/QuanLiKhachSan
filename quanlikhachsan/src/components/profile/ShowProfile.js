@@ -9,49 +9,9 @@ function ShowProfile() {
 
   const history = useNavigate();
 
-  //get infor
-  const getData = async () => {
-    //await here
-    try {
-      
-      let res = await axios.get("http://localhost:8000/view-account", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      res = await res.data;
-      console.log(res);
-      
-      setDetails({
-        id:res.id,
-        name: res.name,
-        email: res.email,
-        phone: res.phone,
-        address: res.address,
-        CCCD: res.CCCD,
-        email: res.email,
-      });
-
-
-
-    } catch (error) {
-      localStorage.clear("token");
-      history("/login");
-      alert("Hết phiên đăng nhập !");
-     
-    }
-  };
-
-  //call get inf
-  useEffect(() => {
-    getData();
-  }, [token]);
-  //////
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log(details);
     updateProfile(details);
   };
 
@@ -72,7 +32,6 @@ function ShowProfile() {
         history("/");
       window.location.reload(true);
     } catch (error) {
-      console.log(JSON.parse(error.response.data));
       setError(JSON.parse(error.response.data));
     }
   }

@@ -15,15 +15,11 @@ function ChangePassword() {
 
   const handleChangePassword = (e) => {
     e.preventDefault();
-    // console.log(details);
-
     changePassword(details);
   };
   //call api
   async function changePassword(detail) {
     try {
-        console.log(token)
-        
       let res = await axios.post("http://localhost:8000/changepass", detail, {
         headers: {
           "Content-Type": "application/json",
@@ -31,17 +27,14 @@ function ChangePassword() {
         },
       });
       res = await res;
-      console.log(res)
       alert("Thay đổi mật khẩu thành công !");
       localStorage.clear("token");
       history("/login");
       
     
     } catch (error) {
-      console.log(JSON.parse(error.response.data));
         setError(JSON.parse(error.response.data));
     }
-    console.log(error);
   }
 
   ////////////////

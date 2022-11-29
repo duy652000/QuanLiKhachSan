@@ -24,9 +24,6 @@ function All() {
       }
     );
     res = await res.data.data[0];
-    console.log("res", res.price)
-
-    
     setIdRoom(res.id)
     setNameRoom(res.name_room)
     setPriceRoom(res.price)
@@ -35,7 +32,6 @@ function All() {
   //
 
   const data = dataAllRoom;
-  // console.log(data)
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";
@@ -72,8 +68,7 @@ function All() {
                     <div className="text-center">
                       <Button
                         onClick={function handleGetDataRoom(e) {
-                          e.preventDefault();
-                          console.log(item.id);
+                          e.preventDefault();                 
                           getDataRoomById(item.id);
                         }}
                         variant="primary"

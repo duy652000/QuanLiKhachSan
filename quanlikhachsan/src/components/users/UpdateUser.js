@@ -14,7 +14,6 @@ function UpdateUser() {
   const getDataUser = async () => {
     //await here
     try {
-      console.log(token);
       let res = await axios.get(`http://localhost:8000/account/id=${id}`, {
         headers: {
           "Content-Type": "application/json",
@@ -24,7 +23,6 @@ function UpdateUser() {
 
       res = await res.data;
       let kq = res.data;
-      console.log(kq)
       if (kq == null) {
         history("/user");
       }else {
@@ -36,9 +34,7 @@ function UpdateUser() {
           address: kq.address,
         });
       }
-      console.log(details)
     } catch (error) {
-      console.log("error", error);
       
     }
   };
@@ -51,8 +47,6 @@ function UpdateUser() {
   // update
   const handleUpdate = (e) => {
     e.preventDefault();
-    // console.log(details)
-
     updateProfile(details);
   };
 
@@ -76,7 +70,6 @@ function UpdateUser() {
       window.location.reload(true);
 
     } catch (error) {
-      console.log("error", error);
       setError(JSON.parse(error.response.data));
     }
   }

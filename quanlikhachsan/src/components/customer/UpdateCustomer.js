@@ -44,7 +44,6 @@ function UpdateCustomer() {
   // call update
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log(details);
     updateService(details);
   };
 

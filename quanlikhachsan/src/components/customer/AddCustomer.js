@@ -1,4 +1,4 @@
-import React, { useEffect, useState  } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -20,13 +20,11 @@ function AddCustomer() {
 
   const handleAddCustomer = (e) => {
     e.preventDefault();
-    // console.log(details);
-
     addCustomer(details);
   };
   //call api
   async function addCustomer(detail) {
-    // try {
+    try {
       let res = await axios.post(
         "http://localhost:8000/client/create",
         detail,
@@ -42,12 +40,10 @@ function AddCustomer() {
       history("/service");
       alert("Thêm khách hàng thành công !");
       window.location.reload(true);
-
-    // } catch (error) {
-    //   console.log(JSON.parse(error.response.data));
-    //   setError(JSON.parse(error.response.data));
-    // }
-    console.log(error);
+    } catch (error) {
+      setError(JSON.parse(error.response.data));
+    }
+ 
   }
   ////////////////
 

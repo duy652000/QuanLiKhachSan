@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 
-function Booked({dataBooked}) {
+function Booked() {
   //////////////////// get data
-  const {dataFreeRoom} = useContext(AppContext)
-  const data =dataFreeRoom;
+  const {dataBookedRoom} = useContext(AppContext)
+  const data =dataBookedRoom;
 
   const className = (status) => {
     if (status === 1) {

@@ -73,7 +73,6 @@ function ShowService() {
                               }
                             );
                             res = await res;
-                            console.log(res);
                             window.location.reload(true);
                             alert("Thay đổi trạng thái thành công !");
                           } catch (error) {

@@ -15,7 +15,6 @@ function Content() {
       getUSATime();
       const myInterval = setInterval(getUSATime, 1000);
       return()=>{
-        console.log("Clock clean up")
         clearInterval(myInterval)
       }
 
@@ -29,7 +28,6 @@ function Content() {
       getVNTime();
       const myInterval = setInterval(getVNTime, 1000);
       return()=>{
-        console.log("Clock clean up")
         clearInterval(myInterval)
       }
     },[]);
@@ -43,7 +41,6 @@ function Content() {
       getJPTime();
       const myInterval = setInterval(getJPTime, 1000);
       return()=>{
-        console.log("Clock clean up")
         clearInterval(myInterval)
       }
     },[]);
@@ -57,7 +54,6 @@ function Content() {
       getUSUKTime();
       const myInterval = setInterval(getUSUKTime, 1000);
       return()=>{
-        console.log("Clock clean up")
         clearInterval(myInterval)
       }
     },[]);

@@ -19,7 +19,6 @@ function AddUser() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-
     register(details);
   };
   //call api
@@ -32,16 +31,12 @@ function AddUser() {
         },
       });
       res = await res;
-
       history("/user");
-      
       alert("Thêm người dùng thành công !");
       window.location.reload(true);
-
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }
-    console.log(error);
   }
   ////////////////
 

@@ -13,7 +13,6 @@ function AddBill() {
     setToggleState(index);
   };
   const getValue = (e) => {
-    console.log(e.target.value);
   };
 
 

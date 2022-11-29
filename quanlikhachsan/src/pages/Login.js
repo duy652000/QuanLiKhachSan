@@ -18,7 +18,6 @@ function Login() {
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
-
   const handleLogin = (e) => {
     e.preventDefault();
     Login(details);
@@ -34,10 +33,13 @@ function Login() {
       });
       res = await res.data;
       let token = res.access_token;
+      let expires_in = res.expires_in;
       localStorage.setItem("token", JSON.stringify(token));
+      localStorage.setItem("expires_in",JSON.stringify(expires_in))
       history("/");
       window.location.reload(true);
-      // alert("Đăng nhập thành công !");
+    
+   
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);

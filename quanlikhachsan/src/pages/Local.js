@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate, Route, Routes } from "react-router-dom";
-
 import { useEffect } from "react";
 import Content from "../layouts/Content";
 import Footer from "../layouts/Footer";
@@ -14,15 +13,23 @@ import Customer from "./Customer";
 import ShowProfile from "../components/profile/ShowProfile";
 import ChangePassword from "../components/profile/ChangePassword";
 import Bill from "./Bill";
-import FormVertifi from "./FormVertifi";
+import Logout from "../components/logout/Logout";
 
 function Local() {
+  const timeOut =parseInt((localStorage.getItem("expires_in")))
+ 
   let history = useNavigate();
   useEffect(() => {
+    setTimeout(() => {
+      localStorage.clear("token","expires_in")
+      history("/login")
+    },timeOut*1000);
     if (!localStorage.getItem("token")) {
       history("/login");
     }
   });
+
+  console.log()
   return (
     <div id="page-top">
       {/* // <!-- Page Wrapper --> */}
