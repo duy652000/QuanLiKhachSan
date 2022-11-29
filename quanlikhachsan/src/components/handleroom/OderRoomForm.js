@@ -52,8 +52,8 @@ function OderRoomForm({ dataItem }) {
     total_room_rate: "",
     total_service_fee: "",
     total_money: "",
-    service_id: "",
-    amount: "",
+    service_id:"" ,
+    amount:"",
   });
 
   const handleOderBill = (e) => {
@@ -207,8 +207,13 @@ function OderRoomForm({ dataItem }) {
                       onChange={(e) => {
                         const dayCome = e.target.value;
                         const date = Date.parse(dayCome);
+                        // const dataSubstring
+                        const string =date.toString().substring(0, 10)
+                        
+                 
+                         
 
-                        setDayCome(date);
+                        setDayCome(string);
                       }}
                     />
                   </div>
@@ -223,7 +228,8 @@ function OderRoomForm({ dataItem }) {
                       onChange={(e) => {
                         const dayGo = e.target.value;
                         const date = Date.parse(dayGo);
-                        setDayGo(date);
+                        const string =date.toString().substring(0, 10)
+                        setDayGo(string);
                       }}
                     />
                   </div>
