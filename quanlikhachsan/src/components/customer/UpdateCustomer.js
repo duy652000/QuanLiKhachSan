@@ -63,6 +63,8 @@ function UpdateCustomer() {
       );
       res = await res;
       history("/customer");
+      alert("Cập nhật khách hàng thành công !");
+      window.location.reload(true);
     } catch (error) {
       setError(error);
     }

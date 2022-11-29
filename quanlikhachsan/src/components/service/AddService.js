@@ -9,7 +9,6 @@ function AddService() {
  const [details, setDetails] = useState({
   name: "",
   price: "",
-  status: "",
   description: "",
 });
 const [error, setError] = useState("");
@@ -24,7 +23,7 @@ const handleAddService = (e) => {
 };
 //call api
 async function addService(detail) {
-  try {
+  // try {
     let res = await axios.post("http://localhost:8000/service/add", detail, {
       headers: {
         "Content-Type": "application/json",
@@ -35,11 +34,12 @@ async function addService(detail) {
 
     history("/service");
     alert("Thêm dịch vụ thành công !");
+    window.location.reload(true);
 
-  } catch (error) {
-    setError(JSON.parse(error.response.data));
-  }
-  console.log(error);
+  // } catch (error) {
+  //   setError(JSON.parse(error.response.data));
+  // }
+  // console.log(error);
 }
 ////////////////
 

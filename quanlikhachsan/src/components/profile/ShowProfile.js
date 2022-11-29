@@ -216,7 +216,7 @@ function ShowProfile() {
 
                     <input
                         pattern="[0-9]{10}"
-                      onChange={(e) => {
+                        onChange={(e) => {
                         setDetails({
                           ...details,
                           CCCD: e.target.value,

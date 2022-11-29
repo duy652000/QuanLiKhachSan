@@ -19,7 +19,10 @@ function OderRoomForm({ dataItem }) {
   const [sumService, setSumService] = useState("0");
   const [sumBill, setSumBill] = useState("0");
 
-  const [error, setError] = useState("");
+  const [errorDayIn, setErrorDayIn] = useState("");
+  const [errorDayOut, setErrorDayOut] = useState("");
+  const [error,setError]=useState("")
+
   const token = JSON.parse(localStorage.getItem("token"));
 
   const history = useNavigate();
@@ -55,26 +58,31 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-    console.log(details)
+    console.log(details )
     addBill(details);
   };
 
   //call api
   async function addBill(detail) {
-    try {
+    // try {
       let res = await axios.post("http://localhost:8000/bill/create", detail, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
       });
       res = await res;
       history("/room");
       alert("Đặt phòng thành công !");
-    } catch (error) {
-      setError(JSON.parse(error.response.data));
-    }
-    console.log(error);
+    // } catch (error) {
+      // console.log("error",JSON.parse(error.response.data).day_in[0])
+    //   setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
+      
+    //   setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
+      
+    //   console.log("error",errorDayIn)
+    // }
+    
   }
 
   return (
@@ -189,6 +197,8 @@ function OderRoomForm({ dataItem }) {
                 <div className="form-group row mt-3">
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Ngày đến :</label>
+                    <p className="text-danger">{errorDayIn}</p>
+
                     <input
                       type="date"
                       className="form-control"
@@ -204,6 +214,7 @@ function OderRoomForm({ dataItem }) {
                   </div>
                   <div className="col-sm-6">
                     <label htmlFor="inputLastname">Ngày đi :</label>
+                    <p className="text-danger">{errorDayOut}</p>
                     <input
                       type="date"
                       className="form-control"
@@ -274,7 +285,9 @@ function OderRoomForm({ dataItem }) {
                       placeholder="Số lượng ..."
                       onChange={(e) => {
                         const amout = e.target.value;
-                        setAmountService(amout);
+                        const amoutNumber = Number(amout)
+
+                        setAmountService(amoutNumber);
                       }}
                       value={amountService ? amountService : ""}
                     />

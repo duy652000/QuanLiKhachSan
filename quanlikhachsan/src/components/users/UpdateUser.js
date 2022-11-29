@@ -34,8 +34,6 @@ function UpdateUser() {
           phone: kq.phone,
           CCCD: kq.CCCD,
           address: kq.address,
-
-
         });
       }
       console.log(details)
@@ -73,6 +71,10 @@ function UpdateUser() {
       );
       res = await res;
       history("/user");
+      alert("Cập nhật thành công !");
+
+      window.location.reload(true);
+
     } catch (error) {
       console.log("error", error);
       setError(JSON.parse(error.response.data));
@@ -137,7 +139,7 @@ function UpdateUser() {
               <p className="text-danger">{error.phone}</p>
 
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="phone"
                 name="phone"
@@ -157,7 +159,7 @@ function UpdateUser() {
               <p className="text-danger">{error.CCCD}</p>
 
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="CCCD"
                 name="CCCD"

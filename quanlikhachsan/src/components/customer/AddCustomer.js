@@ -9,7 +9,6 @@ function AddCustomer() {
     lastname: "",
     email: "",
     phone: "",
-    status: "",
     CCCD: "",
     created_at: "",
     update_at: "",
@@ -27,7 +26,7 @@ function AddCustomer() {
   };
   //call api
   async function addCustomer(detail) {
-    try {
+    // try {
       let res = await axios.post(
         "http://localhost:8000/client/create",
         detail,
@@ -41,11 +40,13 @@ function AddCustomer() {
       res = await res;
 
       history("/service");
-      alert("Thêm dịch vụ thành công !");
-    } catch (error) {
-      console.log(JSON.parse(error.response.data));
-      setError(JSON.parse(error.response.data));
-    }
+      alert("Thêm khách hàng thành công !");
+      window.location.reload(true);
+
+    // } catch (error) {
+    //   console.log(JSON.parse(error.response.data));
+    //   setError(JSON.parse(error.response.data));
+    // }
     console.log(error);
   }
   ////////////////
