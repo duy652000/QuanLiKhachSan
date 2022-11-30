@@ -1,6 +1,7 @@
 import { Children, createContext, useEffect, useState } from "react";
 import axios from "axios";
 
+
 export const AppContext = createContext({});
 
 export const AppProvider = ({ children }) => {
@@ -22,6 +23,7 @@ export const AppProvider = ({ children }) => {
   const [dataBookedRoom, setDataBookedRoom] = useState([]);
   const [dataCleanRoom, setDataCleanRoom] = useState([]);
   //count room
+  const [loadingRoom,setLoadingRoom]=useState(false);
   const [dataCountAllRoom, setDataCountAllRoom] = useState([]);
   const [dataCountFreeRoom, setDataCountFreeRoom] = useState([]);
   const [dataCountBookedRoom, setDataCountBookedRoom] = useState([]);
@@ -30,7 +32,7 @@ export const AppProvider = ({ children }) => {
   //get data room
 
 
-  //all room
+  // all room
   const getDataAllRoom = async () => {
     let res = await axios.get("http://localhost:8000/room/getlist", {
       headers: {
@@ -38,11 +40,38 @@ export const AppProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     });
+
     let count = await res.data.total;
     setDataCountAllRoom(count);
     res = await res.data.data;
     setDataAllRoom(res);
+
+   
   };
+
+  
+  
+
+
+
+
+  // const getDataAllRoom = useAsync (async () => {
+  //   let res = await axios.get("http://localhost:8000/room/getlist", {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   return {
+  //     dataAllRoom: res.data.data,
+  //     dataCount:res.data.total
+  //   };
+  // }, [token]);
+  // const { loading, value } = getDataAllRoom;
+
+  // const loadingOfAllRoom = loading
+  // const countOfAllRoom = value?.dataCount??0
+  // const dataOfAllRoom = value?.dataAllRoom??[];
 
 
   //free room
@@ -59,9 +88,7 @@ export const AppProvider = ({ children }) => {
     );
     let count = await res.data.client.length;
     setDataCountFreeRoom(count);
-
     res = await res.data.client;
-
     setDataFreeRoom(res);
   };
 
@@ -159,13 +186,11 @@ export const AppProvider = ({ children }) => {
 
 
   useEffect(() => {
+
     getDataUser();
     getDataCustomer();
     getDataService();
-    // getDataAllRoom();
-    // getDataFreeRoom();
-    // getDataBookedRoom();
-    // getDataCleanRoom();
+    getDataAllRoom();
   }, [token]);
 
   return (

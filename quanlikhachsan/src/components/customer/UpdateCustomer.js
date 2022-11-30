@@ -61,9 +61,9 @@ function UpdateCustomer() {
         }
       );
       res = await res;
-      history("/customer");
       alert("Cập nhật khách hàng thành công !");
-      window.location.reload(true);
+      window.location="/customer"
+      
     } catch (error) {
       setError(error);
     }
@@ -152,9 +152,10 @@ function UpdateCustomer() {
               <p className="text-danger">{error.phone}</p>
 
               <input
-                type="number"
+                type="tel"
                 className="form-control"
                 id="phone"
+                pattern="[0-9]{10}" required
                 name="phone"
                 placeholder="Điền số điện thoại ..."
                 onChange={(e) => {
@@ -174,6 +175,7 @@ function UpdateCustomer() {
                 type="numbe"
                 className="form-control"
                 id="CCCD"
+                pattern="[0-9]{10}" required
                 name="CCCD"
                 placeholder="Điền Căn cước công dân ..."
                 onChange={(e) => {

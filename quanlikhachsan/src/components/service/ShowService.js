@@ -2,13 +2,24 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
+import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
 
 function ShowService() {
 
+  useEffect(() => {
+    setLoadingData(true);
+    setTimeout(() => {
+      setLoadingData(false);
+    }, 500000);
+  }, []);
+
+
   const { serviceData } = useContext(AppContext);
   const data = serviceData;
   const token = JSON.parse(localStorage.getItem("token"));
+  const [loadingData, setLoadingData] = useState(false);
+
 
   return (
     <div className="card shadow mb-4">
@@ -20,7 +31,7 @@ function ShowService() {
           </Link>
         </h6>
       </div>
-      <div className="card-body">
+      <div className="card-body high-load-service">
         <div className="table-responsive">
           <table
             id="example"
@@ -42,7 +53,18 @@ function ShowService() {
 
             <tbody>
               {/*  */}
-              {data.map((item) => (
+              {data.length==0 ? (
+              
+              <ClipLoader
+                className=" load-spinner-table-service "
+                color="#b5b6b7  "
+                loading={loadingData}
+                data-testid="loader"
+                size={35}
+                speedMultiplier={1}
+              />
+             
+            ) : (data.length>0 && data.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
@@ -73,7 +95,7 @@ function ShowService() {
                               }
                             );
                             res = await res;
-                            window.location.reload(true);
+                            window.location="/user";
                             alert("Thay đổi trạng thái thành công !");
                           } catch (error) {
                             alert("Thay đổi trạng thái không thành công !");
@@ -96,7 +118,7 @@ function ShowService() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>

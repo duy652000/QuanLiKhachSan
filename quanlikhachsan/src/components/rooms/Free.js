@@ -1,14 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, CSSProperties } from "react";
 import Button from "react-bootstrap/Button";
 import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
+import PulseLoader from "react-spinners/PulseLoader";
+import axios from "axios";
 
 
 
 function Free() {
- const {dataFreeRoom} = useContext(AppContext)
+  useEffect(() => {
+    setLoadingData(true);
+    setTimeout(() => {
+      setLoadingData(false);
+    }, 500000);
+  }, []);
+
+
+ const {dataAllRoom} = useContext(AppContext)
+ const [loadingData, setLoadingData] = useState(false);
+
   //get data
-  const data = dataFreeRoom
+  const dataOfFreeRoom = dataAllRoom.filter(function(FreeRoom){
+    return FreeRoom.status === 1
+    })
+
+  const data = dataOfFreeRoom
+
 
   const className = (status) => {
     if (status === 1) {
@@ -30,8 +47,17 @@ function Free() {
         <div className="container px-2 px-lg-2 mt-0">
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
-
-            {data.map((item) => (
+            {data.length==0 ? (
+              <PulseLoader
+                className="justify-content-center hight-load load-spinner mt-4"
+                color="#007bff"
+                loading={loadingData}
+                data-testid="loader"
+                size={12}
+                speedMultiplier={1}
+              />
+             
+            ) : (data.length>0 && data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
                   {/* <!-- Product details--> */}
@@ -88,7 +114,7 @@ function Free() {
                   </div>
                 </div>
               </div>
-            )) ?? "Không có phòng nào"}
+            )))}
             {/* product */}
           </div>
         </div>

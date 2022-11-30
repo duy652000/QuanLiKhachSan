@@ -9,7 +9,6 @@ function UpdateUser() {
   const history = useNavigate();
   const { id } = useParams();
 
-
   //get infor
   const getDataUser = async () => {
     //await here
@@ -25,7 +24,7 @@ function UpdateUser() {
       let kq = res.data;
       if (kq == null) {
         history("/user");
-      }else {
+      } else {
         setDetails({
           name: kq.name,
           email: kq.email,
@@ -34,9 +33,7 @@ function UpdateUser() {
           address: kq.address,
         });
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -47,6 +44,7 @@ function UpdateUser() {
   // update
   const handleUpdate = (e) => {
     e.preventDefault();
+    // console.log(details)
     updateProfile(details);
   };
 
@@ -64,11 +62,8 @@ function UpdateUser() {
         }
       );
       res = await res;
-      history("/user");
       alert("Cập nhật thành công !");
-
-      window.location.reload(true);
-
+      window.location="/user";
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }
@@ -78,7 +73,9 @@ function UpdateUser() {
   return (
     <div className="card shadow mb-4">
       <div className="card-header py-3  d-flex justify-content-between">
-        <h6 className="mt-2 font-weight-bold text-primary">Cập nhật tài khoản</h6>
+        <h6 className="mt-2 font-weight-bold text-primary">
+          Cập nhật tài khoản
+        </h6>
         <div className="">
           <Link type="button" to="/user" className="btn btn-primary fw-bold">
             <i className="bi bi-arrow-return-right"></i> Trở lại
@@ -132,11 +129,13 @@ function UpdateUser() {
               <p className="text-danger">{error.phone}</p>
 
               <input
-                type="text"
+                type="tel"
                 className="form-control"
                 id="phone"
                 name="phone"
                 placeholder="Điền số điện thoại ..."
+                pattern="[0-9]{10}"
+                required
                 onChange={(e) => {
                   setDetails({
                     ...details,
@@ -152,10 +151,12 @@ function UpdateUser() {
               <p className="text-danger">{error.CCCD}</p>
 
               <input
-                type="text"
+                type="tel"
                 className="form-control"
                 id="CCCD"
                 name="CCCD"
+                pattern="[0-9]{10}"
+                required
                 placeholder="Điền số căn cước công dân ... "
                 onChange={(e) => {
                   setDetails({
@@ -188,49 +189,47 @@ function UpdateUser() {
             </div>
 
             <label htmlFor="phone">
-                  <h6>Vai Trò</h6>
-                </label>
-                <p className="text-danger">{error.role}</p>
+              <h6>Vai Trò</h6>
+            </label>
+            <p className="text-danger">{error.role}</p>
 
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="radio"
-                    name="1"
-                    className="form-check-input"
-                    id="Check1"
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        role: e.target.value,
-                      });
-                    }}
-                    value="1"
-                  />
-                  <label className="form-check-label" htmlFor="admin">
-                    admin
-                  </label>
-                </div>
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check1"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    role: e.target.value,
+                  });
+                }}
+                value="1"
+              />
+              <label className="form-check-label" htmlFor="admin">
+                admin
+              </label>
+            </div>
 
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="radio"
-                    name="1"
-                    className="form-check-input"
-                    id="Check2"
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        role: e.target.value,
-                      });
-                    }}
-                    value="2"
-                  />
-                  <label className="form-check-label" htmlFor="user">
-                    user
-                  </label>
-                </div>
-
-
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check2"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    role: e.target.value,
+                  });
+                }}
+                value="2"
+              />
+              <label className="form-check-label" htmlFor="user">
+                user
+              </label>
+            </div>
 
             <button type="submit" className="btn btn-primary">
               Lưu

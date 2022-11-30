@@ -36,10 +36,9 @@ function AddCustomer() {
         }
       );
       res = await res;
-
-      history("/service");
       alert("Thêm khách hàng thành công !");
-      window.location.reload(true);
+      window.location="/service";
+      
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }

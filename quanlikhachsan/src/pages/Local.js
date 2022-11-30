@@ -15,21 +15,11 @@ import ChangePassword from "../components/profile/ChangePassword";
 import Bill from "./Bill";
 
 
+
 function Local() {
  
   let history = useNavigate();
-
-  const timeOut =parseInt(localStorage.getItem("expires_in"));
-  const timeLogOut= timeOut*1000;
-
-
-
   useEffect(() => {
-    setTimeout(() => {
-      localStorage.clear("token")
-      history("/login")
-    },timeLogOut);
-    
     if (!localStorage.getItem("token")) {
       history("/login");
     }

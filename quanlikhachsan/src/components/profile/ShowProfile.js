@@ -32,8 +32,7 @@ function ShowProfile() {
         }
         );
         
-        history("/");
-      window.location.reload(true);
+        window.location="/";
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }
@@ -134,7 +133,7 @@ function ShowProfile() {
                         });
                       }}
                       value={details.phone ? details.phone : ""}
-                      type="text"
+                      type="tel"
                       className="form-control"
                       name="phone"
                       id="phone"
@@ -185,7 +184,7 @@ function ShowProfile() {
                         });
                       }}
                       value={details.CCCD ? details.CCCD : ""}
-                      type="text"
+                      type="tel"
                       className="form-control"
                       name="CCCD"
                       id="CCCD"

@@ -71,7 +71,7 @@ function OderRoomForm({ dataItem }) {
         },
       });
       res = await res;
-      history("/room");
+      window.location="/room";
       alert("Đặt phòng thành công !");
     } catch (error) {
       setErrorDayIn(JSON.parse(error.response.data).day_in[0]);

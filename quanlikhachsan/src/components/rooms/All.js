@@ -1,30 +1,28 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect, CSSProperties } from "react";
 import Button from "react-bootstrap/Button";
 import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
-import { useAsync } from "react-use";
-import FadeLoader from "react-spinners/FadeLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 
 function All() {
-  useEffect(()=>{
-    setLoadingData(true)
-    setTimeout(()=>{
-      setLoadingData(false)
-    },50000)
-  },[])
+  useEffect(() => {
+    setLoadingData(true);
+    setTimeout(() => {
+      setLoadingData(false);
+    }, 500000);
+  }, []);
+
+
   const { dataAllRoom } = useContext(AppContext);
   const token = JSON.parse(localStorage.getItem("token"));
   const [idRoom, setIdRoom] = useState();
   const [nameRoom, setNameRoom] = useState();
   const [priceRoom, setPriceRoom] = useState();
   const [loadingData, setLoadingData] = useState(false);
- 
- 
+
+  //get api by id
   async function getDataRoomById(id) {
-
-
-
     let res = await axios.get(
       `http://localhost:8000/room/getlist?id=${id}`,
 
@@ -36,32 +34,13 @@ function All() {
       }
     );
     res = await res.data.data[0];
-    console.log("res", res.price);
-
-    setIdRoom(res.id);
-    setNameRoom(res.name_room);
-    setPriceRoom(res.price);
+    setIdRoom(res?.id);
+    setNameRoom(res?.name_room);
+    setPriceRoom(res?.price);
   }
+  //
 
-  const getDataAllRoom = useAsync(async () => {
-    let res = await axios.get("http://localhost:8000/room/getlist", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return {
-      dataCount: res.data.total,
-      getDataAllRoom: res.data.data,
-    };
-  }, [token]);
-
-  const { loading, value } = getDataAllRoom;
-
-  const data = value?.getDataAllRoom ?? [];
-  // const data = [];
-
-
+  const data = dataAllRoom;
 
   const className = (status) => {
     if (status === 1) {
@@ -81,19 +60,19 @@ function All() {
       <hr />
       <section className="py-2 ">
         <div className="container px-2 px-lg-2 mt-0">
-          <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center high-load">
+          <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
-            {loading?
-            <FadeLoader
-            className="load-spinner ml-5  col-sm-2"
-            color="#007bff"
-            loading={loadingData}
-            
-          data-testid="loader"
-            size={50}
-            speedMultiplier={1}
-           
-              /> : data.length > 0 && data.map((item) => (
+            {data.length==0 ? (
+              <PulseLoader
+                className="justify-content-center hight-load load-spinner mt-4"
+                color="#007bff"
+                loading={loadingData}
+                data-testid="loader"
+                size={12}
+                speedMultiplier={1}
+              />
+             
+            ) : (data.length>0 && data.map((item) => (
                 <div className="col mb-2" key={item.id}>
                   <div className={className(item.status)}>
                     <div className="card-body p-2">
@@ -108,11 +87,10 @@ function All() {
                     </div>
                     <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
-                        <Button
+                       {(item.status==1)&&<Button
                           onClick={function handleGetDataRoom(e) {
                             e.preventDefault();
-                            console.log(item.id);
-                            getDataRoomById(item.id);
+                            getDataRoomById(item?.id);
                           }}
                           variant="primary"
                           type="button"
@@ -122,13 +100,12 @@ function All() {
                           data-whatever="@getbootstrap"
                         >
                           Đặt phòng
-                        </Button>
+                        </Button>}
                         <OderRoomForm
                           dataItem={[idRoom, nameRoom, priceRoom]}
                         />
-
                         <a
-                          className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
+                          className="btn btn-outline-dark mt-2 mb-2 white bg-dark white"
                           href="#"
                         >
                           Check in
@@ -137,7 +114,8 @@ function All() {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
             {/* product */}
           </div>
         </div>

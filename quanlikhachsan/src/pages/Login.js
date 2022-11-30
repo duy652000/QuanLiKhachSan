@@ -9,8 +9,7 @@ function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      history("/");
-      window.location.reload(true);
+      window.location="/";
     }
   });
 
@@ -33,11 +32,11 @@ function Login() {
       });
       res = await res.data;
       let token = res.access_token;
-      let expires_in = res.expires_in;
+     
       localStorage.setItem("token", JSON.stringify(token));
-      localStorage.setItem("expires_in",JSON.stringify(expires_in))
-      history("/");
-      window.location.reload(true);
+   
+      window.location="/";
+
     
    
     } catch (error) {

@@ -31,9 +31,8 @@ async function addService(detail) {
       },
     });
     res = await res;
-    history("/service");
+    window.location="/service";
     alert("Thêm dịch vụ thành công !");
-    window.location.reload(true);
   } catch (error) {
     setError(JSON.parse(error.response.data));
   }

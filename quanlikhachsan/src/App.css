@@ -1,16 +1,43 @@
 
 /* root */
-.hight-load{
-  min-height: 120px;
-   
+.high-load{
+  min-height: 330px!important
 }
+.load-spinner-table {
+  display: block !important;
+  margin-top: 130%;
+  padding-bottom: 30%;
+  margin-left: 580% !important;
+}
+
+.high-load-service{
+  min-height: 230px!important
+}
+.load-spinner-table-service{
+  display: block !important;
+  margin-top: 80%;
+  padding-bottom: 35%;
+
+  margin-left: 670% !important;
+}
+
+.high-load-user{
+  min-height: 230px!important
+}
+.load-spinner-table-user{
+  display: block !important;
+  margin-top: 120%;
+  padding-bottom: 35%;
+  margin-left: 910% !important;
+}
+
+
+
+
 .load-spinner{
-  display: flex;
-  justify-content:center;
-  text-align: center;
-  align-items: center;
-  width: 30px;
-  min-height: 20px;
+  min-height: 50px !important;
+margin-right: 1%;
+ padding-top: 1%;
 }
 .line-page-bold{
   width: 100%;

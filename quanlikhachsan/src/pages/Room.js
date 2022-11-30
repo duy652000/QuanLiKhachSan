@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, CSSProperties } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Free from "../components/rooms/Free";
@@ -10,12 +10,39 @@ import DayCheckIn from "../components/rooms/DayCheckIn";
 import { AppContext } from "../Context/AppContext";
 
 function Room() {
-  const {
-    dataCountAllRoom,
-    dataCountFreeRoom,
-    dataCountBookedRoom,
-    dataCountCleanRoom,
-  } = useContext(AppContext);
+  const { dataAllRoom } = useContext(AppContext);
+  
+  const countAllRoom = dataAllRoom.filter(function(count){
+    if (count.status !==0 ) {
+      return true;
+    } else {
+      return false;
+    }
+  }).length; 
+  const countFreeRoom = dataAllRoom.filter(function(count){
+    if (count.status === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }).length; 
+  const countBookedRoom = dataAllRoom.filter(function(count){
+    if (count.status === 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }).length; 
+  const countCleanRoom = dataAllRoom.filter(function(count){
+    if (count.status === 3) {
+      return true;
+    } else {
+      return false;
+    }
+  }).length; 
+
+
+ 
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -79,13 +106,9 @@ function Room() {
                 <div className="d-flex justify-content-start"></div>
               </form>
             </div>
-
             <hr />
-
             <DayCheckIn />
-
             <hr />
-
             <StatusRoom />
           </div>
         </div>
@@ -95,16 +118,16 @@ function Room() {
         <div className="card-header py-3">
           <Nav className="me-auto navbar_warapper btn-rooms">
             <Link className="btn-change-room" to="">
-              All <span className="circle-red"> {dataCountAllRoom}</span>
+              All <span className="circle-red"> {countAllRoom??0}</span>
             </Link>
             <Link className="btn-change-room" to="free">
-              Trống <span className="circle-red">{dataCountFreeRoom}</span>
+              Trống <span className="circle-red">{countFreeRoom??0}</span>
             </Link>
             <Link className="btn-change-room" to="booked">
-              Đã đặt <span className="circle-red">{dataCountBookedRoom}</span>
+              Đã đặt <span className="circle-red">{countBookedRoom??0}</span>
             </Link>
             <Link className="btn-change-room" to="clean">
-              Dọn dẹp <span className="circle-red">{dataCountCleanRoom}</span>
+              Dọn dẹp <span className="circle-red">{countCleanRoom??0}</span>
             </Link>
           </Nav>
         </div>

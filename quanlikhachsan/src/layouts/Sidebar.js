@@ -1,8 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/images/logoNavbar.png';
+import jwtDecode from "jwt-decode";
+import moment from "moment";
+
 
 function Sidebar() {
+  const history = useNavigate();
+ 
+
+  function timeOut (){
+    if (!localStorage.getItem("token")) {
+       history("/login");
+     }
+     else{
+       const token =localStorage.getItem("token");
+       const timeOutdecoded = jwtDecode(token);
+       const timeLogOut = moment.unix(timeOutdecoded.exp).format("YYYY-MM-DD hh:mm:ss")
+       const  timeOut = Date.parse(timeLogOut)
+       return timeOut
+     }
+   }
+
+  
+  useEffect(() => {
+    timeOut();    
+      var Logout = function () {
+        if(Date.parse(moment(Date.now()).format("YYYY-MM-DD hh:mm:ss"))>=timeOut()){
+            alert("Hết thời gian đăng nhập !")
+            localStorage.clear("token")
+            history("/login")  
+          }
+        };
+        Logout();
+        const myInterval = setInterval(Logout, 1000);
+        return()=>{
+          clearInterval(myInterval)
+        }
+  },[]);
+
+
+
   return (
     <ul
       className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"

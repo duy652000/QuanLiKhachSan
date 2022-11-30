@@ -31,9 +31,9 @@ function AddUser() {
         },
       });
       res = await res;
-      history("/user");
+      window.location="/user";
       alert("Thêm người dùng thành công !");
-      window.location.reload(true);
+     
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }

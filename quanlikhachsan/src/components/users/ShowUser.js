@@ -1,19 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
 import { AppContext } from "../../Context/AppContext";
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 function ShowUser() {
   const token = JSON.parse(localStorage.getItem("token"));
   const history = useNavigate();
   const { userData } = useContext(AppContext);
   const data = userData;
+  const [loadingData, setLoadingData] = useState(false);
 
-  // const handleHiden = (e,id) => {
-  //   e.preventDefault();
-  //   Hiden(id);
-  // };
+  useEffect(() => {
+    setLoadingData(true);
+    setTimeout(() => {
+      setLoadingData(false);
+    }, 500000);
+  }, []);
+
 
   return (
     <div className="card shadow mb-4">
@@ -25,7 +31,7 @@ function ShowUser() {
           </Link>
         </h6>
       </div>
-      <div className="card-body">
+      <div className="card-body high-load-user">
         <div className="table-responsive">
           <table
             id="example"
@@ -49,7 +55,18 @@ function ShowUser() {
 
             <tbody>
               {/*  */}
-              {data.map((item) => (
+              {data.length==0 ? (
+              
+              <ClipLoader
+                className=" load-spinner-table-service load-spinner-table-user"
+                color="#b5b6b7  "
+                loading={loadingData}
+                data-testid="loader"
+                size={35}
+                speedMultiplier={1}
+              />
+             
+            ) : (data.length>0 && data.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
@@ -81,7 +98,7 @@ function ShowUser() {
                                 },
                               }
                             );
-                            window.location.reload(true);
+                            window.location="/user";
                             alert("Thay đổi trạng thái thành công !");
                           } catch (error) {
                             alert("Thay đổi trạng thái không thành công !");
@@ -104,7 +121,7 @@ function ShowUser() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )))}
 
               {/*  */}
             </tbody>

@@ -62,9 +62,9 @@ function UpdateService() {
         }
       );
       res = await res;
-      history("/service");
+      window.location="/service";
       alert("Cập nhật thành công !");
-      window.location.reload(true); 
+
     } catch (Error) {
     }
   }

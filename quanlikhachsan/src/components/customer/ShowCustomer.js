@@ -2,15 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
+import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
 
 function ShowCustomer() {
+  useEffect(() => {
+    setLoadingData(true);
+    setTimeout(() => {
+      setLoadingData(false);
+    }, 500000);
+  }, []); 
+
   const { customerData } = useContext(AppContext);
   const data = customerData;
   const token = JSON.parse(localStorage.getItem("token"));
+  const [loadingData, setLoadingData] = useState(false);
+
 
   return (
-    <div className="card shadow mb-4">
+    <div className="card shadow mb-4 ">
       <div className="card-header py-3">
         <h6 className="m-0 font-weight-bold text-primary">
           <Link to="add" type="button" className="btn btn-success">
@@ -19,7 +29,7 @@ function ShowCustomer() {
           </Link>
         </h6>
       </div>
-      <div className="card-body">
+      <div className="card-body high-load">
         <div className="table-responsive">
           <table
             id="example"
@@ -40,11 +50,22 @@ function ShowCustomer() {
                 <th></th>
               </tr>
             </thead>
-
-            <tbody>
+            
+            <tbody className="h-5 pb-5">
               {/*  */}
-              {data.map((item) => (
-                <tr key={item.id}>
+              {data.length==0 ? (
+              
+              <ClipLoader
+                className=" load-spinner-table "
+                color="#b5b6b7  "
+                loading={loadingData}
+                data-testid="loader"
+                size={35}
+                speedMultiplier={1}
+              />
+             
+            ) : (data.length>0 && data.map((item) => (
+                <tr key={item.id} >
                   <td>KH-{item.id}</td>
                   <td>{item.firtname}</td>
                   <td>{item.lastname}</td>
@@ -76,7 +97,7 @@ function ShowCustomer() {
                               }
                             );
                             res = await res;
-                            window.location.reload(true);
+                            window.location="/customer";
                             alert("Thay đổi trạng thái thành công !");
                           } catch (error) {
                             alert("Thay đổi trạng thái không thành công !");
@@ -99,7 +120,7 @@ function ShowCustomer() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )))}
 
               {/*  */}
             </tbody>

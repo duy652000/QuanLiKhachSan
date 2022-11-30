@@ -1,10 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, CSSProperties } from "react";
 import { AppContext } from "../../Context/AppContext";
+import PulseLoader from "react-spinners/PulseLoader";
+
+
 
 function Clean() {
+
+  useEffect(() => {
+    setLoadingData(true);
+    setTimeout(() => {
+      setLoadingData(false);
+    }, 500000);
+  }, []);
   //get data
-  const {dataCleanRoom} = useContext(AppContext)
-  const data = dataCleanRoom;
+  const {dataAllRoom} = useContext(AppContext)
+  const [loadingData, setLoadingData] = useState(false);
+
+  
+    const dataOfFreeRoom = dataAllRoom.filter(function(FreeRoom){
+      return FreeRoom.status === 3
+      })
+  const data = dataOfFreeRoom;
+
+
+
+  
 
   const className = (status) => {
     if (status === 1) {
@@ -27,7 +47,18 @@ function Clean() {
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
 
-            {data.map((item) => (
+            {data.length == 0 ? (
+              <PulseLoader
+                className="justify-content-center hight-load load-spinner mt-4"
+                color="#007bff"
+                loading={loadingData}
+                data-testid="loader"
+                size={12}
+                speedMultiplier={1}
+              />
+            ) : (
+              data.length > 0 &&
+              data.map((item) => (
               <div className="col mb-2 " key={item.id}>
                 <div className={className(item.status)}>
                   {/* <!-- Product details--> */}
@@ -64,7 +95,7 @@ function Clean() {
                   </div>
                 </div>
               </div>
-            )) ?? "Không có phòng nào"}
+            )) )}
             {/* product */}
           </div>
         </div>
