@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react'
 
-function FormVertifi() {
+function FormVertifi({token}) {
+
+    console.log("token",token)
   return (
     <div className=" col-md-8 offset-md-2 mt-5">
     <div className="card card-outline-secondary">
@@ -16,23 +18,10 @@ function FormVertifi() {
           <div className="form-group">
 
             <div className="d-flex justify-content-center">
+           
             <h6>we sent code to : ***@***</h6>
             </div>
-            <div
-              className="alert alert-warning alert-dismissible fade show"
-              role="alert"
-            >
-              <strong>Holy guacamole!</strong> You should check in on some of
-              those fields below.
-              <button
-                type="button"
-                className="close"
-                data-dismiss="alert"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+           
             <div className="form-group mt-4 d-flex justify-content-between">
                 <label htmlFor="inputPasswordOld" className=" mr-5 col-sm">Code</label>
                 <input
@@ -56,7 +45,7 @@ function FormVertifi() {
       </div>
     </div>
     </div>
-  );
+  )
 }
 
-export default FormVertifi;
+export default FormVertifi

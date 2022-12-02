@@ -72,7 +72,7 @@ function All() {
                 speedMultiplier={1}
               />
              
-            ) : (data.length>0 && data.map((item) => (
+            ) : (data.length >0 && data.map((item) => (
                 <div className="col mb-2" key={item.id}>
                   <div className={className(item.status)}>
                     <div className="card-body p-2">

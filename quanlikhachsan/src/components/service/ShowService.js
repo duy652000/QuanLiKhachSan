@@ -14,9 +14,10 @@ function ShowService() {
     }, 500000);
   }, []);
 
-
   const { serviceData } = useContext(AppContext);
   const data = serviceData;
+
+  
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
 
@@ -53,9 +54,11 @@ function ShowService() {
 
             <tbody>
               {/*  */}
-              {data.length==0 ? (
-              
+              {data.length ==0 ? (
+              <tr>
+              <td>
               <ClipLoader
+                id="servicee"
                 className=" load-spinner-table-service "
                 color="#b5b6b7  "
                 loading={loadingData}
@@ -63,9 +66,11 @@ function ShowService() {
                 size={35}
                 speedMultiplier={1}
               />
+              </td>
+              </tr>
              
-            ) : (data.length>0 && data.map((item) => (
-                <tr key={item.id}>
+            ) : (data.length > 0 && data.map((item) => (
+                  <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.price}</td>

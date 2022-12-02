@@ -19,15 +19,17 @@ export const AppProvider = ({ children }) => {
 
   //room
   const [dataAllRoom, setDataAllRoom] = useState([]);
-  const [dataFreeRoom, setDataFreeRoom] = useState([]);
-  const [dataBookedRoom, setDataBookedRoom] = useState([]);
-  const [dataCleanRoom, setDataCleanRoom] = useState([]);
+  // const [dataFreeRoom, setDataFreeRoom] = useState([]);
+  // const [dataBookedRoom, setDataBookedRoom] = useState([]);
+  // const [dataCleanRoom, setDataCleanRoom] = useState([]);
+
+
   //count room
-  const [loadingRoom,setLoadingRoom]=useState(false);
-  const [dataCountAllRoom, setDataCountAllRoom] = useState([]);
-  const [dataCountFreeRoom, setDataCountFreeRoom] = useState([]);
-  const [dataCountBookedRoom, setDataCountBookedRoom] = useState([]);
-  const [dataCountCleanRoom, setDataCountCleanRoom] = useState([]);
+
+  // const [dataCountAllRoom, setDataCountAllRoom] = useState([]);
+  // const [dataCountFreeRoom, setDataCountFreeRoom] = useState([]);
+  // const [dataCountBookedRoom, setDataCountBookedRoom] = useState([]);
+  // const [dataCountCleanRoom, setDataCountCleanRoom] = useState([]);
 
   //get data room
 
@@ -40,9 +42,8 @@ export const AppProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     });
-
-    let count = await res.data.total;
-    setDataCountAllRoom(count);
+    // let count = await res.data.total;
+    // setDataCountAllRoom(count);
     res = await res.data.data;
     setDataAllRoom(res);
 
@@ -75,64 +76,64 @@ export const AppProvider = ({ children }) => {
 
 
   //free room
-  const getDataFreeRoom = async () => {
-    //await here
-    let res = await axios.get(
-      "http://localhost:8000/room/filter?status_room=1",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    let count = await res.data.client.length;
-    setDataCountFreeRoom(count);
-    res = await res.data.client;
-    setDataFreeRoom(res);
-  };
+  // const getDataFreeRoom = async () => {
+  //   //await here
+  //   let res = await axios.get(
+  //     "http://localhost:8000/room/filter?status_room=1",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //   let count = await res.data.client.length;
+  //   setDataCountFreeRoom(count);
+  //   res = await res.data.client;
+  //   setDataFreeRoom(res);
+  // };
 
 
 
 
   //booked room
-  const getDataBookedRoom = async () => {
-    let res = await axios.get(
-      "http://localhost:8000/room/filter?status_room=2",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    let count = await res.data.client.length;
-    setDataCountBookedRoom(count);
-    res = await res.data.client;
+  // const getDataBookedRoom = async () => {
+  //   let res = await axios.get(
+  //     "http://localhost:8000/room/filter?status_room=2",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //   let count = await res.data.client.length;
+  //   setDataCountBookedRoom(count);
+  //   res = await res.data.client;
 
-    setDataBookedRoom(res);
-  };
+  //   setDataBookedRoom(res);
+  // };
 
 
 
 
   //clean room
-  const getDataCleanRoom = async () => {
-    //await here
-    let res = await axios.get(
-      "http://localhost:8000/room/filter?status_room=3",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    let count = await res.data.client.length;
-    setDataCountCleanRoom(count);
-    res = await res.data.client;
-    setDataCleanRoom(res);
-  };
+  // const getDataCleanRoom = async () => {
+  //   //await here
+  //   let res = await axios.get(
+  //     "http://localhost:8000/room/filter?status_room=3",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //   let count = await res.data.client.length;
+  //   setDataCountCleanRoom(count);
+  //   res = await res.data.client;
+  //   setDataCleanRoom(res);
+  // };
 
   // end get data room
 
@@ -186,7 +187,6 @@ export const AppProvider = ({ children }) => {
 
 
   useEffect(() => {
-
     getDataUser();
     getDataCustomer();
     getDataService();
@@ -196,13 +196,14 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider value={{ customerData, userData, serviceData ,
       dataAllRoom,
-      dataFreeRoom,
-      dataBookedRoom,
-      dataCleanRoom,
-      dataCountAllRoom,
-      dataCountFreeRoom,
-      dataCountBookedRoom,
-      dataCountCleanRoom }}>
+      // dataFreeRoom,
+      // dataBookedRoom,
+      // dataCleanRoom,
+      // dataCountAllRoom,
+      // dataCountFreeRoom,
+      // dataCountBookedRoom,
+      // dataCountCleanRoom 
+      }}>
       {children}
     </AppContext.Provider>
   );

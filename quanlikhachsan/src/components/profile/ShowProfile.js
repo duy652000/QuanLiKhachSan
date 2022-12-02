@@ -7,9 +7,24 @@ function ShowProfile() {
   const [details, setDetails] = useState({});
   const [error, setError] = useState("");
 
-  const history = useNavigate();
-
   //get infor
+  const getProFile= async () => {
+    let res = await axios.get("http://localhost:8000/view-account", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    res = await res.data;
+    setDetails(res);
+  };
+
+  useEffect(()=>{
+    getProFile();
+    console.log(details)
+  },[token])
+
+
 
   //////
 
@@ -17,6 +32,7 @@ function ShowProfile() {
     e.preventDefault();
     updateProfile(details);
   };
+
 
   //change infor
   async function updateProfile(detail) {
@@ -31,13 +47,19 @@ function ShowProfile() {
           },
         }
         );
-        
         window.location="/";
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }
   }
   ////
+
+
+
+
+
+
+
 
   return (
     <div className="container-fluid">

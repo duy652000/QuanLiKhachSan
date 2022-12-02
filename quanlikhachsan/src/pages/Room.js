@@ -1,5 +1,5 @@
-import React, { memo, useContext, CSSProperties } from "react";
-import { Link, Routes, Route } from "react-router-dom";
+import React, { memo, useContext } from "react";
+import { Link, Routes, Route , useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Free from "../components/rooms/Free";
 import Booked from "../components/rooms/Booked";
@@ -11,6 +11,7 @@ import { AppContext } from "../Context/AppContext";
 
 function Room() {
   const { dataAllRoom } = useContext(AppContext);
+
   
   const countAllRoom = dataAllRoom.filter(function(count){
     if (count.status !==0 ) {
@@ -41,7 +42,18 @@ function Room() {
     }
   }).length; 
 
-
+let url =useLocation()
+// const UrlHover = () => {
+//   if (url.pathname=="/room") {
+//     return "hover-url";
+//   } else if (url.pathname=="/free") {
+//     return "hover-url";
+//   } else if (url.pathname=="/booked") {
+//     return "hover-url";
+//   } else if (url.pathname=="/clean") {
+//   return "hover-url";
+//   }
+// };
  
   return (
     // <!-- Begin Page Content -->
@@ -117,17 +129,18 @@ function Room() {
       <div className="card shadow mb-4">
         <div className="card-header py-3">
           <Nav className="me-auto navbar_warapper btn-rooms">
-            <Link className="btn-change-room" to="">
-              All <span className="circle-red"> {countAllRoom??0}</span>
+            
+            <Link className="btn-change-room nav-item nav-link " to="">
+            <span className={(url.pathname==="/room")?"hover-url font-weight-bold":""}>All</span> <span className="circle-red "> {countAllRoom??0}</span>
             </Link>
-            <Link className="btn-change-room" to="free">
-              Trống <span className="circle-red">{countFreeRoom??0}</span>
+            <Link className="btn-change-room nav-item nav-link hover-url" to="free">
+            <span className={(url.pathname==="/room/free")?"hover-url font-weight-bold":""}>Trống</span>  <span className="circle-red  ">{countFreeRoom??0}</span>
             </Link>
-            <Link className="btn-change-room" to="booked">
-              Đã đặt <span className="circle-red">{countBookedRoom??0}</span>
+            <Link className="btn-change-room nav-item nav-link " to="booked">
+              <span className={(url.pathname==="/room/booked")?"hover-url font-weight-bold":""}>Đã đặt</span> <span className="circle-red">{countBookedRoom??0}</span>
             </Link>
-            <Link className="btn-change-room" to="clean">
-              Dọn dẹp <span className="circle-red">{countCleanRoom??0}</span>
+            <Link className="btn-change-room nav-item nav-link " to="clean">
+            <span className={(url.pathname==="/room/clean")?"hover-url font-weight-bold":""}> Dọn dẹp </span> <span className="circle-red">{countCleanRoom??0}</span>
             </Link>
           </Nav>
         </div>

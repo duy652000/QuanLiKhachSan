@@ -19,7 +19,6 @@ function UpdateUser() {
           Authorization: `Bearer ${token}`,
         },
       });
-
       res = await res.data;
       let kq = res.data;
       if (kq == null) {

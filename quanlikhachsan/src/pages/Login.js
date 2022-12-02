@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
+import FormVertifi from "../components/login/FormVertifi";
 
 function Login() {
   const history = useNavigate();
@@ -17,6 +16,8 @@ function Login() {
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
+  const [getToken, setGetToken] = useState();
+
   const handleLogin = (e) => {
     e.preventDefault();
     Login(details);
@@ -32,13 +33,10 @@ function Login() {
       });
       res = await res.data;
       let token = res.access_token;
-     
+      setGetToken(token)
+      
       localStorage.setItem("token", JSON.stringify(token));
-   
       window.location="/";
-
-    
-   
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);
@@ -47,6 +45,8 @@ function Login() {
   }
 
   return (
+<>
+    {/* {!getToken?( */}
     <div className="bg-gradient-primary">
       <div className="container">
         {/* <!-- Outer Row --> */}
@@ -93,6 +93,7 @@ function Login() {
                             className="form-control form-control-user"
                             id="exampleInputPassword"
                             placeholder="Password"
+                            autoComplete="on"
                             onChange={(e) =>
                               setDetails({
                                 ...details,
@@ -122,6 +123,8 @@ function Login() {
         </div>
       </div>
     </div>
+    {/* ):(<FormVertifi token={getToken}/>)} */}
+    </>
   );
 }
 

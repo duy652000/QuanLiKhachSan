@@ -10,7 +10,7 @@ function ShowCustomer() {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 500000);
+    }, 5000);
   }, []); 
 
   const { customerData } = useContext(AppContext);
@@ -52,20 +52,23 @@ function ShowCustomer() {
             </thead>
             
             <tbody className="h-5 pb-5">
-              {/*  */}
-              {data.length==0 ? (
-              
-              <ClipLoader
-                className=" load-spinner-table "
-                color="#b5b6b7  "
-                loading={loadingData}
-                data-testid="loader"
-                size={35}
-                speedMultiplier={1}
-              />
-             
-            ) : (data.length>0 && data.map((item) => (
-                <tr key={item.id} >
+            {data.length==0 ? (
+            <tr>
+              <td>
+            <ClipLoader
+            id="customer"
+              className="load-spinner-table "
+              color="#b5b6b7  "
+              loading={loadingData}
+              data-testid="loader"
+              size={35}
+              speedMultiplier={1}
+            />
+            </td>
+            </tr>
+           
+          ) : ( (data.length>0) && data.map((item) => (
+                  <tr key={item.id} >
                   <td>KH-{item.id}</td>
                   <td>{item.firtname}</td>
                   <td>{item.lastname}</td>
@@ -121,7 +124,6 @@ function ShowCustomer() {
                   </td>
                 </tr>
               )))}
-
               {/*  */}
             </tbody>
           </table>

@@ -56,8 +56,10 @@ function ShowUser() {
             <tbody>
               {/*  */}
               {data.length==0 ? (
-              
+              <tr>
+                <td>
               <ClipLoader
+                id="userr"
                 className=" load-spinner-table-service load-spinner-table-user"
                 color="#b5b6b7  "
                 loading={loadingData}
@@ -65,6 +67,8 @@ function ShowUser() {
                 size={35}
                 speedMultiplier={1}
               />
+              </td>
+              </tr>
              
             ) : (data.length>0 && data.map((item) => (
                 <tr key={item.id}>

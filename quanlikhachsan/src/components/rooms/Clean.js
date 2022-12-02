@@ -89,7 +89,7 @@ function Clean() {
                         className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
                         href="#"
                       >
-                        Check in
+                        Dọn Dẹp
                       </a>
                     </div>
                   </div>

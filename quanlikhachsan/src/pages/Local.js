@@ -27,8 +27,8 @@ function Local() {
 
   console.log()
   return (
-    <div id="page-top">
-      {/* // <!-- Page Wrapper --> */}
+   
+    <>
       <div id="wrapper">
         {/* <!-- Sidebar --> */}
         <Sidebar />
@@ -72,8 +72,8 @@ function Local() {
         </div>
         {/* <!-- End of Content Wrapper --> */}
       </div>
-      {/* <!-- End of Page Wrapper --> */}
-    </div>
+      </>
+     
   );
 }
 
