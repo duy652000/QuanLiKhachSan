@@ -14,6 +14,7 @@ function AddService() {
 const [error, setError] = useState("");
 const token = JSON.parse(localStorage.getItem("token"));
 
+
 const history = useNavigate();
 
 const handleAddService = (e) => {
@@ -83,7 +84,7 @@ async function addService(detail) {
                 </div>
                 
                 <div className="form-group">
-                  <label htmlFor="telephone number">Giá dịch vụ</label>
+                  <label htmlFor="price-service">Giá dịch vụ</label>
             <div className="text-danger">{error.price}</div>
 
                   <input

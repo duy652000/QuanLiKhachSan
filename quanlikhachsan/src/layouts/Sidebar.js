@@ -1,43 +1,64 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from '../assets/images/logoNavbar.png';
 import jwtDecode from "jwt-decode";
 import moment from "moment";
-
+import React from "react";
+import { useContext ,useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/images/logoNavbar.png";
+import { AppContext } from "../Context/AppContext";
 
 function Sidebar() {
+  const {role} =useContext(AppContext);
+  const roleAccount = role
+
+  const roleAdmin = (roleAccount)=>{
+    if(roleAccount===1){
+      return <li className="nav-item">
+      <Link to="/user" className="nav-link">
+        <i className="bi bi-people-fill"></i> &nbsp;
+        <span>Quản Lý Tài Khoản</span>{" "}
+      </Link>
+    </li> 
+    }
+  }
+
+
+
   const history = useNavigate();
- 
-
-  function timeOut (){
+  function timeOut() {
     if (!localStorage.getItem("token")) {
-       history("/login");
-     }
-     else{
-       const token =localStorage.getItem("token");
-       const timeOutdecoded = jwtDecode(token);
-       const timeLogOut = moment.unix(timeOutdecoded.exp).format("YYYY-MM-DD hh:mm:ss")
-       const  timeOut = Date.parse(timeLogOut)
-       return timeOut
-     }
-   }
+      history("/login");
+    } else {
+      const token = localStorage.getItem("token");
+      const timeOutdecoded = jwtDecode(token);
+      const timeLogOut = moment
+        .unix(timeOutdecoded.exp)
+        .format("YYYY-MM-DD HH:mm:ss");
 
-  
+      const timeOut = Date.parse(timeLogOut);
+
+      return timeOut;
+    }
+  }
+
   useEffect(() => {
-    timeOut();    
-      var Logout = function () {
-        if(Date.parse(moment(Date.now()).format("YYYY-MM-DD hh:mm:ss"))>=timeOut()){
-            alert("Hết thời gian đăng nhập !")
-            localStorage.clear("token")
-            history("/login")  
-          }
-        };
-        Logout();
-        const myInterval = setInterval(Logout, 1000);
-        return()=>{
-          clearInterval(myInterval)
-        }
-  },[]);
+    timeOut();
+    var Logout = function () {
+      if (
+        Date.parse(moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")) >=
+        timeOut()
+      ) {
+        alert("Hết thời gian đăng nhập !");
+        localStorage.clear("token");
+        history("/login");
+      }
+    };
+    Logout();
+    const myInterval = setInterval(Logout, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  }, []);
+ 
 
 
 
@@ -52,11 +73,9 @@ function Sidebar() {
         href="/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
-        <img src={logo} alt="Logo" className="logo-navbar" />
+          <img src={logo} alt="Logo" className="logo-navbar" />
         </div>
-        <div className="sidebar-brand-text mx-2">
-          Hotel manager
-        </div>
+        <div className="sidebar-brand-text mx-2">Hotel manager</div>
       </a>
 
       {/* <!-- Divider --> */}
@@ -71,12 +90,14 @@ function Sidebar() {
       </li>
 
       {/* <!-- Nav Item - Room --> */}
+
       <li className="nav-item">
         <Link to="/room" className="nav-link">
           <i className="bi bi-door-closed"></i> &nbsp;
           <span>Quản Lý Đặt Phòng</span>
         </Link>
       </li>
+
       {/* <!-- Nav Item - Service --> */}
       <li className="nav-item">
         <a
@@ -116,22 +137,11 @@ function Sidebar() {
         </Link>
       </li>
 
-      {/* <!-- Nav Item - bill --> */}
-      {/* <li className="nav-item">
-        <Link to="/bill" className="nav-link">
-          <i className="bi bi-receipt-cutoff"></i> &nbsp;
-          <span>Quản Lý Hóa Đơn</span>
-        </Link>
-      </li> */}
-      {/* <!-- Nav Item - account --> */}
-      <li className="nav-item">
-        <Link to="/user" className="nav-link">
-          <i className="bi bi-people-fill"></i> &nbsp;
-          <span>Quản Lý Tài Khoản</span>{" "}
-        </Link>
-      </li>
+      {roleAdmin(roleAccount)}
 
-      
+     
+        
+    
 
       {/* <!-- Sidebar Toggler (Sidebar) --> */}
       <div className="text-center d-none d-md-inline">

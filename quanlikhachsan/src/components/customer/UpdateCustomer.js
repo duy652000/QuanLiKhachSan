@@ -172,7 +172,7 @@ function UpdateCustomer() {
               <p className="text-danger">{error.CCCD}</p>
 
               <input
-                type="numbe"
+                type="tel"
                 className="form-control"
                 id="CCCD"
                 pattern="[0-9]{10}" required

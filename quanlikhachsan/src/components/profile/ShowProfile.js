@@ -30,6 +30,7 @@ function ShowProfile() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    console.log(details)
     updateProfile(details);
   };
 
@@ -47,7 +48,9 @@ function ShowProfile() {
           },
         }
         );
-        window.location="/";
+        console.log(res)
+        alert("Cập nhật thành công !")
+        // window.location="/";
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }
@@ -215,48 +218,8 @@ function ShowProfile() {
                   </div>
                 </div>
 
-                <label htmlFor="phone">
-                  <h6>Vai Trò</h6>
-                </label>
-                <p className="text-danger">{error.role}</p>
-
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="radio"
-                    name="1"
-                    className="form-check-input"
-                    id="Check1"
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        role: e.target.value,
-                      });
-                    }}
-                    value="1"
-                  />
-                  <label className="form-check-label" htmlFor="admin">
-                    admin
-                  </label>
-                </div>
-
-                <div className="form-group form-check ml-1">
-                  <input
-                    type="radio"
-                    name="1"
-                    className="form-check-input"
-                    id="Check2"
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        role: e.target.value,
-                      });
-                    }}
-                    value="2"
-                  />
-                  <label className="form-check-label" htmlFor="user">
-                    user
-                  </label>
-                </div>
+               
+                 
 
                 <div className="form-group">
                   <div className="col-xs-12">

@@ -16,11 +16,11 @@ function Free() {
   }, []);
 
 
- const {dataAllRoom} = useContext(AppContext)
+ const {dataFreeRoom} = useContext(AppContext)
  const [loadingData, setLoadingData] = useState(false);
 
   //get data
-  const dataOfFreeRoom = dataAllRoom.filter(function(FreeRoom){
+  const dataOfFreeRoom = dataFreeRoom.filter(function(FreeRoom){
     return FreeRoom.status === 1
     })
 

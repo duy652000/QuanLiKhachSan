@@ -23,6 +23,7 @@ function AddUser() {
   };
   //call api
   async function register(detail) {
+
     try {
       let res = await axios.post("http://localhost:8000/register", detail, {
         headers: {

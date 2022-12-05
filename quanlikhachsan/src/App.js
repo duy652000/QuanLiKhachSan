@@ -12,12 +12,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-         <AppProvider>
+         {/* <AppProvider> */}
         <Routes>
           <Route path="*" element={<Protected Cmp={Local} />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-          </AppProvider>
+          {/* </AppProvider> */}
       </div>
     </BrowserRouter>
   );

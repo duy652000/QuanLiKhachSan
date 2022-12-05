@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, CSSProperties } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
@@ -14,22 +14,26 @@ function Booked() {
   }, []);
 
   //////////////////// get data
-  const { dataAllRoom } = useContext(AppContext);
+  const { dataBookedRoom } = useContext(AppContext);
   const [loadingData, setLoadingData] = useState(false);
 
-  const dataOfFreeRoom = dataAllRoom.filter(function (FreeRoom) {
-    return FreeRoom.status === 2;
+  console.log(dataBookedRoom)
+
+  const dataOfBookedRoom = dataBookedRoom.filter(function (FreeRoom) {
+    return FreeRoom.status === 4;
   });
 
-  const data = dataOfFreeRoom;
+  const data = dataOfBookedRoom;
 
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";
-    } else if (status === 2) {
+    } else if (status === 4) {
       return "card bg-warning decription-room";
     } else if (status === 3) {
       return "card bg-danger decription-room";
+    } else if (status === 2) {
+      return "card bg-success decription-room";
     }
   };
 

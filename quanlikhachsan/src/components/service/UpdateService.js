@@ -64,7 +64,6 @@ function UpdateService() {
       res = await res;
       window.location="/service";
       alert("Cập nhật thành công !");
-
     } catch (Error) {
     }
   }

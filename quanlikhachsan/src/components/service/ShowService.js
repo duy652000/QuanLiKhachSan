@@ -100,7 +100,7 @@ function ShowService() {
                               }
                             );
                             res = await res;
-                            window.location="/user";
+                            window.location="/service";
                             alert("Thay đổi trạng thái thành công !");
                           } catch (error) {
                             alert("Thay đổi trạng thái không thành công !");

@@ -121,7 +121,7 @@ function AddCustomer() {
               <label htmlFor="telephone number">Số điện thoại</label>
               <p className="text-danger">{error.phone}</p>
               <input
-                type="number"
+                type="tel"
                 className="form-control"
                 id="so dien thoai"
                 placeholder="Điền số điện thoại ..."
@@ -139,7 +139,7 @@ function AddCustomer() {
               <label htmlFor="telephone number">Căn cước công dân</label>
               <p className="text-danger">{error.CCCD}</p>
               <input
-                type="number"
+                type="tel"
                 className="form-control"
                 id="so dien thoai"
                 placeholder="Điền căn cước công dân ..."

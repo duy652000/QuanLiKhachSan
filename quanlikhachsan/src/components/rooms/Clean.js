@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, CSSProperties } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -13,14 +13,15 @@ function Clean() {
     }, 500000);
   }, []);
   //get data
-  const {dataAllRoom} = useContext(AppContext)
+  const {dataCleanRoom} = useContext(AppContext)
   const [loadingData, setLoadingData] = useState(false);
+  console.log(dataCleanRoom)
 
   
-    const dataOfFreeRoom = dataAllRoom.filter(function(FreeRoom){
+    const dataOfCleanRoom = dataCleanRoom.filter(function(FreeRoom){
       return FreeRoom.status === 3
       })
-  const data = dataOfFreeRoom;
+  const data = dataOfCleanRoom;
 
 
 
@@ -29,10 +30,12 @@ function Clean() {
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";
-    } else if (status === 2) {
+    } else if (status === 4) {
       return "card bg-warning decription-room";
     } else if (status === 3) {
       return "card bg-danger decription-room";
+    } else if (status === 2) {
+      return "card bg-success decription-room";
     }
   };
 

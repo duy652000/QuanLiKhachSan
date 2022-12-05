@@ -7,13 +7,13 @@ function OderRoomForm({ dataItem }) {
   const { customerData, serviceData } = useContext(AppContext);
   const dataCustomer = customerData;
 
-  const [idCustomer, setIdCustomer] = useState(dataCustomer[0].id);
+  const [idCustomer, setIdCustomer] = useState("0");
 
   const [dayCome, setDayCome] = useState();
   const [dayGo, setDayGo] = useState();
 
-  const [amountService, setAmountService] = useState("0");
-  const [priceService, setPriceService] = useState([serviceData[0].price]);
+  const [amountService, setAmountService] = useState(0);
+  const [priceService, setPriceService] = useState(0);
   const [idService, setIdService] = useState(serviceData[0].id);
 
   const [sumService, setSumService] = useState("0");
@@ -21,7 +21,7 @@ function OderRoomForm({ dataItem }) {
 
   const [errorDayIn, setErrorDayIn] = useState("");
   const [errorDayOut, setErrorDayOut] = useState("");
-  const [error,setError]=useState("")
+  const [error, setError] = useState("");
 
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -52,32 +52,32 @@ function OderRoomForm({ dataItem }) {
     total_room_rate: "",
     total_service_fee: "",
     total_money: "",
-    service_id:"" ,
-    amount:"",
+    service_id: "",
+    amount: "",
   });
 
   const handleOderBill = (e) => {
     e.preventDefault();
+    console.log(details);
     addBill(details);
   };
 
   //call api
   async function addBill(detail) {
-    try {
-      let res = await axios.post("http://localhost:8000/bill/create", detail, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-      res = await res;
-      window.location="/room";
-      alert("Đặt phòng thành công !");
-    } catch (error) {
-      setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
-      setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
-    }
-    
+    // try {
+    let res = await axios.post("http://localhost:8000/bill/create", detail, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    res = await res;
+    window.location = "/room";
+    alert("Đặt phòng thành công !");
+    // } catch (error) {
+    //   setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
+    //   setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
+    // }
   }
 
   return (
@@ -129,6 +129,7 @@ function OderRoomForm({ dataItem }) {
                           ...idCustomer,
                           id: e.target.value,
                         });
+                        console.log(idCustomer);
                       }}
                       value={idCustomer ? idCustomer : ""}
                     />
@@ -145,7 +146,7 @@ function OderRoomForm({ dataItem }) {
                       }}
                     >
                       {" "}
-                      Tên khách hàng :
+                      Tên khách hàng :<option>Khách hàng</option>
                       {dataCustomer.map((item) => (
                         <option key={item.id} value={item.id}>
                           {" "}
@@ -201,14 +202,8 @@ function OderRoomForm({ dataItem }) {
                       placeholder="Điền ngày đến ..."
                       onChange={(e) => {
                         const dayCome = e.target.value;
-                        const date = Date.parse(dayCome);
-                        // const dataSubstring
-                        const string =date.toString().substring(0, 10)
-                        
-                 
-                         
 
-                        setDayCome(string);
+                        setDayCome(dayCome);
                       }}
                     />
                   </div>
@@ -222,9 +217,8 @@ function OderRoomForm({ dataItem }) {
                       placeholder="Điền ngày đi ..."
                       onChange={(e) => {
                         const dayGo = e.target.value;
-                        const date = Date.parse(dayGo);
-                        const string =date.toString().substring(0, 10)
-                        setDayGo(string);
+
+                        setDayGo(dayGo);
                       }}
                     />
                   </div>
@@ -249,7 +243,7 @@ function OderRoomForm({ dataItem }) {
                       }}
                     >
                       {" "}
-                      Tên khách hàng :
+                      Tên khách hàng :<option>Dịch Vụ</option>
                       {serviceData.map((item) => (
                         <option key={item.id} value={[item.price, item.id]}>
                           {" "}
@@ -286,8 +280,7 @@ function OderRoomForm({ dataItem }) {
                       placeholder="Số lượng ..."
                       onChange={(e) => {
                         const amout = e.target.value;
-                        const amoutNumber = Number(amout)
-
+                        const amoutNumber = Number(amout);
                         setAmountService(amoutNumber);
                       }}
                       value={amountService ? amountService : ""}
@@ -300,7 +293,7 @@ function OderRoomForm({ dataItem }) {
                       className="btn btn-primary px-4 float-left mt-4 pt-2"
                       onClick={handleSumService}
                     >
-                      Add
+                      Tính tổng tiền
                     </button>
                   </div>
                 </div>

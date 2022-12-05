@@ -24,7 +24,7 @@ function Logout() {
  
  return (
 
-    <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal" onClick={logoutConfirm}>
+    <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal" type="button" onClick={logoutConfirm}>
     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
     Đăng xuất
    </a>

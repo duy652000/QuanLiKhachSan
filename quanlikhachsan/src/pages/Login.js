@@ -33,10 +33,11 @@ function Login() {
       });
       res = await res.data;
       let token = res.access_token;
-      setGetToken(token)
+      setGetToken(JSON.stringify(token))
       
-      localStorage.setItem("token", JSON.stringify(token));
-      window.location="/";
+      // localStorage.setItem("token", JSON.stringify(token));
+      // window.location="/";
+      
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);
@@ -46,7 +47,7 @@ function Login() {
 
   return (
 <>
-    {/* {!getToken?( */}
+    {!getToken?(
     <div className="bg-gradient-primary">
       <div className="container">
         {/* <!-- Outer Row --> */}
@@ -123,7 +124,7 @@ function Login() {
         </div>
       </div>
     </div>
-    {/* ):(<FormVertifi token={getToken}/>)} */}
+  ):(<FormVertifi token={getToken}/>)} 
     </>
   );
 }
