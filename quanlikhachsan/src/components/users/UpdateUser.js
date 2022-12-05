@@ -43,7 +43,6 @@ function UpdateUser() {
   // update
   const handleUpdate = (e) => {
     e.preventDefault();
-    // console.log(details)
     updateProfile(details);
   };
 

@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 
-function Free() {
+function Free({dataSortFree}) {
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
@@ -18,13 +18,13 @@ function Free() {
 
  const {dataFreeRoom} = useContext(AppContext)
  const [loadingData, setLoadingData] = useState(false);
-
+ let dataSort = dataSortFree;
   //get data
   const dataOfFreeRoom = dataFreeRoom.filter(function(FreeRoom){
     return FreeRoom.status === 1
     })
 
-  const data = dataOfFreeRoom
+  const data = (dataSort.length == 0)?dataOfFreeRoom:dataSort;
 
 
   const className = (status) => {

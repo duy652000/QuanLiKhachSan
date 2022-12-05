@@ -4,26 +4,25 @@ import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
 
-
-function Booked() {
+function Booked({ dataSortBooked }) {
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
     }, 500000);
   }, []);
+  let dataSort = dataSortBooked;
 
   //////////////////// get data
   const { dataBookedRoom } = useContext(AppContext);
-  const [loadingData, setLoadingData] = useState(false);
 
-  console.log(dataBookedRoom)
+  const [loadingData, setLoadingData] = useState(false);
 
   const dataOfBookedRoom = dataBookedRoom.filter(function (FreeRoom) {
     return FreeRoom.status === 4;
   });
 
-  const data = dataOfBookedRoom;
+  const data = (dataSort.length == 0)?dataOfBookedRoom:dataSort;
 
   const className = (status) => {
     if (status === 1) {
@@ -62,26 +61,24 @@ function Booked() {
               data.map((item) => (
                 <div className="col mb-2 " key={item.id}>
                   <div className={className(item.status)}>
+
                     {/* <!-- Product details--> */}
                     <div className="card-body p-2">
-                      {/* icon */}
+                 
                       <div className="d-flex justify-content-center"></div>
-                      {/* icon */}
+                     
 
                       <div className="text-center ">
+
                         {/* <!-- Product name--> */}
-                        {/* <h5 className="fw-bolder">Thường | 301</h5> */}
                         <h4 className="fw-bolder">{item.name_room}</h4>
 
                         {/* <!-- Product price--> */}
                         <h6 className="fw-bolder">
+
                           Giá : {item.price + " vnd"}
                         </h6>
                         <br />
-                        {/* day */}
-                        {/* 17/10/2022
-                    <br />
-                    19/10/2022 */}
                       </div>
                     </div>
 

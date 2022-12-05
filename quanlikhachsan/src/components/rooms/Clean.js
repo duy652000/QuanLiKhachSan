@@ -15,7 +15,7 @@ function Clean() {
   //get data
   const {dataCleanRoom} = useContext(AppContext)
   const [loadingData, setLoadingData] = useState(false);
-  console.log(dataCleanRoom)
+
 
   
     const dataOfCleanRoom = dataCleanRoom.filter(function(FreeRoom){

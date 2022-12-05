@@ -22,7 +22,7 @@ function FormVertifi({ token }) {
 
   async function checkCode(detail) {
     try {
-    console.log(detail);
+  
     let res = await axios.post("http://localhost:8000/code",detail, {
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function FormVertifi({ token }) {
     });
     
     res = await res.data.data
-    console.log(res)
+   
     if(res == 0){
       const codeFalse = "Code không đúng !"
       setError(codeFalse)  

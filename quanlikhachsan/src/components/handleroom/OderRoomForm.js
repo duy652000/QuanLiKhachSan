@@ -58,7 +58,7 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-    console.log(details);
+
     addBill(details);
   };
 
@@ -129,7 +129,7 @@ function OderRoomForm({ dataItem }) {
                           ...idCustomer,
                           id: e.target.value,
                         });
-                        console.log(idCustomer);
+                  
                       }}
                       value={idCustomer ? idCustomer : ""}
                     />

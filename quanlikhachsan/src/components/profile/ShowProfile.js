@@ -21,7 +21,7 @@ function ShowProfile() {
 
   useEffect(()=>{
     getProFile();
-    console.log(details)
+  
   },[token])
 
 
@@ -30,7 +30,7 @@ function ShowProfile() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log(details)
+  
     updateProfile(details);
   };
 
@@ -48,7 +48,7 @@ function ShowProfile() {
           },
         }
         );
-        console.log(res)
+     
         alert("Cập nhật thành công !")
         // window.location="/";
     } catch (error) {

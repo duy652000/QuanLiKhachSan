@@ -2,7 +2,7 @@ import React, { useState } from "react";
 function OderRoomForm({ dataItem, children }) {
   const [isOpen, setIsOpen] = useState(false);
   const item = dataItem;
-  console.log(item.id);
+ 
   const handleIsOpen = () => {
     setIsOpen(!isOpen);
   };

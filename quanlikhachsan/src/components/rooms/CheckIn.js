@@ -4,7 +4,7 @@ import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
 
 
-function CheckIn() {
+function CheckIn({dataSortCheckIn}) {
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
@@ -12,6 +12,7 @@ function CheckIn() {
       return 
     }, 5000);
   }, []);
+  let dataSort = dataSortCheckIn;
 
   //////////////////// get data
   const { dataCheckInRoom } = useContext(AppContext);
@@ -21,7 +22,7 @@ function CheckIn() {
     return FreeRoom.status === 2;
   });
 
-  const data = dataOfCheckInRoom;
+  const data = (dataSort.length == 0)?dataOfCheckInRoom:dataSort;
 
   const className = (status) => {
     if (status === 1) {
@@ -92,7 +93,18 @@ function CheckIn() {
                           className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
                           href="#"
                         >
-                          Check in
+                           Trả phòng
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                      <div className="text-center">
+                        <a
+                          className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
+                          href="#"
+                        >
+                          Dịch vụ
                         </a>
                       </div>
                     </div>

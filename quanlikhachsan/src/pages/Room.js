@@ -13,65 +13,84 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-
 function Room() {
-  const token = JSON.parse(localStorage.getItem("token"));
   let url = useLocation();
   const { dataAllRoom } = useContext(AppContext);
   const { dataFreeRoom } = useContext(AppContext);
   const { dataBookedRoom } = useContext(AppContext);
   const { dataCheckInRoom } = useContext(AppContext);
   const { dataCleanRoom } = useContext(AppContext);
+  const [itemFree, setItemFree] = useState([]);
+  const [itemBooked, setItemBooked] = useState([]);
+  const [itemClean, setItemClean] = useState([]);
+  const [itemCheckIn, setItemCheckIn] = useState([]);
+
   const getStatusRoom = (url) => {
     if (url.pathname === "/room/free") {
-      return setDetailDay({status_room:1,status_bill:1});
+      return setDetailDay({ status_room: 1, status_bill: 1 });
+    } else if (url.pathname === "/room/booked") {
+      return setDetailDay({ status_room: 4, status_bill: 1 });
+    } else if (url.pathname === "/room/checkin") {
+      return setDetailDay({ status_room: 2, status_bill: 1 });
+    } else if (url.pathname === "/room/clean") {
+      return setDetailDay({ status_room: 3, status_bill: 1 });
     }
-    else if(url.pathname === "/room/booked"){
-      return setDetailDay({status_room:4,status_bill:1});
+  };
 
-    }
-    else if(url.pathname === "/room/checkin"){
-      return setDetailDay({status_room:2,status_bill:1});
-
-    }
-    else if(url.pathname === "/room/clean"){
-      return setDetailDay({status_room:3,status_bill:1});
-    }
-  }
-
-  useEffect(()=>{
+  const token = JSON.parse(localStorage.getItem("token"));
+  useEffect(() => {
     getStatusRoom(url);
-  },[url])
-
-
-  //call api
-  async function filterDate(detail) {
-    console.log('detail',detail)
-    console.log("token",token)
-    // try {
-      let res = await axios.get("http://localhost:8000/room/filter", detail, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-
-
-      console.log("res room",res)
-    // } catch (error) {
-    //   // setError(JSON.parse(error.response.data));
-    // }
-  }
-  ////////////////
+  }, [url]);
 
   const handleFilterDate = (e) => {
     e.preventDefault();
-   
     filterDate(detailDay);
   };
-  const[detailDay,setDetailDay] = useState({from:"",to:"",status_room:"",status_bill:1});
-  console.log(detailDay)
+
+  const [detailDay, setDetailDay] = useState({
+    from: "",
+    to: "",
+    status_room: "",
+    status_bill: "",
+  });
+
+  //call api
+  async function filterDate(detail) {
+    try {
+      let res = await axios.get(
+        `http://localhost:8000/room/filter?from=${detail.from}&to=${detail.to}&status_room=${detail.status_room}&status_bill=${detail.status_bill}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data;
+      let Dm = [];
+      res.forEach((element) => {
+        element.forEach((item) => {
+          Dm.push(item);
+        });
+      });
+
+      if (url.pathname === "/room/free") {
+        //1
+        setItemFree(Dm);
+      } else if (url.pathname === "/room/booked") {
+        setItemBooked(Dm);
+      } else if (url.pathname === "/room/checkin") {
+        setItemCheckIn(Dm);
+      } else if (url.pathname === "/room/clean") {
+        setItemClean(Dm);
+      }
+    } catch (error) {
+      // console.log(error)
+      //   // setError(JSON.parse(error.response.data));
+    }
+  }
+
+  /////////////////
 
   const countAllRoom = dataAllRoom.filter(function (count) {
     if (count.status !== 0) {
@@ -109,8 +128,6 @@ function Room() {
     }
   }).length;
 
-  
-
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -146,13 +163,11 @@ function Room() {
                         type="date"
                         id="start"
                         name="trip-start"
-                        min="2018-01-01"
-                        max="2018-12-31"
                         onChange={(e) => {
                           setDetailDay({
                             ...detailDay,
-                            from:e.target.value
-                        });
+                            from: e.target.value,
+                          });
                         }}
                       />
                     </div>
@@ -166,12 +181,10 @@ function Room() {
                         type="date"
                         id="start"
                         name="trip-start"
-                        min="2018-01-01"
-                        max="2018-12-31"
                         onChange={(e) => {
                           setDetailDay({
-                              ...detailDay,
-                              to:e.target.value
+                            ...detailDay,
+                            to: e.target.value,
                           });
                         }}
                       />
@@ -269,11 +282,10 @@ function Room() {
         {/* content */}
         <Routes>
           <Route path="" element={<All />} />
-          <Route path="free" element={<Free />} />
-          <Route path="booked" element={<Booked />} />
-          <Route path="checkin" element={<CheckIn />} />
-
-          <Route path="clean" element={<Clean />} />
+          <Route path="free" element={<Free dataSortFree={itemFree} />} />
+          <Route path="booked" element={<Booked dataSortBooked={itemBooked} />} />
+          <Route path="checkin" element={<CheckIn dataSortCheckIn={itemCheckIn} />} />
+          <Route path="clean" element={<Clean dataSortClean={itemClean} />} />
         </Routes>
         {/* content */}
       </div>

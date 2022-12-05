@@ -41,7 +41,6 @@ export const AppProvider = ({ children }) => {
     });
     res = await res.data;
     setRole(res.group_id);
-    console.log(res)
   };
 
   //get data room
@@ -56,7 +55,7 @@ export const AppProvider = ({ children }) => {
     });
     res = await res.data.data;
     setDataAllRoom(res);
-    console.log("res",res)
+    
   };
 
   // const getDataAllRoom = useAsync (async () => {
