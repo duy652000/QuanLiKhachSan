@@ -175,7 +175,7 @@ function UpdateCustomer() {
                 type="tel"
                 className="form-control"
                 id="CCCD"
-                pattern="[0-9]{10}" required
+                
                 name="CCCD"
                 placeholder="Điền Căn cước công dân ..."
                 onChange={(e) => {

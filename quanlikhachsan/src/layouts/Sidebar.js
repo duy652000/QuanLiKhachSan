@@ -21,8 +21,6 @@ function Sidebar() {
     }
   }
 
-
-
   const history = useNavigate();
   function timeOut() {
     if (!localStorage.getItem("token")) {
@@ -35,17 +33,18 @@ function Sidebar() {
         .format("YYYY-MM-DD HH:mm:ss");
 
       const timeOut = Date.parse(timeLogOut);
-
       return timeOut;
     }
   }
 
   useEffect(() => {
     timeOut();
+    
     var Logout = function () {
+      // console.log("date out :",timeOut())
+
       if (
-        Date.parse(moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")) >=
-        timeOut()
+        (Date.parse(moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"))) >=timeOut()
       ) {
         alert("Hết thời gian đăng nhập !");
         localStorage.clear("token");

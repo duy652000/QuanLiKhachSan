@@ -17,14 +17,14 @@ function AddCustomer() {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const history = useNavigate();
-
   const handleAddCustomer = (e) => {
     e.preventDefault();
+    console.log(details)
     addCustomer(details);
   };
   //call api
   async function addCustomer(detail) {
-    try {
+    // try {
       let res = await axios.post(
         "http://localhost:8000/client/create",
         detail,
@@ -36,12 +36,12 @@ function AddCustomer() {
         }
       );
       res = await res;
-      alert("Thêm khách hàng thành công !");
-      window.location="/service";
+      // alert("Thêm khách hàng thành công !");
+      // window.location="/service";
       
-    } catch (error) {
-      setError(JSON.parse(error.response.data));
-    }
+    // } catch (error) {
+    //   setError(JSON.parse(error.response.data));
+    // }
  
   }
   ////////////////

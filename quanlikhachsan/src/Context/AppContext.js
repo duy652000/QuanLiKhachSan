@@ -88,7 +88,8 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-    res = res.data.client;
+    res =  res.data.Rom;
+
     setDataFreeRoom(res);
   };
 
@@ -104,7 +105,9 @@ export const AppProvider = ({ children }) => {
       }
     );
     // let countDataBookedRoom = res.data.client.length
-    res = res.data.client;
+    res =  res.data.Rom;
+    
+   
 
     setDataBookedRoom(res);
   };
@@ -119,8 +122,8 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-    res =  res.data.client;
-
+    console.log(res)
+    res =  res.data.Rom;
     setDataCheckInRoom(res);
   };
 
@@ -137,9 +140,10 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-
-    res =  res.data.client;
+  
+    res =  res.data.Rom;
     setDataCleanRoom(res);
+
   };
 
   // end get data room

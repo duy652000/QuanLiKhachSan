@@ -20,6 +20,7 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    // console.log(details)
     Login(details);
   };
   //call api
@@ -32,8 +33,10 @@ function Login() {
         },
       });
       res = await res.data;
+      console.log(res)
       let token = res.access_token;
       setGetToken(JSON.stringify(token))
+
       
       // localStorage.setItem("token", JSON.stringify(token));
       // window.location="/";
@@ -48,8 +51,8 @@ function Login() {
   return (
 <>
     {!getToken?(
-    <div className="bg-gradient-primary">
-      <div className="container">
+    <div className="bg-gradient-primary vh-100 vw-100 overflow-hidden">
+      <div className="container vh-100 vw-100">
         {/* <!-- Outer Row --> */}
         <div className="row justify-content-center">
           <div className="col-xl-10 col-lg-12 col-md-9">

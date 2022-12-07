@@ -56,7 +56,7 @@ function Room() {
 
   //call api
   async function filterDate(detail) {
-    try {
+    // try {
       let res = await axios.get(
         `http://localhost:8000/room/filter?from=${detail.from}&to=${detail.to}&status_room=${detail.status_room}&status_bill=${detail.status_bill}`,
         {
@@ -67,6 +67,7 @@ function Room() {
         }
       );
       res = await res.data;
+      console.log(res)
       let Dm = [];
       res.forEach((element) => {
         element.forEach((item) => {
@@ -84,10 +85,10 @@ function Room() {
       } else if (url.pathname === "/room/clean") {
         setItemClean(Dm);
       }
-    } catch (error) {
+    // } catch (error) {
       // console.log(error)
       //   // setError(JSON.parse(error.response.data));
-    }
+    // }
   }
 
   /////////////////
@@ -100,7 +101,7 @@ function Room() {
     }
   }).length;
   const countFreeRoom = dataFreeRoom.filter(function (count) {
-    if (count.status === 1) {
+    if (count.status == 1) {
       return true;
     } else {
       return false;
@@ -169,6 +170,7 @@ function Room() {
                             from: e.target.value,
                           });
                         }}
+                        defaultValue={detailDay?.form}
                       />
                     </div>
                   </div>
@@ -187,6 +189,7 @@ function Room() {
                             to: e.target.value,
                           });
                         }}
+                        defaultValue={detailDay?.to}
                       />
                     </div>
                   </div>
@@ -259,7 +262,7 @@ function Room() {
                 }
               >
                 {" "}
-                Checkin{" "}
+                Đang ở{" "}
               </span>{" "}
               <span className="circle-red">{countCheckInRoom ?? 0}</span>
             </Link>

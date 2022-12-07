@@ -10,7 +10,7 @@ function Clean() {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 500000);
+    }, 5000);
   }, []);
   //get data
   const {dataCleanRoom} = useContext(AppContext)
@@ -51,14 +51,24 @@ function Clean() {
             {/* product */}
 
             {data.length == 0 ? (
-              <PulseLoader
-                className="justify-content-center hight-load load-spinner mt-4"
-                color="#007bff"
-                loading={loadingData}
-                data-testid="loader"
-                size={12}
-                speedMultiplier={1}
-              />
+              <>
+              {loadingData ? (
+                <PulseLoader
+                  className="justify-content-center hight-load load-spinner mt-4"
+                  color="#007bff"
+                  loading={loadingData}
+                  data-testid="loader"
+                  size={12}
+                  speedMultiplier={1}
+                />
+              ) : (
+                <div className="d-flex justify-content-center mt-2 pt-2">
+                <p className="  hight-load load-spinner text-dark">
+                  Không có dữ liệu
+                </p>
+                </div>
+              )}
+            </>
             ) : (
               data.length > 0 &&
               data.map((item) => (

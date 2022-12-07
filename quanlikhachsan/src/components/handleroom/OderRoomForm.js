@@ -42,6 +42,11 @@ function OderRoomForm({ dataItem }) {
       service_id: idService,
       amount: amountService,
     });
+
+    const getData = new FormData(e.target)
+    // const data = Object.fromEntries(getData.entries())
+    console.log("data",getData)
+
   };
 
   const [details, setDetails] = useState({
@@ -79,6 +84,7 @@ function OderRoomForm({ dataItem }) {
     //   setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
     // }
   }
+
 
   return (
     <>
@@ -123,6 +129,7 @@ function OderRoomForm({ dataItem }) {
                       type="text"
                       className="form-control bg-white"
                       id="maKH"
+                      name='maKH'
                       placeholder="Điền mã khách hàng ..."
                       onChange={(e) => {
                         setIdCustomer({
@@ -173,6 +180,7 @@ function OderRoomForm({ dataItem }) {
                       type="text"
                       className="form-control bg-white"
                       id="tenPhong"
+                      name="ten"
                       placeholder="Điền tên phòng ..."
                       defaultValue={dataItem[1]}
                     />
@@ -184,6 +192,7 @@ function OderRoomForm({ dataItem }) {
                       type="text"
                       className="form-control bg-white"
                       id="giaphong"
+                      name="gia"
                       placeholder="Điền giá phòng ..."
                       defaultValue={dataItem[2]}
                     />
@@ -199,6 +208,7 @@ function OderRoomForm({ dataItem }) {
                       type="date"
                       className="form-control"
                       id="ngayden"
+                      name="ngayden"
                       placeholder="Điền ngày đến ..."
                       onChange={(e) => {
                         const dayCome = e.target.value;
@@ -214,6 +224,7 @@ function OderRoomForm({ dataItem }) {
                       type="date"
                       className="form-control"
                       id="ngaydi"
+                      name="ngaydi"
                       placeholder="Điền ngày đi ..."
                       onChange={(e) => {
                         const dayGo = e.target.value;

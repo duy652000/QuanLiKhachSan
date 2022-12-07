@@ -3,26 +3,30 @@ import Button from "react-bootstrap/Button";
 import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
+import axios from "axios";
 
 function Booked({ dataSortBooked }) {
+  const token = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 500000);
+    }, 5000);
   }, []);
   let dataSort = dataSortBooked;
 
   //////////////////// get data
   const { dataBookedRoom } = useContext(AppContext);
+  console.log("dataBookedRoom", dataBookedRoom);
 
   const [loadingData, setLoadingData] = useState(false);
 
-  const dataOfBookedRoom = dataBookedRoom.filter(function (FreeRoom) {
-    return FreeRoom.status === 4;
+  const dataOfBookedRoom = dataBookedRoom.filter(function (BookedRoom) {
+    return BookedRoom.status === 4;
   });
 
-  const data = (dataSort.length == 0)?dataOfBookedRoom:dataSort;
+  const data = dataSort.length == 0 ? dataOfBookedRoom : dataSort;
 
   const className = (status) => {
     if (status === 1) {
@@ -48,34 +52,39 @@ function Booked({ dataSortBooked }) {
             {/* product */}
 
             {data.length == 0 ? (
-              <PulseLoader
-                className="justify-content-center hight-load load-spinner mt-4"
-                color="#007bff"
-                loading={loadingData}
-                data-testid="loader"
-                size={12}
-                speedMultiplier={1}
-              />
+              <>
+                {loadingData ? (
+                  <PulseLoader
+                    className="justify-content-center hight-load load-spinner mt-4"
+                    color="#007bff"
+                    loading={loadingData}
+                    data-testid="loader"
+                    size={12}
+                    speedMultiplier={1}
+                  />
+                ) : (
+                  <div className="d-flex justify-content-center mt-2 pt-2">
+                  <p className="  hight-load load-spinner text-dark">
+                    Không có dữ liệu
+                  </p>
+                  </div>
+                )}
+              </>
             ) : (
               data.length > 0 &&
               data.map((item) => (
                 <div className="col mb-2 " key={item.id}>
                   <div className={className(item.status)}>
-
                     {/* <!-- Product details--> */}
                     <div className="card-body p-2">
-                 
                       <div className="d-flex justify-content-center"></div>
-                     
 
                       <div className="text-center ">
-
                         {/* <!-- Product name--> */}
                         <h4 className="fw-bolder">{item.name_room}</h4>
 
                         {/* <!-- Product price--> */}
                         <h6 className="fw-bolder">
-
                           Giá : {item.price + " vnd"}
                         </h6>
                         <br />
@@ -87,7 +96,21 @@ function Booked({ dataSortBooked }) {
                       <div className="text-center">
                         <a
                           className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
-                          href="#"
+                          type="button"
+                          onClick={async function handlePay() {
+                            let res = await axios.post(
+                              `http://localhost:8000/bill/checkin?room_id=${item.id}`,"",
+                              {
+                                headers: {
+                                  "Content-Type": "application/json",
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            );
+                            alert("Check in thành công !")
+                            window.location = "/room/checkin";
+                            console.log(" pay", res);
+                          }}
                         >
                           Check in
                         </a>

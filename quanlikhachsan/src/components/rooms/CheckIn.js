@@ -3,13 +3,12 @@ import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
 
-
-function CheckIn({dataSortCheckIn}) {
+function CheckIn({ dataSortCheckIn }) {
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-      return 
+      return;
     }, 5000);
   }, []);
   let dataSort = dataSortCheckIn;
@@ -22,8 +21,7 @@ function CheckIn({dataSortCheckIn}) {
     return FreeRoom.status === 2;
   });
 
-  const data = (dataSort.length == 0)?dataOfCheckInRoom:dataSort;
-
+  const data = dataSort.length == 0 ? dataOfCheckInRoom : dataSort;
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";
@@ -36,6 +34,11 @@ function CheckIn({dataSortCheckIn}) {
     }
   };
 
+
+
+
+
+
   ////////////////////
 
   return (
@@ -47,17 +50,25 @@ function CheckIn({dataSortCheckIn}) {
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
 
-            {(data.length == 0 ? (
-              (<PulseLoader
-                className="justify-content-center hight-load load-spinner mt-4"
-                color="#007bff"
-                loading={loadingData}
-                data-testid="loader"
-                size={12}
-                speedMultiplier={1}
-              />)
-              // ??(<p>Không tìm thấy kết quả</p>)
-             
+            {data.length == 0 ? (
+              <>
+                {loadingData ? (
+                  <PulseLoader
+                    className="justify-content-center hight-load load-spinner mt-4"
+                    color="#007bff"
+                    loading={loadingData}
+                    data-testid="loader"
+                    size={12}
+                    speedMultiplier={1}
+                  />
+                ) : (
+                  <div className="d-flex justify-content-center mt-2 pt-2">
+                  <p className="  hight-load load-spinner text-dark">
+                    Không có dữ liệu
+                  </p>
+                  </div>
+                )}
+              </>
             ) : (
               data.length > 0 &&
               data.map((item) => (
@@ -87,31 +98,23 @@ function CheckIn({dataSortCheckIn}) {
                     </div>
 
                     {/* <!-- Product actions--> */}
+                    
                     <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
                         <a
+                        
                           className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
-                          href="#"
                         >
-                           Trả phòng
+                          Trả phòng
                         </a>
                       </div>
                     </div>
 
-                    <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                      <div className="text-center">
-                        <a
-                          className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
-                          href="#"
-                        >
-                          Dịch vụ
-                        </a>
-                      </div>
-                    </div>
+                   
                   </div>
                 </div>
               ))
-            ))}
+            )}
             {/* product */}
           </div>
         </div>

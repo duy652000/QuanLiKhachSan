@@ -8,11 +8,16 @@ import axios from "axios";
 
 
 function Free({dataSortFree}) {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [idRoom, setIdRoom] = useState();
+  const [nameRoom, setNameRoom] = useState();
+  const [priceRoom, setPriceRoom] = useState();
+  
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 500000);
+    }, 5000);
   }, []);
 
 
@@ -37,6 +42,26 @@ function Free({dataSortFree}) {
     }
   };
 
+
+   //get api by id
+   async function getDataRoomById(id) {
+    let res = await axios.get(
+      `http://localhost:8000/room/getlist?id=${id}`,
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    res = await res.data.data[0];
+    setIdRoom(res?.id);
+    setNameRoom(res?.name_room);
+    setPriceRoom(res?.price);
+  }
+  //
+
   ////////////////////
 
   return (
@@ -48,14 +73,24 @@ function Free({dataSortFree}) {
           <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {/* product */}
             {data.length==0 ? (
-              <PulseLoader
-                className="justify-content-center hight-load load-spinner mt-4"
-                color="#007bff"
-                loading={loadingData}
-                data-testid="loader"
-                size={12}
-                speedMultiplier={1}
-              />
+               <>
+               {loadingData ? (
+                 <PulseLoader
+                   className="justify-content-center hight-load load-spinner mt-4"
+                   color="#007bff"
+                   loading={loadingData}
+                   data-testid="loader"
+                   size={12}
+                   speedMultiplier={1}
+                 />
+               ) : (
+                <div className="d-flex justify-content-center mt-2 pt-2">
+                <p className="  hight-load load-spinner text-dark">
+                  Không có dữ liệu
+                </p>
+                </div>
+               )}
+             </>
              
             ) : (data.length>0 && data.map((item) => (
               <div className="col mb-2 " key={item.id}>
@@ -83,34 +118,26 @@ function Free({dataSortFree}) {
 
                   {/* <!-- Product actions--> */}
                   <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                    <div className="text-center">
-
-                    <Button
-                        variant="primary"
-                        type="button"
-                        className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "
-                        data-toggle="modal"
-                        data-target="#OderRoomModal"
-                        data-whatever="@getbootstrap"
-                      >
-                        Đặt phòng
-                      </Button>     
-                      {/* <OderRoomForm dataItem={item}  variant="primary"
-                        type="button"
-                        className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "> Đặt phòng </OderRoomForm> */}
-                    
-                      {/* modal oder room form */}
-                      <OderRoomForm dataItem={item}/>
-                      {/* modal oder room form */}
-                     
-
-                      <a
-                        className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
-                        href="#"
-                      >
-                        Check in
-                      </a>
-                    </div>
+                  <div className="text-center">
+                       {(item.status==1)&&<Button
+                          onClick={function handleGetDataRoom(e) {
+                            e.preventDefault();
+                            getDataRoomById(item?.id);
+                          }}
+                          variant="primary"
+                          type="button"
+                          className="btn btn-outline-dark mt-2 mr-2 mb-2 white bg-dark white "
+                          data-toggle="modal"
+                          data-target="#OderRoomModal"
+                          data-whatever="@getbootstrap"
+                        >
+                          Đặt phòng
+                        </Button>}
+                        <OderRoomForm
+                          dataItem={[idRoom, nameRoom, priceRoom]}
+                        />
+                        
+                      </div>
                   </div>
                 </div>
               </div>
