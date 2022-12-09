@@ -122,7 +122,7 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-    console.log(res)
+    
     res =  res.data.Rom;
     setDataCheckInRoom(res);
   };

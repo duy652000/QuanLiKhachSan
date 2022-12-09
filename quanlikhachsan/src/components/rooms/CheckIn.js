@@ -11,7 +11,8 @@ function CheckIn({ dataSortCheckIn }) {
       return;
     }, 5000);
   }, []);
-  let dataSort = dataSortCheckIn;
+  let dataSort = dataSortCheckIn[0];
+  let isNullCheckIn = dataSortCheckIn[1]
 
   //////////////////// get data
   const { dataCheckInRoom } = useContext(AppContext);
@@ -21,7 +22,10 @@ function CheckIn({ dataSortCheckIn }) {
     return FreeRoom.status === 2;
   });
 
-  const data = dataSort.length == 0 ? dataOfCheckInRoom : dataSort;
+  const data = dataSort.length == 0 ? (isNullCheckIn?[]:dataOfCheckInRoom ): dataSort;
+
+
+
   const className = (status) => {
     if (status === 1) {
       return "card bg-primary decription-room";

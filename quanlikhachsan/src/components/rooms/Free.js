@@ -23,13 +23,16 @@ function Free({dataSortFree}) {
 
  const {dataFreeRoom} = useContext(AppContext)
  const [loadingData, setLoadingData] = useState(false);
- let dataSort = dataSortFree;
+
+   let dataSort = dataSortFree[0];
+  let isNullFree = dataSortFree[1]
   //get data
   const dataOfFreeRoom = dataFreeRoom.filter(function(FreeRoom){
     return FreeRoom.status === 1
     })
 
-  const data = (dataSort.length == 0)?dataOfFreeRoom:dataSort;
+    const data = dataSort.length == 0 ? (isNullFree?[]:dataOfFreeRoom ): dataSort;
+
 
 
   const className = (status) => {

@@ -25,6 +25,13 @@ function Room() {
   const [itemClean, setItemClean] = useState([]);
   const [itemCheckIn, setItemCheckIn] = useState([]);
 
+  const [isNullFree,setIsNullFree] = useState(false);
+  const [isNullBooked,setIsNullBooked] = useState(false);
+  const [isNullCheckIn,setIsNullCheckIn] = useState(false);
+  const [isNullClean,setIsNullClean] = useState(false);
+
+
+
   const getStatusRoom = (url) => {
     if (url.pathname === "/room/free") {
       return setDetailDay({ status_room: 1, status_bill: 1 });
@@ -66,23 +73,34 @@ function Room() {
           },
         }
       );
-      res = await res.data;
-      console.log(res)
+      
+      res = await res.data.Rom;
       let Dm = [];
+      let checkNull = false
+      console.log("trả về", res)
+      if(res==null){
+        checkNull = true
+      }else{
       res.forEach((element) => {
         element.forEach((item) => {
           Dm.push(item);
+         
         });
       });
+    }
+      
 
       if (url.pathname === "/room/free") {
-        //1
+        setIsNullFree(checkNull)
         setItemFree(Dm);
       } else if (url.pathname === "/room/booked") {
+        setIsNullBooked(checkNull)
         setItemBooked(Dm);
       } else if (url.pathname === "/room/checkin") {
+        setIsNullCheckIn(checkNull)
         setItemCheckIn(Dm);
       } else if (url.pathname === "/room/clean") {
+        setIsNullClean(checkNull)
         setItemClean(Dm);
       }
     // } catch (error) {
@@ -90,6 +108,7 @@ function Room() {
       //   // setError(JSON.parse(error.response.data));
     // }
   }
+
 
   /////////////////
 
@@ -285,10 +304,10 @@ function Room() {
         {/* content */}
         <Routes>
           <Route path="" element={<All />} />
-          <Route path="free" element={<Free dataSortFree={itemFree} />} />
-          <Route path="booked" element={<Booked dataSortBooked={itemBooked} />} />
-          <Route path="checkin" element={<CheckIn dataSortCheckIn={itemCheckIn} />} />
-          <Route path="clean" element={<Clean dataSortClean={itemClean} />} />
+          <Route path="free" element={<Free dataSortFree={[itemFree,isNullFree]} />} />
+          <Route path="booked" element={<Booked dataSortBooked={[itemBooked,isNullBooked]} />} />
+          <Route path="checkin" element={<CheckIn dataSortCheckIn={[itemCheckIn,isNullCheckIn]} />} />
+          <Route path="clean" element={<Clean dataSortClean={[itemClean,isNullClean]} />} />
         </Routes>
         {/* content */}
       </div>

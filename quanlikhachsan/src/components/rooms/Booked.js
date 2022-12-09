@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
 import { AppContext } from "../../Context/AppContext";
 import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
@@ -14,19 +13,23 @@ function Booked({ dataSortBooked }) {
       setLoadingData(false);
     }, 5000);
   }, []);
-  let dataSort = dataSortBooked;
+
+
+  let dataSort = dataSortBooked[0];
+  let isNullBooked = dataSortBooked[1]
+  
 
   //////////////////// get data
   const { dataBookedRoom } = useContext(AppContext);
-  console.log("dataBookedRoom", dataBookedRoom);
-
   const [loadingData, setLoadingData] = useState(false);
-
   const dataOfBookedRoom = dataBookedRoom.filter(function (BookedRoom) {
     return BookedRoom.status === 4;
   });
 
-  const data = dataSort.length == 0 ? dataOfBookedRoom : dataSort;
+
+  const data = dataSort.length == 0 ? (isNullBooked?[]:dataOfBookedRoom ): dataSort;
+
+
 
   const className = (status) => {
     if (status === 1) {
@@ -39,6 +42,23 @@ function Booked({ dataSortBooked }) {
       return "card bg-success decription-room";
     }
   };
+
+  /////////////////
+  async function handlePay(id) {
+    let res = await axios.post(
+      `http://localhost:8000/bill/checkin?room_id=${id}`,
+      "",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    window.location = "/room/checkin";
+    console.log(" pay", res);
+  }
 
   ////////////////////
 
@@ -64,9 +84,9 @@ function Booked({ dataSortBooked }) {
                   />
                 ) : (
                   <div className="d-flex justify-content-center mt-2 pt-2">
-                  <p className="  hight-load load-spinner text-dark">
-                    Không có dữ liệu
-                  </p>
+                    <p className="  hight-load load-spinner text-dark">
+                      Không có dữ liệu
+                    </p>
                   </div>
                 )}
               </>
@@ -97,19 +117,16 @@ function Booked({ dataSortBooked }) {
                         <a
                           className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
                           type="button"
-                          onClick={async function handlePay() {
-                            let res = await axios.post(
-                              `http://localhost:8000/bill/checkin?room_id=${item.id}`,"",
-                              {
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  Authorization: `Bearer ${token}`,
-                                },
-                              }
-                            );
-                            alert("Check in thành công !")
-                            window.location = "/room/checkin";
-                            console.log(" pay", res);
+                          onClick={function confirmCheckIn() {
+                            const id = item.id;
+                            let text = "Bạn có muốn Check In ?";
+                            if (window.confirm(text) == true) {
+                              text = "You pressed OK!";
+
+                              handlePay(id);
+                            } else {
+                              text = "You canceled!";
+                            }
                           }}
                         >
                           Check in

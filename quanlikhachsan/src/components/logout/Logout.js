@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 
 
@@ -16,14 +15,13 @@ function Logout() {
     }
    
   }
+
  const logout =()=>  {
    localStorage.clear("token")
    history("/") 
 };
 
- 
  return (
-
     <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal" type="button" onClick={logoutConfirm}>
     <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
     Đăng xuất
