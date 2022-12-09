@@ -15,12 +15,16 @@ export const AppProvider = ({ children }) => {
   //service
   const [serviceData, setServiceData] = useState([]);
 
+  //manager room
+  const [roomData, setRoomData] = useState([]);
+  
   //room
   const [dataAllRoom, setDataAllRoom] = useState([]);
   const [dataFreeRoom, setDataFreeRoom] = useState([]);
   const [dataBookedRoom, setDataBookedRoom] = useState([]);
   const [dataCleanRoom, setDataCleanRoom] = useState([]);
   const [dataCheckInRoom, setDataCheckInRoom] = useState([]);
+
 
   const [role, setRole] = useState();
 
@@ -185,7 +189,23 @@ export const AppProvider = ({ children }) => {
   };
   ///
 
+
+    // get data service
+    const getDataRoom = async () => {
+      let res = await axios.get("http://localhost:8000/room/getlist", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      res =  res.data.data;
+      console.log("res",res)
+      setRoomData(res);
+    };
+    ///
+
   useEffect(() => {
+    getDataRoom()
     getDataUser();
     getDataCustomer();
     getDataService();
@@ -194,7 +214,6 @@ export const AppProvider = ({ children }) => {
     getDataBookedRoom();
     getDataCleanRoom();
     getDataCheckInRoom();
-
     getProFile()
   }, [token]);
 
@@ -203,12 +222,14 @@ export const AppProvider = ({ children }) => {
       value={{
         customerData,
         userData,
+        roomData,
         serviceData,
         dataAllRoom,
         dataFreeRoom,
         dataBookedRoom,
         dataCleanRoom,
         dataCheckInRoom,
+        
 
         role
       }}

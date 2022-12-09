@@ -136,6 +136,15 @@ function Sidebar() {
         </Link>
       </li>
 
+
+       {/* <!-- Nav Item - custom --> */}
+       <li className="nav-item">
+        <Link to="/room-manager" className="nav-link">
+        <i className="bi bi-building"></i> &nbsp;
+          <span>Quản Lý Phòng</span>
+        </Link>
+      </li>
+
       {roleAdmin(roleAccount)}
 
      

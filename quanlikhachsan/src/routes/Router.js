@@ -11,6 +11,7 @@ import ShowProfile from "../components/profile/ShowProfile";
 import ChangePassword from "../components/profile/ChangePassword";
 import { AppContext } from "../Context/AppContext";
 import { useContext } from "react";
+import RoomManager from "../pages/RoomManager";
 
 function Router() {
   const { role } = useContext(AppContext);
@@ -30,6 +31,7 @@ function Router() {
       <Route path="/oder/*" element={<Oder />} />
       <Route path="/customer/*" element={<Customer />} />
       <Route path="/service/*" element={<Service />} />
+      <Route path="/room-manager/*" element={<RoomManager />} />
       <Route path="/bill/*" element={<Bill />} />
       {roleAdmin(roleAccount)}
     </Routes>
