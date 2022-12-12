@@ -8,14 +8,12 @@ import { AppProvider } from "../Context/AppContext";
 import Router from "../routes/Router";
 
 function Local() {
-
-  
   let history = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("token")) {
       history("/login");
     }
-  });
+  },[]);
 
   return (
     <>

@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { AppContext } from "../../Context/AppContext";
-import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
+import { memo } from "react";
+import ProfileBill from "../handleroom/ProfileBill";
+import { Button } from "react-bootstrap";
+import { useCallback } from "react";
 
 function Booked({ dataSortBooked }) {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -11,40 +13,20 @@ function Booked({ dataSortBooked }) {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 5000);
+    }, 1000);
   }, []);
 
-
-  let dataSort = dataSortBooked[0];
-  let isNullBooked = dataSortBooked[1]
-  
+  let dataSort = dataSortBooked;
 
   //////////////////// get data
-  const { dataBookedRoom } = useContext(AppContext);
   const [loadingData, setLoadingData] = useState(false);
-  const dataOfBookedRoom = dataBookedRoom.filter(function (BookedRoom) {
-    return BookedRoom.status === 4;
-  });
+  const [idRoom,setIdRoom]=useState("");
+  const [dataProfileForm,setDataProfileForm]=useState([]);
 
-
-  const data = dataSort.length == 0 ? (isNullBooked?[]:dataOfBookedRoom ): dataSort;
-
-
-
-  const className = (status) => {
-    if (status === 1) {
-      return "card bg-primary decription-room";
-    } else if (status === 4) {
-      return "card bg-warning decription-room";
-    } else if (status === 3) {
-      return "card bg-danger decription-room";
-    } else if (status === 2) {
-      return "card bg-success decription-room";
-    }
-  };
-
+  const data = dataSort.flat();
   /////////////////
-  async function handlePay(id) {
+
+ const handlePay = useCallback( async  (id)=> {
     let res = await axios.post(
       `http://localhost:8000/bill/checkin?room_id=${id}`,
       "",
@@ -57,8 +39,28 @@ function Booked({ dataSortBooked }) {
     );
 
     window.location = "/room/checkin";
-    console.log(" pay", res);
-  }
+  },[token])
+
+
+  //get api by id
+  const getData = useCallback(
+    async (id) => {
+      let res = await axios.get(
+        `http://localhost:8000/bill/billroom/id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data.data;
+      setDataProfileForm(res);
+    },
+    [token]
+  );
+
+  //
 
   ////////////////////
 
@@ -68,7 +70,7 @@ function Booked({ dataSortBooked }) {
       <hr />
       <section className="py-2">
         <div className="container px-2 px-lg-2 mt-0">
-          <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
 
             {data.length == 0 ? (
@@ -84,8 +86,8 @@ function Booked({ dataSortBooked }) {
                   />
                 ) : (
                   <div className="d-flex justify-content-center mt-2 pt-2">
-                    <p className="  hight-load load-spinner text-dark">
-                      Không có dữ liệu
+                    <p className="  hight-load load-spinner text-dark ">
+                      Không có dữ liệu <br /> Vui lòng chọn ngày
                     </p>
                   </div>
                 )}
@@ -93,29 +95,50 @@ function Booked({ dataSortBooked }) {
             ) : (
               data.length > 0 &&
               data.map((item) => (
-                <div className="col mb-2 " key={item.id}>
-                  <div className={className(item.status)}>
+                <div className="col mb-2 border-dark" key={item.id}>
+                  <div className="card bg-warning decription-room border border-dark">
                     {/* <!-- Product details--> */}
-                    <div className="card-body p-2">
-                      <div className="d-flex justify-content-center"></div>
+                    <div className="card-body">
+                      {/* icon */}
+                      <div className="d-flex justify-content-center">
+                        <a className="text-light bg-dark pl-1 pr-1 rounded ">
+                          <i className="bi bi-arrow-repeat"></i>
+                        </a>
 
-                      <div className="text-center ">
+                        <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                          variant="primary"
+                          data-toggle="modal"
+                          data-target="#OderRoomModal"
+                          data-whatever="@getbootstrap"
+                          type="button"
+                          onClick={
+                            // () => getData(item.id)
+                              function handleGetDataRoom(e) {
+                              e.preventDefault();
+                              getData(item.id);
+                            }
+                          }
+                        >
+                          <i className="bi bi-people-fill"></i>
+                        </a>
+                        <ProfileBill idDataRoom={dataProfileForm}/>
+                      </div>
+                      {/* icon */}
+
+                      <div className="text-center mt-2 ">
                         {/* <!-- Product name--> */}
-                        <h4 className="fw-bolder">{item.name_room}</h4>
+                        <strong className="fw-bolder">{item.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <h6 className="fw-bolder">
-                          Giá : {item.price + " vnd"}
-                        </h6>
-                        <br />
+                        <p className="fw-bolder">Giá: {item.price + "vnd"}</p>
                       </div>
                     </div>
 
                     {/* <!-- Product actions--> */}
-                    <div className="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                    <div className="card-footer p-2 mb-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
                         <a
-                          className="btn btn-outline-dark mt-2 mb-2 white  bg-dark white"
+                          className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1"
                           type="button"
                           onClick={function confirmCheckIn() {
                             const id = item.id;
@@ -129,7 +152,23 @@ function Booked({ dataSortBooked }) {
                             }
                           }}
                         >
-                          Check in
+                          Checkin
+                        </a>
+
+                        <a
+                          className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                          type="button"
+                          // onClick={function confirmCancle() {
+                          //   const id = item.id;
+                          //   let text = "Bạn có muốn hủy phòng ?";
+                          //   if (window.confirm(text) == true) {
+                          //     text = "You pressed OK!";
+                          //   } else {
+                          //     text = "You canceled!";
+                          //   }
+                          // }}
+                        >
+                          Hủy
                         </a>
                       </div>
                     </div>
@@ -144,4 +183,4 @@ function Booked({ dataSortBooked }) {
     </div>
   );
 }
-export default Booked;
+export default memo(Booked);

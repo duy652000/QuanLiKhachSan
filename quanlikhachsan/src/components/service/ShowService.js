@@ -7,6 +7,7 @@ import { AppContext } from "../../Context/AppContext";
 
 function ShowService() {
 
+
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
@@ -15,6 +16,8 @@ function ShowService() {
   }, []);
 
   const { serviceData } = useContext(AppContext);
+
+
   const data = serviceData;
 
   

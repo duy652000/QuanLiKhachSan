@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Room from "../pages/Room";
-import Bill from "../pages/Bill";
 import User from "../pages/User";
 import Oder from "../pages/services/Oder";
 import Customer from "../pages/Customer";
@@ -16,11 +15,11 @@ import RoomManager from "../pages/RoomManager";
 function Router() {
   const { role } = useContext(AppContext);
   const roleAccount = role;
-  const roleAdmin = (roleAccount)=>{
+  const roleAdmin = useCallback((roleAccount)=>{
     if(roleAccount===1){
       return <Route path="/user/*" element={<User />} /> 
     }
-  }
+  },[roleAccount])
   
   return (
     <Routes>
@@ -32,10 +31,10 @@ function Router() {
       <Route path="/customer/*" element={<Customer />} />
       <Route path="/service/*" element={<Service />} />
       <Route path="/room-manager/*" element={<RoomManager />} />
-      <Route path="/bill/*" element={<Bill />} />
+      
       {roleAdmin(roleAccount)}
     </Routes>
   );
 }
 
-export default Router;
+export default memo(Router);

@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Free from "../components/rooms/Free";
 import Booked from "../components/rooms/Booked";
 import Clean from "../components/rooms/Clean";
-import All from "../components/rooms/All";
+
 import StatusRoom from "../components/rooms/StatusRoom";
 import DayCheckIn from "../components/rooms/DayCheckIn";
 import { AppContext } from "../Context/AppContext";
@@ -12,47 +12,46 @@ import CheckIn from "../components/rooms/CheckIn";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { useCallback } from "react";
+import { useMemo } from "react";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import All from "../components/rooms/All";
 
 function Room() {
   let url = useLocation();
-  const { dataAllRoom } = useContext(AppContext);
-  const { dataFreeRoom } = useContext(AppContext);
-  const { dataBookedRoom } = useContext(AppContext);
-  const { dataCheckInRoom } = useContext(AppContext);
-  const { dataCleanRoom } = useContext(AppContext);
+  const {
+    dataAllRoom,
+    dataCheckInRoom,
+    dataCleanRoom,
+  } = useContext(AppContext);
+
+
   const [itemFree, setItemFree] = useState([]);
   const [itemBooked, setItemBooked] = useState([]);
   const [itemClean, setItemClean] = useState([]);
   const [itemCheckIn, setItemCheckIn] = useState([]);
 
-  const [isNullFree,setIsNullFree] = useState(false);
-  const [isNullBooked,setIsNullBooked] = useState(false);
-  const [isNullCheckIn,setIsNullCheckIn] = useState(false);
-  const [isNullClean,setIsNullClean] = useState(false);
 
+  const [isNullCheckIn, setIsNullCheckIn] = useState(false);
+  const [isNullClean, setIsNullClean] = useState(false);
 
-
-  const getStatusRoom = (url) => {
+  const getStatusRoom = useCallback((url) => {
     if (url.pathname === "/room/free") {
-      return setDetailDay({ status_room: 1, status_bill: 1 });
+      setDetailDay({ status_room: 1, status_bill: 1 });
     } else if (url.pathname === "/room/booked") {
-      return setDetailDay({ status_room: 4, status_bill: 1 });
+      setDetailDay({ status_room: 4, status_bill: 1 });
     } else if (url.pathname === "/room/checkin") {
-      return setDetailDay({ status_room: 2, status_bill: 1 });
+      setDetailDay({ status_room: 2, status_bill: 1 });
     } else if (url.pathname === "/room/clean") {
-      return setDetailDay({ status_room: 3, status_bill: 1 });
+      setDetailDay({ status_room: 3, status_bill: 1 });
     }
-  };
+  }, []);
 
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
+
   useEffect(() => {
     getStatusRoom(url);
   }, [url]);
-
-  const handleFilterDate = (e) => {
-    e.preventDefault();
-    filterDate(detailDay);
-  };
 
   const [detailDay, setDetailDay] = useState({
     from: "",
@@ -62,91 +61,49 @@ function Room() {
   });
 
   //call api
-  async function filterDate(detail) {
+  const filterDate = useCallback(async () => {
     // try {
-      let res = await axios.get(
-        `http://localhost:8000/room/filter?from=${detail.from}&to=${detail.to}&status_room=${detail.status_room}&status_bill=${detail.status_bill}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      
-      res = await res.data.Rom;
-      let Dm = [];
-      let checkNull = false
-      console.log("trả về", res)
-      if(res==null){
-        checkNull = true
-      }else{
-      res.forEach((element) => {
-        element.forEach((item) => {
-          Dm.push(item);
-         
-        });
-      });
-    }
-      
-
-      if (url.pathname === "/room/free") {
-        setIsNullFree(checkNull)
-        setItemFree(Dm);
-      } else if (url.pathname === "/room/booked") {
-        setIsNullBooked(checkNull)
-        setItemBooked(Dm);
-      } else if (url.pathname === "/room/checkin") {
-        setIsNullCheckIn(checkNull)
-        setItemCheckIn(Dm);
-      } else if (url.pathname === "/room/clean") {
-        setIsNullClean(checkNull)
-        setItemClean(Dm);
+    let res = await axios.get(
+      `http://localhost:8000/room/filter?from=${detailDay.from}&to=${detailDay.to}&status_room=${detailDay.status_room}&status_bill=${detailDay.status_bill}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
+    );
+
+    res = await res.data.Rom;
+    console.log("res", res);
+
+    if (url.pathname === "/room/free") {
+      setItemFree(res);
+    } else if (url.pathname === "/room/booked") {
+      setItemBooked(res);
+    } else if (url.pathname === "/room/checkin") {
+      setIsNullCheckIn(res ? false : true);
+      setItemCheckIn(res);
+    } else if (url.pathname === "/room/clean") {
+      setIsNullClean(res ? false : true);
+      setItemClean(res);
+    }
     // } catch (error) {
-      // console.log(error)
-      //   // setError(JSON.parse(error.response.data));
+    // console.log(error)
+    //   // setError(JSON.parse(error.response.data));
     // }
-  }
+  }, [detailDay, token]);
+  console.log("itemFree" ,itemFree.flat().length)
 
 
-  /////////////////
+  const countAllRoom = dataAllRoom.length;
+  const countCheckInRoom = dataCheckInRoom.length;
+  const countCleanRoom = dataCleanRoom.length;
 
-  const countAllRoom = dataAllRoom.filter(function (count) {
-    if (count.status !== 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }).length;
-  const countFreeRoom = dataFreeRoom.filter(function (count) {
-    if (count.status == 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }).length;
-  const countBookedRoom = dataBookedRoom.filter(function (count) {
-    if (count.status === 4) {
-      return true;
-    } else {
-      return false;
-    }
-  }).length;
-  const countCheckInRoom = dataCheckInRoom.filter(function (count) {
-    if (count.status === 2) {
-      return true;
-    } else {
-      return false;
-    }
-  }).length;
-  const countCleanRoom = dataCleanRoom.filter(function (count) {
-    if (count.status === 3) {
-      return true;
-    } else {
-      return false;
-    }
-  }).length;
+  
+
+  const countFreeRoom = itemFree.flat().length
+  const countBookedRoom = itemBooked.flat().length
+
 
   return (
     // <!-- Begin Page Content -->
@@ -173,56 +130,59 @@ function Room() {
           <div className="table-responsive">
             <div className="  my-2 mr-5 ml-5">
               {/* form search  */}
-              <form onSubmit={handleFilterDate}>
-                <div className="row m-auto">
-                  <div className="col-sm d-flex justify-content-end">
-                    <div>
-                      <label className="mr-3">Từ ngày</label>
-                      <input
-                        className="status-room"
-                        type="date"
-                        id="start"
-                        name="trip-start"
-                        onChange={(e) => {
-                          setDetailDay({
-                            ...detailDay,
-                            from: e.target.value,
-                          });
-                        }}
-                        defaultValue={detailDay?.form}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-sm d-flex justify-content-end">
-                    <div>
-                      <label className="mr-3">Đến ngày</label>
-                      <input
-                        className="status-room"
-                        type="date"
-                        id="start"
-                        name="trip-start"
-                        onChange={(e) => {
-                          setDetailDay({
-                            ...detailDay,
-                            to: e.target.value,
-                          });
-                        }}
-                        defaultValue={detailDay?.to}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-sm d-flex justify-content-center">
+              {/* <form onSubmit={handleFilterDate}> */}
+              <div className="row m-auto">
+                <div className="col-sm d-flex justify-content-end">
+                  <div>
+                    <label className="mr-3 font-weight-bold">Từ ngày :</label>
                     <input
-                      className=" btn btn-primary"
-                      type="submit"
-                      value="Submit"
+                      className="status-room border border-dark rounded"
+                      type="date"
+                      id="start"
+                      name="trip-start"
+                      onChange={(e) => {
+                        setDetailDay({
+                          ...detailDay,
+                          from: e.target.value,
+                        });
+                      }}
+                      defaultValue={detailDay?.form}
                     />
                   </div>
                 </div>
-                <br></br>
-              </form>
+
+                <div className="col-sm d-flex justify-content-end">
+                  <div>
+                    <label className="mr-3 font-weight-bold">Đến ngày :</label>
+                    <input
+                      className="status-room border border-dark rounded"
+                      type="date"
+                      id="start"
+                      name="trip-start"
+                      onChange={(e) => {
+                        setDetailDay({
+                          ...detailDay,
+                          to: e.target.value,
+                        });
+                      }}
+                      defaultValue={detailDay?.to}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-sm d-flex justify-content-center">
+                  <button
+                    className=" btn btn-primary"
+                    // type="button"
+                    onClick={filterDate}
+                    // value="Submit"
+                  >
+                    Tìm Kiếm
+                  </button>
+                </div>
+              </div>
+              <br></br>
+              {/* </form> */}
             </div>
             <hr />
             <DayCheckIn />
@@ -235,7 +195,10 @@ function Room() {
       <div className="card shadow mb-4">
         <div className="card-header py-3">
           <Nav className="me-auto navbar_warapper btn-rooms">
-            <Link className="btn-change-room nav-item nav-link " to="">
+            <Link
+              className="btn-change-room nav-item nav-link hover-url"
+              to="/room"
+            >
               <span
                 className={
                   url.pathname === "/room" ? "hover-url font-weight-bold" : ""
@@ -243,8 +206,9 @@ function Room() {
               >
                 Tất cả
               </span>{" "}
-              <span className="circle-red "> {countAllRoom ?? 0}</span>
+              <span className="circle-red ">{countAllRoom ?? 0}</span>
             </Link>
+
             <Link
               className="btn-change-room nav-item nav-link hover-url"
               to="free"
@@ -260,6 +224,7 @@ function Room() {
               </span>{" "}
               <span className="circle-red  ">{countFreeRoom ?? 0}</span>
             </Link>
+
             <Link className="btn-change-room nav-item nav-link " to="booked">
               <span
                 className={
@@ -303,11 +268,23 @@ function Room() {
 
         {/* content */}
         <Routes>
-          <Route path="" element={<All />} />
-          <Route path="free" element={<Free dataSortFree={[itemFree,isNullFree]} />} />
-          <Route path="booked" element={<Booked dataSortBooked={[itemBooked,isNullBooked]} />} />
-          <Route path="checkin" element={<CheckIn dataSortCheckIn={[itemCheckIn,isNullCheckIn]} />} />
-          <Route path="clean" element={<Clean dataSortClean={[itemClean,isNullClean]} />} />
+          <Route path="*" element={<All />} />
+          <Route
+            path="free"
+            element={<Free dataSortFree={itemFree} />}
+          />
+          <Route
+            path="booked"
+            element={<Booked dataSortBooked={itemBooked} />}
+          />
+          <Route
+            path="checkin"
+            element={<CheckIn dataSortCheckIn={[itemCheckIn, isNullCheckIn]} />}
+          />
+          <Route
+            path="clean"
+            element={<Clean dataSortClean={[itemClean, isNullClean]} />}
+          />
         </Routes>
         {/* content */}
       </div>

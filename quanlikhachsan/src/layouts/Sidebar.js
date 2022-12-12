@@ -84,7 +84,7 @@ function Sidebar() {
       <li className="nav-item active">
         <a href="/" className="nav-link">
           <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
-          <span>Thống Kê</span>
+          <span>Giờ Quốc Tế</span>
         </a>
       </li>
 

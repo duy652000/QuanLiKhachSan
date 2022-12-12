@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
+import { memo } from 'react';
 import {useNavigate} from 'react-router-dom'
 
 function Protected(props) {
-    let Cmp =props.Cmp
+    let Cmp =  props.Cmp
    
     const history =useNavigate();
     useEffect(() => {
@@ -17,4 +18,4 @@ function Protected(props) {
   )
 }
 
-export default Protected
+export default memo(Protected);

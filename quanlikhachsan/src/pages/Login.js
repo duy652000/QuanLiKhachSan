@@ -127,7 +127,7 @@ function Login() {
         </div>
       </div>
     </div>
-  ):(<FormVertifi token={getToken}/>)} 
+ ):(<FormVertifi token={getToken}/>)} 
     </>
   );
 }

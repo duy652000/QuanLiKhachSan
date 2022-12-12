@@ -1,5 +1,6 @@
 import { Children, createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useCallback } from "react";
 
 export const AppContext = createContext({});
 
@@ -17,14 +18,13 @@ export const AppProvider = ({ children }) => {
 
   //manager room
   const [roomData, setRoomData] = useState([]);
-  
+
   //room
   const [dataAllRoom, setDataAllRoom] = useState([]);
   const [dataFreeRoom, setDataFreeRoom] = useState([]);
   const [dataBookedRoom, setDataBookedRoom] = useState([]);
   const [dataCleanRoom, setDataCleanRoom] = useState([]);
   const [dataCheckInRoom, setDataCheckInRoom] = useState([]);
-
 
   const [role, setRole] = useState();
 
@@ -36,7 +36,7 @@ export const AppProvider = ({ children }) => {
   // const [dataCountCleanRoom, setDataCountCleanRoom] = useState([]);
 
   //get infor
-  const getProFile = async () => {
+  const getProFile = useCallback(async () => {
     let res = await axios.get("http://localhost:8000/view-account", {
       headers: {
         "Content-Type": "application/json",
@@ -45,12 +45,12 @@ export const AppProvider = ({ children }) => {
     });
     res = await res.data;
     setRole(res.group_id);
-  };
+  }, [token]);
 
   //get data room
 
   // all room
-  const getDataAllRoom = async () => {
+  const getDataAllRoom = useCallback(async () => {
     let res = await axios.get("http://localhost:8000/room/getlist", {
       headers: {
         "Content-Type": "application/json",
@@ -59,8 +59,7 @@ export const AppProvider = ({ children }) => {
     });
     res = await res.data.data;
     setDataAllRoom(res);
-    
-  };
+  }, [token]);
 
   // const getDataAllRoom = useAsync (async () => {
   //   let res = await axios.get("http://localhost:8000/room/getlist", {
@@ -81,7 +80,7 @@ export const AppProvider = ({ children }) => {
   // const dataOfAllRoom = value?.dataAllRoom??[];
 
   // free room
-  const getDataFreeRoom = async () => {
+  const getDataFreeRoom = useCallback(async () => {
     //await here
     let res = await axios.get(
       "http://localhost:8000/room/filter?status_room=1",
@@ -92,13 +91,13 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-    res =  res.data.Rom;
+    res = res.data.Rom;
 
     setDataFreeRoom(res);
-  };
+  }, [token]);
 
   //booked room
-  const getDataBookedRoom = async () => {
+  const getDataBookedRoom = useCallback ( async () => {
     let res = await axios.get(
       "http://localhost:8000/room/filter?status_room=4",
       {
@@ -109,14 +108,14 @@ export const AppProvider = ({ children }) => {
       }
     );
     // let countDataBookedRoom = res.data.client.length
-    res =  res.data.Rom;
-    
-   
+    res = res.data.Rom;
 
     setDataBookedRoom(res);
-  };
+  },[]);
+
+
   //booked room
-  const getDataCheckInRoom = async () => {
+  const getDataCheckInRoom = useCallback( async () => {
     let res = await axios.get(
       "http://localhost:8000/room/filter?status_room=2",
       {
@@ -126,14 +125,13 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-    
-    res =  res.data.Rom;
-    setDataCheckInRoom(res);
-  };
 
+    res = res.data.Rom;
+    setDataCheckInRoom(res);
+  },[]);
 
   //clean room
-  const getDataCleanRoom = async () => {
+  const getDataCleanRoom = useCallback( async () => {
     //await here
     let res = await axios.get(
       "http://localhost:8000/room/filter?status_room=3",
@@ -144,78 +142,75 @@ export const AppProvider = ({ children }) => {
         },
       }
     );
-  
-    res =  res.data.Rom;
-    setDataCleanRoom(res);
 
-  };
+    res = res.data.Rom;
+    setDataCleanRoom(res);
+  },[token]);
 
   // end get data room
 
   // get data customer
-  const getDataCustomer = async () => {
+  const getDataCustomer = useCallback( async () => {
     let res = await axios.get("http://localhost:8000/client/client-profile", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    res =  res.data.data;
+    res = res.data.data;
     setCustomerData(res);
-  };
+  },[token]);
 
   // get data user
-  const getDataUser = async () => {
+  const getDataUser =useCallback( async () => {
     let res = await axios.get("http://localhost:8000/all-account", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    res =  res.data.data;
+    res = res.data.data;
     setUserData(res);
-  };
+  },[token]);
 
   // get data service
-  const getDataService = async () => {
+  const getDataService = useCallback( async () => {
     let res = await axios.get("http://localhost:8000/service/service-info", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-    res =  res.data.data;
+    res = res.data.data;
     setServiceData(res);
-  };
+  },[token]);
   ///
 
-
-    // get data service
-    const getDataRoom = async () => {
-      let res = await axios.get("http://localhost:8000/room/getlist", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      res =  res.data.data;
-      console.log("res",res)
-      setRoomData(res);
-    };
-    ///
+  // get data service
+  const getDataRoom = useCallback( async () => {
+    let res = await axios.get("http://localhost:8000/room/getlist", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    res = res.data.data;
+    setRoomData(res);
+  },[token]) ;
+  ///
 
   useEffect(() => {
-    getDataRoom()
+    getDataRoom();
     getDataUser();
     getDataCustomer();
     getDataService();
     getDataAllRoom();
-    getDataFreeRoom();
-    getDataBookedRoom();
+    // getDataFreeRoom();
+    // getDataBookedRoom();
     getDataCleanRoom();
     getDataCheckInRoom();
-    getProFile()
-  }, [token]);
+    getProFile();
+  }, []);
 
   return (
     <AppContext.Provider
@@ -225,13 +220,11 @@ export const AppProvider = ({ children }) => {
         roomData,
         serviceData,
         dataAllRoom,
-        dataFreeRoom,
-        dataBookedRoom,
+        // dataFreeRoom,
+        // dataBookedRoom,
         dataCleanRoom,
         dataCheckInRoom,
-        
-
-        role
+        role,
       }}
     >
       {children}

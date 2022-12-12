@@ -2,7 +2,7 @@ import React from "react";
 
 function StatusRoom() {
   return (
-    <div className="d-flex justify-content-between row ml-1 my-3">
+    <div className="d-flex justify-content-between row ml-1 my-3 font-weight-bold">
 
       <div className="col-sm ">
         <button type="button" className="btn btn-primary"></button>

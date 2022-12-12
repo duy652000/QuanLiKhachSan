@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
+import { useMemo } from "react";
 
 function OderRoomForm({ dataItem }) {
   const { customerData, serviceData } = useContext(AppContext);
@@ -36,17 +38,21 @@ function OderRoomForm({ dataItem }) {
       room_id: dataItem[0],
       day_in: dayCome,
       day_out: dayGo,
-      total_room_rate: dataItem[2],
+      total_room_rate:
+        dataItem[2] *
+        (moment(dayGo).format("DD") - moment(dayCome).format("DD") > 0
+          ? moment(dayGo).format("DD") - moment(dayCome).format("DD")
+          : 1),
       total_service_fee: priceService * amountService,
-      total_money: priceService * amountService + dataItem[2],
+      total_money:
+        priceService * amountService +
+        dataItem[2] *
+          (moment(dayGo).format("DD") - moment(dayCome).format("DD") > 0
+            ? moment(dayGo).format("DD") - moment(dayCome).format("DD")
+            : 1),
       service_id: idService,
       amount: amountService,
     });
-
-    const getData = new FormData(e.target)
-    // const data = Object.fromEntries(getData.entries())
-    console.log("data",getData)
-
   };
 
   const [details, setDetails] = useState({
@@ -63,28 +69,27 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-
+    // console.log("details", details);
     addBill(details);
   };
 
   //call api
   async function addBill(detail) {
-    // try {
-    let res = await axios.post("http://localhost:8000/bill/create", detail, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    res = await res;
-    window.location = "/room";
-    alert("Đặt phòng thành công !");
-    // } catch (error) {
-    //   setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
-    //   setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
-    // }
+    try {
+      let res = await axios.post("http://localhost:8000/bill/create", detail, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      res = await res;
+      window.location = "/room/booked";
+      alert("Đặt phòng thành công !");
+    } catch (error) {
+      setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
+      setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
+    }
   }
-
 
   return (
     <>
@@ -121,32 +126,35 @@ function OderRoomForm({ dataItem }) {
                 <h5 className="my-3">Thông tin khách hàng </h5>
                 <div className="line-page "></div>
 
-                <div className="form-group row mt-3">
-                  <div className="col-sm-6">
-                    <label htmlFor="inputLastname">Mã khách hàng :</label>
+                <div className="form-group row mt-5 justify-content-around">
+                  <div className="col-sm d-flex justify-content-around">
+                    <label className="col-sm" htmlFor="inputLastname">
+                      Mã KH:
+                    </label>
                     <input
                       disabled={true}
                       type="text"
-                      className="form-control bg-white"
+                      className="form-control col-sm-8 bg-white"
                       id="maKH"
-                      name='maKH'
+                      name="maKH"
                       placeholder="Điền mã khách hàng ..."
                       onChange={(e) => {
                         setIdCustomer({
                           ...idCustomer,
                           id: e.target.value,
                         });
-                  
                       }}
                       value={idCustomer ? idCustomer : ""}
                     />
                   </div>
-                  <div className="col-sm-6">
-                    <label htmlFor="inputLastname">Tên khách hàng :</label>
 
+                  <div className="col-sm d-flex justify-content-around">
+                    <label className="col-sm" htmlFor="inputLastname">
+                      Tên KH :
+                    </label>
                     <select
                       id="cars"
-                      className="form-control"
+                      className="form-control col-sm-8"
                       onChange={(e) => {
                         const selectIdCustomer = e.target.value;
                         setIdCustomer(selectIdCustomer);
@@ -168,29 +176,33 @@ function OderRoomForm({ dataItem }) {
 
                 {/* thông tin phòng */}
                 <div className="line-page mt-5 "></div>
-
                 <h5 className="my-3">Thông tin phòng </h5>
                 <div className="line-page "></div>
 
-                <div className="form-group row mt-3">
-                  <div className="col-sm-6">
-                    <label htmlFor="inputLastname">Tên phòng :</label>
+                <div className="form-group row mt-5 justify-content-around ">
+                  <div className="col-sm d-flex justify-content-around">
+                    <label className="col-sm" htmlFor="inputLastname">
+                      Tên phòng :
+                    </label>
                     <input
                       disabled={true}
                       type="text"
-                      className="form-control bg-white"
+                      className="form-control bg-white col-sm-8"
                       id="tenPhong"
                       name="ten"
                       placeholder="Điền tên phòng ..."
                       defaultValue={dataItem[1]}
                     />
                   </div>
-                  <div className="col-sm-6">
-                    <label htmlFor="inputLastname">Giá Phòng :</label>
+
+                  <div className="col-sm d-flex justify-content-around">
+                    <label className="col-sm" htmlFor="inputLastname">
+                      Giá Phòng :
+                    </label>
                     <input
                       disabled={true}
                       type="text"
-                      className="form-control bg-white"
+                      className="form-control bg-white col-sm-8"
                       id="giaphong"
                       name="gia"
                       placeholder="Điền giá phòng ..."
@@ -199,14 +211,15 @@ function OderRoomForm({ dataItem }) {
                   </div>
                 </div>
 
-                <div className="form-group row mt-3">
-                  <div className="col-sm-6">
-                    <label htmlFor="inputLastname">Ngày đến :</label>
-                    <p className="text-danger">{errorDayIn}</p>
+                <div className="form-group row mt-4 justify-content-around ">
+                  <div className="col-sm d-flex justify-content-around">
+                    <label className="col-sm " htmlFor="inputLastname">
+                      Ngày đến :
+                    </label>
 
                     <input
                       type="date"
-                      className="form-control"
+                      className="form-control col-sm-8"
                       id="ngayden"
                       name="ngayden"
                       placeholder="Điền ngày đến ..."
@@ -217,21 +230,37 @@ function OderRoomForm({ dataItem }) {
                       }}
                     />
                   </div>
-                  <div className="col-sm-6">
-                    <label htmlFor="inputLastname">Ngày đi :</label>
-                    <p className="text-danger">{errorDayOut}</p>
+
+                  <div className="col-sm d-flex justify-content-around">
+                    <label className="col-sm" htmlFor="inputLastname">
+                      Ngày đi :
+                    </label>
+
                     <input
                       type="date"
-                      className="form-control"
+                      className="form-control col-sm-8"
                       id="ngaydi"
                       name="ngaydi"
                       placeholder="Điền ngày đi ..."
                       onChange={(e) => {
                         const dayGo = e.target.value;
-
                         setDayGo(dayGo);
+                        console.log("daygo", moment(dayGo).format("DD"));
                       }}
                     />
+                  </div>
+                </div>
+
+                <div className="form-group row justify-content-center ">
+                  
+                  <div className="col-sm d-flex justify-content-start">
+                      <label className="col-sm" > </label>
+                    <div className="text-danger col-sm-8">asdas{errorDayIn}</div>
+                  </div>
+
+                  <div className="col-sm d-flex justify-content-start">
+                      <label className="col-sm"></label>
+                    <div className="text-danger col-sm-8">assa{errorDayOut}</div>
                   </div>
                 </div>
 
@@ -240,7 +269,7 @@ function OderRoomForm({ dataItem }) {
                 <h5 className="my-3">Thông tin dịch vụ </h5>
                 <div className="line-page "></div>
 
-                <div className="form-group row mt-3">
+                <div className="form-group row mt-5">
                   <div className="col-sm-5">
                     <label htmlFor="inputLastname">Tên dịch vụ :</label>
                     <select
@@ -299,6 +328,7 @@ function OderRoomForm({ dataItem }) {
                   </div>
 
                   <div className="col-sm-12 mt-2 d-flex justify-content-end">
+                    <p className="text-small px-4 float-left mt-4 pt-2 text-muted">( *ấn để cộng bill )</p>
                     <button
                       type="button"
                       className="btn btn-primary px-4 float-left mt-4 pt-2"
@@ -316,7 +346,14 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3 ">
                   <p className="float-left ">Tổng phí phòng :</p>
                   <p className="float-right">
-                    {dataItem[2]} <span> VND</span>
+                    {dataItem[2] *
+                      (moment(dayGo).format("DD") -
+                        moment(dayCome).format("DD") >
+                      0
+                        ? moment(dayGo).format("DD") -
+                          moment(dayCome).format("DD")
+                        : 1)}{" "}
+                    <span> VND</span>
                   </p>
                 </div>
 
@@ -333,7 +370,15 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <h6 className="float-left">Tổng hóa đơn :</h6>
                   <h6 className="float-right">
-                    {sumBill} <span> VND</span>
+                    {priceService * amountService +
+                      dataItem[2] *
+                        (moment(dayGo).format("DD") -
+                          moment(dayCome).format("DD") >
+                        0
+                          ? moment(dayGo).format("DD") -
+                            moment(dayCome).format("DD")
+                          : 1)}{" "}
+                    <span> VND</span>
                   </h6>
                 </div>
                 <div className=" mt-5  line-page-bold"></div>

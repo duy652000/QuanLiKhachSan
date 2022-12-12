@@ -8,7 +8,7 @@ function ShowProfile() {
   const [error, setError] = useState("");
 
   //get infor
-  const getProFile= async () => {
+  const getProFile = async () => {
     let res = await axios.get("http://localhost:8000/view-account", {
       headers: {
         "Content-Type": "application/json",
@@ -19,21 +19,17 @@ function ShowProfile() {
     setDetails(res);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getProFile();
-  
-  },[token])
-
-
+  }, [token]);
 
   //////
 
   const handleUpdate = (e) => {
     e.preventDefault();
-  
+
     updateProfile(details);
   };
-
 
   //change infor
   async function updateProfile(detail) {
@@ -47,22 +43,15 @@ function ShowProfile() {
             Authorization: `Bearer ${token}`,
           },
         }
-        );
-     
-        alert("Cập nhật thành công !")
-        // window.location="/";
+      );
+
+      alert("Cập nhật thành công !");
+      // window.location="/";
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }
   }
   ////
-
-
-
-
-
-
-
 
   return (
     <div className="container-fluid">
@@ -201,8 +190,8 @@ function ShowProfile() {
                     <p className="text-danger">{error.CCCD}</p>
 
                     <input
-                        pattern="[0-9]{10}"
-                        onChange={(e) => {
+                      pattern="[0-9]{10}"
+                      onChange={(e) => {
                         setDetails({
                           ...details,
                           CCCD: e.target.value,
@@ -217,9 +206,6 @@ function ShowProfile() {
                     />
                   </div>
                 </div>
-
-               
-                 
 
                 <div className="form-group">
                   <div className="col-xs-12">
