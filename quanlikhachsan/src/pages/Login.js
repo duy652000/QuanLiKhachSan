@@ -36,6 +36,7 @@ function Login() {
       console.log(res)
       let token = res.access_token;
       setGetToken(JSON.stringify(token))
+      alert("Đã gửi mail !")
 
       
       // localStorage.setItem("token", JSON.stringify(token));

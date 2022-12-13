@@ -4,12 +4,11 @@ import Button from "react-bootstrap/Button";
 import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 import PayRoomForm from "../handleroom/PayRoomForm";
-import { useMemo } from "react";
-import { useAsync } from "react-use";
 import { useCallback } from "react";
 import { memo } from "react";
 import ProfileBill from "../handleroom/ProfileBill";
 import ChangeRoom from "../handleroom/ChangeRoom";
+import ServiceBill from "../handleroom/ServiceBill";
 
 function CheckIn({ dataSortCheckIn }) {
   useEffect(() => {
@@ -42,6 +41,7 @@ function CheckIn({ dataSortCheckIn }) {
   //get api by id
   const getData = useCallback(
     async (id) => {
+      console.log(id)
       let res = await axios.get(
         `http://localhost:8000/bill/billroom/id=${id}`,
         {
@@ -59,16 +59,16 @@ function CheckIn({ dataSortCheckIn }) {
 
   //
 
+
   ////////////////////
 
   return (
     <div className="card-body white">
-      <h6 className="m-0 font-weight-bold text-primary">Check In</h6>
+      <h6 className="m-0 font-weight-bold text-primary">Đang Ở</h6>
       <hr />
       <section className="py-2">
         <div className="container px-2 px-lg-2 mt-0">
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
-
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
 
             {data.length == 0 ? (
@@ -96,11 +96,9 @@ function CheckIn({ dataSortCheckIn }) {
                 <div className="col mb-2 border-dark" key={item.id}>
                   <div className="card bg-success decription-room border border-dark">
                     {/* <!-- Product details--> */}
-                    <div className="card-body p-2">
+                    <div className="card-body">
                        {/* icon */}
-                       <div className="d-flex justify-content-center mt-2">
-
-
+                       <div className="d-flex justify-content-center ">
                          <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           variant="primary"
                           data-toggle="modal"
@@ -131,6 +129,7 @@ function CheckIn({ dataSortCheckIn }) {
                               function handleGetDataRoom(e) {
                               e.preventDefault();
                               getData(item.id);
+                             
                             }
                           }
                         >
@@ -138,7 +137,7 @@ function CheckIn({ dataSortCheckIn }) {
                         </a>
 
                         <ProfileBill idDataRoom={dataPayForm}/>
-                        <ChangeRoom idDataRoom={dataPayForm}/>
+                        <ChangeRoom dataRoomChange={dataPayForm}/>
                         </div>
                       {/* icon */}
 
@@ -148,8 +147,8 @@ function CheckIn({ dataSortCheckIn }) {
                         <strong className="fw-bolder">{item.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <p className="fw-bolder">Giá: {item.price+"vnd"}</p>
-                        <br />
+                        <p className="fw-bolder">Giá:{item.price+"vnd"}</p>
+                   
                         {/* day */}
                         {/* 17/10/2022
                     <br />
@@ -159,6 +158,39 @@ function CheckIn({ dataSortCheckIn }) {
 
                     <div className="card-footer p-2 mb-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
+                      <a
+                          className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                          type="button"
+                          variant="primary"
+                          data-toggle="modal"
+                          data-target="#ServiceBillModal"
+                          data-whatever="@getbootstrap"
+
+
+                          onClick={
+                            // () => getData(item.id)
+                              function handleGetDataRoom(e) {
+                              e.preventDefault();
+                              getData(item.id);
+                            }
+                          }
+
+
+
+                          // onClick={function confirmCancle() {
+                          //   const id = item.id;
+                          //   let text = "Bạn có muốn hủy phòng ?";
+                          //   if (window.confirm(text) == true) {
+                          //     text = "You pressed OK!";
+                          //   } else {
+                          //     text = "You canceled!";
+                          //   }
+                          // }}
+                        >
+                          Dv
+                        </a>
+                        <ServiceBill dataServiceRoom={dataPayForm} />
+
                         <Button
                           onClick={
                             // () => getData(item.id)
@@ -174,6 +206,7 @@ function CheckIn({ dataSortCheckIn }) {
                           data-target="#OderRoomModal"
                           data-whatever="@getbootstrap"
                         >Checkout</Button>
+                     
                         <PayRoomForm dataRoom={dataPayForm} />
                       </div>
                     </div>

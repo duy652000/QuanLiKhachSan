@@ -45,6 +45,7 @@ function Booked({ dataSortBooked }) {
   //get api by id
   const getData = useCallback(
     async (id) => {
+      console.log(id)
       let res = await axios.get(
         `http://localhost:8000/bill/billroom/id=${id}`,
         {
@@ -54,6 +55,7 @@ function Booked({ dataSortBooked }) {
           },
         }
       );
+      console.log("res",res)
       res = await res.data.data;
       setDataProfileForm(res);
     },
@@ -73,7 +75,7 @@ function Booked({ dataSortBooked }) {
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
 
-            {data.length == 0 ? (
+            {(data.length == 0||data[0].id==null) ? (
               <>
                 {loadingData ? (
                   <PulseLoader
@@ -92,8 +94,7 @@ function Booked({ dataSortBooked }) {
                   </div>
                 )}
               </>
-            ) : (
-              data.length > 0 &&
+            ) : (data.length > 0 &&
               data.map((item) => (
                 <div className="col mb-2 border-dark" key={item.id}>
                   <div className="card bg-warning decription-room border border-dark">
@@ -108,7 +109,7 @@ function Booked({ dataSortBooked }) {
                         <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           variant="primary"
                           data-toggle="modal"
-                          data-target="#OderRoomModal"
+                          data-target="#ProFileRoomModal"
                           data-whatever="@getbootstrap"
                           type="button"
                           onClick={
@@ -130,7 +131,7 @@ function Booked({ dataSortBooked }) {
                         <strong className="fw-bolder">{item.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <p className="fw-bolder">Giá: {item.price + "vnd"}</p>
+                        <p className="fw-bolder">Giá:{item.price + "vnd"}</p>
                       </div>
                     </div>
 

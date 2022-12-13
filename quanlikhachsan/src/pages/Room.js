@@ -39,7 +39,7 @@ function Room() {
     if (url.pathname === "/room/free") {
       setDetailDay({ status_room: 1, status_bill: 1 });
     } else if (url.pathname === "/room/booked") {
-      setDetailDay({ status_room: 4, status_bill: 1 });
+      setDetailDay({ status_room: 1, status_bill: 4 });
     } else if (url.pathname === "/room/checkin") {
       setDetailDay({ status_room: 2, status_bill: 1 });
     } else if (url.pathname === "/room/clean") {
@@ -59,9 +59,11 @@ function Room() {
     status_room: "",
     status_bill: "",
   });
+ 
 
   //call api
   const filterDate = useCallback(async () => {
+    console.log("details",detailDay)
     // try {
     let res = await axios.get(
       `http://localhost:8000/room/filter?from=${detailDay.from}&to=${detailDay.to}&status_room=${detailDay.status_room}&status_bill=${detailDay.status_bill}`,
@@ -99,10 +101,28 @@ function Room() {
   const countCheckInRoom = dataCheckInRoom.length;
   const countCleanRoom = dataCleanRoom.length;
 
-  
+  const countFreeRoom = itemFree.filter(function (item) {
+ 
+    if (item[0]?.id) {
+      return true;
+    }
+    else
+    return false
+  }).length;
 
-  const countFreeRoom = itemFree.flat().length
-  const countBookedRoom = itemBooked.flat().length
+  const countBookedRoom = itemBooked.filter(function(item) {
+    if (item[0]?.id) {
+      return true;
+    }
+    else
+    return false
+  }).length;
+
+ 
+
+console.log()
+  // const countFreeRoom = itemFree.flat().length
+  // const countBookedRoom = itemBooked.flat().length
 
 
   return (

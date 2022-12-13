@@ -27,7 +27,6 @@ function OderRoomForm({ dataItem }) {
 
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const history = useNavigate();
 
   const handleSumService = (e) => {
     e.preventDefault();

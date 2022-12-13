@@ -56,7 +56,7 @@ function Free({ dataSortFree }) {
         <div className="container px-2 px-lg-2 mt-0">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
-            {data.length == 0 ? (
+            {(data.length == 0||data[0].id==null) ? (
               <>
                 {loadingData ? (
                   <PulseLoader
@@ -82,7 +82,7 @@ function Free({ dataSortFree }) {
             ) : (
               data.length > 0 &&
               data.map((item) => (
-                <div className="col mb-2 " key={item.id}>
+                <div className="col mb-2 " key={item?.id}>
                   <div className="card bg-primary decription-room border border-dark">
                     {/* <!-- Product details--> */}
                     <div className="card-body p-2">
@@ -93,11 +93,11 @@ function Free({ dataSortFree }) {
                       <div className="text-center pt-2">
                         {/* <!-- Product name--> */}
                         {/* <h5 className="fw-bolder">Thường | 301</h5> */}
-                        <strong className="fw-bolder">{item.name_room}</strong>
+                        <strong className="fw-bolder">{item?.name_room}</strong>
 
                         {/* <!-- Product price--> */}
                         <p className="fw-bolder">
-                          Giá : {item.price + " vnd"}
+                          Giá:{item?.price + "vnd"}
                         </p>
                         <br />
                         {/* day */}

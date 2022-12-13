@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function ProfileBill({ idDataRoom }) {
+  console.log("idDataRoom",idDataRoom)
   const data = idDataRoom;
   const { customerData } = useContext(AppContext);
   const getCustomerData = customerData.filter(function (item) {
@@ -12,7 +13,6 @@ function ProfileBill({ idDataRoom }) {
       return item;
     }
   });
-  console.log(getCustomerData[0]);
 
   return (
     <div
@@ -39,14 +39,16 @@ function ProfileBill({ idDataRoom }) {
 
           <div className="card-body">
             <div className=" text-dark  ">
-
               <div className=" d-flex justify-content-around">
                 <span className="col-sm font-weight-bold">Mã khách hàng :</span>
                 <span className="col-sm">{data?.client_id}</span>
               </div>
 
               <div className=" d-flex justify-content-around ">
-                <span className="col-sm font-weight-bold"> Tên khách Hàng:</span>
+                <span className="col-sm font-weight-bold">
+                  {" "}
+                  Tên khách Hàng:
+                </span>
                 <span className="col-sm">
                   {getCustomerData[0]?.firtname} {getCustomerData[0]?.lastname}
                 </span>
@@ -63,15 +65,24 @@ function ProfileBill({ idDataRoom }) {
               </div>
               <div className="line-page mt-2 mb-2"></div>
               <div className=" d-flex justify-content-around ">
-                <span className="col-sm font-weight-bold"> Ngày nhận phòng :</span>
-                <span className="col-sm">{moment.unix(data?.day_in).format("DD-MM-YYYY")}</span>
+                <span className="col-sm font-weight-bold">
+                  {" "}
+                  Ngày nhận phòng :
+                </span>
+                <span className="col-sm">
+                  {moment.unix(data?.day_in).format("DD-MM-YYYY")}
+                </span>
               </div>
 
               <div className=" d-flex justify-content-around ">
-                <span className="col-sm font-weight-bold"> Ngày trả phòng :</span>
-                <span className="col-sm">{moment.unix(data?.day_out).format("DD-MM-YYYY")}</span>
+                <span className="col-sm font-weight-bold">
+                  {" "}
+                  Ngày trả phòng :
+                </span>
+                <span className="col-sm">
+                  {moment.unix(data?.day_out).format("DD-MM-YYYY")}
+                </span>
               </div>
-
             </div>
           </div>
 

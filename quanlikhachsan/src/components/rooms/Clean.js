@@ -95,7 +95,7 @@ function Clean() {
 
                         {/* <!-- Product price--> */}
                         <p className="fw-bolder">
-                          Giá : {item.price + " vnd"}
+                          Giá:{item.price + "vnd"}
                         </p>
                         <br />
                         {/* day */}
