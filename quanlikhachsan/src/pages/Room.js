@@ -39,7 +39,7 @@ function Room() {
     if (url.pathname === "/room/free") {
       setDetailDay({ status_room: 1, status_bill: 1 });
     } else if (url.pathname === "/room/booked") {
-      setDetailDay({ status_room: 1, status_bill: 4 });
+      setDetailDay({ status_room: 4, status_bill: 1});
     } else if (url.pathname === "/room/checkin") {
       setDetailDay({ status_room: 2, status_bill: 1 });
     } else if (url.pathname === "/room/clean") {

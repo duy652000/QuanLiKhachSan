@@ -81,6 +81,7 @@ function OderRoomForm({ dataItem }) {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("res",)
       res = await res;
       window.location = "/room/booked";
       alert("Đặt phòng thành công !");
