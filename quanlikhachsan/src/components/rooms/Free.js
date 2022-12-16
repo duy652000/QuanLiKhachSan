@@ -30,8 +30,7 @@ function Free({ dataSortFree }) {
   //get api by id
   async function getDataRoomById(id) {
     let res = await axios.get(
-      `http://localhost:8000/room/getlist?id=${id}`,
-
+      `http://localhost:8000/room/getid/id=${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +38,7 @@ function Free({ dataSortFree }) {
         },
       }
     );
-    res = await res.data.data[0];
+    res = await res.data.data;
     setIdRoom(res?.id);
     setNameRoom(res?.name_room);
     setPriceRoom(res?.price);
@@ -113,6 +112,7 @@ function Free({ dataSortFree }) {
                         <Button
                           onClick={function handleGetDataRoom(e) {
                             e.preventDefault();
+                            
                             getDataRoomById(item?.id);
                           }}
                           variant="primary"

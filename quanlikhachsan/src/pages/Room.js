@@ -88,10 +88,10 @@ function Room() {
     //   // setError(JSON.parse(error.response.data));
     // }
   }, [detailDay, token]);
-
   const countAllRoom = dataAllRoom.length;
   const countCheckInRoom = dataCheckInRoom.length;
   const countCleanRoom = dataCleanRoom.length;
+
 
   const countFreeRoom = itemFree.filter(function (item) {
     if (item[0]?.id) {
