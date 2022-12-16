@@ -21,7 +21,6 @@ const history = useNavigate();
 
 const handleAddService = (e) => {
   e.preventDefault();
-console.log(details)
   addRoom(details);
 };
 //call api
@@ -33,7 +32,6 @@ async function addRoom(detail) {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(res)
     res = await res;
     window.location="/room-manager";
     alert("Thêm phòng thành công !");

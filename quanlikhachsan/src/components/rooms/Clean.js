@@ -113,7 +113,6 @@ function Clean() {
                           type="button"
                           onClick={function handleClean(e) {
                             e.preventDefault();
-                            // console.log(item.id)
                             cleanRoom(item?.id);
                           }}
                         >

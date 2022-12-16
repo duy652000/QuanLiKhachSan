@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function ProfileBill({ idDataRoom }) {
-  console.log("idDataRoom",idDataRoom)
   const data = idDataRoom;
   const { customerData } = useContext(AppContext);
   const getCustomerData = customerData.filter(function (item) {

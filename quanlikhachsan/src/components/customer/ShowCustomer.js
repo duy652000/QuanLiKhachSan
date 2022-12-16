@@ -21,11 +21,17 @@ function ShowCustomer() {
 
   return (
     <div className="card shadow mb-4 ">
-      <div className="card-header py-3">
+      <div className="card-header py-3 d-flex justify-content-between">
         <h6 className="m-0 font-weight-bold text-primary">
           <Link to="add" type="button" className="btn btn-success">
             {" "}
             Thêm Khách Hàng
+          </Link>
+        </h6>
+        <h6 className="m-0 font-weight-bold text-primary ">
+          <Link to="/room" type="button" className="btn btn-danger">
+            {" "}
+            Trang Chủ
           </Link>
         </h6>
       </div>

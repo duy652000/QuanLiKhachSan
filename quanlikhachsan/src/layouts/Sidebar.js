@@ -41,7 +41,6 @@ function Sidebar() {
     timeOut();
     
     var Logout = function () {
-      // console.log("date out :",timeOut())
 
       if (
         (Date.parse(moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"))) >=timeOut()

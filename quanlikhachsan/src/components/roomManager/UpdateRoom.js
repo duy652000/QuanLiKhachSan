@@ -68,7 +68,6 @@ function UpdateService() {
           },
         }
       );
-      console.log(res)
       res = await res;
       window.location="/room-manager";
       alert("Cập nhật thành công !");

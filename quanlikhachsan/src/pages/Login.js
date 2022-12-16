@@ -20,7 +20,6 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // console.log(details)
     Login(details);
   };
   //call api
@@ -33,7 +32,6 @@ function Login() {
         },
       });
       res = await res.data;
-      console.log(res)
       let token = res.access_token;
       setGetToken(JSON.stringify(token))
       alert("Đã gửi mail !")

@@ -19,7 +19,7 @@ function AddCustomer() {
   const history = useNavigate();
   const handleAddCustomer = (e) => {
     e.preventDefault();
-    console.log(details)
+
     addCustomer(details);
   };
   //call api

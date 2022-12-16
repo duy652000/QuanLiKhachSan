@@ -24,31 +24,41 @@ function OderRoomForm({ dataItem }) {
   const [errorDayIn, setErrorDayIn] = useState("");
   const [errorDayOut, setErrorDayOut] = useState("");
   const [error, setError] = useState("");
+  const [total, setTotal] = useState({
+    total_service_fee: "",
+    total_room_rate: "",
+    total_money: "",
+  });
 
   const token = JSON.parse(localStorage.getItem("token"));
-
 
   const handleSumService = (e) => {
     e.preventDefault();
     setSumService(priceService * amountService);
     setSumBill(priceService * amountService + dataItem[2]);
-    setDetails({
-      client_id: idCustomer,
-      room_id: dataItem[0],
-      day_in: dayCome,
-      day_out: dayGo,
+    setTotal({
       total_room_rate:
         dataItem[2] *
-        (moment(dayGo).format("DD") - moment(dayCome).format("DD") > 0
-          ? moment(dayGo).format("DD") - moment(dayCome).format("DD")
+        ((Date.parse(moment(dayGo)) - Date.parse(moment(dayCome))) / 86400000 >
+        0
+          ? (Date.parse(moment(dayGo)) - Date.parse(moment(dayCome))) / 86400000
           : 1),
       total_service_fee: priceService * amountService,
       total_money:
         priceService * amountService +
         dataItem[2] *
-          (moment(dayGo).format("DD") - moment(dayCome).format("DD") > 0
-            ? moment(dayGo).format("DD") - moment(dayCome).format("DD")
+          ((Date.parse(moment(dayGo)) - Date.parse(moment(dayCome))) /
+            86400000 >
+          0
+            ? (Date.parse(moment(dayGo)) - Date.parse(moment(dayCome))) /
+              86400000
             : 1),
+    });
+    setDetails({
+      client_id: idCustomer,
+      room_id: dataItem[0],
+      day_in: dayCome,
+      day_out: dayGo,
       service_id: idService,
       amount: amountService,
     });
@@ -59,9 +69,6 @@ function OderRoomForm({ dataItem }) {
     room_id: "",
     day_in: "",
     day_out: "",
-    total_room_rate: "",
-    total_service_fee: "",
-    total_money: "",
     service_id: "",
     amount: "",
   });
@@ -81,7 +88,6 @@ function OderRoomForm({ dataItem }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("res",)
       res = await res;
       window.location = "/room/booked";
       alert("Đặt phòng thành công !");
@@ -245,22 +251,24 @@ function OderRoomForm({ dataItem }) {
                       onChange={(e) => {
                         const dayGo = e.target.value;
                         setDayGo(dayGo);
-                        console.log("daygo", moment(dayGo).format("DD"));
                       }}
                     />
                   </div>
                 </div>
 
                 <div className="form-group row justify-content-center ">
-                  
                   <div className="col-sm d-flex justify-content-start">
-                      <label className="col-sm" > </label>
-                    <div className="text-danger col-sm-8">asdas{errorDayIn}</div>
+                    <label className="col-sm"> </label>
+                    <div className="text-danger col-sm-8">
+                      {errorDayIn}
+                    </div>
                   </div>
 
-                  <div className="col-sm d-flex justify-content-start">
-                      <label className="col-sm"></label>
-                    <div className="text-danger col-sm-8">assa{errorDayOut}</div>
+                  <div className="col-sm d-flex justify-content-center">
+                    <label className="col-sm"></label>
+                    <div className="text-danger col-sm-8">
+                      {errorDayOut}
+                    </div>
                   </div>
                 </div>
 
@@ -328,7 +336,9 @@ function OderRoomForm({ dataItem }) {
                   </div>
 
                   <div className="col-sm-12 mt-2 d-flex justify-content-end">
-                    <p className="text-small px-4 float-left mt-4 pt-2 text-muted">( *ấn để cộng bill )</p>
+                    <p className="text-small px-4 float-left mt-4 pt-2 text-muted">
+                      ( *ấn để cộng bill )
+                    </p>
                     <button
                       type="button"
                       className="btn btn-primary px-4 float-left mt-4 pt-2"
@@ -347,11 +357,13 @@ function OderRoomForm({ dataItem }) {
                   <p className="float-left ">Tổng phí phòng :</p>
                   <p className="float-right">
                     {dataItem[2] *
-                      (moment(dayGo).format("DD") -
-                        moment(dayCome).format("DD") >
+                      ((Date.parse(moment(dayGo)) -
+                        Date.parse(moment(dayCome))) /
+                        86400000 >
                       0
-                        ? moment(dayGo).format("DD") -
-                          moment(dayCome).format("DD")
+                        ? (Date.parse(moment(dayGo)) -
+                            Date.parse(moment(dayCome))) /
+                          86400000
                         : 1)}{" "}
                     <span> VND</span>
                   </p>
@@ -362,7 +374,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <p className="float-left">Tổng phí dịch vụ :</p>
                   <p className="float-right">
-                    {sumService} <span> VND</span>
+                    {priceService * amountService} <span> VND</span>
                   </p>
                 </div>
                 <div className=" mt-5 line-page-bold"></div>
@@ -370,15 +382,7 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <h6 className="float-left">Tổng hóa đơn :</h6>
                   <h6 className="float-right">
-                    {priceService * amountService +
-                      dataItem[2] *
-                        (moment(dayGo).format("DD") -
-                          moment(dayCome).format("DD") >
-                        0
-                          ? moment(dayGo).format("DD") -
-                            moment(dayCome).format("DD")
-                          : 1)}{" "}
-                    <span> VND</span>
+                    {total.total_money} <span> VND</span>
                   </h6>
                 </div>
                 <div className=" mt-5  line-page-bold"></div>

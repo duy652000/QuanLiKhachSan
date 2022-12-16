@@ -92,7 +92,6 @@ export const AppProvider = ({ children }) => {
       }
     );
     res = res.data.Rom;
-
     setDataFreeRoom(res);
   }, [token]);
 

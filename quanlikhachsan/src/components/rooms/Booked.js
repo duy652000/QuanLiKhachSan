@@ -45,7 +45,6 @@ function Booked({ dataSortBooked }) {
   //get api by id
   const getData = useCallback(
     async (id) => {
-      console.log(id)
       let res = await axios.get(
         `http://localhost:8000/bill/billroom/id=${id}`,
         {
@@ -55,7 +54,6 @@ function Booked({ dataSortBooked }) {
           },
         }
       );
-      console.log("res",res)
       res = await res.data.data;
       setDataProfileForm(res);
     },

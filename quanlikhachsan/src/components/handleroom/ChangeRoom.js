@@ -1,22 +1,25 @@
+import axios from "axios";
 import moment from "moment";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useContext } from "react";
 import { memo } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function ChangeRoom({ dataRoomChange }) {
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
+
   const data = dataRoomChange;
 
   const { customerData, roomData } = useContext(AppContext);
   const [newDataRoom, setNewDataRoom] = useState([]);
-  const [details, setDetails] = useState([
+  const [details, setDetails] = useState(
     {
       bill:"",
       room:"",
       total_room_rate:"",
       total_money:"",
     },
-  ]);
+  );
 
   const totalDate =
     moment.unix(data?.day_out).format("DD") -
@@ -43,20 +46,19 @@ function ChangeRoom({ dataRoomChange }) {
         }
       });
       setNewDataRoom(dataNew);
-      console.log("data", data);
-      console.log("dataNew", dataNew);
-      setDetails([
+     
+      setDetails(
         {
           bill: data?.id,
-          room: data?.client_id,
+          room: dataNew[0]?.id,
           total_room_rate: totalDate * dataNew[0]?.price,
           total_money: data?.total_service_fee + totalDate * dataNew[0]?.price,
         },
-      ]);
+      );
     },
     [data]
   );
-  console.log("details", details);
+ 
 
   const getCustomerData = customerData.filter(function (item) {
     if (item?.id === data?.client_id) {
@@ -64,22 +66,52 @@ function ChangeRoom({ dataRoomChange }) {
     }
   });
 
+
   const roomDataFree = roomData.filter(function (item) {
     if (item?.status === 1 && item?.price==getDataRoom[0]?.price) {
       return item;
     }
   });   
-  console.log("roomDataFree",roomDataFree) 
+ 
 
   const handleChangeRoom = (e) => {
     e.preventDefault();
-    console.log("details", details);
+    console.log("details :" ,details)
+  
+   changeRoomBill(details)
   };
 
 
 
+ //get api by id
+ const changeRoomBill = useCallback(
+  async (details) => {
+    let res = await axios.post(
+      `http://localhost:8000/bill/changeroom`, details,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("res",res)
+    res = await res.data.data;
+    window.location.reload("/room/checkin")
+    alert("Đổi phòng thành công !")
+   
+  },
+  [token]
+);
 
-console.log("details",details[0].total_room_rate=="")
+//
+
+
+////////////////////
+
+
+
+
   return (
     <div
       // {/* modal */}
@@ -202,7 +234,7 @@ console.log("details",details[0].total_room_rate=="")
                       <td className="left">
                         <strong>Tổng phí phòng : </strong>
                       </td>
-                      <td className="right">{details[0].total_room_rate==""?data.total_room_rate:details[0].total_room_rate}</td>
+                      <td className="right">{details.total_room_rate==""?data.total_room_rate:details.total_room_rate}</td>
                     </tr>
                     <tr>
                       <td className="left">
@@ -214,7 +246,7 @@ console.log("details",details[0].total_room_rate=="")
                       <td className="left">
                         <strong>Tổng hóa đơn :</strong>
                       </td>
-                      <td className="right">{details[0].total_money==""?data.total_money:details[0].total_money}</td>
+                      <td className="right">{details.total_money==""?data.total_money:details.total_money}</td>
                     </tr>
                   </tbody>
                 </table>

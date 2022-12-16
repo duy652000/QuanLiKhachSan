@@ -18,19 +18,16 @@ import { faL } from "@fortawesome/free-solid-svg-icons";
 import All from "../components/rooms/All";
 
 function Room() {
-  let url = useLocation();
-  const {
-    dataAllRoom,
-    dataCheckInRoom,
-    dataCleanRoom,
-  } = useContext(AppContext);
+  let dataNow = new Date().toLocaleDateString();
 
+  let url = useLocation();
+  const { dataAllRoom, dataCheckInRoom, dataCleanRoom } =
+    useContext(AppContext);
 
   const [itemFree, setItemFree] = useState([]);
   const [itemBooked, setItemBooked] = useState([]);
   const [itemClean, setItemClean] = useState([]);
   const [itemCheckIn, setItemCheckIn] = useState([]);
-
 
   const [isNullCheckIn, setIsNullCheckIn] = useState(false);
   const [isNullClean, setIsNullClean] = useState(false);
@@ -39,7 +36,7 @@ function Room() {
     if (url.pathname === "/room/free") {
       setDetailDay({ status_room: 1, status_bill: 1 });
     } else if (url.pathname === "/room/booked") {
-      setDetailDay({ status_room: 4, status_bill: 1});
+      setDetailDay({ status_room: 4, status_bill: 1 });
     } else if (url.pathname === "/room/checkin") {
       setDetailDay({ status_room: 2, status_bill: 1 });
     } else if (url.pathname === "/room/clean") {
@@ -51,6 +48,7 @@ function Room() {
 
   useEffect(() => {
     getStatusRoom(url);
+    setDetailDay(details=>({from:"",to:"",...details}))
   }, [url]);
 
   const [detailDay, setDetailDay] = useState({
@@ -59,11 +57,10 @@ function Room() {
     status_room: "",
     status_bill: "",
   });
- 
 
   //call api
   const filterDate = useCallback(async () => {
-    console.log("details",detailDay)
+    console.log("detailDay",detailDay)
     // try {
     let res = await axios.get(
       `http://localhost:8000/room/filter?from=${detailDay.from}&to=${detailDay.to}&status_room=${detailDay.status_room}&status_bill=${detailDay.status_bill}`,
@@ -74,10 +71,7 @@ function Room() {
         },
       }
     );
-
     res = await res.data.Rom;
-    console.log("res", res);
-
     if (url.pathname === "/room/free") {
       setItemFree(res);
     } else if (url.pathname === "/room/booked") {
@@ -89,41 +83,31 @@ function Room() {
       setIsNullClean(res ? false : true);
       setItemClean(res);
     }
+
     // } catch (error) {
-    // console.log(error)
     //   // setError(JSON.parse(error.response.data));
     // }
   }, [detailDay, token]);
-  console.log("itemFree" ,itemFree.flat().length)
-
 
   const countAllRoom = dataAllRoom.length;
   const countCheckInRoom = dataCheckInRoom.length;
   const countCleanRoom = dataCleanRoom.length;
 
   const countFreeRoom = itemFree.filter(function (item) {
- 
     if (item[0]?.id) {
       return true;
-    }
-    else
-    return false
+    } else return false;
   }).length;
 
-  const countBookedRoom = itemBooked.filter(function(item) {
-    if (item[0]?.id) {
+  const countBookedRoom = itemBooked.filter(function (item) {
+    console.log("item", item);
+    if (item?.id) {
       return true;
-    }
-    else
-    return false
+    } else return false;
   }).length;
 
- 
-
-console.log()
   // const countFreeRoom = itemFree.flat().length
   // const countBookedRoom = itemBooked.flat().length
-
 
   return (
     // <!-- Begin Page Content -->
@@ -148,6 +132,7 @@ console.log()
 
         <div className="card-body">
           <div className="table-responsive">
+                {((url.pathname === "/room/free")||(url.pathname === "/room/booked")||(url.pathname === "/room/checkin")||(url.pathname === "/room/clean"))&&(
             <div className="  my-2 mr-5 ml-5">
               {/* form search  */}
               {/* <form onSubmit={handleFilterDate}> */}
@@ -159,6 +144,7 @@ console.log()
                       className="status-room border border-dark rounded"
                       type="date"
                       id="start"
+                      min={dataNow}
                       name="trip-start"
                       onChange={(e) => {
                         setDetailDay({
@@ -166,7 +152,7 @@ console.log()
                           from: e.target.value,
                         });
                       }}
-                      defaultValue={detailDay?.form}
+                      value={detailDay?.from}
                     />
                   </div>
                 </div>
@@ -176,6 +162,7 @@ console.log()
                     <label className="mr-3 font-weight-bold">Đến ngày :</label>
                     <input
                       className="status-room border border-dark rounded"
+                      min={dataNow}
                       type="date"
                       id="start"
                       name="trip-start"
@@ -185,13 +172,13 @@ console.log()
                           to: e.target.value,
                         });
                       }}
-                      defaultValue={detailDay?.to}
+                      value={detailDay?.to}
                     />
                   </div>
                 </div>
-
+                
                 <div className="col-sm d-flex justify-content-center">
-                  <button
+              <button
                     className=" btn btn-primary"
                     // type="button"
                     onClick={filterDate}
@@ -204,6 +191,7 @@ console.log()
               <br></br>
               {/* </form> */}
             </div>
+                  )}
             <hr />
             <DayCheckIn />
             <hr />
@@ -245,7 +233,7 @@ console.log()
               <span className="circle-red  ">{countFreeRoom ?? 0}</span>
             </Link>
 
-            <Link className="btn-change-room nav-item nav-link " to="booked">
+            <Link className="btn-change-room nav-item nav-link " to="booked" >
               <span
                 className={
                   url.pathname === "/room/booked"
@@ -257,7 +245,7 @@ console.log()
               </span>{" "}
               <span className="circle-red">{countBookedRoom ?? 0}</span>
             </Link>
-            <Link className="btn-change-room nav-item nav-link " to="checkin">
+            <Link className="btn-change-room nav-item nav-link " to="checkin"> 
               <span
                 className={
                   url.pathname === "/room/checkin"
@@ -270,6 +258,7 @@ console.log()
               </span>{" "}
               <span className="circle-red">{countCheckInRoom ?? 0}</span>
             </Link>
+
             <Link className="btn-change-room nav-item nav-link " to="clean">
               <span
                 className={
@@ -289,10 +278,7 @@ console.log()
         {/* content */}
         <Routes>
           <Route path="*" element={<All />} />
-          <Route
-            path="free"
-            element={<Free dataSortFree={itemFree} />}
-          />
+          <Route path="free" element={<Free dataSortFree={itemFree} />} />
           <Route
             path="booked"
             element={<Booked dataSortBooked={itemBooked} />}
