@@ -97,41 +97,17 @@ function Sidebar() {
       </li>
 
       {/* <!-- Nav Item - Service --> */}
-      <li className="nav-item">
-        <a
-          className="nav-link collapsed"
-          href="#"
-          data-toggle="collapse"
-          data-target="#collapseTwo"
-          aria-expanded="true"
-          aria-controls="collapseTwo"
-        >
-          <i className="fas fa-fw fa-cog"></i>&nbsp;&nbsp;
-          <span>Dịch Vụ</span>
-        </a>
-        <div
-          id="collapseTwo"
-          className="collapse"
-          aria-labelledby="headingTwo"
-          data-parent="#accordionSidebar"
-        >
-          <div className="bg-white py-2 collapse-inner rounded">
-            {/* <h6 className="collapse-header"> Dịch Vụ :</h6> */}
-            <Link className="collapse-item" to="/service">
-              Quản lý dịch vụ
-            </Link>
-            <Link className="collapse-item" to="/Oder">
-              Đặt dịch vụ
-            </Link>
-          </div>
-        </div>
-      </li>
+      
+
+
+  
+
 
       {/* <!-- Nav Item - custom --> */}
       <li className="nav-item">
-        <Link to="/customer" className="nav-link">
-          <i className="bi bi-person-plus"></i> &nbsp;
-          <span>Quản Lý Khách Hàng</span>
+        <Link to="/service" className="nav-link">
+        <i className="fas fa-fw fa-cog"></i> &nbsp;
+          <span>Quản lý dịch vụ</span>
         </Link>
       </li>
 
