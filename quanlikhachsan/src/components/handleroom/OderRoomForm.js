@@ -9,7 +9,7 @@ function OderRoomForm({ dataItem }) {
   const { customerData, serviceData } = useContext(AppContext);
   const dataCustomer = customerData;
 
-  const [idCustomer, setIdCustomer] = useState("0");
+  const [idCustomer, setIdCustomer] = useState();
 
   const [dayCome, setDayCome] = useState();
   const [dayGo, setDayGo] = useState();
@@ -20,7 +20,7 @@ function OderRoomForm({ dataItem }) {
 
   const [sumService, setSumService] = useState("0");
   const [sumBill, setSumBill] = useState("0");
-
+  const [errorClientId, setErrorClientId] = useState("");
   const [errorDayIn, setErrorDayIn] = useState("");
   const [errorDayOut, setErrorDayOut] = useState("");
   const [error, setError] = useState("");
@@ -92,8 +92,9 @@ function OderRoomForm({ dataItem }) {
       window.location = "/room/booked";
       alert("Đặt phòng thành công !");
     } catch (error) {
-      setErrorDayIn(JSON.parse(error.response.data).day_in[0]);
-      setErrorDayOut(JSON.parse(error.response.data).day_out[0]);
+      setErrorDayIn(JSON.parse(error.response.data).day_in);
+      setErrorClientId(JSON.parse(error.response.data).client_id);
+      setErrorDayOut(JSON.parse(error.response.data).day_out);
     }
   }
 
@@ -152,7 +153,9 @@ function OderRoomForm({ dataItem }) {
                       }}
                       value={idCustomer ? idCustomer : ""}
                     />
+
                   </div>
+
 
                   <div className="col-sm d-flex justify-content-around">
                     <label className="col-sm" htmlFor="inputLastname">
@@ -177,6 +180,9 @@ function OderRoomForm({ dataItem }) {
                       ))}
                     </select>
                   </div>
+                </div>
+                <div className="text-danger col-sm-8">
+                  {errorClientId}
                 </div>
                 {/* thông tin khách hàng */}
 
