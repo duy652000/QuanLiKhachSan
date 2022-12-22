@@ -66,25 +66,25 @@ function Sidebar() {
       id="accordionSidebar"
     >
       {/* <!-- Sidebar - Brand --> */}
-      <a
+      <Link
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="/"
+        to={"/"}
       >
         <div className="sidebar-brand-icon rotate-n-15">
           <img src={logo} alt="Logo" className="logo-navbar" />
         </div>
         <div className="sidebar-brand-text mx-2">Hotel manager</div>
-      </a>
+      </Link>
 
       {/* <!-- Divider --> */}
       <hr className="sidebar-divider my-0" />
 
       {/* <!-- Nav Item - Dashboard --> */}
       <li className="nav-item active">
-        <a href="/" className="nav-link">
+        <Link to={"/"} className="nav-link">
           <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
           <span>Giờ Quốc Tế</span>
-        </a>
+        </Link>
       </li>
 
       {/* <!-- Nav Item - Room --> */}
@@ -100,14 +100,19 @@ function Sidebar() {
       
 
 
-  
-
-
       {/* <!-- Nav Item - custom --> */}
       <li className="nav-item">
         <Link to="/service" className="nav-link">
         <i className="fas fa-fw fa-cog"></i> &nbsp;
           <span>Quản lý dịch vụ</span>
+        </Link>
+      </li>
+
+       {/* <!-- Nav Item - custom --> */}
+       <li className="nav-item">
+        <Link to="/customer" className="nav-link">
+        <i className="bi bi-file-earmark-person"></i> &nbsp;
+          <span>Quản Lý Khách Hàng</span>
         </Link>
       </li>
 

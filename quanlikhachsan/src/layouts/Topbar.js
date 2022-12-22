@@ -21,9 +21,9 @@ function Topbar() {
       <ul className="navbar-nav ml-auto">
         {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
         <li className="nav-item dropdown no-arrow d-sm-none">
-          <a
+          <Link
             className="nav-link dropdown-toggle"
-            href="#"
+            to={"/"}
             id="searchDropdown"
             role="button"
             data-toggle="dropdown"
@@ -31,7 +31,7 @@ function Topbar() {
             aria-expanded="false"
           >
             <i className="fas fa-search fa-fw"></i>
-          </a>
+          </Link>
           {/* <!-- Dropdown - Messages --> */}
           <div
             className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
@@ -62,7 +62,7 @@ function Topbar() {
         <li className="nav-item dropdown no-arrow">
           <a
             className="nav-link dropdown-toggle"
-            href="#"
+            href={"/"}
             id="userDropdown"
             role="button"
             data-toggle="dropdown"

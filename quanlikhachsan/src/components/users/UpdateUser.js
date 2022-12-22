@@ -30,6 +30,7 @@ function UpdateUser() {
           phone: kq.phone,
           CCCD: kq.CCCD,
           address: kq.address,
+          role:kq.role
         });
       }
     } catch (error) {}
@@ -205,7 +206,7 @@ function UpdateUser() {
                 }}
                 value="1"
               />
-              <label className="form-check-label" htmlFor="admin">
+              <label className="form-check-label" htmlFor="exampleCheck1">
                 admin
               </label>
             </div>
@@ -224,8 +225,27 @@ function UpdateUser() {
                 }}
                 value="2"
               />
-              <label className="form-check-label" htmlFor="user">
-                user
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                personnel
+              </label>
+            </div>
+
+            <div className="form-group form-check ml-1">
+              <input
+                type="radio"
+                name="1"
+                className="form-check-input"
+                id="Check3"
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    role: e.target.value,
+                  });
+                }}
+                value="3"
+              />
+              <label className="form-check-label" htmlFor="exampleCheck1">
+                cleaner
               </label>
             </div>
 

@@ -47,7 +47,7 @@ function ChangePassword() {
         {/* <!-- form card change password --> */}
         <div className="card card-outline-secondary">
           <div className="card-header">
-            <h3 className="mb-0 font-weight-bold">Change Password</h3>
+            <h3 className="mb-0 font-weight-bold">Thay Đổi Mật Khẩu</h3>
           </div>
           <div className="card-body">
             <form

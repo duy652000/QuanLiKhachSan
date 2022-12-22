@@ -100,9 +100,9 @@ function Booked({ dataSortBooked }) {
                     <div className="card-body">
                       {/* icon */}
                       <div className="d-flex justify-content-center">
-                        <a className="text-light bg-dark pl-1 pr-1 rounded ">
+                        {/* <a className="text-light bg-dark pl-1 pr-1 rounded ">
                           <i className="bi bi-arrow-repeat"></i>
-                        </a>
+                        </a> */}
 
                         <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           variant="primary"
@@ -154,7 +154,7 @@ function Booked({ dataSortBooked }) {
                           Checkin
                         </a>
 
-                        <a
+                        {/* <a
                           className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           type="button"
                           // onClick={function confirmCancle() {
@@ -168,7 +168,7 @@ function Booked({ dataSortBooked }) {
                           // }}
                         >
                           Hủy
-                        </a>
+                        </a> */}
                       </div>
                     </div>
                   </div>

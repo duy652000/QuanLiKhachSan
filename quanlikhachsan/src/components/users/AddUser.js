@@ -168,7 +168,7 @@ function AddUser() {
                 value="2"
               />
               <label className="form-check-label" htmlFor="exampleCheck1">
-                user
+                personnel
               </label>
             </div>
 
@@ -187,7 +187,7 @@ function AddUser() {
                 value="3"
               />
               <label className="form-check-label" htmlFor="exampleCheck1">
-                manager
+                cleaner
               </label>
             </div>
 

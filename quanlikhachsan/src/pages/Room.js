@@ -28,7 +28,7 @@ function Room() {
   const [itemBooked, setItemBooked] = useState([]);
   const [itemClean, setItemClean] = useState([]);
   const [itemCheckIn, setItemCheckIn] = useState([]);
-
+  const [error,setError]=useState([])
   const [isNullCheckIn, setIsNullCheckIn] = useState(false);
   const [isNullClean, setIsNullClean] = useState(false);
 
@@ -60,8 +60,8 @@ function Room() {
 
   //call api
   const filterDate = useCallback(async () => {
-    console.log("detailDay",detailDay)
-    // try {
+   
+    try {
     let res = await axios.get(
       `http://localhost:8000/room/filter?from=${detailDay.from}&to=${detailDay.to}&status_room=${detailDay.status_room}&status_bill=${detailDay.status_bill}`,
       {
@@ -84,9 +84,10 @@ function Room() {
       setItemClean(res);
     }
 
-    // } catch (error) {
-    //   // setError(JSON.parse(error.response.data));
-    // }
+    } catch (error) {
+     
+      setError(JSON.parse(error.response.data));
+    }
   }, [detailDay, token]);
   const countAllRoom = dataAllRoom.length;
   const countCheckInRoom = dataCheckInRoom.length;
@@ -188,6 +189,27 @@ function Room() {
                   </button>
                 </div>
               </div>
+              <div className="row m-auto">
+              <div className="col-sm d-flex justify-content-end">
+                  <div>
+                    <p className="mr-1 text-danger">{error?.from}</p>
+                   
+                  </div>
+                </div>
+
+                <div className="col-sm d-flex justify-content-end ">
+                  <div>
+                  <p className="mr-1 text-danger">{error?.to}</p>
+                  
+                  
+                  </div>
+                </div>
+                <div className="col-sm d-flex justify-content-end">
+            
+                </div>
+                
+              </div>
+
               <br></br>
               {/* </form> */}
             </div>

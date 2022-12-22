@@ -211,7 +211,7 @@ function ShowProfile() {
                   <div className="col-xs-12">
                     <br />
                     <button className="btn btn-lg btn-success" type="submit">
-                      <i className="glyphicon glyphicon-ok-sign"></i> Save
+                      <i className="glyphicon glyphicon-ok-sign"></i> Lưu
                     </button>
                   </div>
                 </div>

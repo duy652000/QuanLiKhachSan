@@ -73,16 +73,16 @@ function Content() {
       <div className="row">
         {/* <!-- Earnings (Monthly) Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4">
-          <div className="card border-left-danger shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-primary">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-white text-uppercase mb-1">
                     Hà Nội
                   </div>
                   <div
                     id="VNTime"
-                    className="h5 mb-0 font-weight-bold text-gray-800"
+                    className="h5 mb-0 font-weight-bold text-white"
                   ></div>
                 </div>
                 <div className="col-auto">
@@ -97,16 +97,16 @@ function Content() {
 
         {/* <!-- Earnings (Monthly) Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4">
-          <div className="card border-left-danger shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-primary">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-white text-uppercase mb-1">
                     New York
                   </div>
                   <div
                     id="USATime"
-                    className="h5 mb-0 font-weight-bold text-gray-800"
+                    className="h5 mb-0 font-weight-bold text-white"
                   ></div>
                 </div>
                 <div className="col-auto">
@@ -121,16 +121,16 @@ function Content() {
 
         {/* <!-- Earnings (Monthly) Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4">
-          <div className="card border-left-danger shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-primary">
             <div className="card-body">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-white text-uppercase mb-1">
                     Nhật Bản
                   </div>
                   <div
                     id="JPTime"
-                    className="h5 mb-0 font-weight-bold text-gray-800"
+                    className="h5 mb-0 font-weight-bold text-white"
                   ></div>
                 </div>
                 <div className="col-auto">
@@ -145,16 +145,16 @@ function Content() {
 
         {/* <!-- Pending Requests Card Example --> */}
         <div className="col-xl-3 col-md-6 mb-4 ">
-          <div className="card border-left-danger shadow h-100 py-2 bg-light">
+          <div className="card border-left-danger shadow h-100 py-2 bg-primary">
             <div className="card-body ">
               <div className="row no-gutters align-items-center">
                 <div className="col mr-2">
-                  <div className="h5 text-xs font-weight-bold text-dark text-uppercase mb-1">
+                  <div className="h5 text-xs font-weight-bold text-white text-uppercase mb-1">
                     London
                   </div>
                   <div
                     id="USUKTime"
-                    className="h5 mb-0 font-weight-bold text-gray-800"
+                    className="h5 mb-0 font-weight-bold text-white "
                   ></div>
                 </div>
                 <div className="col-auto">

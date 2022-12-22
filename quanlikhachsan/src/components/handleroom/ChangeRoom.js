@@ -46,7 +46,7 @@ function ChangeRoom({ dataRoomChange }) {
         }
       });
       setNewDataRoom(dataNew);
-     
+
       setDetails(
         {
           bill: data?.id,

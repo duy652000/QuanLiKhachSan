@@ -166,7 +166,11 @@ function OderRoomForm({ dataItem }) {
                       className="form-control col-sm-8"
                       onChange={(e) => {
                         const selectIdCustomer = e.target.value;
-                        setIdCustomer(selectIdCustomer);
+                        setIdCustomer(selectIdCustomer);                     
+                        setDetails({
+                          ...details,
+                          client_id: selectIdCustomer,
+                        });
                       }}
                     >
                       {" "}
