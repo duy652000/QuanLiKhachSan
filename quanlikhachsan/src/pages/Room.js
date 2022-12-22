@@ -83,7 +83,7 @@ function Room() {
       setIsNullClean(res ? false : true);
       setItemClean(res);
     }
-
+    setError("")
     } catch (error) {
      
       setError(JSON.parse(error.response.data));

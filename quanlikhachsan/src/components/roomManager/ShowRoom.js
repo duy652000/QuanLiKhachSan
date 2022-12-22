@@ -76,7 +76,7 @@ function ShowService() {
                     <td>{item.typ_room}</td>
                     <td>{item.price}</td>
                     <td>{item.capacity}</td>
-                    <td>{item.status}</td>
+                    <td className={item.status==2?"text-success":item.status==3?"text-danger":item.status==1?"text-primary":""}>{item.status==3?"Dọn dẹp":item.status==2?"Đang ở":item.status==1?"Trống":"Ẩn"}</td>
                     <td>{item.description}</td>
                     <td>
                       <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
@@ -85,8 +85,9 @@ function ShowService() {
                       <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
                     </td>
                     <td>
-                      <div className="d-flex black">
+                    <div className="d-flex black">
                         {/* ẩn */}
+                        {(item.status==3||item.status==2)?"":(
                         <a
                           type="button"
                           onClick={async function Hiden() {
@@ -117,6 +118,7 @@ function ShowService() {
                             <i className="bi bi-eye hover-text black hover-text"></i>
                           )}
                         </a>
+                        )}
                         &nbsp; &nbsp;
                         {/* chỉnh sửa */}
                         <Link type="button" to={`update/${item.id}`}>

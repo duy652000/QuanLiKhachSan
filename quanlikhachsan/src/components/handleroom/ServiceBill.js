@@ -30,7 +30,7 @@ function ServiceBill({ dataServiceRoom }) {
 
 useEffect(()=>{
   getAllService(data?.room_id);
-},[])
+},[data])
 
   const getDataNewService = useCallback(
     (newName) => {
@@ -53,12 +53,12 @@ useEffect(()=>{
 
   const handleAddService = (e) => {
     e.preventDefault();
-    console.log("details :", details);
+
     getAllService(data?.room_id);
     addService(details);
   };
 
-
+console.log("Data",data)
  
    //get all service in bill
   const getAllService = useCallback(
@@ -286,21 +286,21 @@ console.log(total)
                         <strong>Tổng phí phòng : </strong>
                       </td>
                       <td className="right">
-                      {total.total_room_rate}
+                      {total?.total_room_rate}
                       </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng phí dịch vụ :</strong>
                       </td>
-                      <td className="right">{data.total_service_fee}</td>
+                      <td className="right">{data?.total_service_fee}</td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng hóa đơn :</strong>
                       </td>
                       <td className="right">
-                        {total.total_room_rate +data.total_service_fee}
+                        {total?.total_room_rate +data?.total_service_fee}
                       </td>
                     </tr>
                   </tbody>
@@ -323,13 +323,13 @@ console.log(total)
             >
               Đóng
             </button>
-            <button
+            {/* <button
               type="button"
               className="btn btn-primary "
               //   onClick={handleChangeRoom}
             >
               Cập Nhật Dịch Vụ
-            </button>
+            </button> */}
           </div>
           {/* footer */}
         </div>
