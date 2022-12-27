@@ -11,6 +11,7 @@ import ChangePassword from "../components/profile/ChangePassword";
 import { AppContext } from "../Context/AppContext";
 import { useContext } from "react";
 import RoomManager from "../pages/RoomManager";
+import Statistic from "../pages/Statistic";
 
 function Router() {
   const { role } = useContext(AppContext);
@@ -31,6 +32,8 @@ function Router() {
       <Route path="/customer/*" element={<Customer />} />
       <Route path="/service/*" element={<Service />} />
       <Route path="/room-manager/*" element={<RoomManager />} />
+      <Route path="/statistic" element={<Statistic />} />
+
       
       {roleAdmin(roleAccount)}
     </Routes>

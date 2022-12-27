@@ -87,6 +87,14 @@ function Sidebar() {
         </Link>
       </li>
 
+       {/* <!-- Nav Item - Statistic --> */}
+       <li className="nav-item active">
+        <Link to={"/statistic"} className="nav-link">
+          <i className="bi bi-clipboard2-pulse"></i> &nbsp;
+          <span>Thống Kê</span>
+        </Link>
+      </li>
+
       {/* <!-- Nav Item - Room --> */}
 
       <li className="nav-item">

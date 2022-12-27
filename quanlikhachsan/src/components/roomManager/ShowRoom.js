@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -53,7 +53,7 @@ function ShowService() {
 
             <tbody>
               {/*  */}
-              {data.length == 0 ? (
+              {data.length === 0 ? (
                 <tr>
                   <td>
                     <ClipLoader
@@ -76,7 +76,7 @@ function ShowService() {
                     <td>{item.typ_room}</td>
                     <td>{item.price}</td>
                     <td>{item.capacity}</td>
-                    <td className={item.status==2?"text-success":item.status==3?"text-danger":item.status==1?"text-primary":""}>{item.status==3?"Dọn dẹp":item.status==2?"Đang ở":item.status==1?"Trống":"Ẩn"}</td>
+                    <td className={item.status===2?"text-success":item.status===3?"text-danger":item.status===1?"text-primary":""}>{item.status==3?"Dọn dẹp":item.status==2?"Đang ở":item.status==1?"Trống":"Ẩn"}</td>
                     <td>{item.description}</td>
                     <td>
                       <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
@@ -87,7 +87,7 @@ function ShowService() {
                     <td>
                     <div className="d-flex black">
                         {/* ẩn */}
-                        {(item.status==3||item.status==2)?"":(
+                        {(item.status===3||item.status===2)?"":(
                         <a
                           type="button"
                           onClick={async function Hiden() {
@@ -110,7 +110,7 @@ function ShowService() {
                             }
                           }}
                         >
-                          {item.status == 1 ? (
+                          {item.status === 1 ? (
                             <i className="bi bi-eye-slash hover-text black hover-text">
                               {" "}
                             </i>

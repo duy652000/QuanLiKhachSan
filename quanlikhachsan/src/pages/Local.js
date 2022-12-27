@@ -13,12 +13,15 @@ function Local() {
     if (!localStorage.getItem("token")) {
       history("/login");
     }
+      
+
   },[]);
+  
 
   return (
     <>
       <div id="wrapper">
-      <AppProvider>
+      {/* <AppProvider> */}
         {/* <!-- Sidebar --> */}
         <Sidebar />
         {/* <!-- End of Sidebar --> */}
@@ -49,7 +52,7 @@ function Local() {
           {/* <!-- End of Footer --> */}
         </div>
         {/* <!-- End of Content Wrapper --> */}
-        </AppProvider>
+        {/* </AppProvider> */}
       </div>
     </>
   );

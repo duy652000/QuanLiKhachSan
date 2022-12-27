@@ -49,7 +49,7 @@ useEffect(()=>{
     },
     [data]
   );
-  console.log("details", details);
+
 
   const handleAddService = (e) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ useEffect(()=>{
     addService(details);
   };
 
-console.log("Data",data)
+
  
    //get all service in bill
   const getAllService = useCallback(
@@ -97,7 +97,7 @@ console.log("Data",data)
     },
     [token]
   );
-console.log(total)
+
 
  
   return (
