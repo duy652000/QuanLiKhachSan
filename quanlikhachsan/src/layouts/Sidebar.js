@@ -1,25 +1,20 @@
 import jwtDecode from "jwt-decode";
 import moment from "moment";
 import React from "react";
-import { useContext ,useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logoNavbar.png";
 import { AppContext } from "../Context/AppContext";
 
 function Sidebar() {
-  const {role} =useContext(AppContext);
-  const roleAccount = role
+  const { role } = useContext(AppContext);
+  const roleAccount = role;
 
-  const roleAdmin = (roleAccount)=>{
-    if(roleAccount===1){
-      return <li className="nav-item">
-      <Link to="/user" className="nav-link">
-        <i className="bi bi-people-fill"></i> &nbsp;
-        <span>Quản Lý Tài Khoản</span>{" "}
-      </Link>
-    </li> 
-    }
-  }
+  // const roleAdmin = (roleAccount)=>{
+  //   if(roleAccount===1){
+  //     return
+  //   }
+  // }
 
   const history = useNavigate();
   function timeOut() {
@@ -39,11 +34,11 @@ function Sidebar() {
 
   useEffect(() => {
     timeOut();
-    
-    var Logout = function () {
 
+    var Logout = function () {
       if (
-        (Date.parse(moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"))) >=timeOut()
+        Date.parse(moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")) >=
+        timeOut()
       ) {
         alert("Hết thời gian đăng nhập !");
         localStorage.clear("token");
@@ -56,9 +51,6 @@ function Sidebar() {
       clearInterval(myInterval);
     };
   }, []);
- 
-
-
 
   return (
     <ul
@@ -79,67 +71,112 @@ function Sidebar() {
       {/* <!-- Divider --> */}
       <hr className="sidebar-divider my-0" />
 
-      {/* <!-- Nav Item - Dashboard --> */}
-      <li className="nav-item active">
-        <Link to={"/"} className="nav-link">
-          <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
-          <span>Giờ Quốc Tế</span>
-        </Link>
-      </li>
+      {roleAccount === 1 ? (
+        //admin
 
-       {/* <!-- Nav Item - Statistic --> */}
-       <li className="nav-item active">
-        <Link to={"/statistic"} className="nav-link">
-          <i className="bi bi-clipboard2-pulse"></i> &nbsp;
-          <span>Thống Kê</span>
-        </Link>
-      </li>
+        <>
+          {/* <!-- Nav Item - Dashboard --> */}
+          <li className="nav-item active">
+            <Link to={"/"} className="nav-link">
+              <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
+              <span>Giờ Quốc Tế</span>
+            </Link>
+          </li>
 
-      {/* <!-- Nav Item - Room --> */}
+          {/* <!-- Nav Item - Statistic --> */}
+          <li className="nav-item active">
+            <Link to={"/statistic"} className="nav-link">
+              <i className="bi bi-clipboard2-pulse"></i> &nbsp;
+              <span>Thống Kê</span>
+            </Link>
+          </li>
 
-      <li className="nav-item">
-        <Link to="/room" className="nav-link">
-          <i className="bi bi-door-closed"></i> &nbsp;
-          <span>Quản Lý Đặt Phòng</span>
-        </Link>
-      </li>
+          {/* <!-- Nav Item - Room --> */}
+          <li className="nav-item">
+            <Link to="/room" className="nav-link">
+              <i className="bi bi-door-closed"></i> &nbsp;
+              <span>Quản Lý Đặt Phòng</span>
+            </Link>
+          </li>
 
-      {/* <!-- Nav Item - Service --> */}
-      
+          {/* <!-- Nav Item - Service --> */}
+          <li className="nav-item">
+            <Link to="/service" className="nav-link">
+              <i className="fas fa-fw fa-cog"></i> &nbsp;
+              <span>Quản lý dịch vụ</span>
+            </Link>
+          </li>
 
+          {/* <!--Customer - Nav Item  --> */}
+          <li className="nav-item">
+            <Link to="/customer" className="nav-link">
+              <i className="bi bi-file-earmark-person"></i> &nbsp;
+              <span>Quản Lý Khách Hàng</span>
+            </Link>
+          </li>
 
-      {/* <!-- Nav Item - custom --> */}
-      <li className="nav-item">
-        <Link to="/service" className="nav-link">
-        <i className="fas fa-fw fa-cog"></i> &nbsp;
-          <span>Quản lý dịch vụ</span>
-        </Link>
-      </li>
+          {/* <!-- Room Manager - Nav Item --> */}
+          <li className="nav-item">
+            <Link to="/room-manager" className="nav-link">
+              <i className="bi bi-building"></i> &nbsp;
+              <span>Quản Lý Phòng</span>
+            </Link>
+          </li>
 
-       {/* <!-- Nav Item - custom --> */}
-       <li className="nav-item">
-        <Link to="/customer" className="nav-link">
-        <i className="bi bi-file-earmark-person"></i> &nbsp;
-          <span>Quản Lý Khách Hàng</span>
-        </Link>
-      </li>
+          {/* <!-- User - Nav Item  --> */}
+          <li className="nav-item">
+            <Link to="/user" className="nav-link">
+              <i className="bi bi-people-fill"></i> &nbsp;
+              <span>Quản Lý Tài Khoản</span>{" "}
+            </Link>
+          </li>
 
+          {/* {roleAdmin(roleAccount)} */}
+          {/* <!-- Sidebar Toggler (Sidebar) --> */}
+        </>
+      ) : roleAccount === 2 ? (
+        <>
+          {/* <!-- Nav Item - Dashboard --> */}
+          <li className="nav-item active">
+            <Link to={"/"} className="nav-link">
+              <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
+              <span>Giờ Quốc Tế</span>
+            </Link>
+          </li>
+          {/* <!-- Nav Item - Room --> */}
+          <li className="nav-item">
+            <Link to="/room" className="nav-link">
+              <i className="bi bi-door-closed"></i> &nbsp;
+              <span>Quản Lý Đặt Phòng</span>
+            </Link>
+          </li>
+          {/* <!--Customer - Nav Item  --> */}
+          <li className="nav-item">
+            <Link to="/customer" className="nav-link">
+              <i className="bi bi-file-earmark-person"></i> &nbsp;
+              <span>Quản Lý Khách Hàng</span>
+            </Link>
+          </li>
+        </>
+      ) : (
+        <>
+        {/* <!-- Nav Item - Dashboard --> */}
+        <li className="nav-item active">
+            <Link to={"/"} className="nav-link">
+              <i className="fas fa-fw fa-tachometer-alt"></i> &nbsp;
+              <span>Giờ Quốc Tế</span>
+            </Link>
+          </li>
+          {/* <!-- Nav Item - Room --> */}
+          <li className="nav-item">
+            <Link to="/room" className="nav-link">
+              <i className="bi bi-door-closed"></i> &nbsp;
+              <span>Quản Lý Đặt Phòng</span>
+            </Link>
+          </li>
+        </>
+      )}
 
-       {/* <!-- Nav Item - custom --> */}
-       <li className="nav-item">
-        <Link to="/room-manager" className="nav-link">
-        <i className="bi bi-building"></i> &nbsp;
-          <span>Quản Lý Phòng</span>
-        </Link>
-      </li>
-
-      {roleAdmin(roleAccount)}
-
-     
-        
-    
-
-      {/* <!-- Sidebar Toggler (Sidebar) --> */}
       <div className="text-center d-none d-md-inline">
         <button className="rounded-circle border-0" id="sidebarToggle"></button>
       </div>

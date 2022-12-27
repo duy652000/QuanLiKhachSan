@@ -16,26 +16,44 @@ import Statistic from "../pages/Statistic";
 function Router() {
   const { role } = useContext(AppContext);
   const roleAccount = role;
-  const roleAdmin = useCallback((roleAccount)=>{
-    if(roleAccount===1){
-      return <Route path="/user/*" element={<User />} /> 
-    }
-  },[roleAccount])
-  
+ 
+
   return (
     <Routes>
-      <Route path="*" element={<Content />} />
-      <Route path="/profile" element={<ShowProfile />} />
-      <Route path="/change_password" element={<ChangePassword />} />
-      <Route path="/room/*" element={<Room />} />
-      <Route path="/oder/*" element={<Oder />} />
-      <Route path="/customer/*" element={<Customer />} />
-      <Route path="/service/*" element={<Service />} />
-      <Route path="/room-manager/*" element={<RoomManager />} />
-      <Route path="/statistic" element={<Statistic />} />
+      {roleAccount === 1 ? (
+        //admin
+        <>
+          <Route path="*" element={<Content />} />
+          <Route path="/profile" element={<ShowProfile />} />
+          <Route path="/change_password" element={<ChangePassword />} />
+          <Route path="/room/*" element={<Room />} />
+          <Route path="/oder/*" element={<Oder />} />
+          <Route path="/customer/*" element={<Customer />} />
+          <Route path="/service/*" element={<Service />} />
+          <Route path="/room-manager/*" element={<RoomManager />} />
+          <Route path="/statistic" element={<Statistic />} />
+          <Route path="/user/*" element={<User />} />
+        </>
+      ) : roleAccount === 2 ? (
+        // Le tan
+        <>
+          <Route path="*" element={<Content />} />
+          <Route path="/profile" element={<ShowProfile />} />
+          <Route path="/change_password" element={<ChangePassword />} />
+          <Route path="/room/*" element={<Room />} />
+          <Route path="/customer/*" element={<Customer />} />
+        </>
+      ) : (
+        //Cleaner
+        <>
+          <Route path="/room/*" element={<Room />} />
 
-      
-      {roleAdmin(roleAccount)}
+          <Route path="*" element={<Content />} />
+          <Route path="/profile" element={<ShowProfile />} />
+          <Route path="/change_password" element={<ChangePassword />} />
+        </>
+      )}
+      {/* {roleAdmin(roleAccount)} */}
     </Routes>
   );
 }
