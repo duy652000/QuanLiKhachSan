@@ -258,7 +258,11 @@ button {
 
 
 /* icon room */
-
-
+/* over load */
+.Over-Load{
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(241, 241, 241);
+}
 
 

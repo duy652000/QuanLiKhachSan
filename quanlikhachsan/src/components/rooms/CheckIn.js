@@ -16,7 +16,7 @@ function CheckIn({ dataSortCheckIn }) {
     setTimeout(() => {
       setLoadingData(false);
       return;
-    }, 5000);
+    }, 2000);
   }, []);
   
   let dataSort = dataSortCheckIn[0];

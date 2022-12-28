@@ -24,7 +24,7 @@ function AddCustomer() {
   };
   //call api
   async function addCustomer(detail) {
-    // try {
+    try {
       let res = await axios.post(
         "http://localhost:8000/client/create",
         detail,
@@ -36,12 +36,13 @@ function AddCustomer() {
         }
       );
       res = await res;
-      // alert("Thêm khách hàng thành công !");
-      // window.location="/service";
+      setError("");
+      alert("Thêm khách hàng thành công !");
+      window.location="/service";
       
-    // } catch (error) {
-    //   setError(JSON.parse(error.response.data));
-    // }
+    } catch (error) {
+      setError(JSON.parse(error.response.data));
+    }
  
   }
   ////////////////

@@ -25,7 +25,7 @@ const handleAddService = (e) => {
 };
 //call api
 async function addRoom(detail) {
-//   try {
+  try {
     let res = await axios.post("http://localhost:8000/room/add", detail, {
       headers: {
         "Content-Type": "application/json",
@@ -33,11 +33,13 @@ async function addRoom(detail) {
       },
     });
     res = await res;
+    setError("");
+
     window.location="/room-manager";
     alert("Thêm phòng thành công !");
-//   } catch (error) {
-//     setError(JSON.parse(error.response.data));
-//   }
+  } catch (error) {
+    setError(JSON.parse(error.response.data));
+  }
 
 }
 ////////////////

@@ -36,16 +36,16 @@ export const AppProvider = ({ children }) => {
   // const [dataCountCleanRoom, setDataCountCleanRoom] = useState([]);
 
   //get infor
-  const getProFile = useCallback(async () => {
-    let res = await axios.get("http://localhost:8000/view-account", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    res = await res.data;
-    setRole(res.group_id);
-  }, [token]);
+  // const getProFile = useCallback(async () => {
+  //   let res = await axios.get("http://localhost:8000/view-account", {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   });
+  //   res = await res.data;
+  //   setRole(res.group_id);
+  // }, [token]);
 
   //get data room
 
@@ -150,7 +150,7 @@ export const AppProvider = ({ children }) => {
 
   // get data customer
   const getDataCustomer = useCallback( async () => {
-    let res = await axios.get("http://localhost:8000/client/client-profile", {
+    let res = await axios.get("http://localhost:8000/client/getclient", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -174,7 +174,7 @@ export const AppProvider = ({ children }) => {
 
   // get data service
   const getDataService = useCallback( async () => {
-    let res = await axios.get("http://localhost:8000/service/service-info", {
+    let res = await axios.get("http://localhost:8000/service/getservice", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -185,7 +185,7 @@ export const AppProvider = ({ children }) => {
   },[token]);
   ///
 
-  // get data service
+  // get data room
   const getDataRoom = useCallback( async () => {
     let res = await axios.get("http://localhost:8000/room/getlist", {
       headers: {
@@ -208,7 +208,7 @@ export const AppProvider = ({ children }) => {
     // getDataBookedRoom();
     getDataCleanRoom();
     getDataCheckInRoom();
-    getProFile();
+    // getProFile();
   }, []);
 
   return (
@@ -224,6 +224,7 @@ export const AppProvider = ({ children }) => {
         dataCleanRoom,
         dataCheckInRoom,
         role,
+        setRole,
       }}
     >
       {children}

@@ -1,20 +1,15 @@
 import jwtDecode from "jwt-decode";
 import moment from "moment";
 import React from "react";
+import { useState } from "react";
 import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logoNavbar.png";
 import { AppContext } from "../Context/AppContext";
 
-function Sidebar() {
+function Sidebar({openSideBar,setOpenSideBar}) {
   const { role } = useContext(AppContext);
   const roleAccount = role;
-
-  // const roleAdmin = (roleAccount)=>{
-  //   if(roleAccount===1){
-  //     return
-  //   }
-  // }
 
   const history = useNavigate();
   function timeOut() {
@@ -54,7 +49,7 @@ function Sidebar() {
 
   return (
     <ul
-      className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+      className={`navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ${openSideBar && "toggled"}`  }
       id="accordionSidebar"
     >
       {/* <!-- Sidebar - Brand --> */}
@@ -178,7 +173,7 @@ function Sidebar() {
       )}
 
       <div className="text-center d-none d-md-inline">
-        <button className="rounded-circle border-0" id="sidebarToggle"></button>
+        <button className="rounded-circle border-0" id="sidebarToggle" onClick={()=>{setOpenSideBar(!openSideBar)}}></button>
       </div>
     </ul>
   );

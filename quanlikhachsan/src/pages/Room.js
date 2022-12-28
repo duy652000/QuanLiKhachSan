@@ -71,6 +71,7 @@ function Room() {
         }
       );
       res = await res.data.Rom;
+      
       if (url.pathname === "/room/free") {
         setItemFree(res);
       } else if (url.pathname === "/room/booked") {
@@ -98,8 +99,7 @@ function Room() {
   }).length;
 
   const countBookedRoom = itemBooked.filter(function (item) {
-    console.log("item", item);
-    if (item?.id) {
+    if (item[0]?.id) {
       return true;
     } else return false;
   }).length;

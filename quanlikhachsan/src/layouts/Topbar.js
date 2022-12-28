@@ -2,8 +2,9 @@ import React from "react";
 import Logout from "../components/logout/Logout";
 import UserName from "../components/profile/UserName";
 import { Link} from "react-router-dom";
+import { useState } from "react";
 
-function Topbar() {
+function Topbar({openSideBar,setOpenSideBar}) {
   
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -11,8 +12,10 @@ function Topbar() {
       <button
         id="sidebarToggleTop"
         className="btn btn-link d-md-none rounded-circle mr-3"
+        onClick={()=>{setOpenSideBar(!openSideBar)}}
       >
         <i className="fa fa-bars"></i>
+
       </button>
 
      

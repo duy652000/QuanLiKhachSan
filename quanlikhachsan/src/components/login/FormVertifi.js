@@ -37,8 +37,9 @@ function FormVertifi({ token }) {
       setError(codeFalse)  
     }else if(res==1){
       localStorage.setItem("token", token);
-      window.location.reload();
+       window.location="/";
       alert("Đăng nhập thành công !")
+  
     }
    
     
