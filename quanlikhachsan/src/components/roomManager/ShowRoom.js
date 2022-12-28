@@ -74,9 +74,33 @@ function ShowService() {
                     <td>{item.id}</td>
                     <td>{item.name_room}</td>
                     <td>{item.typ_room}</td>
-                    <td>{item.price}</td>
+
+                    <td>
+                      {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(item.price ?? 0)}
+                    </td>
                     <td>{item.capacity}</td>
-                    <td className={item.status===2?"text-success":item.status===3?"text-danger":item.status===1?"text-primary":""}>{item.status==3?"Dọn dẹp":item.status==2?"Đang ở":item.status==1?"Trống":"Ẩn"}</td>
+                    <td
+                      className={
+                        item.status === 2
+                          ? "text-success"
+                          : item.status === 3
+                          ? "text-danger"
+                          : item.status === 1
+                          ? "text-primary"
+                          : ""
+                      }
+                    >
+                      {item.status == 3
+                        ? "Dọn dẹp"
+                        : item.status == 2
+                        ? "Đang ở"
+                        : item.status == 1
+                        ? "Trống"
+                        : "Ẩn"}
+                    </td>
                     <td>{item.description}</td>
                     <td>
                       <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
@@ -85,39 +109,41 @@ function ShowService() {
                       <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
                     </td>
                     <td>
-                    <div className="d-flex black">
+                      <div className="d-flex black">
                         {/* ẩn */}
-                        {(item.status===3||item.status===2)?"":(
-                        <a
-                          type="button"
-                          onClick={async function Hiden() {
-                            try {
-                              let res = await axios.post(
-                                `http://localhost:8000/room/hiden/id=${item.id}`,
-                                item.id,
-                                {
-                                  headers: {
-                                    "Content-Type": "application/json",
-                                    Authorization: `Bearer ${token}`,
-                                  },
-                                }
-                              );
-                              res = await res;
-                              window.location = "/room-manager";
-                              alert("Thay đổi trạng thái thành công !");
-                            } catch (error) {
-                              alert("Thay đổi trạng thái không thành công !");
-                            }
-                          }}
-                        >
-                          {item.status === 1 ? (
-                            <i className="bi bi-eye-slash hover-text black hover-text">
-                              {" "}
-                            </i>
-                          ) : (
-                            <i className="bi bi-eye hover-text black hover-text"></i>
-                          )}
-                        </a>
+                        {item.status === 3 || item.status === 2 ? (
+                          ""
+                        ) : (
+                          <a
+                            type="button"
+                            onClick={async function Hiden() {
+                              try {
+                                let res = await axios.post(
+                                  `http://localhost:8000/room/hiden/id=${item.id}`,
+                                  item.id,
+                                  {
+                                    headers: {
+                                      "Content-Type": "application/json",
+                                      Authorization: `Bearer ${token}`,
+                                    },
+                                  }
+                                );
+                                res = await res;
+                                window.location = "/room-manager";
+                                alert("Thay đổi trạng thái thành công !");
+                              } catch (error) {
+                                alert("Thay đổi trạng thái không thành công !");
+                              }
+                            }}
+                          >
+                            {item.status === 1 ? (
+                              <i className="bi bi-eye-slash hover-text black hover-text">
+                                {" "}
+                              </i>
+                            ) : (
+                              <i className="bi bi-eye hover-text black hover-text"></i>
+                            )}
+                          </a>
                         )}
                         &nbsp; &nbsp;
                         {/* chỉnh sửa */}

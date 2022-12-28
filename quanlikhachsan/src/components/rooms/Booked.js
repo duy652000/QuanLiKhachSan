@@ -20,27 +20,29 @@ function Booked({ dataSortBooked }) {
 
   //////////////////// get data
   const [loadingData, setLoadingData] = useState(false);
-  const [idRoom,setIdRoom]=useState("");
-  const [dataProfileForm,setDataProfileForm]=useState([]);
+  const [idRoom, setIdRoom] = useState("");
+  const [dataProfileForm, setDataProfileForm] = useState([]);
 
   const data = dataSort.flat();
   /////////////////
 
- const handlePay = useCallback( async  (id)=> {
-    let res = await axios.post(
-      `http://localhost:8000/bill/checkin?room_id=${id}`,
-      "",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+  const handlePay = useCallback(
+    async (id) => {
+      let res = await axios.post(
+        `http://localhost:8000/bill/checkin?room_id=${id}`,
+        "",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    window.location = "/room/checkin";
-  },[token])
-
+      window.location = "/room/checkin";
+    },
+    [token]
+  );
 
   //get api by id
   const getData = useCallback(
@@ -73,7 +75,7 @@ function Booked({ dataSortBooked }) {
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
 
-            {(data.length == 0||data[0].id==null) ? (
+            {data.length == 0 || data[0].id == null ? (
               <>
                 {loadingData ? (
                   <PulseLoader
@@ -92,7 +94,8 @@ function Booked({ dataSortBooked }) {
                   </div>
                 )}
               </>
-            ) : (data.length > 0 &&
+            ) : (
+              data.length > 0 &&
               data.map((item) => (
                 <div className="col mb-2 border-dark" key={item.id}>
                   <div className="card bg-warning decription-room border border-dark">
@@ -104,7 +107,8 @@ function Booked({ dataSortBooked }) {
                           <i className="bi bi-arrow-repeat"></i>
                         </a> */}
 
-                        <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                        <a
+                          className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           variant="primary"
                           data-toggle="modal"
                           data-target="#ProFileRoomModal"
@@ -112,7 +116,7 @@ function Booked({ dataSortBooked }) {
                           type="button"
                           onClick={
                             // () => getData(item.id)
-                              function handleGetDataRoom(e) {
+                            function handleGetDataRoom(e) {
                               e.preventDefault();
                               getData(item.id);
                             }
@@ -120,7 +124,7 @@ function Booked({ dataSortBooked }) {
                         >
                           <i className="bi bi-people-fill"></i>
                         </a>
-                        <ProfileBill idDataRoom={dataProfileForm}/>
+                        <ProfileBill idDataRoom={dataProfileForm} />
                       </div>
                       {/* icon */}
 
@@ -129,7 +133,13 @@ function Booked({ dataSortBooked }) {
                         <strong className="fw-bolder">{item.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <p className="fw-bolder">Giá:{item.price + "vnd"}</p>
+                        <p className="fw-bolder">
+                          Giá:
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(item.price ?? 0)}
+                        </p>
                       </div>
                     </div>
 

@@ -168,7 +168,8 @@ function ChangeRoom({ dataRoomChange }) {
                 <div>
                 <div><span className="font-weight-bold">Tên Phòng : </span> {getDataRoom[0]?.name_room}</div>
                 <div><span className="font-weight-bold ">Mã Phòng :  </span> {getDataRoom[0]?.id} </div>
-                <div><span className="font-weight-bold">Giá Phòng :  </span> {getDataRoom[0]?.price}</div>
+                <div><span className="font-weight-bold">Giá Phòng :  </span>
+                {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(getDataRoom[0]?.price)) }</div>
                 <div><span className="font-weight-bold">Loại Phòng :  </span> {getDataRoom[0]?.typ_room} </div>
                 <div><span className="font-weight-bold">Sức chứa :  </span>  {getDataRoom[0]?.capacity}</div>
                 </div>
@@ -211,7 +212,8 @@ function ChangeRoom({ dataRoomChange }) {
                   </div>
 
                   <div><span className="font-weight-bold">Mã Phòng :</span> {newDataRoom[0]?.id}</div>
-                  <div><span className="font-weight-bold">Giá Phòng : </span>{newDataRoom[0]?.price}</div>
+                  <div><span className="font-weight-bold">Giá Phòng : </span>
+                  {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((newDataRoom[0]?.price)??0)) }</div>
                   <div><span className="font-weight-bold">Loại Phòng : </span>{newDataRoom[0]?.typ_room}</div>
                   <div><span className="font-weight-bold">Sức chứa : </span>{newDataRoom[0]?.capacity}</div>
                 </div>
@@ -234,19 +236,27 @@ function ChangeRoom({ dataRoomChange }) {
                       <td className="left">
                         <strong>Tổng phí phòng : </strong>
                       </td>
-                      <td className="right">{details.total_room_rate==""?data.total_room_rate:details.total_room_rate}</td>
+                      <td className="right">
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((details.total_room_rate==""?data.total_room_rate:details.total_room_rate)??0)) }
+                      </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng phí dịch vụ :</strong>
                       </td>
-                      <td className="right">{data.total_service_fee}</td>
+                      <td className="right">
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((data.total_service_fee)??0)) }
+                        
+                       </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng hóa đơn :</strong>
                       </td>
-                      <td className="right">{details.total_money==""?data.total_money:details.total_money}</td>
+                      <td className="right">
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((details.total_money==""?data.total_money:details.total_money)??0)) }
+
+                      </td>
                     </tr>
                   </tbody>
                 </table>

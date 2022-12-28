@@ -286,21 +286,29 @@ useEffect(()=>{
                         <strong>Tổng phí phòng : </strong>
                       </td>
                       <td className="right">
-                      {total?.total_room_rate}
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((total?.total_room_rate)??0)) }
+
+                
                       </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng phí dịch vụ :</strong>
                       </td>
-                      <td className="right">{data?.total_service_fee}</td>
+                      <td className="right">
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((data?.total_service_fee)??0)) }
+                        
+             
+                        </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng hóa đơn :</strong>
                       </td>
                       <td className="right">
-                        {total?.total_room_rate +data?.total_service_fee}
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((total?.total_room_rate + data?.total_service_fee)??0)) }
+
+            
                       </td>
                     </tr>
                   </tbody>

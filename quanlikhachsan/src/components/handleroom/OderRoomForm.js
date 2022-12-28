@@ -153,9 +153,7 @@ function OderRoomForm({ dataItem }) {
                       }}
                       value={idCustomer ? idCustomer : ""}
                     />
-
                   </div>
-
 
                   <div className="col-sm d-flex justify-content-around">
                     <label className="col-sm" htmlFor="inputLastname">
@@ -166,7 +164,7 @@ function OderRoomForm({ dataItem }) {
                       className="form-control col-sm-8"
                       onChange={(e) => {
                         const selectIdCustomer = e.target.value;
-                        setIdCustomer(selectIdCustomer);                     
+                        setIdCustomer(selectIdCustomer);
                         setDetails({
                           ...details,
                           client_id: selectIdCustomer,
@@ -185,9 +183,7 @@ function OderRoomForm({ dataItem }) {
                     </select>
                   </div>
                 </div>
-                <div className="text-danger col-sm-8">
-                  {errorClientId}
-                </div>
+                <div className="text-danger col-sm-8">{errorClientId}</div>
                 {/* thông tin khách hàng */}
 
                 {/* thông tin phòng */}
@@ -269,16 +265,12 @@ function OderRoomForm({ dataItem }) {
                 <div className="form-group row justify-content-center ">
                   <div className="col-sm d-flex justify-content-start">
                     <label className="col-sm"> </label>
-                    <div className="text-danger col-sm-8">
-                      {errorDayIn}
-                    </div>
+                    <div className="text-danger col-sm-8">{errorDayIn}</div>
                   </div>
 
                   <div className="col-sm d-flex justify-content-center">
                     <label className="col-sm"></label>
-                    <div className="text-danger col-sm-8">
-                      {errorDayOut}
-                    </div>
+                    <div className="text-danger col-sm-8">{errorDayOut}</div>
                   </div>
                 </div>
 
@@ -366,16 +358,20 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3 ">
                   <p className="float-left ">Tổng phí phòng :</p>
                   <p className="float-right">
-                    {dataItem[2] *
-                      ((Date.parse(moment(dayGo)) -
-                        Date.parse(moment(dayCome))) /
-                        86400000 >
-                      0
-                        ? (Date.parse(moment(dayGo)) -
-                            Date.parse(moment(dayCome))) /
-                          86400000
-                        : 1)}{" "}
-                    <span> VND</span>
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(
+                      dataItem[2] *
+                        ((Date.parse(moment(dayGo)) -
+                          Date.parse(moment(dayCome))) /
+                          86400000 >
+                        0
+                          ? (Date.parse(moment(dayGo)) -
+                              Date.parse(moment(dayCome))) /
+                            86400000
+                          : 1) ?? 0
+                    )}
                   </p>
                 </div>
 
@@ -384,7 +380,10 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <p className="float-left">Tổng phí dịch vụ :</p>
                   <p className="float-right">
-                    {priceService * amountService} <span> VND</span>
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(priceService * amountService ?? 0)}
                   </p>
                 </div>
                 <div className=" mt-5 line-page-bold"></div>
@@ -392,7 +391,11 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <h6 className="float-left">Tổng hóa đơn :</h6>
                   <h6 className="float-right">
-                    {total.total_money} <span> VND</span>
+                  {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(total.total_money ?? 0)}
+                  
                   </h6>
                 </div>
                 <div className=" mt-5  line-page-bold"></div>

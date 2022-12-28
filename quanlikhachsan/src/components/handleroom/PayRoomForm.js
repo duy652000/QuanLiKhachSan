@@ -13,9 +13,7 @@ function PayRoomForm({ dataRoom }) {
   const [loadingData, setLoadingData] = useState(false);
 
   const data = dataRoom;
-  const idData = useMemo(()=>
-    data.id
-  ,[data]) 
+  const idData = useMemo(() => data.id, [data]);
   const totalDate =
     moment.unix(data?.day_out).format("DD") -
     moment.unix(data?.day_in).format("DD")
@@ -43,17 +41,14 @@ function PayRoomForm({ dataRoom }) {
 
   const payBill = useCallback(
     async (id) => {
-      let res = await axios.get(
-        `http://localhost:8000/bill/pay/id=${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      let res = await axios.get(`http://localhost:8000/bill/pay/id=${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       window.location = "/room/clean";
-      alert("Thanh toán thành công !")
+      alert("Thanh toán thành công !");
     },
     [token]
   );
@@ -95,120 +90,156 @@ function PayRoomForm({ dataRoom }) {
             </button>
           </div>
           {!data ? (
-          
             <PulseLoader
-          className="justify-content-center hight-load load-spinner mt-4"
-          color="#007bff"
-          loading={loadingData}
-          data-testid="loader"
-          size={12}
-          speedMultiplier={1}
-        />
-      ):(
+              className="justify-content-center hight-load load-spinner mt-4"
+              color="#007bff"
+              loading={loadingData}
+              data-testid="loader"
+              size={12}
+              speedMultiplier={1}
+            />
+          ) : (
+            // {/* header */}
 
-          // {/* header */}
+            // {/* body */}
 
-          // {/* body */}
+            // {/* <div className="card"> */}
 
-          // {/* <div className="card"> */}
-
-          <div className="card-body">
-            <div className="row mb-4 ">
-              <div className="col-sm-6 text-dark d-flex align-items-start flex-column ">
-                <div>Mã KH : {data?.client_id}</div>
-                <div>
-                  Khách Hàng : {getCustomerData[0]?.firtname}{" "}
-                  {getCustomerData[0]?.lastname}
+            <div className="card-body">
+              <div className="row mb-4 ">
+                <div className="col-sm-6 text-dark d-flex align-items-start flex-column ">
+                  <div>Mã KH : {data?.client_id}</div>
+                  <div>
+                    Khách Hàng : {getCustomerData[0]?.firtname}{" "}
+                    {getCustomerData[0]?.lastname}
+                  </div>
+                  <div>
+                    Nhận phòng :{" "}
+                    {moment.unix(data?.day_in).format("DD-MM-YYYY")}
+                  </div>
+                  <div>
+                    Trả phòng :{" "}
+                    {moment.unix(data?.day_out).format("DD-MM-YYYY")}
+                  </div>
+                  <div>Điện thoại : {getCustomerData[0]?.phone}</div>
                 </div>
-                <div>
-                  Nhận phòng : {moment.unix(data?.day_in).format("DD-MM-YYYY")}
+
+                <div className="col-sm-6 text-dark d-flex align-items-end flex-column ">
+                  <div>
+                    <div>Mã hóa đơn : {data?.id}</div>
+                  </div>
                 </div>
-                <div>
-                  Trả phòng : {moment.unix(data?.day_out).format("DD-MM-YYYY")}
+              </div>
+              <div className="row  ">
+                <div className="table-responsive">
+                  <table className="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Loại</th>
+                        <th>Tên</th>
+
+                        <th className="right">Giá</th>
+                        <th className="center">Số Lượng</th>
+                        <th className="right">Tổng Giá</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td className="left strong">Phòng</td>
+                        <td className="left">{getDataRoom[0]?.name_room}</td>
+                        <td className="right">
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(getDataRoom[0]?.price ?? 0)}
+                        </td>
+                        <td className="center">{totalDate}</td>
+
+                        <td className="right">
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data?.total_room_rate ?? 0)}
+                        </td>
+                      </tr>
+                      {data.length > 0 &&
+                        data.map((service) => (
+                          <tr key={getServiceData[0]?.id}>
+                            <td className="left">Dịch vụ</td>
+                            <td className="left">
+                              {getServiceData[0]?.name_service}
+                            </td>
+                            <td className="right">
+                              {new Intl.NumberFormat("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              }).format(getServiceData[0]?.price ?? 0)}
+                            </td>
+                            <td className="center">{}</td>
+                            <td className="right">
+                              {new Intl.NumberFormat("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              }).format(data?.total_service_fee ?? 0)}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
                 </div>
-                <div>Điện thoại : {getCustomerData[0]?.phone}</div>
               </div>
 
-              <div className="col-sm-6 text-dark d-flex align-items-end flex-column ">
-                <div>
-                  <div>Mã hóa đơn : {data?.id}</div>
+              <div className="row">
+                <div className="col-lg-4 col-sm-5"></div>
+
+                <div className="col-lg-5 col-sm- ml-auto">
+                  <table className="table table-clear">
+                    <tbody>
+                      <tr>
+                        <td className="left">
+                          <strong>Tổng phí phòng : </strong>
+                        </td>
+                        <td className="right">
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data.total_room_rate ?? 0)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="left">
+                          <strong>Tổng phí dịch vụ :</strong>
+                        </td>
+                        <td className="right">
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data.total_service_fee ?? 0)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="left">
+                          <strong>Tổng hóa đơn :</strong>
+                        </td>
+                        <td className="right">
+                          {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data.total_money ?? 0)}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-            <div className="row  ">
-              <div className="table-responsive">
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Loại</th>
-                      <th>Tên</th>
+            // {/* </div> */}
 
-                      <th className="right">Giá</th>
-                      <th className="center">Số Lượng</th>
-                      <th className="right">Tổng Giá</th>
-                    </tr>
-                  </thead>
+            // {/* body */}
 
-                  <tbody>
-                    <tr>
-                      <td className="left strong">Phòng</td>
-                      <td className="left">{getDataRoom[0]?.name_room}</td>
-                      <td className="right">{getDataRoom[0]?.price}</td>
-                      <td className="center">{totalDate}</td>
-                      <td className="right">{data?.total_room_rate}</td>
-                    </tr>
-                    {data.length > 0 &&
-                      data.map((service) => (
-                        <tr key={getServiceData[0]?.id}>
-                          <td className="left">Dịch vụ</td>
-                          <td className="left">
-                            {getServiceData[0]?.name_service}
-                          </td>
-                          <td className="right">{getServiceData[0]?.price}</td>
-                          <td className="center">{}</td>
-                          <td className="right">{data?.total_service_fee}</td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-lg-4 col-sm-5"></div>
-
-              <div className="col-lg-5 col-sm- ml-auto">
-                <table className="table table-clear">
-                  <tbody>
-                    <tr>
-                      <td className="left">
-                        <strong>Tổng phí phòng : </strong>
-                      </td>
-                      <td className="right">{data.total_room_rate}</td>
-                    </tr>
-                    <tr>
-                      <td className="left">
-                        <strong>Tổng phí dịch vụ :</strong>
-                      </td>
-                      <td className="right">{data.total_service_fee}</td>
-                    </tr>
-                    <tr>
-                      <td className="left">
-                        <strong>Tổng hóa đơn :</strong>
-                      </td>
-                      <td className="right">{data.total_money}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          // {/* </div> */}
-
-          // {/* body */}
-
-          // {/* footer */}
-      )}
+            // {/* footer */}
+          )}
 
           <div className="modal-footer">
             <button
@@ -218,7 +249,11 @@ function PayRoomForm({ dataRoom }) {
             >
               Đóng
             </button>
-            <button type="button" onClick={handlePay} className="btn btn-primary">
+            <button
+              type="button"
+              onClick={handlePay}
+              className="btn btn-primary"
+            >
               Thanh Toán
             </button>
           </div>

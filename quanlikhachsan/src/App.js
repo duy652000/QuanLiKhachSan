@@ -12,7 +12,7 @@ import OverLoad from "./components/OverLoad";
 function App() {
   return (
     <BrowserRouter>
-      {/* <OverLoad> */}
+      <OverLoad>
         <div className="App">
            {/* <AppProvider> */}
           <Routes>
@@ -21,7 +21,7 @@ function App() {
           </Routes>
             {/* </AppProvider> */}
         </div>
-      {/* </OverLoad> */}
+      </OverLoad>
     </BrowserRouter>
   );
 }

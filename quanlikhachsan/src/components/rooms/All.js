@@ -71,7 +71,7 @@ function All() {
 
                         {/* <!-- Product price--> */}
                         <p className="fw-bolder">
-                          Giá : {item.price + " vnd"}
+                          Giá: {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) }
                         </p>
                         <br />
                         {/* day */}

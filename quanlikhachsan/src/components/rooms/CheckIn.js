@@ -147,7 +147,11 @@ function CheckIn({ dataSortCheckIn }) {
                         <strong className="fw-bolder">{item.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <p className="fw-bolder">Giá:{item.price+"vnd"}</p>
+                        <p className="fw-bolder">Giá:
+                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) }
+
+              
+                        </p>
                    
                         {/* day */}
                         {/* 17/10/2022
