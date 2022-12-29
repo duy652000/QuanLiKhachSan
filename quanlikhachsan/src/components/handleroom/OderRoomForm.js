@@ -77,7 +77,7 @@ function OderRoomForm({ dataItem }) {
   const handleOderBill = (e) => {
     e.preventDefault();
     // console.log("details", details);
-    addBill(details);
+    addBill(details);  
   };
 
   //call api

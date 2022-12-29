@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FormVertifi from "../components/login/FormVertifi";
-import { RotateLoader } from "react-spinners";
+import { GridLoader } from "react-spinners";
 
 function Login() {
   const history = useNavigate();
@@ -67,21 +67,22 @@ function Login() {
                       <div className="col-lg-6">
                         <div className="p-5 ">
                           <div className="text-center">
-                            <div className="mt-5 pt-5"></div>
-                          
-                              <h1 className="h4 text-gray-1000 mb-4  font-weight-bold">
-                                Welcome Back!
-                              </h1>
-                              {
-                                <RotateLoader
-                                  className="justify-content-center hight-load load-spinner pb-3  "
+                            {
+                                <GridLoader
+                                  className="justify-content-center hight-load load-spinner  "
                                   color="#007bff"
                                   loading={esxit}
                                   data-testid="loader"
                                   size={15}
-                                  speedMultiplier={3}
+                                  speedMultiplier={1}
                                 />
                               }
+                            <div className=" pt-5"></div>
+                          
+                              <h1 className="h4 text-gray-1000 mb-4  font-weight-bold">
+                                Welcome Back!
+                              </h1>
+                             
                          
 
                             <p className="text-danger">

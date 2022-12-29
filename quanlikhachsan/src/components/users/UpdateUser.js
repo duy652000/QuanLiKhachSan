@@ -154,7 +154,7 @@ function UpdateUser() {
                 className="form-control"
                 id="CCCD"
                 name="CCCD"
-                pattern="[0-9]{10}"
+                pattern="[0-9]{12}"
                 required
                 placeholder="Điền số căn cước công dân ... "
                 onChange={(e) => {

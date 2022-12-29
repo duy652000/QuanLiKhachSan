@@ -65,19 +65,26 @@ function All() {
                       {/* icon */}
 
                       <div className="text-center pt-2">
-                        {/* <!-- Product name--> */}
+                        {/* <!-- room name--> */}
                         {/* <h5 className="fw-bolder">Thường | 301</h5> */}
                         <strong className="fw-bolder">{item.name_room}</strong>
 
-                        {/* <!-- Product price--> */}
-                        <p className="fw-bolder">
+                        {/* <!-- room price--> */}
+                        <div >
                           Giá: {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) }
-                        </p>
-                        <br />
-                        {/* day */}
-                        {/* 17/10/2022
-                    <br />
-                    19/10/2022 */}
+                        </div>
+                      
+                         {/* <!-- room type--> */}
+                         <div >
+                          {(item?.typ_room) }
+                        </div>
+                     
+                         {/* <!-- room capacity--> */}
+                         <div>
+                          Chứa: {(item?.capacity) }
+                        </div>
+                      
+                        
                       </div>
                     </div>
 

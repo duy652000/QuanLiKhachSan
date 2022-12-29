@@ -32,7 +32,7 @@ function AddUser() {
         },
       });
       res = await res;
-      window.location="/";
+      window.location="/user";
       alert("Thêm người dùng thành công !");
      
     } catch (error) {
