@@ -41,6 +41,9 @@ function ShowService() {
               <tr>
                 <th>Id</th>
                 <th>Tên</th>
+                <th>Tên Và Giá</th>
+
+
                 <th>Giá</th>
                 <th>Trạng thái</th>
                 <th>Mô tả </th>
@@ -71,7 +74,13 @@ function ShowService() {
                 data.map((item) => (
                   <tr key={item.id}>
                     <td>{item.id}</td>
+
+
                     <td>{item.name}</td>
+                    <td>{item.name} {new Intl.NumberFormat("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      }).format(item.price ?? 0)}</td>
 
                     <td>
                       {new Intl.NumberFormat("vi-VN", {
@@ -79,6 +88,9 @@ function ShowService() {
                         currency: "VND",
                       }).format(item.price ?? 0)}
                     </td>
+
+
+
                     <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
                     <td>{item.description}</td>
                     <td>

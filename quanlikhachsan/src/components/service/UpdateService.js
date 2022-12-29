@@ -65,6 +65,7 @@ function UpdateService() {
       window.location="/service";
       alert("Cập nhật thành công !");
     } catch (Error) {
+      console.log("Error",JSON.parse(error.response))
     }
   }
 

@@ -95,18 +95,22 @@ function Free({ dataSortFree }) {
                         <strong className="fw-bolder">{item?.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <p className="fw-bolder">
+                        <div className="fw-bolder">
 
                           Giá:
                       {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item?.price)??0)) }
 
                      
-                        </p>
-                        <br />
-                        {/* day */}
-                        {/* 17/10/2022
-                    <br />
-                    19/10/2022 */}
+                        </div>
+                        {/* <!-- room type--> */}
+                        <div >
+                          {(item?.typ_room) }
+                        </div>
+                     
+                         {/* <!-- room capacity--> */}
+                         <div>
+                          Chứa: {(item?.capacity) }
+                        </div>
                       </div>
                     </div>
 

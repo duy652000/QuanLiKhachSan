@@ -166,7 +166,7 @@ function Sidebar({openSideBar,setOpenSideBar}) {
           <li className="nav-item">
             <Link to="/room" className="nav-link">
               <i className="bi bi-door-closed"></i> &nbsp;
-              <span>Quản Lý Đặt Phòng</span>
+              <span>Quản Lý Dọn Dẹp</span>
             </Link>
           </li>
         </>

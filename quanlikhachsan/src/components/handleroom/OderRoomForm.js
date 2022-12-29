@@ -17,7 +17,7 @@ function OderRoomForm({ dataItem }) {
 
   const [amountService, setAmountService] = useState(0);
   const [priceService, setPriceService] = useState(0);
-  const [idService, setIdService] = useState(serviceData[0].id);
+  const [idService, setIdService] = useState("");
 
   const [sumService, setSumService] = useState("0");
   const [sumBill, setSumBill] = useState("0");
@@ -55,14 +55,25 @@ function OderRoomForm({ dataItem }) {
               86400000
             : 1),
     });
-    setDetails({
-      client_id: idCustomer,
-      room_id: dataItem[0],
-      day_in: dayCome,
-      day_out: dayGo,
-      service_id: idService,
-      amount: amountService,
-    });
+    if (idService == "") {
+      setDetails({
+        client_id: idCustomer,
+        room_id: dataItem[0],
+        day_in: dayCome,
+        day_out: dayGo,
+       
+        amount: amountService,
+      });
+    } else {
+      setDetails({
+        client_id: idCustomer,
+        room_id: dataItem[0],
+        day_in: dayCome,
+        day_out: dayGo,
+        service_id: idService,
+        amount: amountService,
+      });
+    }
   };
 
   const [details, setDetails] = useState({
@@ -77,7 +88,7 @@ function OderRoomForm({ dataItem }) {
   const handleOderBill = (e) => {
     e.preventDefault();
     // console.log("details", details);
-    addBill(details);  
+    addBill(details);
   };
 
   //call api
@@ -392,11 +403,10 @@ function OderRoomForm({ dataItem }) {
                 <div className="my-3">
                   <h6 className="float-left">Tổng hóa đơn :</h6>
                   <h6 className="float-right">
-                  {new Intl.NumberFormat("vi-VN", {
+                    {new Intl.NumberFormat("vi-VN", {
                       style: "currency",
                       currency: "VND",
                     }).format(total.total_money ?? 0)}
-                  
                   </h6>
                 </div>
                 <div className=" mt-5  line-page-bold"></div>
