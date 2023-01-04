@@ -113,9 +113,13 @@ function OderRoomForm({ dataItem }) {
   }
 
     function hideModal() {
-      $("#OderRoomModal").removeClass("in");
-      $(".modal-backdrop").remove();
-      $("#OderRoomModal").hide();
+      // $("#OderRoomModal").removeClass("show");
+      // $(".modal-backdrop").remove();
+      // $("#OderRoomModal").hide();
+
+//       $('#myModal').hide();
+// $('.modal-backdrop').hide();
+$('.close').click(); 
     }
 
 

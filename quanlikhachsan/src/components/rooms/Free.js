@@ -15,7 +15,7 @@ function Free({ dataSortFree }) {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 1000);
+    }, 0);
   }, []);
 
   const [loadingData, setLoadingData] = useState(false);

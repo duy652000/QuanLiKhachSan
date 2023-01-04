@@ -11,6 +11,7 @@ function ServiceBill({ dataServiceRoom }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const data = dataServiceRoom;
 
+
   const { customerData,serviceData } = useContext(AppContext);
 
   const getCustomerData = customerData.filter(function (item) {
@@ -18,6 +19,7 @@ function ServiceBill({ dataServiceRoom }) {
       return item;
     }
   });
+
   const [details, setDetails] = useState({
     bill: "",
     service: "",
@@ -27,6 +29,11 @@ function ServiceBill({ dataServiceRoom }) {
   const [amountService, setAmountService] = useState(0);
   const [all, setAll] = useState([]);
   const [total, setTotal] = useState([]);
+  const [error, setError] = useState("");
+  const [id, setId] = useState("");
+
+
+  
 
 useEffect(()=>{
   getAllService(data?.room_id);
@@ -49,12 +56,8 @@ useEffect(()=>{
     },
     [data]
   );
-
-
   const handleAddService = (e) => {
     e.preventDefault();
-
-    
     addService(details);
   };
 
@@ -63,6 +66,7 @@ useEffect(()=>{
    //get all service in bill
   const getAllService = useCallback(
     async (id) => {
+      
       let res = await axios.get(
         `http://localhost:8000/bill/billservice/id=${id}`,
         {
@@ -72,12 +76,12 @@ useEffect(()=>{
           },
         }
       );
-     setAll(res.data?.service)
-     setTotal(res.data?.bill)
-     
+        setId(id)
+        setAll(res.data.service)
+        setTotal(res.data.bill)
     },[token]
   );
-
+console.log("all",all)
 
 
   //get api by id
@@ -94,11 +98,10 @@ useEffect(()=>{
           },
         }
       );
+      getAllService(id);
       alert("Thêm thành công dịch vụ !")
-      getAllService(data?.room_id);
       }catch(error){
-       console.log("error",error)
-
+       setError(JSON.parse(error.response.data).bill[0]) 
       }
        
     },
@@ -170,13 +173,16 @@ useEffect(()=>{
             <div className="line-page mt-3 mb-5"></div>
 
             <div className="row d-flex justify-content-around">
-              <div className="col-sm-4  d-flex align-item-end">
+
+
+
+              <div className="col-sm d-flex align-item-end">
                 <label className="col-sm-4 " htmlFor="inputLastname">
-                  Tên dv
+                  Tên dịch vụ :
                 </label>
                 <select
                   id="nameService"
-                  className="form-control col-sm-8"
+                  className="form-control col-sm-7"
                   onChange={(e) => {
                     const selectIdService = e.target.value;
                     getDataNewService(selectIdService);
@@ -192,18 +198,16 @@ useEffect(()=>{
                 </select>
               </div>
 
-              <div className="row col-sm-5 d-flex">
+              <div className="row col-sm-4 d-flex">
                 <label
-                  className="col-sm-4 align-content-center"
+                  className="col-sm-6 align-content-center"
                   htmlFor="inputLastname"
                 >
-                  Giá dv :
+                  Giá dịch vụ :
                 </label>
-                <p className="col-sm-6">
-                {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((newDataService[0]?.price)??0)) }
 
-               
-                  </p>
+                <p className="col-sm-6">
+                {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((newDataService[0]?.price)??0))}</p>
               </div>
 
               <div className="row col-sm-3 d-flex">
@@ -229,10 +233,17 @@ useEffect(()=>{
                 />
               </div>
             </div>
-            <div className="row d-flex justify-content-end mt-4 mr-4 ">
+
+
+            
+            <div className="row d-flex justify-content-between mt-4 mr-4 ">
+              <p className="text-danger d-flex col-sm align-content-start ml-5">
+                {error}
+                  
+              </p>
               <button
                 type="button"
-                className="btn btn-primary "
+                className="btn btn-primary  "
                 onClick={handleAddService}
               >
                 Thêm dịch vụ
@@ -244,38 +255,26 @@ useEffect(()=>{
                 <table className="table table-striped">
                   <thead>
                     <tr>
-                      <th className="center">id</th>
+                      <th className="center">Tên Dịch Vụ</th>
 
                       {/* <th className="right">Giá</th> */}
                       <th className="center">Số Lượng</th>
-                      {/* <th className="right">Tổng Giá</th> */}
+                      
+                      <th className="center">Giá</th>
+                 
                     </tr>
                   </thead>
 
                   <tbody>
                   {all?.length > 0 &&
-                  
-                      
-                      all.map((service) => (
-                    <tr key={service?.id}>
-                      <td className="center">{service?.services_id}</td>
-                      {/* <td className="right">{service?.service_id}</td> */}
-                      <td className="center">{service?.amount}</td>
-                      {/* <td className="right">{service?.service_id}</td> */}
+                      all.map((item) => (
+                    <tr key={item?.id}>
+                      <td className="center">{item?.name}</td>
+                      <td className="center">{item?.amount}</td>
+                      <td className="center">{item?.price}</td>
                     </tr>
                      ))} 
-                    {/* {data.length > 0 &&
-                      data.map((service) => (
-                        <tr key={getServiceData[0]?.id}>
-                          <td className="left">Dịch vụ</td>
-                          <td className="left">
-                            {getServiceData[0]?.name_service}
-                          </td>
-                          <td className="right">{getServiceData[0]?.price}</td>
-                          <td className="center">{}</td>
-                          <td className="right">{data?.total_service_fee}</td>
-                        </tr>
-                      ))} */}
+                    
                   </tbody>
                 </table>
               </div>
