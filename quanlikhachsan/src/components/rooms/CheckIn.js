@@ -51,11 +51,14 @@ function CheckIn({ dataSortCheckIn }) {
         }
         
       );
+      
+      // console.log("data id",res)
       res = await res.data.data;
       setDataPayForm(res);
     },
     [token]
   );
+  
 
   //
 
@@ -109,6 +112,7 @@ function CheckIn({ dataSortCheckIn }) {
                             // () => getData(item.id)
                               function handleGetDataRoom(e) {
                               e.preventDefault();
+                              console.log("item.id",item.id)
                               getData(item.id);
                             }
                           }
@@ -128,6 +132,7 @@ function CheckIn({ dataSortCheckIn }) {
                             // () => getData(item.id)
                               function handleGetDataRoom(e) {
                               e.preventDefault();
+                              
                               getData(item.id);
                              
                             }

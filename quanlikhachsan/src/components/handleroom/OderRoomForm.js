@@ -3,6 +3,7 @@ import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
+import $ from 'jquery';
 import { useMemo } from "react";
 
 function OderRoomForm({ dataItem }) {
@@ -101,7 +102,8 @@ function OderRoomForm({ dataItem }) {
         },
       });
       res = await res;
-      window.location = "/room/booked";
+      hideModal();
+      history("/room/booked")
       alert("Đặt phòng thành công !");
     } catch (error) {
       setErrorDayIn(JSON.parse(error.response.data).day_in);
@@ -109,6 +111,13 @@ function OderRoomForm({ dataItem }) {
       setErrorDayOut(JSON.parse(error.response.data).day_out);
     }
   }
+
+    function hideModal() {
+      $("#OderRoomModal").removeClass("in");
+      $(".modal-backdrop").remove();
+      $("#OderRoomModal").hide();
+    }
+
 
   return (
     <>

@@ -9,6 +9,7 @@ function ChangeRoom({ dataRoomChange }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
   const data = dataRoomChange;
+  console.log("data",data)
 
   const { customerData, roomData } = useContext(AppContext);
   const [newDataRoom, setNewDataRoom] = useState([]);

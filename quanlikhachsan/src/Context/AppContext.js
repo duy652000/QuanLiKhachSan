@@ -199,16 +199,18 @@ export const AppProvider = ({ children }) => {
   ///
 
   useEffect(() => {
-    getDataRoom();
-    getDataUser();
-    getDataCustomer();
-    getDataService();
-    getDataAllRoom();
-    // getDataFreeRoom();
-    // getDataBookedRoom();
-    getDataCleanRoom();
-    getDataCheckInRoom();
-    // getProFile();
+    if(!!token){
+      getDataRoom();
+      getDataUser();
+      getDataCustomer();
+      getDataService();
+      getDataAllRoom();
+      // getDataFreeRoom();
+      // getDataBookedRoom();
+      getDataCleanRoom();
+      getDataCheckInRoom();
+      // getProFile();
+    }
   }, []);
 
   return (

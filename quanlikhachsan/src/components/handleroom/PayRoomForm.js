@@ -9,18 +9,16 @@ import { useCallback } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function PayRoomForm({ dataRoom }) {
-  
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
 
   const data = dataRoom;
   const idData = useMemo(() => data.id, [data]);
-  const totalDate =
-    moment.unix(data?.day_out).format("DD") -
-    moment.unix(data?.day_in).format("DD")
-      ? moment.unix(data?.day_out).format("DD") -
-        moment.unix(data?.day_in).format("DD")
-      : "";
+  const totalDate =(data?.day_out - data?.day_in )/86400
+    // (Date.parse(moment(data?.day_out)) - Date.parse(moment(data?.day_in))) /
+    //   86400000 >0 ? (Date.parse(moment(data?.day_out)) - Date.parse(moment(data?.day_in))) /
+    //     86400000
+    //   : 1;
 
   const { customerData, roomData, serviceData } = useContext(AppContext);
 
@@ -178,6 +176,7 @@ function PayRoomForm({ dataRoom }) {
                               }).format(getServiceData[0]?.price ?? 0)}
                             </td>
                             <td className="center">{}</td>
+
                             <td className="right">
                               {new Intl.NumberFormat("vi-VN", {
                                 style: "currency",

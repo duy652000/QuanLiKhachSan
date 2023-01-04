@@ -4,7 +4,13 @@ import axios from "axios";
 
 function UpdateService() {
   const token = JSON.parse(localStorage.getItem("token"));
-  const [error, setError] = useState("");
+  const [errorDescription, setErrorDescription] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorPrice, setErrorPrice] = useState("");
+
+  
+
+
   const [details, setDetails] = useState({
     name: "",
     price: "",
@@ -64,8 +70,10 @@ function UpdateService() {
       res = await res;
       window.location="/service";
       alert("Cập nhật thành công !");
-    } catch (Error) {
-      console.log("Error",JSON.parse(error.response))
+    } catch (error) {
+      setErrorDescription(JSON.parse(error.response.data).description[0])
+      setErrorName(JSON.parse(error.response.data).name[0])
+      setErrorPrice(JSON.parse(error.response.data).price[0])
     }
   }
 
@@ -85,7 +93,7 @@ function UpdateService() {
           <form className="ml-1" onSubmit={handleUpdate}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Tên dịch vụ</label>
-              <p className="text-danger">{error.name}</p>
+              <p className="text-danger">{errorName}</p>
 
               <input
                 type="text "
@@ -105,7 +113,7 @@ function UpdateService() {
 
             <div className="form-group">
               <label htmlFor="telephone number">Giá dịch vụ</label>
-              <p className="text-danger">{error.price}</p>
+              <p className="text-danger">{errorPrice}</p>
 
               <input
                 type="number"
@@ -125,7 +133,7 @@ function UpdateService() {
 
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Mô tả dịch vụ</label>
-              <p className="text-danger">{error.description}</p>
+              <p className="text-danger">{errorDescription}</p>
 
               <input
                 type="text "

@@ -54,7 +54,7 @@ useEffect(()=>{
   const handleAddService = (e) => {
     e.preventDefault();
 
-    getAllService(data?.room_id);
+    
     addService(details);
   };
 
@@ -74,6 +74,7 @@ useEffect(()=>{
       );
      setAll(res.data.service)
      setTotal(res.data.bill)
+     getAllService(data?.room_id);
     },
     [token]
   );
@@ -192,7 +193,11 @@ useEffect(()=>{
                 >
                   Giá dv :
                 </label>
-                <p className="col-sm-3">{newDataService[0]?.price}</p>
+                <p className="col-sm-6">
+                {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((newDataService[0]?.price)??0)) }
+
+               
+                  </p>
               </div>
 
               <div className="row col-sm-3 d-flex">

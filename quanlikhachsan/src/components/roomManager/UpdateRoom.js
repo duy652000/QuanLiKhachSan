@@ -4,7 +4,14 @@ import axios from "axios";
 
 function UpdateService() {
   const token = JSON.parse(localStorage.getItem("token"));
-  const [error, setError] = useState("");
+  const [errorName, setErrorName] = useState("");
+  const [errorType, setErrorType] = useState("");
+  const [errorPrice, setErrorPrice] = useState("");
+  const [errorCapacity, setErrorCapacity] = useState("");
+  const [errorDescription, setErrorDescription] = useState("");
+
+
+
   const [details, setDetails] = useState({
     name_room: "",
     typ_room: "",
@@ -14,12 +21,13 @@ function UpdateService() {
   });
   const history = useNavigate();
   const { id } = useParams();
+ 
 
   //get infor
   const getData = async () => {
     //await here
     let res = await axios.get(
-      `http://localhost:8000/room/getlist?id=${id}`,
+      `http://localhost:8000/room/getid/id=${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -28,9 +36,10 @@ function UpdateService() {
       }
     );
     res = await res.data;
-    let kq = res.data[0];
+    console.log("Res",res)
+    let kq = res.data;
     if (kq == null) {
-      history("/service");
+      history("/room-manager");
     }else {
       setDetails({
 
@@ -57,7 +66,7 @@ function UpdateService() {
 
   // update infor
   async function updateService(detail) {
-    // try {
+    try {
       let res = await axios.post(
         `http://localhost:8000/room/edit/id=${id}`,
         detail,
@@ -71,8 +80,23 @@ function UpdateService() {
       res = await res;
       window.location="/room-manager";
       alert("Cập nhật thành công !");
-    // } catch (Error) {
-    // }
+    } catch (error) {
+      console.log("error",error)
+      setErrorName(JSON.parse(error.response.data).name_room[0])
+      setErrorType(JSON.parse(error.response.data).typ_room[0])
+      setErrorPrice(JSON.parse(error.response.data).price[0])
+      setErrorCapacity(JSON.parse(error.response.data).capacity[0])
+      setErrorDescription(JSON.parse(error.response.data).description[0])
+
+
+
+    //  name_room
+    //  typ_room
+    //  price
+    //  capacity
+    //  description
+      
+    }
   }
 
   return (
@@ -91,7 +115,7 @@ function UpdateService() {
           <form className="ml-1" onSubmit={handleUpdate}>
           <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Tên Phòng</label>
-            <div className="text-danger">{error.name_room}</div>
+            <div className="text-danger">{errorName}</div>
 
                   <input
                     type="text "
@@ -113,7 +137,7 @@ function UpdateService() {
                 
                 <div className="form-group">
                   <label htmlFor="price-service">Kiểu Phòng</label>
-            <div className="text-danger">{error.typ_room}</div>
+            <div className="text-danger">{errorType}</div>
 
                   <input
                     type="text"
@@ -133,7 +157,7 @@ function UpdateService() {
 
                 <div className="form-group">
                   <label htmlFor="price-service">Giá Phòng</label>
-            <div className="text-danger">{error.price}</div>
+            <div className="text-danger">{errorPrice}</div>
 
                   <input
                     type="number"
@@ -158,7 +182,7 @@ function UpdateService() {
 
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Sức Chứa Phòng</label>
-            <div className="text-danger">{error.capacity}</div>
+            <div className="text-danger">{errorCapacity}</div>
 
                   <input
                     type="number "
@@ -180,7 +204,7 @@ function UpdateService() {
 
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Mô tả</label>
-            <div className="text-danger">{error.description}</div>
+            <div className="text-danger">{errorDescription}</div>
 
                   <input
                     type="text "

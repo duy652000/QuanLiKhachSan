@@ -61,6 +61,8 @@ function UpdateCustomer() {
         }
       );
       res = await res;
+      
+
       alert("Cập nhật khách hàng thành công !");
       window.location="/customer"
       

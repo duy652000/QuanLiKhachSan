@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 function FormVertifi({ token }) {
   const  history= useNavigate();
   const [error, setError] = useState("");
   const [detailCode, setDetailCode] = useState({ code: "" });
   const tokenRe = JSON.parse(token);
-
-  
+  console.log("token",tokenRe)
 
 
   useEffect(()=>{
@@ -17,10 +17,10 @@ function FormVertifi({ token }) {
       alert("Code hết thời gian hiệu lực !")
       window.location.reload();
     }, 1000*60*5);
-  
   },[])
 
-  async function checkCode(detail) {
+  const checkCode = useCallback(
+    async (detail)=> {
     try {
   
     let res = await axios.post("http://localhost:8000/code",detail, {
@@ -29,9 +29,7 @@ function FormVertifi({ token }) {
         Authorization: `Bearer ${tokenRe}`,
       },
     });
-    
     res = await res.data.data
-   
     if(res == 0){
       const codeFalse = "Code không đúng !"
       setError(codeFalse)  
@@ -39,15 +37,11 @@ function FormVertifi({ token }) {
       localStorage.setItem("token", token);
        window.location="/";
       alert("Đăng nhập thành công !")
-  
     }
-   
-    
     } catch (error) {
-   
       setError(error.response.data.code);
     }
-  }
+  },[])
 
   const resetCode = async () => {
     let res = await axios.get("http://localhost:8000/2fa/reset", {
@@ -68,6 +62,7 @@ function FormVertifi({ token }) {
 
   const handleCheckCode = (e) => {
     e.preventDefault();
+    // console.log("details",detailCode)
     checkCode(detailCode);
   };
 
