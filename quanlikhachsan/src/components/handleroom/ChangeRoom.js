@@ -9,18 +9,15 @@ function ChangeRoom({ dataRoomChange }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
   const data = dataRoomChange;
-  console.log("data",data)
 
   const { customerData, roomData } = useContext(AppContext);
   const [newDataRoom, setNewDataRoom] = useState([]);
-  const [details, setDetails] = useState(
-    {
-      bill:"",
-      room:"",
-      total_room_rate:"",
-      total_money:"",
-    },
-  );
+  const [details, setDetails] = useState({
+    bill: "",
+    room: "",
+    total_room_rate: "",
+    total_money: "",
+  });
 
   const totalDate =
     moment.unix(data?.day_out).format("DD") -
@@ -29,9 +26,6 @@ function ChangeRoom({ dataRoomChange }) {
       ? moment.unix(data?.day_out).format("DD") -
         moment.unix(data?.day_in).format("DD")
       : 1;
-
-
- 
 
   const getDataRoom = roomData.filter(function (item) {
     if (item?.id === data?.room_id) {
@@ -48,18 +42,15 @@ function ChangeRoom({ dataRoomChange }) {
       });
       setNewDataRoom(dataNew);
 
-      setDetails(
-        {
-          bill: data?.id,
-          room: dataNew[0]?.id,
-          total_room_rate: totalDate * dataNew[0]?.price,
-          total_money: data?.total_service_fee + totalDate * dataNew[0]?.price,
-        },
-      );
+      setDetails({
+        bill: data?.id,
+        room: dataNew[0]?.id,
+        total_room_rate: totalDate * dataNew[0]?.price,
+        total_money: data?.total_service_fee + totalDate * dataNew[0]?.price,
+      });
     },
     [data]
   );
- 
 
   const getCustomerData = customerData.filter(function (item) {
     if (item?.id === data?.client_id) {
@@ -67,51 +58,43 @@ function ChangeRoom({ dataRoomChange }) {
     }
   });
 
-
   const roomDataFree = roomData.filter(function (item) {
-    if (item?.status === 1 && item?.price==getDataRoom[0]?.price) {
+    if (item?.status === 1 && item?.price == getDataRoom[0]?.price) {
       return item;
     }
-  });   
- 
+  });
 
   const handleChangeRoom = (e) => {
     e.preventDefault();
-    console.log("details :" ,details)
-  
-   changeRoomBill(details)
+    console.log("details :", details);
+
+    changeRoomBill(details);
   };
 
+  //get api by id
+  const changeRoomBill = useCallback(
+    async (details) => {
+      let res = await axios.post(
+        `http://localhost:8000/bill/changeroom`,
+        details,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("res", res);
+      res = await res.data.data;
+      window.location.reload("/room/checkin");
+      alert("Đổi phòng thành công !");
+    },
+    [token]
+  );
 
+  //
 
- //get api by id
- const changeRoomBill = useCallback(
-  async (details) => {
-    let res = await axios.post(
-      `http://localhost:8000/bill/changeroom`, details,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    console.log("res",res)
-    res = await res.data.data;
-    window.location.reload("/room/checkin")
-    alert("Đổi phòng thành công !")
-   
-  },
-  [token]
-);
-
-//
-
-
-////////////////////
-
-
-
+  ////////////////////
 
   return (
     <div
@@ -140,23 +123,34 @@ function ChangeRoom({ dataRoomChange }) {
           <div className="card-body">
             <div className="row mb-4 ">
               <div className="col-sm-6 text-dark d-flex align-items-start flex-column ">
-                <div><span className="font-weight-bold">Mã KH :</span> {data?.client_id}</div>
                 <div>
-                <span className="font-weight-bold">Khách Hàng :</span> {getCustomerData[0]?.firtname}{" "}
-                  {getCustomerData[0]?.lastname}
+                  <span className="font-weight-bold">Mã KH :</span>{" "}
+                  {data?.client_id}
                 </div>
                 <div>
-                <span className="font-weight-bold"> Nhận phòng :</span> {moment.unix(data?.day_in).format("DD-MM-YYYY")}
+                  <span className="font-weight-bold">Khách Hàng :</span>{" "}
+                  {getCustomerData[0]?.firtname} {getCustomerData[0]?.lastname}
                 </div>
                 <div>
-                <span className="font-weight-bold">Trả phòng :</span> {moment.unix(data?.day_out).format("DD-MM-YYYY")}
+                  <span className="font-weight-bold"> Nhận phòng :</span>{" "}
+                  {moment.unix(data?.day_in).format("DD-MM-YYYY")}
                 </div>
-                <div><span className="font-weight-bold">Điện thoại : </span>{getCustomerData[0]?.phone}</div>
+                <div>
+                  <span className="font-weight-bold">Trả phòng :</span>{" "}
+                  {moment.unix(data?.day_out).format("DD-MM-YYYY")}
+                </div>
+                <div>
+                  <span className="font-weight-bold">Điện thoại : </span>
+                  {getCustomerData[0]?.phone}
+                </div>
               </div>
 
               <div className="col-sm-6 text-dark d-flex align-items-end flex-column ">
                 <div>
-                  <div><span className="font-weight-bold">Mã hóa đơn : </span>{data?.id}</div>
+                  <div>
+                    <span className="font-weight-bold">Mã hóa đơn : </span>
+                    {data?.id}
+                  </div>
                 </div>
               </div>
             </div>
@@ -167,12 +161,29 @@ function ChangeRoom({ dataRoomChange }) {
             <div className="row mb-4 d-flex mt-2">
               <div className="col-sm-5 text-dark d-flex align-items-center flex-column ">
                 <div>
-                <div><span className="font-weight-bold">Tên Phòng : </span> {getDataRoom[0]?.name_room}</div>
-                <div><span className="font-weight-bold ">Mã Phòng :  </span> {getDataRoom[0]?.id} </div>
-                <div><span className="font-weight-bold">Giá Phòng :  </span>
-                {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(getDataRoom[0]?.price)) }</div>
-                <div><span className="font-weight-bold">Loại Phòng :  </span> {getDataRoom[0]?.typ_room} </div>
-                <div><span className="font-weight-bold">Sức chứa :  </span>  {getDataRoom[0]?.capacity}</div>
+                  <div>
+                    <span className="font-weight-bold">Tên Phòng : </span>{" "}
+                    {getDataRoom[0]?.name_room}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold ">Mã Phòng : </span>{" "}
+                    {getDataRoom[0]?.id}{" "}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold">Giá Phòng : </span>
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(getDataRoom[0]?.price)}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold">Loại Phòng : </span>{" "}
+                    {getDataRoom[0]?.typ_room}{" "}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold">Sức chứa : </span>{" "}
+                    {getDataRoom[0]?.capacity}
+                  </div>
                 </div>
               </div>
 
@@ -212,11 +223,25 @@ function ChangeRoom({ dataRoomChange }) {
                     </div>
                   </div>
 
-                  <div><span className="font-weight-bold">Mã Phòng :</span> {newDataRoom[0]?.id}</div>
-                  <div><span className="font-weight-bold">Giá Phòng : </span>
-                  {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((newDataRoom[0]?.price)??0)) }</div>
-                  <div><span className="font-weight-bold">Loại Phòng : </span>{newDataRoom[0]?.typ_room}</div>
-                  <div><span className="font-weight-bold">Sức chứa : </span>{newDataRoom[0]?.capacity}</div>
+                  <div>
+                    <span className="font-weight-bold">Mã Phòng :</span>{" "}
+                    {newDataRoom[0]?.id}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold">Giá Phòng : </span>
+                    {new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(newDataRoom[0]?.price ?? 0)}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold">Loại Phòng : </span>
+                    {newDataRoom[0]?.typ_room}
+                  </div>
+                  <div>
+                    <span className="font-weight-bold">Sức chứa : </span>
+                    {newDataRoom[0]?.capacity}
+                  </div>
                 </div>
               </div>
             </div>
@@ -238,7 +263,14 @@ function ChangeRoom({ dataRoomChange }) {
                         <strong>Tổng phí phòng : </strong>
                       </td>
                       <td className="right">
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((details.total_room_rate==""?data.total_room_rate:details.total_room_rate)??0)) }
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(
+                          (details.total_room_rate == ""
+                            ? data.total_room_rate
+                            : details.total_room_rate) ?? 0
+                        )}
                       </td>
                     </tr>
                     <tr>
@@ -246,17 +278,25 @@ function ChangeRoom({ dataRoomChange }) {
                         <strong>Tổng phí dịch vụ :</strong>
                       </td>
                       <td className="right">
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((data.total_service_fee)??0)) }
-                        
-                       </td>
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(data.total_service_fee ?? 0)}
+                      </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng hóa đơn :</strong>
                       </td>
                       <td className="right">
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((details.total_money==""?data.total_money:details.total_money)??0)) }
-
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(
+                          (details.total_money == ""
+                            ? data.total_money
+                            : details.total_money) ?? 0
+                        )}
                       </td>
                     </tr>
                   </tbody>

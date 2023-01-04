@@ -35,6 +35,8 @@ function OverLoad({ children }) {
       Promise.all([getProFile()]).then((res) => {
         setModal(false);
       });
+    }else{
+      setModal(false);
     }
   }, []);
 

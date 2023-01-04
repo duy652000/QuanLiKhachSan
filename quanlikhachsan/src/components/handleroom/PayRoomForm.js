@@ -88,7 +88,7 @@ function PayRoomForm({ dataRoom }) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          {!data ? (
+          {data.length === 0 ? (
             <PulseLoader
               className="justify-content-center hight-load load-spinner mt-4"
               color="#007bff"

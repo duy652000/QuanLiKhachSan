@@ -72,18 +72,18 @@ useEffect(()=>{
           },
         }
       );
-     setAll(res.data.service)
-     setTotal(res.data.bill)
-     getAllService(data?.room_id);
-    },
-    [token]
+     setAll(res.data?.service)
+     setTotal(res.data?.bill)
+     
+    },[token]
   );
 
 
 
   //get api by id
    const addService = useCallback(
-    async (details) => {
+     async (details) => {
+      try{
       let res = await axios.post(
         `http://localhost:8000/bill/addservice`,
         details,
@@ -94,6 +94,12 @@ useEffect(()=>{
           },
         }
       );
+      alert("Thêm thành công dịch vụ !")
+      getAllService(data?.room_id);
+      }catch(error){
+       console.log("error",error)
+
+      }
        
     },
     [token]

@@ -4,7 +4,15 @@ import axios from "axios";
 
 function UpdateCustomer() {
   const token = JSON.parse(localStorage.getItem("token"));
-  const [error, setError] = useState("");
+
+  const [errorFistName, setErrorFistName] = useState("");
+  const [errorLastName, setErrorLastName] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPhone, setErrorPhone] = useState("");
+  const [errorCCCD, setErrorCCCD] = useState("");
+
+
+
   const [details, setDetails] = useState({});
   const history = useNavigate();
   const { id } = useParams();
@@ -67,10 +75,21 @@ function UpdateCustomer() {
       window.location="/customer"
       
     } catch (error) {
-      setError(error);
+      console.log("error",error)
+      setErrorFistName(JSON.parse(error.response.data).firtname[0])
+      setErrorLastName(JSON.parse(error.response.data).lastname[0])
+      setErrorEmail(JSON.parse(error.response.data).email[0])
+      setErrorPhone(JSON.parse(error.response.data).phone[0])
+      setErrorCCCD(JSON.parse(error.response.data).CCCD)
     }
-  }
+
+
+
+      // setError(error);
+
+     
   //
+  }
 
   return (
     <div className="card shadow mb-4">
@@ -94,7 +113,7 @@ function UpdateCustomer() {
           <form className="ml-1" onSubmit={handleUpdate}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Họ và tên lót</label>
-              <p className="text-danger">{error.firtname}</p>
+              <p className="text-danger">{errorFistName}</p>
               <input
                 type="text "
                 className="form-control"
@@ -112,7 +131,7 @@ function UpdateCustomer() {
             </div>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Tên</label>
-              <p className="text-danger">{error.lastname}</p>
+              <p className="text-danger">{errorLastName}</p>
 
               <input
                 type="text "
@@ -131,7 +150,7 @@ function UpdateCustomer() {
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <p className="text-danger">{error.email}</p>
+              <p className="text-danger">{errorEmail}</p>
 
               <input
                 type="email"
@@ -151,7 +170,7 @@ function UpdateCustomer() {
             </div>
             <div className="form-group">
               <label htmlFor="phone">Số điện thoại</label>
-              <p className="text-danger">{error.phone}</p>
+              <p className="text-danger">{errorPhone}</p>
 
               <input
                 type="tel"
@@ -171,7 +190,7 @@ function UpdateCustomer() {
             </div>
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">CCCD</label>
-              <p className="text-danger">{error.CCCD}</p>
+              <p className="text-danger">{errorCCCD}</p>
 
               <input
                 type="tel"
