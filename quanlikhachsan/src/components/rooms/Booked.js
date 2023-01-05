@@ -13,7 +13,7 @@ function Booked({ dataSortBooked }) {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 1000);
+    }, 0);
   }, []);
 
   let dataSort = dataSortBooked;
