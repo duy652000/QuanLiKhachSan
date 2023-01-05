@@ -16,7 +16,7 @@ function Clean() {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 5000);
+    }, 1000);
   }, []);
 
   //get data
