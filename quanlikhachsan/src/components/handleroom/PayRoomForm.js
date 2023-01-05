@@ -73,7 +73,7 @@ function PayRoomForm({ dataRoom }) {
   }
 
   useEffect(() => {
-    if (data?.room_id !== 0) {
+    if (data?.room_id >0) {
       getAllService(data?.room_id);
     }
     setLoadingData(true);
