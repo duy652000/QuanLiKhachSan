@@ -9,7 +9,8 @@ import { useEffect } from "react";
 
 function ServiceBill({ dataServiceRoom }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
-  const data = dataServiceRoom;
+
+  const data = (dataServiceRoom?.id>0)?dataServiceRoom:{};
 
   const { customerData, serviceData } = useContext(AppContext);
 
@@ -32,8 +33,10 @@ function ServiceBill({ dataServiceRoom }) {
   const [id, setId] = useState("");
 
   useEffect(() => {
-    getAllService(data?.room_id);
-    setId(data?.room_id);
+    if(data?.room_id>0){
+      getAllService(data?.room_id);
+      setId(data?.room_id);
+    }
   }, [data]);
 
   const getDataNewService = useCallback(
@@ -55,7 +58,6 @@ function ServiceBill({ dataServiceRoom }) {
   );
   const handleAddService = (e) => {
     e.preventDefault();
-    
     addService(details, id);
   };
 
