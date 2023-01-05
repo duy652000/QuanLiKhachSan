@@ -11,8 +11,7 @@ function ServiceBill({ dataServiceRoom }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const data = dataServiceRoom;
 
-
-  const { customerData,serviceData } = useContext(AppContext);
+  const { customerData, serviceData } = useContext(AppContext);
 
   const getCustomerData = customerData.filter(function (item) {
     if (item?.id === data?.client_id) {
@@ -32,12 +31,10 @@ function ServiceBill({ dataServiceRoom }) {
   const [error, setError] = useState("");
   const [id, setId] = useState("");
 
-
-  
-
-useEffect(()=>{
-  getAllService(data?.room_id);
-},[data])
+  useEffect(() => {
+    getAllService(data?.room_id);
+    setId(data?.room_id);
+  }, [data]);
 
   const getDataNewService = useCallback(
     (newName) => {
@@ -58,15 +55,13 @@ useEffect(()=>{
   );
   const handleAddService = (e) => {
     e.preventDefault();
-    addService(details);
+    
+    addService(details, id);
   };
 
-
- 
-   //get all service in bill
+  //get all service in bill
   const getAllService = useCallback(
     async (id) => {
-      
       let res = await axios.get(
         `http://localhost:8000/bill/billservice/id=${id}`,
         {
@@ -76,40 +71,42 @@ useEffect(()=>{
           },
         }
       );
-        setId(id)
-        setAll(res.data.service)
-        setTotal(res.data.bill)
-    },[token]
-  );
-console.log("all",all)
 
-
-  //get api by id
-   const addService = useCallback(
-     async (details) => {
-      try{
-      let res = await axios.post(
-        `http://localhost:8000/bill/addservice`,
-        details,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      getAllService(id);
-      alert("Thêm thành công dịch vụ !")
-      }catch(error){
-       setError(JSON.parse(error.response.data).bill[0]) 
+      if (id !== 0) {
+        setId(id);
       }
-       
+      setAll(res.data.service);
+      setTotal(res.data.bill);
     },
     [token]
   );
 
+  //get api by id
+  const addService = useCallback(
+    async (details, id) => {
+      try {
+        let res = await axios.post(
+          `http://localhost:8000/bill/addservice`,
+          details,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        ); 
+        if (id !== 0) {
+          getAllService(id);
+         
+        }
+        alert("Thêm thành công dịch vụ !");
+      } catch (error) {
+        setError(JSON.parse(error.response.data).bill[0]);
+      }
+    },
+    [token]
+  );
 
- 
   return (
     <div
       // {/* modal */}
@@ -173,9 +170,6 @@ console.log("all",all)
             <div className="line-page mt-3 mb-5"></div>
 
             <div className="row d-flex justify-content-around">
-
-
-
               <div className="col-sm d-flex align-item-end">
                 <label className="col-sm-4 " htmlFor="inputLastname">
                   Tên dịch vụ :
@@ -207,7 +201,11 @@ console.log("all",all)
                 </label>
 
                 <p className="col-sm-6">
-                {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((newDataService[0]?.price)??0))}</p>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(newDataService[0]?.price ?? 0)}
+                </p>
               </div>
 
               <div className="row col-sm-3 d-flex">
@@ -234,12 +232,9 @@ console.log("all",all)
               </div>
             </div>
 
-
-            
             <div className="row d-flex justify-content-between mt-4 mr-4 ">
               <p className="text-danger d-flex col-sm align-content-start ml-5">
                 {error}
-                  
               </p>
               <button
                 type="button"
@@ -259,22 +254,20 @@ console.log("all",all)
 
                       {/* <th className="right">Giá</th> */}
                       <th className="center">Số Lượng</th>
-                      
+
                       <th className="center">Giá</th>
-                 
                     </tr>
                   </thead>
 
                   <tbody>
-                  {all?.length > 0 &&
+                    {all?.length > 0 &&
                       all.map((item) => (
-                    <tr key={item?.id}>
-                      <td className="center">{item?.name}</td>
-                      <td className="center">{item?.amount}</td>
-                      <td className="center">{item?.price}</td>
-                    </tr>
-                     ))} 
-                    
+                        <tr key={item?.id}>
+                          <td className="center">{item?.name}</td>
+                          <td className="center">{item?.amount}</td>
+                          <td className="center">{item?.price}</td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -296,9 +289,10 @@ console.log("all",all)
                         <strong>Tổng phí phòng : </strong>
                       </td>
                       <td className="right">
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((total?.total_room_rate)??0)) }
-
-                
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(total?.total_room_rate ?? 0)}
                       </td>
                     </tr>
                     <tr>
@@ -306,19 +300,23 @@ console.log("all",all)
                         <strong>Tổng phí dịch vụ :</strong>
                       </td>
                       <td className="right">
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((data?.total_service_fee)??0)) }
-                        
-             
-                        </td>
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(data?.total_service_fee ?? 0)}
+                      </td>
                     </tr>
                     <tr>
                       <td className="left">
                         <strong>Tổng hóa đơn :</strong>
                       </td>
                       <td className="right">
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((total?.total_room_rate + data?.total_service_fee)??0)) }
-
-            
+                        {new Intl.NumberFormat("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        }).format(
+                          total?.total_room_rate + data?.total_service_fee ?? 0
+                        )}
                       </td>
                     </tr>
                   </tbody>

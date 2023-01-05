@@ -11,28 +11,29 @@ import { AppContext } from "../../Context/AppContext";
 function PayRoomForm({ dataRoom }) {
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
-  const [service,setService]=useState([])
+  const [service, setService] = useState([]);
 
   const data = dataRoom;
 
   const idData = useMemo(() => data.id, [data]);
-  const totalDate =(data?.day_out - data?.day_in )/86400
- 
-     //get all service in bill
-     const getAllService = useCallback(
-      async (id) => {
-        let res = await axios.get(
-          `http://localhost:8000/bill/billservice/id=${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-          setService(res?.data.service)
-      },[token]
-    );
+  const totalDate = (data?.day_out - data?.day_in) / 86400;
+
+  //get all service in bill
+  const getAllService = useCallback(
+    async (id) => {
+      let res = await axios.get(
+        `http://localhost:8000/bill/billservice/id=${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setService(res?.data.service);
+    },
+    [token]
+  );
 
   const { customerData, roomData, serviceData } = useContext(AppContext);
 
@@ -72,13 +73,15 @@ function PayRoomForm({ dataRoom }) {
   }
 
   useEffect(() => {
-    getAllService(data?.room_id)
+    if (data?.room_id !== 0) {
+      getAllService(data?.room_id);
+    }
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
       return;
     }, 5000);
-  }, [data?.room_id]);
+  }, [data]);
 
   return (
     <div
@@ -177,21 +180,18 @@ function PayRoomForm({ dataRoom }) {
                           }).format(data?.total_room_rate ?? 0)}
                         </td>
                       </tr>
-                      { service?.length > 0 &&
+                      {service?.length > 0 &&
                         service.map((item) => (
                           <tr key={item?.id}>
-
                             <td className="left">Dịch vụ</td>
 
-                            <td className="left">
-                              {item?.name}
-                            </td>
+                            <td className="left">{item?.name}</td>
 
                             <td className="right">
                               {new Intl.NumberFormat("vi-VN", {
                                 style: "currency",
                                 currency: "VND",
-                              }).format((item?.price) ?? 0)}
+                              }).format(item?.price ?? 0)}
                             </td>
 
                             <td className="center">{item?.amount}</td>
@@ -200,9 +200,8 @@ function PayRoomForm({ dataRoom }) {
                               {new Intl.NumberFormat("vi-VN", {
                                 style: "currency",
                                 currency: "VND",
-                              }).format((item?.price * item?.amount) ?? 0)}
+                              }).format(item?.price * item?.amount ?? 0)}
                             </td>
-
                           </tr>
                         ))}
                     </tbody>
