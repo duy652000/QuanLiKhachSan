@@ -10,7 +10,7 @@ import { useEffect } from "react";
 function ServiceBill({ dataServiceRoom }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
-  const data = (dataServiceRoom?.id>0)?dataServiceRoom:{};
+  const data = dataServiceRoom?.id > 0 ? dataServiceRoom : {};
 
   const { customerData, serviceData } = useContext(AppContext);
 
@@ -31,9 +31,13 @@ function ServiceBill({ dataServiceRoom }) {
   const [total, setTotal] = useState([]);
   const [error, setError] = useState("");
   const [id, setId] = useState("");
+  const [idBill, setIdBill] = useState("");
+
+  console.log("id bill", idBill);
 
   useEffect(() => {
-    if(data?.room_id>0){
+    if (data?.room_id > 0) {
+      setIdBill(data?.id);
       getAllService(data?.room_id);
       setId(data?.room_id);
     }
@@ -96,10 +100,9 @@ function ServiceBill({ dataServiceRoom }) {
               Authorization: `Bearer ${token}`,
             },
           }
-        ); 
-        if (id !== 0) {
+        );
+        if (id > 0) {
           getAllService(id);
-         
         }
         alert("Thêm thành công dịch vụ !");
       } catch (error) {
@@ -258,6 +261,7 @@ function ServiceBill({ dataServiceRoom }) {
                       <th className="center">Số Lượng</th>
 
                       <th className="center">Giá</th>
+                      <th className="center"></th>
                     </tr>
                   </thead>
 
@@ -268,6 +272,39 @@ function ServiceBill({ dataServiceRoom }) {
                           <td className="center">{item?.name}</td>
                           <td className="center">{item?.amount}</td>
                           <td className="center">{item?.price}</td>
+                          <td className="center">
+                            {" "}
+                            <div className="d-flex black">
+                              {/* ẩn */}
+                              <a
+                                type="button"
+                                onClick={async function deleteService() {
+                                  try {
+                                    let res = await axios.post(
+                                      `http://localhost:8000/bill/deletesevice?bill=${idBill}&service=${item?.id}`,
+                                      "",
+                                      {
+                                        headers: {
+                                          "Content-Type": "application/json",
+                                          Authorization: `Bearer ${token}`,
+                                        },
+                                      }
+                                    );
+                                    res = await res;
+                                    if (id > 0) {
+                                      console.log("yes");
+                                      getAllService(id);
+                                    }
+                                    alert("Xóa dịch vụ thành công !");
+                                  } catch (error) {
+                                    alert("Xóa dịch vụ không thành công !");
+                                  }
+                                }}
+                              >
+                                <i className="bi bi-trash3 hover-text black hover-text"></i>
+                              </a>
+                            </div>
+                          </td>
                         </tr>
                       ))}
                   </tbody>
