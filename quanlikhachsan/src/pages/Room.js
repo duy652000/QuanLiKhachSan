@@ -31,6 +31,10 @@ function Room() {
   const [error, setError] = useState([]);
   const [isNullCheckIn, setIsNullCheckIn] = useState(false);
   const [isNullClean, setIsNullClean] = useState(false);
+  const [dayIn, setDayIn] = useState("");
+  const [dayOut, setDayOut] = useState("");
+
+
 
   const getStatusRoom = useCallback((url) => {
     if (url.pathname === "/room/free") {
@@ -47,6 +51,11 @@ function Room() {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
   useEffect(() => {
+    if (url.pathname === "/room/booked") {
+      setItemFree([]);
+      
+     
+    }
     getStatusRoom(url);
     setDetailDay((details) => ({ from: "", to: "", ...details }));
   }, [url]);
@@ -71,14 +80,21 @@ function Room() {
         }
       );
       res = await res.data.Rom;
-      
+      setDayIn(detailDay.from)
+      setDayOut(detailDay.to)
+
       if (url.pathname === "/room/free") {
         setItemFree(res);
+      
+
       } else if (url.pathname === "/room/booked") {
         setItemBooked(res);
+        
+       
       } else if (url.pathname === "/room/checkin") {
         setIsNullCheckIn(res ? false : true);
         setItemCheckIn(res);
+       
       } else if (url.pathname === "/room/clean") {
         setIsNullClean(res ? false : true);
         setItemClean(res);
@@ -106,6 +122,8 @@ function Room() {
 
   // const countFreeRoom = itemFree.flat().length
   // const countBookedRoom = itemBooked.flat().length
+
+ 
 
   return (
     // <!-- Begin Page Content -->
@@ -341,7 +359,7 @@ function Room() {
         <Routes>
           <Route path="*" element={<All />} />
 
-          <Route path="free" element={<Free dataSortFree={itemFree} />} />
+          <Route path="free" element={<Free dataSortFree={[itemFree ,dayIn,dayOut]} />} />
           <Route
             path="booked"
             element={<Booked dataSortBooked={itemBooked} />}

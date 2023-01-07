@@ -71,7 +71,7 @@ function UpdateService() {
       window.location="/service";
       alert("Cập nhật thành công !");
     } catch (error) {
-      setErrorDescription(JSON.parse(error.response.data).description[0])
+    
       setErrorName(JSON.parse(error.response.data).name[0])
       setErrorPrice(JSON.parse(error.response.data).price[0])
     }

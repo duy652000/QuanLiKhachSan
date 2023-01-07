@@ -38,7 +38,7 @@ function AddCustomer() {
       res = await res;
       setError("");
       alert("Thêm khách hàng thành công !");
-      window.location="/service";
+      window.location="/customer";
       
     } catch (error) {
       setError(JSON.parse(error.response.data));
@@ -123,6 +123,7 @@ function AddCustomer() {
               <p className="text-danger">{error.phone}</p>
               <input
                 type="tel"
+                pattern="[0-9]{10}"
                 className="form-control"
                 id="so dien thoai"
                 placeholder="Điền số điện thoại ..."
@@ -141,6 +142,7 @@ function AddCustomer() {
               <p className="text-danger">{error.CCCD}</p>
               <input
                 type="tel"
+                pattern="[0-9]{13}"
                 className="form-control"
                 id="so dien thoai"
                 placeholder="Điền căn cước công dân ..."

@@ -12,6 +12,7 @@ import ServiceBill from "../handleroom/ServiceBill";
 
 function CheckIn({ dataSortCheckIn }) {
   useEffect(() => {
+    
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
@@ -112,7 +113,7 @@ function CheckIn({ dataSortCheckIn }) {
                             // () => getData(item.id)
                               function handleGetDataRoom(e) {
                               e.preventDefault();
-                              console.log("item.id",item.id)
+                            
                               getData(item.id);
                             }
                           }
@@ -152,9 +153,12 @@ function CheckIn({ dataSortCheckIn }) {
                         <strong className="fw-bolder">{item.name_room}</strong>
 
                         {/* <!-- Product price--> */}
-                        <p className="fw-bolder">Giá:
-                      {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) }
+                        {/* <strong className="fw-bolder"></strong> */}
 
+
+                        <p className="fw-bolder">Kiểu:
+                      {/* {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) } */}
+                      {item.typ_room}
               
                         </p>
                    
@@ -165,10 +169,10 @@ function CheckIn({ dataSortCheckIn }) {
                       </div>
                     </div>
 
-                    <div className="card-footer p-2 mb-2 pt-0 border-top-0 bg-transparent">
+                    <div className="card-footer pl-2 pr-2 pb-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
                       <a
-                          className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                          className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1 mb-1 "
                           type="button"
                           variant="primary"
                           data-toggle="modal"
@@ -183,21 +187,10 @@ function CheckIn({ dataSortCheckIn }) {
                               getData(item.id);
                             }
                           }
-
-
-
-                          // onClick={function confirmCancle() {
-                          //   const id = item.id;
-                          //   let text = "Bạn có muốn hủy phòng ?";
-                          //   if (window.confirm(text) == true) {
-                          //     text = "You pressed OK!";
-                          //   } else {
-                          //     text = "You canceled!";
-                          //   }
-                          // }}
                         >
-                          Dv
+                          Dịch vụ
                         </a>
+                        <br/>
                         <ServiceBill dataServiceRoom={dataPayForm} />
 
                         <Button

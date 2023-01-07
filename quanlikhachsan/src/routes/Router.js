@@ -12,6 +12,7 @@ import { AppContext } from "../Context/AppContext";
 import { useContext } from "react";
 import RoomManager from "../pages/RoomManager";
 import Statistic from "../pages/Statistic";
+import Bill from "../pages/Bill";
 
 function Router() {
   const { role } = useContext(AppContext);
@@ -33,6 +34,8 @@ function Router() {
           <Route path="/room-manager/*" element={<RoomManager />} />
           <Route path="/statistic" element={<Statistic />} />
           <Route path="/user/*" element={<User />} />
+          <Route path="/bill" element={<Bill />} />
+
         </>
       ) : roleAccount === 2 ? (
         // Le tan

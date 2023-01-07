@@ -12,6 +12,7 @@ function ProfileBill({ idDataRoom }) {
       return item;
     }
   });
+  console.log("getCustomerData",idDataRoom)
 
   return (
     <div
@@ -83,6 +84,52 @@ function ProfileBill({ idDataRoom }) {
                 </span>
               </div>
             </div>
+
+            <div className="line-page mt-2 mb-2"></div>
+
+
+            <div className=" text-dark  ">
+              <div className=" d-flex justify-content-around">
+                <span className="col-sm font-weight-bold">Tổng giá phòng :</span>
+                <span className="col-sm">
+                {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data?.total_room_rate?? 0)}
+                </span>
+              </div>
+
+              <div className=" d-flex justify-content-around ">
+                <span className="col-sm font-weight-bold">
+                  {" "}
+                  Tổng giá dịch vụ:
+                </span>
+                <span className="col-sm">
+                {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data?.total_service_fee ?? 0)}
+               
+                </span>
+              </div>
+
+              <div className=" d-flex justify-content-around ">
+                <span className="col-sm font-weight-bold">
+                  {" "}
+                  Tổng tiền :
+                </span>
+                <span className="col-sm">
+                {new Intl.NumberFormat("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          }).format(data?.total_money ?? 0)}
+               
+                </span>
+              </div>
+            </div>
+
+
+
           </div>
 
           <div className="modal-footer"></div>

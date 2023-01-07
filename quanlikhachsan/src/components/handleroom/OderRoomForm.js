@@ -8,24 +8,39 @@ import { useMemo } from "react";
 
 function OderRoomForm({ dataItem }) {
   const history = useNavigate();
+  console.log("dataitem",dataItem)
   const { customerData, serviceData } = useContext(AppContext);
-  const dataCustomer = customerData;
+  
+  const dataCustomer = customerData.filter(function (item) {
+    if (item?.status === 1) {
+      return item;
+    }
+  });
+
+  const dataService = serviceData.filter(function (item) {
+    if (item?.status === 1) {
+      return item;
+    }
+  });
+
+
+ 
 
   const [idCustomer, setIdCustomer] = useState();
 
-  const [dayCome, setDayCome] = useState();
-  const [dayGo, setDayGo] = useState();
+  const [dayCome, setDayCome] = useState(dataItem[3]);
+  const [dayGo, setDayGo] = useState(dataItem[4]);
 
   const [amountService, setAmountService] = useState(0);
   const [priceService, setPriceService] = useState(0);
   const [idService, setIdService] = useState("");
 
-  const [sumService, setSumService] = useState("0");
-  const [sumBill, setSumBill] = useState("0");
+  // const [sumService, setSumService] = useState("0");
+  // const [sumBill, setSumBill] = useState("0");
   const [errorClientId, setErrorClientId] = useState("");
   const [errorDayIn, setErrorDayIn] = useState("");
   const [errorDayOut, setErrorDayOut] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [total, setTotal] = useState({
     total_service_fee: "",
     total_room_rate: "",
@@ -36,8 +51,8 @@ function OderRoomForm({ dataItem }) {
 
   const handleSumService = (e) => {
     e.preventDefault();
-    setSumService(priceService * amountService);
-    setSumBill(priceService * amountService + dataItem[2]);
+    // setSumService(priceService * amountService);
+    // setSumBill(priceService * amountService + dataItem[2]);
     setTotal({
       total_room_rate:
         dataItem[2] *
@@ -88,7 +103,7 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-    // console.log("details", details);
+    console.log("details", details);
     addBill(details);
   };
 
@@ -265,6 +280,7 @@ $('.close').click();
 
                         setDayCome(dayCome);
                       }}
+                      defaultValue={dayCome}
                     />
                   </div>
 
@@ -283,6 +299,7 @@ $('.close').click();
                         const dayGo = e.target.value;
                         setDayGo(dayGo);
                       }}
+                      defaultValue={dayGo}
                     />
                   </div>
                 </div>
@@ -319,7 +336,7 @@ $('.close').click();
                     >
                       {" "}
                       Tên khách hàng :<option>Dịch Vụ</option>
-                      {serviceData.map((item) => (
+                      {dataService.map((item) => (
                         <option key={item.id} value={[item.price, item.id]}>
                           {" "}
                           DV-

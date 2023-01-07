@@ -19,6 +19,9 @@ export const AppProvider = ({ children }) => {
   //manager room
   const [roomData, setRoomData] = useState([]);
 
+  //bill data
+  const[billData,setBillData] = useState([]);
+
   //room
   const [dataAllRoom, setDataAllRoom] = useState([]);
   const [dataFreeRoom, setDataFreeRoom] = useState([]);
@@ -198,6 +201,19 @@ export const AppProvider = ({ children }) => {
   },[token]) ;
   ///
 
+   // get data room
+   const getDataBill = useCallback( async () => {
+    let res = await axios.get("http://localhost:8000/bill/billall", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    res = res.data.data;
+    setBillData(res);
+  },[token]) ;
+  ///
+
   useEffect(() => {
     if(!!token){
       getDataRoom();
@@ -205,6 +221,7 @@ export const AppProvider = ({ children }) => {
       getDataCustomer();
       getDataService();
       getDataAllRoom();
+      getDataBill()
       // getDataFreeRoom();
       // getDataBookedRoom();
       getDataCleanRoom();
@@ -223,6 +240,7 @@ export const AppProvider = ({ children }) => {
         dataAllRoom,
         // dataFreeRoom,
         // dataBookedRoom,
+        billData,
         dataCleanRoom,
         dataCheckInRoom,
         role,

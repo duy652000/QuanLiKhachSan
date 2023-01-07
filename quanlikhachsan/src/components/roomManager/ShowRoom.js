@@ -114,42 +114,46 @@ function ShowService() {
                         {item.status === 3 || item.status === 2 ? (
                           ""
                         ) : (
-                          <a
-                            type="button"
-                            onClick={async function Hiden() {
-                              try {
-                                let res = await axios.post(
-                                  `http://localhost:8000/room/hiden/id=${item.id}`,
-                                  item.id,
-                                  {
-                                    headers: {
-                                      "Content-Type": "application/json",
-                                      Authorization: `Bearer ${token}`,
-                                    },
-                                  }
-                                );
-                                res = await res;
-                                window.location = "/room-manager";
-                                alert("Thay đổi trạng thái thành công !");
-                              } catch (error) {
-                                alert("Thay đổi trạng thái không thành công !");
-                              }
-                            }}
-                          >
-                            {item.status === 1 ? (
-                              <i className="bi bi-eye-slash hover-text black hover-text">
-                                {" "}
-                              </i>
-                            ) : (
-                              <i className="bi bi-eye hover-text black hover-text"></i>
-                            )}
-                          </a>
+                          <>
+                            <a
+                              type="button"
+                              onClick={async function Hiden() {
+                                try {
+                                  let res = await axios.get(
+                                    `http://localhost:8000/room/hiden/id=${item.id}`,
+
+                                    {
+                                      headers: {
+                                        "Content-Type": "application/json",
+                                        Authorization: `Bearer ${token}`,
+                                      },
+                                    }
+                                  );
+                                  res = await res;
+                                  window.location = "/room-manager";
+                                  alert("Thay đổi trạng thái thành công !");
+                                } catch (error) {
+                                  alert(
+                                    "Thay đổi trạng thái không thành công !"
+                                  );
+                                }
+                              }}
+                            >
+                              {item.status === 1 ? (
+                                <i className="bi bi-eye-slash hover-text black hover-text">
+                                  {" "}
+                                </i>
+                              ) : (
+                                <i className="bi bi-eye hover-text black hover-text"></i>
+                              )}
+                            </a>
+                            &nbsp; &nbsp;
+                            {/* chỉnh sửa */}
+                            <Link type="button" to={`update/${item.id}`}>
+                              <i className="bi bi-pencil hover-text black hover-text"></i>
+                            </Link>
+                          </>
                         )}
-                        &nbsp; &nbsp;
-                        {/* chỉnh sửa */}
-                        <Link type="button" to={`update/${item.id}`}>
-                          <i className="bi bi-pencil hover-text black hover-text"></i>
-                        </Link>
                       </div>
                     </td>
                   </tr>

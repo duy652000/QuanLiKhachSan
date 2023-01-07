@@ -116,11 +116,7 @@ function PayRoomForm({ dataRoom }) {
               speedMultiplier={1}
             />
           ) : (
-            // {/* header */}
-
-            // {/* body */}
-
-            // {/* <div className="card"> */}
+         
 
             <div className="card-body">
               <div className="row mb-4 ">

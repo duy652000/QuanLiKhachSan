@@ -342,7 +342,7 @@ function ServiceBill({ dataServiceRoom }) {
                         {new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
-                        }).format(data?.total_service_fee ?? 0)}
+                        }).format(total?.total_service_fee ?? 0)}
                       </td>
                     </tr>
                     <tr>
@@ -354,7 +354,7 @@ function ServiceBill({ dataServiceRoom }) {
                           style: "currency",
                           currency: "VND",
                         }).format(
-                          total?.total_room_rate + data?.total_service_fee ?? 0
+                          total?.total_room_rate + total?.total_service_fee ?? 0
                         )}
                       </td>
                     </tr>

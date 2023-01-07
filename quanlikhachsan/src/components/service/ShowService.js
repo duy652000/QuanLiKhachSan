@@ -124,6 +124,9 @@ function ShowService() {
                             }
                           }}
                         >
+
+
+                          
                           {item.status == 1 ? (
                             <i className="bi bi-eye-slash hover-text black hover-text">
                               {" "}
@@ -137,6 +140,9 @@ function ShowService() {
                         <Link type="button" to={`update/${item.id}`}>
                           <i className="bi bi-pencil hover-text black hover-text"></i>
                         </Link>
+
+
+
                       </div>
                     </td>
                   </tr>

@@ -75,7 +75,7 @@ function ShowCustomer() {
            
           ) : ( (data.length>0) && data.map((item) => (
                   <tr key={item.id} >
-                  <td>KH-{item.id}</td>
+                  <td>KH{item.id}</td>
                   <td>{item.firtname}</td>
                   <td>{item.lastname}</td>
                   <td>{item.email}</td>

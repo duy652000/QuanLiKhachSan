@@ -23,6 +23,7 @@ function Sidebar({openSideBar,setOpenSideBar}) {
         .format("YYYY-MM-DD HH:mm:ss");
 
       const timeOut = Date.parse(timeLogOut);
+      
       return timeOut;
     }
   }
@@ -86,11 +87,21 @@ function Sidebar({openSideBar,setOpenSideBar}) {
             </Link>
           </li>
 
+
           {/* <!-- Nav Item - Room --> */}
           <li className="nav-item">
             <Link to="/room" className="nav-link">
               <i className="bi bi-door-closed"></i> &nbsp;
               <span>Quản Lý Đặt Phòng</span>
+            </Link>
+          </li>
+
+          
+          {/* <!-- Bill - Nav Item  --> */}
+          <li className="nav-item">
+            <Link to="/bill" className="nav-link">
+              <i className="bi bi-receipt"></i> &nbsp;
+              <span>Quản Lý Hóa Đơn </span>{" "}
             </Link>
           </li>
 
@@ -125,6 +136,8 @@ function Sidebar({openSideBar,setOpenSideBar}) {
               <span>Quản Lý Tài Khoản</span>{" "}
             </Link>
           </li>
+
+           
 
           {/* {roleAdmin(roleAccount)} */}
           {/* <!-- Sidebar Toggler (Sidebar) --> */}

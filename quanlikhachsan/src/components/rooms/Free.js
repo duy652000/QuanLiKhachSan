@@ -20,7 +20,14 @@ function Free({ dataSortFree }) {
 
   const [loadingData, setLoadingData] = useState(false);
 
-  let dataSort = dataSortFree;
+
+  let dataSort = dataSortFree[0];
+  let dayIn = dataSortFree[1];
+  let dayOut = dataSortFree[2];
+
+
+
+
 
 
   //get data
@@ -131,7 +138,7 @@ function Free({ dataSortFree }) {
                           data-whatever="@getbootstrap"
                         >Đặt phòng</Button>
                         <OderRoomForm
-                          dataItem={[idRoom, nameRoom, priceRoom]}
+                          dataItem={[idRoom, nameRoom, priceRoom ,dayIn,dayOut]}
                         />
                       </div>
                     </div>

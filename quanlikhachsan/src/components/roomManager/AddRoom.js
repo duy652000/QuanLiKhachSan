@@ -136,7 +136,7 @@ async function addRoom(detail) {
             <div className="text-danger">{error.capacity}</div>
 
                   <input
-                    type="number "
+                    type="number"
                     className="form-control"
                     id="capacityRoom"
                     name="capacity"
