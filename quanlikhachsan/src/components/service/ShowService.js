@@ -5,18 +5,22 @@ import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
 
-function ShowService() {
+function ShowService({ dataServiceSearch }) {
+
+
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
-      setLoadingData(false);
-    }, 500000);
+      setLoadingData(false);  
+    }, 0);
   }, []);
-
   const { serviceData } = useContext(AppContext);
-
-  const data = serviceData;
-
+  const data =
+    dataServiceSearch[0].length == 0 && dataServiceSearch[1] == true
+      ? []
+      : dataServiceSearch[0].length == 0 && dataServiceSearch[1] == false
+      ? serviceData
+      : dataServiceSearch[0];
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
 
@@ -41,9 +45,6 @@ function ShowService() {
               <tr>
                 <th>Id</th>
                 <th>Tên</th>
-                <th>Tên Và Giá</th>
-
-
                 <th>Giá</th>
                 <th>Trạng thái</th>
                 <th>Mô tả </th>
@@ -55,42 +56,64 @@ function ShowService() {
 
             <tbody>
               {/*  */}
+
               {data.length == 0 ? (
-                <tr>
-                  <td>
-                    <ClipLoader
-                      id="servicee"
-                      className=" load-spinner-table-service "
-                      color="#b5b6b7  "
-                      loading={loadingData}
-                      data-testid="loader"
-                      size={35}
-                      speedMultiplier={1}
-                    />
-                  </td>
-                </tr>
+                <>
+                  {loadingData ? (
+                    <tr>
+                      <td>
+                        <ClipLoader
+                          id="servicee"
+                          className=" load-spinner-table-service "
+                          color="#b5b6b7  "
+                          loading={loadingData}
+                          data-testid="loader"
+                          size={35}
+                          speedMultiplier={1}
+                        />
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p>Không có dữ liệu</p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                    </tr>
+                  )}
+                </>
               ) : (
                 data.length > 0 &&
                 data.map((item) => (
                   <tr key={item.id}>
                     <td>{item.id}</td>
-
-
                     <td>{item.name}</td>
-                    <td>{item.name} {new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                      }).format(item.price ?? 0)}</td>
-
                     <td>
                       {new Intl.NumberFormat("vi-VN", {
                         style: "currency",
                         currency: "VND",
                       }).format(item.price ?? 0)}
                     </td>
-
-
-
                     <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
                     <td>{item.description}</td>
                     <td>
@@ -124,9 +147,6 @@ function ShowService() {
                             }
                           }}
                         >
-
-
-                          
                           {item.status == 1 ? (
                             <i className="bi bi-eye-slash hover-text black hover-text">
                               {" "}
@@ -140,9 +160,6 @@ function ShowService() {
                         <Link type="button" to={`update/${item.id}`}>
                           <i className="bi bi-pencil hover-text black hover-text"></i>
                         </Link>
-
-
-
                       </div>
                     </td>
                   </tr>

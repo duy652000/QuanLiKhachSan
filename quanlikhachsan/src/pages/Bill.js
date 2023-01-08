@@ -126,14 +126,20 @@ function Bill() {
                   data.map((item) => (
                     <tr key={item.id}>
                       <td>HD{item.id}</td>
-                      <td>
-                        {item.status == 1
+                      <td className={
+                        item.status === 1
+                          ? "text-danger"
+                          : item.status === 2
+                          ? "text-success"
+                          
+                          : ""
+                      }>
+                        {item.status === 1
                           ? "Chưa Thanh Toán"
-                          : item.status == 2
+                          : item.status === 2
                           ? "Đã Thanh Toán"
                           : "Đã Hủy"}
                       </td>
-
                       <td>{moment.unix(item.day_in).format("DD-MM-YYYY")}</td>
                       <td>{moment.unix(item.day_out).format("DD-MM-YYYY")}</td>
                       <td>
@@ -157,7 +163,7 @@ function Bill() {
                             data-target="#detailsbill"
                             data-whatever="@getbootstrap"
                           >
-                            <i className="bi bi-eye hover-text black p-2 "></i>
+                            <i className="bi bi-journal-text hover-text black p-2 "></i>
                           </a>
                           <DetailsBill
                           dataDetailsBill={[dataDetailsBill,item.day_in,item.day_out]}

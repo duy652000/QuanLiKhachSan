@@ -6,18 +6,23 @@ import { AppContext } from "../../Context/AppContext";
 import ClipLoader from "react-spinners/ClipLoader";
 
 
-function ShowUser() {
+function ShowUser({dataUserSearch}) {
   const token = JSON.parse(localStorage.getItem("token"));
   const history = useNavigate();
   const { userData } = useContext(AppContext);
-  const data = userData;
+  const data =
+  dataUserSearch[0].length == 0 && dataUserSearch[1] == true
+    ? []
+    : dataUserSearch[0].length == 0 && dataUserSearch[1] == false
+    ? userData
+    : dataUserSearch[0];
   const [loadingData, setLoadingData] = useState(false);
 
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 500000);
+    }, 1000);
   }, []);
 
 
@@ -56,19 +61,56 @@ function ShowUser() {
             <tbody>
               {/*  */}
               {data.length==0 ? (
-              <tr>
-                <td>  
-              <ClipLoader
-                id="userr"
-                className=" load-spinner-table-service load-spinner-table-user"
-                color="#b5b6b7  "
-                loading={loadingData}
-                data-testid="loader"
-                size={35}
-                speedMultiplier={1}
-              />
-              </td>
-              </tr>
+              <>
+              {loadingData ? (
+                <tr>
+                  <td>
+                    <ClipLoader
+                      id="servicee"
+                      className=" load-spinner-table-service "
+                      color="#b5b6b7  "
+                      loading={loadingData}
+                      data-testid="loader"
+                      size={35}
+                      speedMultiplier={1}
+                    />
+                  </td>
+                </tr>
+              ) : (
+                <tr>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p>Không có dữ liệu</p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <p></p>
+                  </td>
+                </tr>
+              )}
+            </>
              
             ) : (data.length>0 && data.map((item) => (
                 <tr key={item.id}>

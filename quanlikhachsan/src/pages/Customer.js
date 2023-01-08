@@ -1,10 +1,36 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import axios from "axios";
+import React, { useCallback, useState } from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import AddCustomer from "../components/customer/AddCustomer";
 import ShowCustomer from "../components/customer/ShowCustomer";
 import UpdateCustomer from "../components/customer/UpdateCustomer";
 
 function Customer() {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const[dataInputSearch,setDataInputSearch] = useState("")
+  const [dataSearch,setDataSearch] = useState([])
+  const [stateTrue,setStateTrue] = useState(false)
+
+   //call api
+   const search = useCallback(async (data) => {
+      let res = await axios.get(
+        `http://localhost:8000/client/search?key=${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data.data
+      setDataSearch(res);
+      setStateTrue(true)
+  }, [ token]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    search(dataInputSearch);
+  };
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -23,11 +49,17 @@ function Customer() {
                 placeholder="Tìm kiếm ......"
                 aria-label="Search"
                 aria-describedby="basic-addon2"
+                onChange={(e) => {
+                  const data = e.target.value;
+                  setDataInputSearch(data);
+                }}
+                
+                value ={dataInputSearch==""?"":dataInputSearch}
               />
               <div className="input-group-append">
-                <button className="btn btn-primary" type="button">
-                  <i className="fas fa-search fa-sm"></i>
-                </button>
+              <Link className="btn btn-primary" type="button" onClick={handleSearch}> 
+                <i className="fas fa-search fa-sm"></i>
+              </Link>
               </div>
             </div>
           </form>
@@ -37,8 +69,9 @@ function Customer() {
 
       {/* <ShowUser/> */}
 
+
       <Routes>
-        <Route path="" element={<ShowCustomer />} />
+        <Route path="" element={<ShowCustomer dataCustomerSearch={[dataSearch,stateTrue]}/>} />
         <Route path="add" element={<AddCustomer />} />
         <Route path="update/:id" element={<UpdateCustomer />} />
       </Routes>

@@ -41,36 +41,41 @@ function DetailsBill({dataDetailsBill}) {
                     <div className="col-sm-6 text-dark d-flex align-items-start flex-column ">
                      
                       <div>
-                        Khách Hàng :  {" "}
+                      <span className='font-weight-bold'>Khách Hàng : </span> <span>{" "}
                         {dataBill?.firtname}{" "}
-                        {dataBill?.lastname}
+                        {dataBill?.lastname}</span>
                       </div>
                       <div>
-                        Nhận phòng :{" "}
+                      <span className='font-weight-bold'>Nhận phòng :</span>{" "}
                         {moment.unix(day_in).format("DD-MM-YYYY")}
 
                         
                      
                       </div>
                       <div>
-                        Trả phòng :{" "}
+                      <span className='font-weight-bold'>Trả phòng :</span>{" "}
                         {moment.unix(day_out).format("DD-MM-YYYY")}
                         
                       
                       </div>
-                      <div>Điện thoại : {dataBill?.phone}</div>
-                      <div>CCCD : {dataBill?.CCCD}</div>
+                      <div><span className='font-weight-bold'>Điện thoại : </span>{dataBill?.phone}</div>
+                      <div><span className='font-weight-bold'>CCCD :  </span>{dataBill?.CCCD}</div>
+                      
+
 
                     </div>
     
                     <div className="col-sm-6 text-dark d-flex align-items-end flex-column ">
                       <div>
-                        <div>Mã hóa đơn : {" "}
+                      <div><span className='font-weight-bold'>Mã hóa đơn :</span> {" "}
                          {dataBill?.id}
                          </div>
-                         <div>Nhân Viên Lên Đơn : {" "}
+                      <div><span className='font-weight-bold'>Nhân Viên Lên Đơn : </span>{" "}
                          {dataBill?.name}
                          </div>
+                         <div><span className='font-weight-bold'>Email :  </span>{dataBill?.email}</div>
+                       
+                         
                       </div>
                     </div>
                   </div>
@@ -98,17 +103,17 @@ function DetailsBill({dataDetailsBill}) {
                               {new Intl.NumberFormat("vi-VN", {
                                 style: "currency",
                                 currency: "VND",
-                              }).format(dataBill?.price ?? 0)}
+                              }).format(dataBill?.price_room ?? 0)}
                             </td>
                             <td className="center">
-                            {/* {totalDate} */}
+                            {dataBill?.amount}
                             </td>
     
                             <td className="right">
-                              {/* {new Intl.NumberFormat("vi-VN", {
+                              {new Intl.NumberFormat("vi-VN", {
                                 style: "currency",
                                 currency: "VND",
-                              }).format(data?.total_room_rate ?? 0)} */}
+                              }).format(dataBill?.price_room*dataBill?.amount ?? 0)}
                             </td>
                           </tr>
                           {dataBill?.service?.length > 0 &&

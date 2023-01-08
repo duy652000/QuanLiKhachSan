@@ -1,9 +1,40 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { useCallback } from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import AddService from "../../components/service/AddService";
 import ShowService from "../../components/service/ShowService";
 import UpdateService from "../../components/service/UpdateService";
+
+
 function Service() {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const[dataInputSearch,setDataInputSearch] = useState("")
+  const [dataSearch,setDataSearch] = useState([])
+  const [stateTrue,setStateTrue] = useState(false)
+
+   //call api
+   const search = useCallback(async (data) => {
+      let res = await axios.get(
+        `http://localhost:8000/service/search?key=${data}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      res = await res.data.data
+      setDataSearch(res);
+      setStateTrue(true)
+  }, [ token]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    search(dataInputSearch);
+  };
+
+
   return (
     // <!-- Begin Page Content -->
     <div className="container-fluid">
@@ -23,11 +54,20 @@ function Service() {
               placeholder="Tìm kiếm ......"
               aria-label="Search"
               aria-describedby="basic-addon2"
+              onChange={(e) => {
+                const data = e.target.value;
+                setDataInputSearch(data);
+              }}
+              
+              value ={dataInputSearch==""?"":dataInputSearch}
             />
             <div className="input-group-append">
-              <button className="btn btn-primary" type="button">
+            {/* <Link type="button" >
+                          <i className="bi bi-pencil hover-text black hover-text"></i>
+                        </Link> */}
+              <Link className="btn btn-primary" type="button" onClick={handleSearch}> 
                 <i className="fas fa-search fa-sm"></i>
-              </button>
+              </Link>
             </div>
           </div>
         </form>
@@ -41,7 +81,7 @@ function Service() {
       {/* <ShowUser/> */}
 
       <Routes>
-        <Route path="" element={<ShowService />} />
+        <Route path="" element={<ShowService dataServiceSearch={[dataSearch,stateTrue]}/>} />
         <Route path="add" element={<AddService />} />
         <Route path="update/:id" element={<UpdateService />} />
       </Routes>
