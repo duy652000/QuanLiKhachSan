@@ -66,7 +66,6 @@ function ChangeRoom({ dataRoomChange }) {
 
   const handleChangeRoom = (e) => {
     e.preventDefault();
-    console.log("details :", details);
 
     changeRoomBill(details);
   };
@@ -84,7 +83,7 @@ function ChangeRoom({ dataRoomChange }) {
           },
         }
       );
-      console.log("res", res);
+
       res = await res.data.data;
       window.location.reload("/room/checkin");
       alert("Đổi phòng thành công !");

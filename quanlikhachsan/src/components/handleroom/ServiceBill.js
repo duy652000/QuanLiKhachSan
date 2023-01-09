@@ -33,8 +33,6 @@ function ServiceBill({ dataServiceRoom }) {
   const [id, setId] = useState("");
   const [idBill, setIdBill] = useState("");
 
-  console.log("id bill", idBill);
-
   useEffect(() => {
     if (data?.room_id > 0) {
       setIdBill(data?.id);
@@ -292,7 +290,6 @@ function ServiceBill({ dataServiceRoom }) {
                                     );
                                     res = await res;
                                     if (id > 0) {
-                                      console.log("yes");
                                       getAllService(id);
                                     }
                                     alert("Xóa dịch vụ thành công !");

@@ -37,6 +37,9 @@ function CheckIn({ dataSortCheckIn }) {
       : dataSort.flat();
 
 
+      
+
+
   const token = JSON.parse(localStorage.getItem("token"));
 
   //get api by id
@@ -53,7 +56,7 @@ function CheckIn({ dataSortCheckIn }) {
         
       );
       
-      // console.log("data id",res)
+
       res = await res.data.data;
       setDataPayForm(res);
     },
@@ -156,7 +159,7 @@ function CheckIn({ dataSortCheckIn }) {
                         {/* <strong className="fw-bolder"></strong> */}
 
 
-                        <p className="fw-bolder">Kiểu:
+                        <p className="fw-bolder">
                       {/* {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) } */}
                       {item.typ_room}
               

@@ -17,6 +17,7 @@ function Booked({ dataSortBooked }) {
   }, []);
 
   let dataSort = dataSortBooked;
+  console.log('dataSort',dataSort)
 
   //////////////////// get data
   const [loadingData, setLoadingData] = useState(false);
@@ -24,6 +25,7 @@ function Booked({ dataSortBooked }) {
   const [dataProfileForm, setDataProfileForm] = useState([]);
 
   const data = dataSort.flat();
+  
   /////////////////
 
   const handlePay = useCallback(

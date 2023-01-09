@@ -13,6 +13,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { useAsync } from "react-use";
+import { json } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -24,8 +25,47 @@ ChartJS.register(
 );
 
 function Statistic() {
-
+  const [staticRoom,setStaticRoom] = useState([])
   const token = JSON.parse(localStorage.getItem("token"));
+  const getDataRoom = useAsync(async () => {
+    let res = await axios.get(
+      "http://localhost:8000/bill/viewsta",
+   
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    res = await res
+   
+    const dataOb=res.data
+    // console.log("dataob",dataOb.data)
+
+    // const arrayData = dataOb.forEach(element => {
+    //   return element
+    // });
+    // console.log("arrayData",arrayData)
+
+
+    // console.log("res",res)
+
+    // const arrayData = res.data.data.forEach(element => {
+    //   return element.name
+    // });
+    //     console.log("arrayData",arrayData)
+    const array = Object.keys(res.data.data);
+    setStaticRoom(array)
+   
+
+
+  }, [token]);
+
+
+
+
+
 
   const getDataByMonth = useAsync(async () => {
     let res = await axios.post(
@@ -87,7 +127,49 @@ function Statistic() {
   });
   const [chartOptions, setChartOptions] = useState({});
 
+
+
+  const [chartDataRoom, setChartDataRoom] = useState({
+    datasets: [],
+  });
+
+  const [chartOptionsRoom, setChartOptionsRoom] = useState({});
+
+
   useEffect(() => {
+
+    setChartDataRoom({
+      labels: staticRoom,
+      datasets: [
+        {
+          label: "Thống kê doanh số theo Phong",
+          data: [dataMonth, dataWeek, dataDay],
+
+          borderColor: "rgb(53,162,235)",
+          backgroundColor: "rgba(53,162,235,0.4)",
+        },
+      ],
+    });
+    setChartOptionsRoom({
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "Doanh số theo Phòng",
+        },
+      },
+    });
+
+
+
+///////////////////////////
+
+
+
+
     setChartData({
       labels: ["Total 30 days ", "Total 7 days", "Total 1 days"],
       datasets: [
@@ -123,12 +205,14 @@ function Statistic() {
           color="#007bff"
           loading={getDataByMonth.loading}
           data-testid="loader"
-          size={5}
+          size={6}
           speedMultiplier={1}
         />
       </div>
 
       <Bar options={chartOptions} data={chartData} />
+      {/* <Bar options={chartOptionsRoom} data={chartDataRoom} /> */}
+
     </div>
   );
 }

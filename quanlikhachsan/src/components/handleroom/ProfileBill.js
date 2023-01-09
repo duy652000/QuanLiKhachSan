@@ -12,7 +12,7 @@ function ProfileBill({ idDataRoom }) {
       return item;
     }
   });
-  console.log("getCustomerData",idDataRoom)
+
 
   return (
     <div

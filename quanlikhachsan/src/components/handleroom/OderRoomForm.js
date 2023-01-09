@@ -3,14 +3,14 @@ import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import $ from 'jquery';
+import $ from "jquery";
 import { useMemo } from "react";
 
 function OderRoomForm({ dataItem }) {
   const history = useNavigate();
-  console.log("dataitem",dataItem)
+
   const { customerData, serviceData } = useContext(AppContext);
-  
+
   const dataCustomer = customerData.filter(function (item) {
     if (item?.status === 1) {
       return item;
@@ -22,9 +22,6 @@ function OderRoomForm({ dataItem }) {
       return item;
     }
   });
-
-
- 
 
   const [idCustomer, setIdCustomer] = useState();
 
@@ -77,7 +74,7 @@ function OderRoomForm({ dataItem }) {
         room_id: dataItem[0],
         day_in: dayCome,
         day_out: dayGo,
-       
+
         amount: amountService,
       });
     } else {
@@ -103,7 +100,7 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-    console.log("details", details);
+
     addBill(details);
   };
 
@@ -118,7 +115,7 @@ function OderRoomForm({ dataItem }) {
       });
       res = await res;
       hideModal();
-      history("/room/booked")
+      history("/room/booked");
       alert("Đặt phòng thành công !");
     } catch (error) {
       setErrorDayIn(JSON.parse(error.response.data).day_in);
@@ -127,16 +124,15 @@ function OderRoomForm({ dataItem }) {
     }
   }
 
-    function hideModal() {
-      // $("#OderRoomModal").removeClass("show");
-      // $(".modal-backdrop").remove();
-      // $("#OderRoomModal").hide();
+  function hideModal() {
+    // $("#OderRoomModal").removeClass("show");
+    // $(".modal-backdrop").remove();
+    // $("#OderRoomModal").hide();
 
-//       $('#myModal').hide();
-// $('.modal-backdrop').hide();
-$('.close').click(); 
-    }
-
+    //       $('#myModal').hide();
+    // $('.modal-backdrop').hide();
+    $(".close").click();
+  }
 
   return (
     <>

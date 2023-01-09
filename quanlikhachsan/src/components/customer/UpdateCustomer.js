@@ -11,8 +11,6 @@ function UpdateCustomer() {
   const [errorPhone, setErrorPhone] = useState("");
   const [errorCCCD, setErrorCCCD] = useState("");
 
-
-
   const [details, setDetails] = useState({});
   const history = useNavigate();
   const { id } = useParams();
@@ -69,26 +67,20 @@ function UpdateCustomer() {
         }
       );
       res = await res;
-      
 
       alert("Cập nhật khách hàng thành công !");
-      window.location="/customer"
-      
+      window.location = "/customer";
     } catch (error) {
-      console.log("error",error)
-      setErrorFistName(JSON.parse(error.response.data).firtname[0])
-      setErrorLastName(JSON.parse(error.response.data).lastname[0])
-      setErrorEmail(JSON.parse(error.response.data).email[0])
-      setErrorPhone(JSON.parse(error.response.data).phone[0])
-      setErrorCCCD(JSON.parse(error.response.data).CCCD)
+      setErrorFistName(JSON.parse(error.response.data).firtname[0]);
+      setErrorLastName(JSON.parse(error.response.data).lastname[0]);
+      setErrorEmail(JSON.parse(error.response.data).email[0]);
+      setErrorPhone(JSON.parse(error.response.data).phone[0]);
+      setErrorCCCD(JSON.parse(error.response.data).CCCD);
     }
 
+    // setError(error);
 
-
-      // setError(error);
-
-     
-  //
+    //
   }
 
   return (
@@ -176,7 +168,8 @@ function UpdateCustomer() {
                 type="tel"
                 className="form-control"
                 id="phone"
-                pattern="[0-9]{10}" required
+                pattern="[0-9]{10}"
+                required
                 name="phone"
                 placeholder="Điền số điện thoại ..."
                 onChange={(e) => {
@@ -196,7 +189,6 @@ function UpdateCustomer() {
                 type="tel"
                 className="form-control"
                 id="CCCD"
-                
                 name="CCCD"
                 placeholder="Điền Căn cước công dân ..."
                 onChange={(e) => {

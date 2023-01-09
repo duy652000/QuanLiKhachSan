@@ -21,7 +21,7 @@ function Bill() {
     }, 5000);
   }, []);
 
-  console.log("data", data);
+
 
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);

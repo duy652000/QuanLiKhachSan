@@ -5,30 +5,28 @@ import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
 
-function ShowCustomer({dataCustomerSearch}) {
- 
+function ShowCustomer({ dataCustomerSearch }) {
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
     }, 1000);
-  }, []); 
+  }, []);
 
   const { customerData } = useContext(AppContext);
- 
 
   const data =
-  dataCustomerSearch[0]?.length == 0 && dataCustomerSearch[1] == true
-    ? []
-    : dataCustomerSearch[0]?.length == 0 && dataCustomerSearch[1] == false
-    ? customerData
-    : dataCustomerSearch[0];
-    console.log("data",data)
+    dataCustomerSearch[0]?.length == 0 && dataCustomerSearch[1] == true
+      ? []
+      : dataCustomerSearch[0]?.length == 0 && dataCustomerSearch[1] == false
+      ? customerData
+      : dataCustomerSearch[0];
+
+
 
 
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
-
 
   return (
     <div className="card shadow mb-4 ">
@@ -67,120 +65,122 @@ function ShowCustomer({dataCustomerSearch}) {
                 <th></th>
               </tr>
             </thead>
-            
+
             <tbody className="h-5 pb-5">
-            {data==null? (
-            <>
-            {loadingData ? (
-              <tr>
-                <td>
-                  <ClipLoader
-                    id="servicee"
-                    className=" load-spinner-table-service "
-                    color="#b5b6b7  "
-                    loading={loadingData}
-                    data-testid="loader"
-                    size={35}
-                    speedMultiplier={1}
-                  />
-                </td>
-              </tr>
-            ) : (
-              <tr>
-                <td>
-                  <p></p>
-                </td>
-                <td>
-                  <p></p>
-                </td>
-                <td>
-                  <p></p>
-                </td>
-               
-                <td>
-                  <p></p>
-                </td>
-                
-                <td>
-                  <p>Không có dữ liệu</p>
-                </td>
-                <td>
-                  <p></p>
-                </td>
-                <td>
-                  <p></p>
-                </td>
-               
-                <td>
-                  <p></p>
-                </td>
-                <td>
-                  <p></p>
-                </td>
-                <td>
-                  <p></p>
-                </td>
-              </tr>
-            )}
-          </>
-           
-          ) : ( (data.length>0) && data.map((item) => (
-                  <tr key={item.id} >
-                  <td>KH{item.id}</td>
-                  <td>{item.firtname}</td>
-                  <td>{item.lastname}</td>
-                  <td>{item.email}</td>
-                  <td>{item.phone}</td>
-                  <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
-                  <td>{item.CCCD}</td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
-                  </td>
-                  <td>
-                    <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
-                  </td>
-                  <td>
-                    <div className="d-flex black">
-                      {/* ẩn */}
-                      <a
-                        type="button"
-                        onClick={async function Hiden() {
-                          try {
-                            let res = await axios.post(
-                              `http://localhost:8000/client/hiden/id=${item.id}`,
-                              item.id,
-                              {
-                                headers: {
-                                  "Content-Type": "application/json",
-                                  Authorization: `Bearer ${token}`,
-                                },
-                              }
-                            );
-                            res = await res;
-                            window.location="/customer";
-                            alert("Thay đổi trạng thái thành công !");
-                          } catch (error) {
-                            alert("Thay đổi trạng thái không thành công !");
-                          }
-                        }}
-                      >
-                        {item.status == 1 ? (
-                          <i className="bi bi-eye-slash hover-text black hover-text">
-                            {" "}
-                          </i>
-                        ) : (
-                          <i className="bi bi-eye hover-text black hover-text"></i>
-                        )}
-                      </a>
-                      &nbsp; &nbsp;
-                      {/* chỉnh sửa */}
-                      <Link type="button" to={`update/${item.id}`}>
-                        <i className="bi bi-pencil hover-text black hover-text"></i>
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              )))}
+              {data == null ? (
+                <>
+                  {loadingData ? (
+                    <tr>
+                      <td>
+                        <ClipLoader
+                          id="servicee"
+                          className=" load-spinner-table-service "
+                          color="#b5b6b7  "
+                          loading={loadingData}
+                          data-testid="loader"
+                          size={35}
+                          speedMultiplier={1}
+                        />
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+
+                      <td>
+                        <p></p>
+                      </td>
+
+                      <td>
+                        <p>Không có dữ liệu</p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                    </tr>
+                  )}
+                </>
+              ) : (
+                data.length > 0 &&
+                data.map((item) => (
+                  <tr key={item.id}>
+                    <td>KH{item.id}</td>
+                    <td>{item.firtname}</td>
+                    <td>{item.lastname}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
+                    <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
+                    <td>{item.CCCD}</td>
+                    <td>
+                      <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
+                    </td>
+                    <td>
+                      <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
+                    </td>
+                    <td>
+                      <div className="d-flex black">
+                        {/* ẩn */}
+                        <a
+                          type="button"
+                          onClick={async function Hiden() {
+                            try {
+                              let res = await axios.post(
+                                `http://localhost:8000/client/hiden/id=${item.id}`,
+                                item.id,
+                                {
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                  },
+                                }
+                              );
+                              res = await res;
+                              window.location = "/customer";
+                              alert("Thay đổi trạng thái thành công !");
+                            } catch (error) {
+                              alert("Thay đổi trạng thái không thành công !");
+                            }
+                          }}
+                        >
+                          {item.status == 1 ? (
+                            <i className="bi bi-eye-slash hover-text black hover-text">
+                              {" "}
+                            </i>
+                          ) : (
+                            <i className="bi bi-eye hover-text black hover-text"></i>
+                          )}
+                        </a>
+                        &nbsp; &nbsp;
+                        {/* chỉnh sửa */}
+                        <Link type="button" to={`update/${item.id}`}>
+                          <i className="bi bi-pencil hover-text black hover-text"></i>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
               {/*  */}
             </tbody>
           </table>

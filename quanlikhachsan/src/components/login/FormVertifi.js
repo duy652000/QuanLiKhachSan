@@ -9,15 +9,29 @@ function FormVertifi({ token }) {
   const [error, setError] = useState("");
   const [detailCode, setDetailCode] = useState({ code: "" });
   const tokenRe = JSON.parse(token);
-  console.log("token",tokenRe)
+
+  const[time,setTime]=useState(238);
+
+  useEffect(()=>{
+   var timer = setInterval(() => {
+      setTime(time-1)
+      },1000)
+      return () =>clearInterval(timer);
+  })
 
 
   useEffect(()=>{
     setTimeout(() => {
       alert("Code hết thời gian hiệu lực !")
       window.location.reload();
-    }, 1000*60*5);
+    }, 1000*60*4);
+
+  
   },[])
+  console.log(time)
+
+ 
+
 
   const checkCode = useCallback(
     async (detail)=> {
@@ -62,11 +76,15 @@ function FormVertifi({ token }) {
 
   const handleCheckCode = (e) => {
     e.preventDefault();
-    // console.log("details",detailCode)
+  
     checkCode(detailCode);
   };
 
   return (
+
+
+
+
     <div className=" col-md-8 offset-md-2 mt-5">
       <div className="card card-outline-secondary">
         <div className="card-header">
@@ -77,7 +95,10 @@ function FormVertifi({ token }) {
           <form className="form" role="form" onSubmit={handleCheckCode} autoComplete="off">
             <div className="form-group">
               <div className="d-flex justify-content-center">
-                <h6>Gửi đến email : ***@***</h6>
+                <h6>Gửi đến email : ***@*** </h6>  
+              </div>
+              <div className="d-flex justify-content-center">
+              <span className=" ">Thời gian nhập mã  : <span className="text-danger font-weight-bold">{time}</span></span>
               </div>
 
               
@@ -101,26 +122,30 @@ function FormVertifi({ token }) {
                   }}
                   defaultValue={detailCode?.code}
                 />
-               
               </div>
+
               <div className="d-flex justify-content-center">
                 <h6 className="text-danger ml-5 col-5">{error}</h6>
               </div>
+             
+              
               <a
                 onClick={handleresetCode} type="button"
                 className="hove form-group d-flex justify-content-center col-10 ml-1 mr-5  cursor-pointer"
               >
                 Gửi lại mã ?
               </a>
+             
             </div>
+
             <div className="form-group d-flex justify-content-center col-10 ">
               <button
                 type="submit"
-                
                 className="btn btn-success btn-lg ml-5 mr-5"
               >
                 Kiểm tra
               </button>
+             
             </div>
           </form>
         </div>

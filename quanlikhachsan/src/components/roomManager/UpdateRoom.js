@@ -36,7 +36,7 @@ function UpdateService() {
       }
     );
     res = await res.data;
-    console.log("Res",res)
+
     let kq = res.data;
     if (kq == null) {
       history("/room-manager");
@@ -81,7 +81,7 @@ function UpdateService() {
       window.location="/room-manager";
       alert("Cập nhật thành công !");
     } catch (error) {
-      console.log("error",error) 
+
       setErrorName(JSON.parse(error.response.data).name_room[0])
       setErrorType(JSON.parse(error.response.data).typ_room[0])
       setErrorPrice(JSON.parse(error.response.data).price[0])

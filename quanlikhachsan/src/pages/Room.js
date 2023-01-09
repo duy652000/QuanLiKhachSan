@@ -149,9 +149,11 @@ function Room() {
         <div className="card-body">
           <div className="table-responsive">
             {(url.pathname === "/room/free" ||
-              url.pathname === "/room/booked" ||
-              url.pathname === "/room/checkin" ||
-              url.pathname === "/room/clean") && (
+              url.pathname === "/room/booked" 
+              // ||
+              // url.pathname === "/room/checkin" ||
+              // url.pathname === "/room/clean"
+              ) && (
               <div className="  my-2 mr-5 ml-5">
                 {/* form search  */}
                 {/* <form onSubmit={handleFilterDate}> */}

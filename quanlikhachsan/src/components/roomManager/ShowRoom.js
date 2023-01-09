@@ -62,6 +62,7 @@ function ShowService({dataRoomSearch}) {
                <>
                {loadingData ? (
                  <tr>
+                  
                    <td>
                      <ClipLoader
                        id="servicee"
@@ -90,6 +91,12 @@ function ShowService({dataRoomSearch}) {
                    </td>
                    <td>
                      <p>Không có dữ liệu</p>
+                   </td>
+                   <td>
+                     <p></p>
+                   </td>
+                   <td>
+                     <p></p>
                    </td>
                    <td>
                      <p></p>
