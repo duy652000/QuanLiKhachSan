@@ -57,10 +57,12 @@ function Statistic() {
     //     console.log("arrayData",arrayData)
     const array = Object.keys(res.data.data);
     setStaticRoom(array)
+    
    
 
 
   }, [token]);
+  console.log(staticRoom)
 
 
 
