@@ -4,6 +4,7 @@ import axios from "axios";
 import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
+import ReactPaginate from "react-paginate";
 
 function ShowCustomer({ dataCustomerSearch }) {
   useEffect(() => {
@@ -22,7 +23,25 @@ function ShowCustomer({ dataCustomerSearch }) {
       ? customerData
       : dataCustomerSearch[0];
 
+ //// phân trang
 
+ const [itemOffset, setItemOffset] = useState(0);
+ const itemsPerPage = 6;
+
+
+  
+ const endOffset = itemOffset + itemsPerPage;
+ const currentItems = data?.slice(itemOffset, endOffset);
+ const pageCount = Math.ceil(data?.length / itemsPerPage);
+
+
+
+ const handlePageClick = (event) => {
+   const newOffset = (event.selected * itemsPerPage) % data.length;
+   setItemOffset(newOffset);
+ };
+
+ ////
 
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -67,7 +86,7 @@ function ShowCustomer({ dataCustomerSearch }) {
             </thead>
 
             <tbody className="h-5 pb-5">
-              {data == null ? (
+              {currentItems == null ? (
                 <>
                   {loadingData ? (
                     <tr>
@@ -122,8 +141,8 @@ function ShowCustomer({ dataCustomerSearch }) {
                   )}
                 </>
               ) : (
-                data.length > 0 &&
-                data.map((item) => (
+                currentItems.length > 0 &&
+                currentItems.map((item) => (
                   <tr key={item.id}>
                     <td>KH{item.id}</td>
                     <td>{item.firtname}</td>
@@ -184,6 +203,26 @@ function ShowCustomer({ dataCustomerSearch }) {
               {/*  */}
             </tbody>
           </table>
+             {/*  phân trang */}
+
+             <>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="< Previous"
+              renderOnZeroPageCount={null}
+              containerClassName="pagination"
+              pageLinkClassName="page-num"
+              previousLinkClassName="page-num"
+              nextLinkClassName="page-num"
+              activeLinkClassName="active"
+            />
+          </>
+
+          {/*  kết thúc phân trang   */}
         </div>
       </div>
     </div>

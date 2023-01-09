@@ -8,11 +8,27 @@ import moment from "moment";
 import DetailsBill from "../components/bill/DetailsBill";
 import { Button } from "react-bootstrap";
 import { useCallback } from "react";
+import ReactPaginate from "react-paginate";
 
 function Bill() {
   const { billData } = useContext(AppContext);
   const data = billData;
-  
+
+  //// phân trang
+
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
+
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = data?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(data?.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % data.length;
+    setItemOffset(newOffset);
+  };
+
+  ////
 
   useEffect(() => {
     setLoadingData(true);
@@ -21,16 +37,13 @@ function Bill() {
     }, 5000);
   }, []);
 
-
-
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
-  const [dataDetailsBill,setDataDetailsBill] = useState([])
+  const [dataDetailsBill, setDataDetailsBill] = useState([]);
 
   //get api by id
   const getData = useCallback(
     async (id) => {
-      
       let res = await axios.get(
         `http://localhost:8000/bill/viewbill/id=${id}`,
         {
@@ -45,7 +58,6 @@ function Bill() {
     },
     [token]
   );
-
 
   return (
     // <!-- Begin Page Content -->
@@ -107,7 +119,7 @@ function Bill() {
               </thead>
 
               <tbody className="h-5 pb-5">
-                {data.length == 0 ? (
+                {currentItems.length == 0 ? (
                   <tr>
                     <td>
                       <ClipLoader
@@ -122,18 +134,19 @@ function Bill() {
                     </td>
                   </tr>
                 ) : (
-                  data.length > 0 &&
-                  data.map((item) => (
+                  currentItems.length > 0 &&
+                  currentItems.map((item) => (
                     <tr key={item.id}>
                       <td>HD{item.id}</td>
-                      <td className={
-                        item.status === 1
-                          ? "text-danger"
-                          : item.status === 2
-                          ? "text-success"
-                          
-                          : ""
-                      }>
+                      <td
+                        className={
+                          item.status === 1
+                            ? "text-danger"
+                            : item.status === 2
+                            ? "text-success"
+                            : ""
+                        }
+                      >
                         {item.status === 1
                           ? "Chưa Thanh Toán"
                           : item.status === 2
@@ -166,7 +179,11 @@ function Bill() {
                             <i className="bi bi-journal-text hover-text black p-2 "></i>
                           </a>
                           <DetailsBill
-                          dataDetailsBill={[dataDetailsBill,item.day_in,item.day_out]}
+                            dataDetailsBill={[
+                              dataDetailsBill,
+                              item.day_in,
+                              item.day_out,
+                            ]}
                           />
                         </div>
                       </td>
@@ -176,6 +193,26 @@ function Bill() {
                 {/*  */}
               </tbody>
             </table>
+            {/*  phân trang */}
+
+            <>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel="Next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={1}
+                pageCount={pageCount}
+                previousLabel="< Previous"
+                renderOnZeroPageCount={null}
+                containerClassName="pagination"
+                pageLinkClassName="page-num"
+                previousLinkClassName="page-num"
+                nextLinkClassName="page-num"
+                activeLinkClassName="active"
+              />
+            </>
+
+            {/*  kết thúc phân trang   */}
           </div>
         </div>
       </div>

@@ -4,8 +4,9 @@ import axios from "axios";
 import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
+import ReactPaginate from "react-paginate";
 
-function ShowService({dataRoomSearch}) {
+function ShowService({ dataRoomSearch }) {
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
@@ -15,18 +16,31 @@ function ShowService({dataRoomSearch}) {
 
   const { roomData } = useContext(AppContext);
   const data =
-  dataRoomSearch[0].length == 0 && dataRoomSearch[1] == true
-    ? []
-    : dataRoomSearch[0].length == 0 && dataRoomSearch[1] == false
-    ? roomData
-    : dataRoomSearch[0];
+    dataRoomSearch[0].length == 0 && dataRoomSearch[1] == true
+      ? []
+      : dataRoomSearch[0].length == 0 && dataRoomSearch[1] == false
+      ? roomData
+      : dataRoomSearch[0];
+
+  //// phân trang
+
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
+
+
+   
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = data?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(data?.length / itemsPerPage);
 
 
 
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % data.length;
+    setItemOffset(newOffset);
+  };
 
-
-
-
+  ////
 
   const token = JSON.parse(localStorage.getItem("token"));
   const [loadingData, setLoadingData] = useState(false);
@@ -64,61 +78,60 @@ function ShowService({dataRoomSearch}) {
 
             <tbody>
               {/*  */}
-              {data.length === 0 ? (
-               <>
-               {loadingData ? (
-                 <tr>
-                  
-                   <td>
-                     <ClipLoader
-                       id="servicee"
-                       className=" load-spinner-table-service "
-                       color="#b5b6b7  "
-                       loading={loadingData}
-                       data-testid="loader"
-                       size={35}
-                       speedMultiplier={1}
-                     />
-                   </td>
-                 </tr>
-               ) : (
-                 <tr>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p>Không có dữ liệu</p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                   <td>
-                     <p></p>
-                   </td>
-                 </tr>
-               )}
-             </>
+              {currentItems.length === 0 ? (
+                <>
+                  {loadingData ? (
+                    <tr>
+                      <td>
+                        <ClipLoader
+                          id="servicee"
+                          className=" load-spinner-table-service "
+                          color="#b5b6b7  "
+                          loading={loadingData}
+                          data-testid="loader"
+                          size={35}
+                          speedMultiplier={1}
+                        />
+                      </td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p>Không có dữ liệu</p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                      <td>
+                        <p></p>
+                      </td>
+                    </tr>
+                  )}
+                </>
               ) : (
-                data.length > 0 &&
-                data.map((item) => (
+                currentItems.length > 0 &&
+                currentItems.map((item) => (
                   <tr key={item.id}>
                     <td>{item.id}</td>
                     <td>{item.name_room}</td>
@@ -210,6 +223,27 @@ function ShowService({dataRoomSearch}) {
               )}
             </tbody>
           </table>
+
+          {/*  phân trang */}
+
+          <>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="< Previous"
+              renderOnZeroPageCount={null}
+              containerClassName="pagination"
+              pageLinkClassName="page-num"
+              previousLinkClassName="page-num"
+              nextLinkClassName="page-num"
+              activeLinkClassName="active"
+            />
+          </>
+
+          {/*  kết thúc phân trang   */}
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import axios from "axios";
 import Moment from "react-moment";
 import { AppContext } from "../../Context/AppContext";
 import ClipLoader from "react-spinners/ClipLoader";
+import ReactPaginate from "react-paginate";
 
 
 function ShowUser({dataUserSearch}) {
@@ -16,6 +17,20 @@ function ShowUser({dataUserSearch}) {
     : dataUserSearch[0].length == 0 && dataUserSearch[1] == false
     ? userData
     : dataUserSearch[0];
+
+      //// phân trang
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 6;
+
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = data?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(data?.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % data.length;
+    setItemOffset(newOffset);
+  };
+  ////
   const [loadingData, setLoadingData] = useState(false);
 
   useEffect(() => {
@@ -60,7 +75,7 @@ function ShowUser({dataUserSearch}) {
 
             <tbody>
               {/*  */}
-              {data.length==0 ? (
+              {currentItems.length==0 ? (
               <>
               {loadingData ? (
                 <tr>
@@ -112,7 +127,7 @@ function ShowUser({dataUserSearch}) {
               )}
             </>
              
-            ) : (data.length>0 && data.map((item) => (
+            ) : (currentItems.length>0 && currentItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{item.name}</td>
@@ -172,6 +187,24 @@ function ShowUser({dataUserSearch}) {
               {/*  */}
             </tbody>
           </table>
+
+
+          <>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel="Next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={1}
+              pageCount={pageCount}
+              previousLabel="< Previous"
+              renderOnZeroPageCount={null}
+              containerClassName="pagination"
+              pageLinkClassName="page-num"
+              previousLinkClassName="page-num"
+              nextLinkClassName="page-num"
+              activeLinkClassName="active"
+            />
+          </>
         </div>
       </div>
     </div>
