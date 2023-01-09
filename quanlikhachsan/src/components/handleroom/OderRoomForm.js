@@ -1,27 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
 import $ from "jquery";
-import { useMemo } from "react";
+
 
 function OderRoomForm({ dataItem }) {
+
   const history = useNavigate();
 
+//lấy dữ liệu từ app context
   const { customerData, serviceData } = useContext(AppContext);
 
+  //filter dữ liệu customer có status = 1 từ dữ liệu tổng
   const dataCustomer = customerData.filter(function (item) {
     if (item?.status === 1) {
       return item;
     }
   });
 
+    //filter dữ liệu service có status = 1 từ dữ liệu tổng
   const dataService = serviceData.filter(function (item) {
     if (item?.status === 1) {
       return item;
     }
   });
+
+
   useEffect(()=>{
     setDayCome(dataItem[3]);
     setDayGo(dataItem[4])
@@ -29,32 +35,26 @@ function OderRoomForm({ dataItem }) {
 
 
   const [idCustomer, setIdCustomer] = useState();
-
   const [dayCome, setDayCome] = useState(dataItem[3]);
   const [dayGo, setDayGo] = useState(dataItem[4]);
-
   const [amountService, setAmountService] = useState(0);
   const [priceService, setPriceService] = useState(0);
   const [idService, setIdService] = useState("");
-
-  // const [sumService, setSumService] = useState("0");
-  // const [sumBill, setSumBill] = useState("0");
   const [errorClientId, setErrorClientId] = useState("");
   const [errorDayIn, setErrorDayIn] = useState("");
   const [errorDayOut, setErrorDayOut] = useState("");
-  // const [error, setError] = useState("");
   const [total, setTotal] = useState({
     total_service_fee: "",
     total_room_rate: "",
     total_money: "",
   });
 
-  const token = JSON.parse(localStorage.getItem("token"));
 
+
+
+  const token = JSON.parse(localStorage.getItem("token"));
   const handleSumService = (e) => {
     e.preventDefault();
-    // setSumService(priceService * amountService);
-    // setSumBill(priceService * amountService + dataItem[2]);
     setTotal({
       total_room_rate:
         dataItem[2] *
@@ -79,7 +79,6 @@ function OderRoomForm({ dataItem }) {
         room_id: dataItem[0],
         day_in: dayCome,
         day_out: dayGo,
-
         amount: amountService,
       });
     } else {
@@ -105,11 +104,11 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-    // console.log("details",details)
+    // console.log("Details",details)
     addBill(details);
   };
 
-  //call api
+  //thêm bill
   async function addBill(detail) {
     try {
       let res = await axios.post("http://localhost:8000/bill/create", detail, {
@@ -130,12 +129,6 @@ function OderRoomForm({ dataItem }) {
   }
 
   function hideModal() {
-    // $("#OderRoomModal").removeClass("show");
-    // $(".modal-backdrop").remove();
-    // $("#OderRoomModal").hide();
-
-    //       $('#myModal').hide();
-    // $('.modal-backdrop').hide();
     $(".close").click();
   }
 
@@ -190,6 +183,11 @@ function OderRoomForm({ dataItem }) {
                         setIdCustomer({
                           ...idCustomer,
                           id: e.target.value,
+                        });
+                        setDetails({
+                          ...details,
+                          client_id: e.target.value,
+                          
                         });
                       }}
                       value={idCustomer ? idCustomer : ""}

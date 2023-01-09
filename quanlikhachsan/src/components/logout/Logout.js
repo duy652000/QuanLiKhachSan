@@ -17,6 +17,7 @@ function Logout() {
   }
 
  const logout =()=>  {
+  //xóa token
    localStorage.clear("token")
    history("/") 
 };

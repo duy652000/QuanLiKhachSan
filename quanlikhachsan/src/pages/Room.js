@@ -4,7 +4,6 @@ import Nav from "react-bootstrap/Nav";
 import Free from "../components/rooms/Free";
 import Booked from "../components/rooms/Booked";
 import Clean from "../components/rooms/Clean";
-
 import StatusRoom from "../components/rooms/StatusRoom";
 import DayCheckIn from "../components/rooms/DayCheckIn";
 import { AppContext } from "../Context/AppContext";
@@ -14,15 +13,19 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useCallback } from "react";
 import { useMemo } from "react";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import All from "../components/rooms/All";
 
 function Room() {
+  //lấy ngày hôm nay chuyển qua string
   let dataNow = new Date().toLocaleDateString();
 
+  //lấy url hiện tại
   let url = useLocation();
-  const { dataAllRoom, dataCheckInRoom, dataCleanRoom, role } =
+  //lấy dữ liệu từ useContext
+  const { roomData, dataCheckInRoom, dataCleanRoom, role } =
     useContext(AppContext);
+  
+  //set role cho chức năng
   const accountRole = role;
   const [itemFree, setItemFree] = useState([]);
   const [itemBooked, setItemBooked] = useState([]);
@@ -53,9 +56,8 @@ function Room() {
   useEffect(() => {
     if (url.pathname === "/room/booked") {
       setItemFree([]);
-      
-     
     }
+    //chạy getStatusRoom set url vào
     getStatusRoom(url);
     setDetailDay((details) => ({ from: "", to: "", ...details }));
   }, [url]);
@@ -67,7 +69,7 @@ function Room() {
     status_bill: "",
   });
 
-  //call api
+  // lấy dữ liệu filter
   const filterDate = useCallback(async () => {
     try {
       let res = await axios.get(
@@ -79,6 +81,7 @@ function Room() {
           },
         }
       );
+      //lấy dữ liệu từ db set vào res
       res = await res.data.Rom;
       setDayIn(detailDay.from)
       setDayOut(detailDay.to)
@@ -101,10 +104,10 @@ function Room() {
       setError(JSON.parse(error.response.data));
     }
   }, [detailDay, token]);
-  const countAllRoom = dataAllRoom.length;
+
+  const countAllRoom = roomData.length;
   const countCheckInRoom = dataCheckInRoom.length;
   const countCleanRoom = dataCleanRoom.length;
-
   const countFreeRoom = itemFree.filter(function (item) {
     if (item[0]?.id) {
       return true;
@@ -147,13 +150,8 @@ function Room() {
           <div className="table-responsive">
             {(url.pathname === "/room/free" ||
               url.pathname === "/room/booked" 
-              // ||
-              // url.pathname === "/room/checkin" ||
-              // url.pathname === "/room/clean"
               ) && (
               <div className="  my-2 mr-5 ml-5">
-                {/* form search  */}
-                {/* <form onSubmit={handleFilterDate}> */}
                 <div className="row m-auto">
                   <div className="col-sm d-flex justify-content-end">
                     <div>

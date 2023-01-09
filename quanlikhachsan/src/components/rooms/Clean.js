@@ -11,7 +11,6 @@ import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 
 function Clean() {
-
   useEffect(() => {
     setLoadingData(true);
     setTimeout(() => {
@@ -19,14 +18,13 @@ function Clean() {
     }, 1000);
   }, []);
 
-  //get data
-  const { dataCleanRoom } =  useContext(AppContext);
+  //lấy dữ liệu từ clean room từ Appcontext
+  const { dataCleanRoom } = useContext(AppContext);
   const [loadingData, setLoadingData] = useState(false);
-  const data = dataCleanRoom
-  const token = JSON.parse(localStorage.getItem("token"));
+  const data = dataCleanRoom;
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
-  //get api by id
-
+  //hàm dọn dẹp phòng
   const cleanRoom = useCallback(
     async (id) => {
       let res = await axios.get(
@@ -44,8 +42,6 @@ function Clean() {
     [token]
   );
 
-  //
-
   ////////////////////
 
   return (
@@ -54,8 +50,7 @@ function Clean() {
       <hr />
       <section className="py-2">
         <div className="container px-2 px-lg-2 mt-0">
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
-
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
 
             {data.length == 0 ? (
@@ -95,10 +90,8 @@ function Clean() {
 
                         {/* <!-- Product price--> */}
                         <p className="fw-bolder">
-                          
-                        {item.typ_room}
-                      {/* {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) } */}
-
+                          {item.typ_room}
+                          {/* {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) } */}
                         </p>
                         <br />
                         {/* day */}

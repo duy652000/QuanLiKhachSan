@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useMemo } from "react";
 import { useCallback } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import AddService from "../../components/service/AddService";
@@ -8,12 +9,14 @@ import UpdateService from "../../components/service/UpdateService";
 
 
 function Service() {
-  const token = JSON.parse(localStorage.getItem("token"));
+  
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const[dataInputSearch,setDataInputSearch] = useState("")
+  //data state
   const [dataSearch,setDataSearch] = useState([])
   const [stateTrue,setStateTrue] = useState(false)
 
-   //call api
+   //dữ liệu tìm kiếm
    const search = useCallback(async (data) => {
       let res = await axios.get(
         `http://localhost:8000/service/search?key=${data}`,
@@ -29,6 +32,7 @@ function Service() {
       setStateTrue(true)
   }, [ token]);
 
+  //xử lý hàm tìm kiếm nhân viên
   const handleSearch = (e) => {
     e.preventDefault();
     search(dataInputSearch);
@@ -56,6 +60,7 @@ function Service() {
               aria-describedby="basic-addon2"
               onChange={(e) => {
                 const data = e.target.value;
+                //set data input vào state
                 setDataInputSearch(data);
               }}
               

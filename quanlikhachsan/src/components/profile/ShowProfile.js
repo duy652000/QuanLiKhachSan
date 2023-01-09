@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useMemo } from "react";
+
 
 function ShowProfile() {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const [details, setDetails] = useState({});
   const [error, setError] = useState("");
 
-  //get infor
+  //lấy dữ liệu của user đang đăng nhập
   const getProFile = async () => {
     let res = await axios.get("http://localhost:8000/view-account", {
       headers: {
@@ -27,11 +28,10 @@ function ShowProfile() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-
     updateProfile(details);
   };
 
-  //change infor
+  //cập nhật dữ liệu
   async function updateProfile(detail) {
     try {
       let res = await axios.post(
@@ -44,9 +44,7 @@ function ShowProfile() {
           },
         }
       );
-
       alert("Cập nhật thành công !");
-      // window.location="/";
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -8,14 +8,19 @@ import ReactPaginate from "react-paginate";
 
 function ShowCustomer({ dataCustomerSearch }) {
   useEffect(() => {
+
+    //loading
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
     }, 1000);
   }, []);
 
+  //lấy dữ liệu từ context
   const { customerData } = useContext(AppContext);
 
+
+  // check dữ liệu
   const data =
     dataCustomerSearch[0]?.length == 0 && dataCustomerSearch[1] == true
       ? []
@@ -24,14 +29,15 @@ function ShowCustomer({ dataCustomerSearch }) {
       : dataCustomerSearch[0];
 
  //// phân trang
-
  const [itemOffset, setItemOffset] = useState(0);
- const itemsPerPage = 6;
 
+ //số item trong 1 trang
+ const itemsPerPage = 6; 
 
-  
  const endOffset = itemOffset + itemsPerPage;
+ //array của trang
  const currentItems = data?.slice(itemOffset, endOffset);
+ //số trang có
  const pageCount = Math.ceil(data?.length / itemsPerPage);
 
 

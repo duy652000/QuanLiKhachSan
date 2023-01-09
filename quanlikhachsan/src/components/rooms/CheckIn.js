@@ -9,26 +9,27 @@ import { memo } from "react";
 import ProfileBill from "../handleroom/ProfileBill";
 import ChangeRoom from "../handleroom/ChangeRoom";
 import ServiceBill from "../handleroom/ServiceBill";
+import { useMemo } from "react";
 
 function CheckIn({ dataSortCheckIn }) {
   useEffect(() => {
-    
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
       return;
     }, 0);
   }, []);
-  
+
+  //lấy dữ liệu filter day
   let dataSort = dataSortCheckIn[0];
   let isNullCheckIn = dataSortCheckIn[1];
 
-  //////////////////// get data
+  //////////////////// lấy data từ appcontext
   const { dataCheckInRoom } = useContext(AppContext);
   const [loadingData, setLoadingData] = useState(false);
   const [dataPayForm, setDataPayForm] = useState([]);
 
-  const dataOfCheckInRoom = dataCheckInRoom
+  const dataOfCheckInRoom = dataCheckInRoom;
   const data =
     dataSort.length == 0
       ? isNullCheckIn
@@ -36,13 +37,9 @@ function CheckIn({ dataSortCheckIn }) {
         : dataOfCheckInRoom
       : dataSort.flat();
 
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
-      
-
-
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  //get api by id
+  //lấy dữ liệu của phòng theo id
   const getData = useCallback(
     async (id) => {
       let res = await axios.get(
@@ -53,18 +50,12 @@ function CheckIn({ dataSortCheckIn }) {
             Authorization: `Bearer ${token}`,
           },
         }
-        
       );
-      
-
       res = await res.data.data;
       setDataPayForm(res);
     },
     [token]
   );
-  
-
-  //
 
 
   ////////////////////
@@ -104,9 +95,10 @@ function CheckIn({ dataSortCheckIn }) {
                   <div className="card bg-success decription-room border border-dark">
                     {/* <!-- Product details--> */}
                     <div className="card-body">
-                       {/* icon */}
-                       <div className="d-flex justify-content-center ">
-                         <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                      {/* icon */}
+                      <div className="d-flex justify-content-center ">
+                        <a
+                          className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           variant="primary"
                           data-toggle="modal"
                           data-target="#ChangeRoomModal"
@@ -114,19 +106,18 @@ function CheckIn({ dataSortCheckIn }) {
                           type="button"
                           onClick={
                             // () => getData(item.id)
-                              function handleGetDataRoom(e) {
+                            function handleGetDataRoom(e) {
                               e.preventDefault();
-                            
+
                               getData(item.id);
                             }
                           }
                         >
-                        <i className="bi bi-arrow-repeat"></i>
+                          <i className="bi bi-arrow-repeat"></i>
                         </a>
-                        
 
-
-                        <a className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
+                        <a
+                          className="text-light bg-dark pl-1 pr-1 rounded ml-1 "
                           variant="primary"
                           data-toggle="modal"
                           data-target="#ProFileRoomModal"
@@ -134,20 +125,19 @@ function CheckIn({ dataSortCheckIn }) {
                           type="button"
                           onClick={
                             // () => getData(item.id)
-                              function handleGetDataRoom(e) {
+                            function handleGetDataRoom(e) {
                               e.preventDefault();
-                              
+
                               getData(item.id);
-                             
                             }
                           }
                         >
                           <i className="bi bi-people-fill"></i>
                         </a>
 
-                        <ProfileBill idDataRoom={dataPayForm}/>
-                        <ChangeRoom dataRoomChange={dataPayForm}/>
-                        </div>
+                        <ProfileBill idDataRoom={dataPayForm} />
+                        <ChangeRoom dataRoomChange={dataPayForm} />
+                      </div>
                       {/* icon */}
 
                       <div className="text-center mt-2">
@@ -158,13 +148,11 @@ function CheckIn({ dataSortCheckIn }) {
                         {/* <!-- Product price--> */}
                         {/* <strong className="fw-bolder"></strong> */}
 
-
                         <p className="fw-bolder">
-                      {/* {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) } */}
-                      {item.typ_room}
-              
+                          {/* {(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((item.price)??0)) } */}
+                          {item.typ_room}
                         </p>
-                   
+
                         {/* day */}
                         {/* 17/10/2022
                     <br />
@@ -174,18 +162,16 @@ function CheckIn({ dataSortCheckIn }) {
 
                     <div className="card-footer pl-2 pr-2 pb-2 pt-0 border-top-0 bg-transparent">
                       <div className="text-center">
-                      <a
+                        <a
                           className="btn btn-outline-dark bg-dark text-light bg-dark pl-1 pr-1 rounded ml-1 mb-1 "
                           type="button"
                           variant="primary"
                           data-toggle="modal"
                           data-target="#ServiceBillModal"
                           data-whatever="@getbootstrap"
-
-
                           onClick={
                             // () => getData(item.id)
-                              function handleGetDataRoom(e) {
+                            function handleGetDataRoom(e) {
                               e.preventDefault();
                               getData(item.id);
                             }
@@ -193,13 +179,13 @@ function CheckIn({ dataSortCheckIn }) {
                         >
                           Dịch vụ
                         </a>
-                        <br/>
+                        <br />
                         <ServiceBill dataServiceRoom={dataPayForm} />
 
                         <Button
                           onClick={
                             // () => getData(item.id)
-                              function handleGetDataRoom(e) {
+                            function handleGetDataRoom(e) {
                               e.preventDefault();
                               getData(item.id);
                             }
@@ -210,8 +196,10 @@ function CheckIn({ dataSortCheckIn }) {
                           data-toggle="modal"
                           data-target="#OderRoomModal"
                           data-whatever="@getbootstrap"
-                        >Checkout</Button>
-                     
+                        >
+                          Checkout
+                        </Button>
+
                         <PayRoomForm dataRoom={dataPayForm} />
                       </div>
                     </div>

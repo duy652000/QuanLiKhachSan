@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, {useState } from "react";
+import {useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function AddCustomer() {
+
+
   /////////////////
   const [details, setDetails] = useState({
     firtname: "",
@@ -19,10 +21,9 @@ function AddCustomer() {
   const history = useNavigate();
   const handleAddCustomer = (e) => {
     e.preventDefault();
-
     addCustomer(details);
   };
-  //call api
+  //api thêm khách hàng
   async function addCustomer(detail) {
     try {
       let res = await axios.post(
@@ -38,8 +39,7 @@ function AddCustomer() {
       res = await res;
       setError("");
       alert("Thêm khách hàng thành công !");
-      window.location="/customer";
-      
+      window.location="/customer";     
     } catch (error) {
       setError(JSON.parse(error.response.data));
     }

@@ -1,13 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 import { memo } from "react";
 import ProfileBill from "../handleroom/ProfileBill";
-import { Button } from "react-bootstrap";
 import { useCallback } from "react";
+import { useMemo } from "react";
 
 function Booked({ dataSortBooked }) {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
   useEffect(() => {
     setLoadingData(true);
@@ -17,17 +17,18 @@ function Booked({ dataSortBooked }) {
   }, []);
 
   let dataSort = dataSortBooked;
-  console.log('dataSort',dataSort)
+
 
   //////////////////// get data
   const [loadingData, setLoadingData] = useState(false);
-  const [idRoom, setIdRoom] = useState("");
   const [dataProfileForm, setDataProfileForm] = useState([]);
 
+  //xủ lý data
   const data = dataSort.flat();
   
   /////////////////
 
+  //checkin phòng theo id
   const handlePay = useCallback(
     async (id) => {
       let res = await axios.post(
@@ -46,7 +47,7 @@ function Booked({ dataSortBooked }) {
     [token]
   );
 
-  //get api by id
+  //lấy dữ liệu bill theo id phòng
   const getData = useCallback(
     async (id) => {
       let res = await axios.get(
@@ -77,7 +78,7 @@ function Booked({ dataSortBooked }) {
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-6 justify-content-center">
             {/* product */}
 
-            {data.length == 0 || data[0].id == null ? (
+            {data.length === 0 || data[0].id === null ? (
               <>
                 {loadingData ? (
                   <PulseLoader

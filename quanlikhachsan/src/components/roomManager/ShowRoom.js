@@ -5,6 +5,7 @@ import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../../Context/AppContext";
 import ReactPaginate from "react-paginate";
+import { useMemo } from "react";
 
 function ShowService({ dataRoomSearch }) {
   useEffect(() => {
@@ -14,7 +15,10 @@ function ShowService({ dataRoomSearch }) {
     }, 1000);
   }, []);
 
+  //lấy dữ liệu room từ appcontext
   const { roomData } = useContext(AppContext);
+
+// lấy data room khi state flalse ,lấy [] khi state true , ngược lại láy data search
   const data =
     dataRoomSearch[0].length == 0 && dataRoomSearch[1] == true
       ? []
@@ -23,25 +27,18 @@ function ShowService({ dataRoomSearch }) {
       : dataRoomSearch[0];
 
   //// phân trang
-
-
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 6;
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = data?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(data?.length / itemsPerPage);
-
-
-
-
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
 
   ////
-
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const [loadingData, setLoadingData] = useState(false);
   return (
     <div className="card shadow mb-4">

@@ -12,13 +12,14 @@ function UpdateCustomer() {
   const [errorCCCD, setErrorCCCD] = useState("");
 
   const [details, setDetails] = useState({});
+
   const history = useNavigate();
+  //lấy id từ url
   const { id } = useParams();
 
-  //get infor
+ //lấy data khách hàng theo id
   const getData = async () => {
     //await here
-
     let res = await axios.get(
       `http://localhost:8000/client/client-profile/?id=${id}`,
       {
@@ -53,7 +54,7 @@ function UpdateCustomer() {
     updateService(details);
   };
 
-  // update infor
+  // hàm update dịch vụ
   async function updateService(detail) {
     try {
       let res = await axios.post(
@@ -77,10 +78,6 @@ function UpdateCustomer() {
       setErrorPhone(JSON.parse(error.response.data).phone[0]);
       setErrorCCCD(JSON.parse(error.response.data).CCCD);
     }
-
-    // setError(error);
-
-    //
   }
 
   return (

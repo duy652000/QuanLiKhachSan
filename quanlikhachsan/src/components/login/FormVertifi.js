@@ -5,58 +5,51 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 
 function FormVertifi({ token }) {
-  const  history= useNavigate();
+  const history = useNavigate();
   const [error, setError] = useState("");
   const [detailCode, setDetailCode] = useState({ code: "" });
   const tokenRe = JSON.parse(token);
 
-  const[time,setTime]=useState(238);
+  const [time, setTime] = useState(238);
 
-  useEffect(()=>{
-   var timer = setInterval(() => {
-      setTime(time-1)
-      },1000)
-      return () =>clearInterval(timer);
-  })
+  useEffect(() => {
+    var timer = setInterval(() => {
+      setTime(time - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  });
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setTimeout(() => {
-      alert("Code hết thời gian hiệu lực !")
+      alert("Code hết thời gian hiệu lực !");
       window.location.reload();
-    }, 1000*60*4);
+    }, 1000 * 60 * 4);
+  }, []);
 
-  
-  },[])
-  console.log(time)
-
- 
-
-
-  const checkCode = useCallback(
-    async (detail)=> {
+  // hàm kiểm tra code email
+  const checkCode = useCallback(async (detail) => {
     try {
-  
-    let res = await axios.post("http://localhost:8000/code",detail, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokenRe}`,
-      },
-    });
-    res = await res.data.data
-    if(res == 0){
-      const codeFalse = "Code không đúng !"
-      setError(codeFalse)  
-    }else if(res==1){
-      localStorage.setItem("token", token);
-       window.location="/";
-      alert("Đăng nhập thành công !")
-    }
+      let res = await axios.post("http://localhost:8000/code", detail, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenRe}`,
+        },
+      });
+      res = await res.data.data;
+      if (res == 0) {
+        const codeFalse = "Code không đúng !";
+        setError(codeFalse);
+      } else if (res == 1) {
+        localStorage.setItem("token", token);
+        window.location = "/";
+        alert("Đăng nhập thành công !");
+      }
     } catch (error) {
       setError(error.response.data.code);
     }
-  },[])
+  }, []);
 
+  //gửi lại code
   const resetCode = async () => {
     let res = await axios.get("http://localhost:8000/2fa/reset", {
       headers: {
@@ -65,26 +58,21 @@ function FormVertifi({ token }) {
       },
     });
     setTimeout();
-    alert('Gửi lại mã thành công !')
+    alert("Gửi lại mã thành công !");
   };
 
   const handleresetCode = (e) => {
     e.preventDefault();
-    history("/login")
+    history("/login");
     resetCode();
   };
 
   const handleCheckCode = (e) => {
     e.preventDefault();
-  
     checkCode(detailCode);
   };
 
   return (
-
-
-
-
     <div className=" col-md-8 offset-md-2 mt-5">
       <div className="card card-outline-secondary">
         <div className="card-header">
@@ -92,19 +80,24 @@ function FormVertifi({ token }) {
         </div>
 
         <div className="card-body">
-          <form className="form" role="form" onSubmit={handleCheckCode} autoComplete="off">
+          <form
+            className="form"
+            role="form"
+            onSubmit={handleCheckCode}
+            autoComplete="off"
+          >
             <div className="form-group">
               <div className="d-flex justify-content-center">
-                <h6>Gửi đến email : ***@*** </h6>  
+                <h6>Gửi đến email : ***@*** </h6>
               </div>
               <div className="d-flex justify-content-center">
-              <span className=" ">Thời gian nhập mã  : <span className="text-danger font-weight-bold">{time}</span></span>
+                <span className=" ">
+                  Thời gian nhập mã :{" "}
+                  <span className="text-danger font-weight-bold">{time}</span>
+                </span>
               </div>
 
-              
-
               <div className="form-group mt-4 d-flex justify-content-between">
-                
                 <label htmlFor="code" className=" mr-5 col-sm">
                   Code
                 </label>
@@ -127,15 +120,14 @@ function FormVertifi({ token }) {
               <div className="d-flex justify-content-center">
                 <h6 className="text-danger ml-5 col-5">{error}</h6>
               </div>
-             
-              
+
               <a
-                onClick={handleresetCode} type="button"
+                onClick={handleresetCode}
+                type="button"
                 className="hove form-group d-flex justify-content-center col-10 ml-1 mr-5  cursor-pointer"
               >
                 Gửi lại mã ?
               </a>
-             
             </div>
 
             <div className="form-group d-flex justify-content-center col-10 ">
@@ -145,7 +137,6 @@ function FormVertifi({ token }) {
               >
                 Kiểm tra
               </button>
-             
             </div>
           </form>
         </div>

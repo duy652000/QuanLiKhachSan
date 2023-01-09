@@ -6,19 +6,19 @@ import { useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import logo from "../assets/images/logoNavbar.png";
 import { PulseLoader } from "react-spinners";
-import { faLeaf } from "@fortawesome/free-solid-svg-icons";
 
 
 function OverLoad({ children }) {
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const { role, setRole } = useContext(AppContext);
 
-  let roleAccount = role == "" ? "" : role;
-
   const [modal, setModal] = useState(false);
   useEffect(() => {
+    //nếu token không tòn tại
     if (token) {
+      //nếu token tồn tại set modal true
       setModal(true);
+      //hàm gọi phân quyền
       const getProFile = () =>
         axios
           .get("http://localhost:8000/view-account", {
@@ -31,11 +31,12 @@ function OverLoad({ children }) {
             setRole(res.data.group_id)
              return res.data
             });
-         
+         //set được quyền thì setmodal lại bằng fale kết thúc over load
       Promise.all([getProFile()]).then((res) => {
         setModal(false);
       });
     }else{
+      //set modal false
       setModal(false);
     }
   }, []);

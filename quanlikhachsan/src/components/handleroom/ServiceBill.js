@@ -8,12 +8,14 @@ import { AppContext } from "../../Context/AppContext";
 import { useEffect } from "react";
 
 function ServiceBill({ dataServiceRoom }) {
-  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
+  //lấy dữ liệu token
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const data = dataServiceRoom?.id > 0 ? dataServiceRoom : {};
 
+  //lấy dữ liệu từ appcontext
   const { customerData, serviceData } = useContext(AppContext);
-
+  //filter dữ liệu khách hàng theo id từ appcontext
   const getCustomerData = customerData.filter(function (item) {
     if (item?.id === data?.client_id) {
       return item;
@@ -49,7 +51,6 @@ function ServiceBill({ dataServiceRoom }) {
         }
       });
       setNewDataService(dataNew);
-
       setDetails({
         bill: data?.id,
         service: dataNew[0]?.id,
@@ -102,6 +103,7 @@ function ServiceBill({ dataServiceRoom }) {
         if (id > 0) {
           getAllService(id);
         }
+        setError("")
         alert("Thêm thành công dịch vụ !");
       } catch (error) {
         setError(JSON.parse(error.response.data).bill[0]);

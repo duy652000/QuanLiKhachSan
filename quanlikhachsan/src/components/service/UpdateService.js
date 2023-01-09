@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { useMemo } from "react";
 
 function UpdateService() {
-  const token = JSON.parse(localStorage.getItem("token"));
-  const [errorDescription, setErrorDescription] = useState("");
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const [errorName, setErrorName] = useState("");
   const [errorPrice, setErrorPrice] = useState("");
-
-  
-
 
   const [details, setDetails] = useState({
     name: "",
@@ -17,9 +14,10 @@ function UpdateService() {
     description: "",
   });
   const history = useNavigate();
+  //lấy id từ url
   const { id } = useParams();
 
-  //get infor
+  //lấy thông tin dịch vụ từ id
   const getData = async () => {
     //await here
     let res = await axios.get(
@@ -35,7 +33,7 @@ function UpdateService() {
     let kq = res.data[0];
     if (kq == null) {
       history("/service");
-    }else {
+    } else {
       setDetails({
         name: kq.name,
         price: kq.price,
@@ -48,13 +46,13 @@ function UpdateService() {
   }, [token]);
   //////
 
-  // call update
+  // xử lý cập nhật dịch vụ
   const handleUpdate = (e) => {
     e.preventDefault();
     updateService(details);
   };
 
-  // update infor
+  // cập nhật thông tin dịch vụ
   async function updateService(detail) {
     try {
       let res = await axios.post(
@@ -68,12 +66,11 @@ function UpdateService() {
         }
       );
       res = await res;
-      window.location="/service";
+      window.location = "/service";
       alert("Cập nhật thành công !");
     } catch (error) {
-    
-      setErrorName(JSON.parse(error.response.data).name[0])
-      setErrorPrice(JSON.parse(error.response.data).price[0])
+      setErrorName(JSON.parse(error.response.data).name[0]);
+      setErrorPrice(JSON.parse(error.response.data).price[0]);
     }
   }
 
@@ -133,7 +130,7 @@ function UpdateService() {
 
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Mô tả dịch vụ</label>
-              <p className="text-danger">{errorDescription}</p>
+              <p className="text-danger"></p>
 
               <input
                 type="text "

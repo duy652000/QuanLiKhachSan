@@ -7,6 +7,8 @@ import { AppContext } from "../../Context/AppContext";
 function ProfileBill({ idDataRoom }) {
   const data = idDataRoom;
   const { customerData } = useContext(AppContext);
+
+  //filter dữ liệu khách hàng theo id
   const getCustomerData = customerData.filter(function (item) {
     if (item?.id === data?.client_id) {
       return item;

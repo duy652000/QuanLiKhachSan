@@ -7,13 +7,16 @@ import UpdateUser from "../components/users/UpdateUser";
 
 function Account() {
 
-
+//dữ liệu từ token
   const token = JSON.parse(localStorage.getItem("token"));
+  //dữ liệu từ form input search
   const[dataInputSearch,setDataInputSearch] = useState("")
+  //dữ liệu search được từ db trả về
   const [dataSearch,setDataSearch] = useState([])
+  
   const [stateTrue,setStateTrue] = useState(false)
 
-   //call api
+   //dữ liệu từ api search trả về
    const search = useCallback(async (data) => {
       let res = await axios.get(
         `http://localhost:8000/search?key=${data}`,
@@ -29,6 +32,7 @@ function Account() {
       setStateTrue(true)
   }, [ token]);
 
+  // xử lý search
   const handleSearch = (e) => {
     e.preventDefault();
     search(dataInputSearch);

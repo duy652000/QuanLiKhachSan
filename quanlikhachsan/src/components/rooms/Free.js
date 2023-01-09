@@ -1,12 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import OderRoomForm from "../handleroom/OderRoomForm";
 import PulseLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 import { memo } from "react";
+import { useMemo } from "react";
 
 function Free({ dataSortFree }) {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const [idRoom, setIdRoom] = useState();
   const [nameRoom, setNameRoom] = useState();
   const [priceRoom, setPriceRoom] = useState();
@@ -22,20 +23,17 @@ function Free({ dataSortFree }) {
   }, []);
 
   const [loadingData, setLoadingData] = useState(false);
+  //lấy dữ liệu freeroom từ filter day
   let dataSort = dataSortFree[0];
   useEffect(()=>{
     setDayIn(dataSortFree[1]);
     setDayOut(dataSortFree[2]);
 },[dataSortFree[1],dataSortFree[2]])
-console.log(dayIn)
-console.log(dayOut)
-
 
   //get data
-
   const data = dataSort.flat();
 
-  //get api by id
+  //lấy dữ liệu phòng theo id
   async function getDataRoomById(id) {
     let res = await axios.get(
       `http://localhost:8000/room/getid/id=${id}`,
@@ -51,7 +49,6 @@ console.log(dayOut)
     setNameRoom(res?.name_room);
     setPriceRoom(res?.price);
   }
-  //
 
   ////////////////////
 

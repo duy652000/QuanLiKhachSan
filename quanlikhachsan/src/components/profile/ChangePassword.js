@@ -17,7 +17,7 @@ function ChangePassword() {
     e.preventDefault();
     changePassword(details);
   };
-  //call api
+  //thay đổi pass word
   async function changePassword(detail) {
     try {
       let res = await axios.post("http://localhost:8000/changepass", detail, {

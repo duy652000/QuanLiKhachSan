@@ -1,9 +1,10 @@
 import moment from 'moment';
 import React from 'react'
-import Moment from 'react-moment';
+
 
 function DetailsBill({dataDetailsBill}) {
 
+  //dữ liệu từ props về
   const dataBill = dataDetailsBill[0]?.id>0?dataDetailsBill[0]:[];
   const day_in = dataDetailsBill[1]>0?dataDetailsBill[1]:"";
   const day_out = dataDetailsBill[2]>0?dataDetailsBill[2]:"";

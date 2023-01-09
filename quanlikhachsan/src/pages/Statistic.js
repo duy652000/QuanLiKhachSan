@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, memo } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { FadeLoader } from "react-spinners";
 
 import {
@@ -13,7 +13,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { useAsync } from "react-use";
-import { json } from "react-router-dom";
+import { useCallback } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -25,40 +25,60 @@ ChartJS.register(
 );
 
 function Statistic() {
+  //tên room 
   const [staticRoom,setStaticRoom] = useState([])
+  //value theo tên room
   const [staticValueRoom,setStaticValueRoom] = useState([])
-
+///lấy dữ liệu từ token
   const token = JSON.parse(localStorage.getItem("token"));
-  const getDataRoom = useAsync(async () => {
-    let res = await axios.get(
-      "http://localhost:8000/bill/viewsta",
+  //hàm lấy dữ liệu api thống kê từng phòng
+
+
+
+ //lấy dữ liệu bill
+ const getDataBill = useCallback(async () => {
+  let res = await axios.get("http://localhost:8000/bill/viewsta", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  res = await res
+  const dataOb=res.data.data
+  //chuyển từ object sang array
+  const arrayNameRoom = Object.keys(dataOb);
+    //chuyển từ object sang array
+  const arrayValueRoom = Object.values(dataOb);
+  setStaticRoom(arrayNameRoom)
+  setStaticValueRoom(arrayValueRoom)
+}, [token]);
+///
+
+
+
+
+  // const getDataRoom = useAsync(async () => {
+  //   let res = await axios.get(
+  //     "http://localhost:8000/bill/viewsta",
    
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    res = await res
-   
-    const dataOb=res.data.data
-    const arrayNameRoom = Object.keys(dataOb);
-    const arrayValueRoom = Object.values(dataOb);
-    setStaticRoom(arrayNameRoom)
-    setStaticValueRoom(arrayValueRoom)
-    
-   
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //   res = await res
+  //   const dataOb=res.data.data
+  //   //chuyển từ object sang array
+  //   const arrayNameRoom = Object.keys(dataOb);
+  //     //chuyển từ object sang array
+  //   const arrayValueRoom = Object.values(dataOb);
+  //   setStaticRoom(arrayNameRoom)
+  //   setStaticValueRoom(arrayValueRoom)
+  // }, [token]);
 
-
-  }, [token]);
-  console.log(staticRoom)
-
-
-
-
-
-
+//lấy dữ liệu thống kê của web trong 30 ngày
   const getDataByMonth = useAsync(async () => {
     let res = await axios.post(
       "http://localhost:8000/bill/getByMoth?by=m",
@@ -75,6 +95,7 @@ function Statistic() {
     };
   }, [token]);
 
+//lấy dữ liệu thống kê của web trong 7 ngày
   const getDataByWeek = useAsync(async () => {
     let res = await axios.post(
       "http://localhost:8000/bill/getByMoth?by=d",
@@ -91,6 +112,7 @@ function Statistic() {
     };
   }, [token]);
 
+//lấy dữ liệu thống kê của web trong 1 ngày
   const getDataByDay = useAsync(async () => {
     let res = await axios.post(
       "http://localhost:8000/bill/getByMoth?by=h",
@@ -106,6 +128,7 @@ function Statistic() {
       getDataByDay: res.data.data,
     };
   }, [token]);
+
 
   const dataDay =
     getDataByDay.loading === false ? getDataByDay.value.getDataByDay : 0;
@@ -129,9 +152,14 @@ function Statistic() {
 
 
   useEffect(() => {
+  if(!!token){
 
+    getDataBill()
+  }
     setChartDataRoom({
+      //tên cột theo từng room
       labels: staticRoom,
+      //data cột theo từng room
       datasets: [
         {
           label: "Thống kê doanh số theo phòng",

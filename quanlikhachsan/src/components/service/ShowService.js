@@ -13,6 +13,8 @@ function ShowService({ dataServiceSearch }) {
       setLoadingData(false);
     }, 0);
   }, []);
+
+  //lấy dữ liệu dịch vụ từ appcontext
   const { serviceData } = useContext(AppContext);
   const data =
     dataServiceSearch[0].length == 0 && dataServiceSearch[1] == true
@@ -23,12 +25,12 @@ function ShowService({ dataServiceSearch }) {
 
   //// phân trang
   const [itemOffset, setItemOffset] = useState(0);
+  //số item có trong trang
   const itemsPerPage = 6;
-
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = data?.slice(itemOffset, endOffset);
+  //số page tồn tạo
   const pageCount = Math.ceil(data?.length / itemsPerPage);
-
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);

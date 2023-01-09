@@ -8,12 +8,15 @@ import ShowRoom from "../components/roomManager/ShowRoom";
 import UpdateRoom from "../components/roomManager/UpdateRoom";
 
 function RoomManager() {
+  //lấy dữ liệu token
   const token = JSON.parse(localStorage.getItem("token"));
+  // lấy dữ liệu từ form
   const [dataInputSearch, setDataInputSearch] = useState("");
+  //lẫy dữ liệu search từ db xuống
   const [dataSearch, setDataSearch] = useState([]);
   const [stateTrue, setStateTrue] = useState(false);
 
-  //call api
+  //hàm lấy dữ liệu search
   const search = useCallback(
     async (data) => {
       let res = await axios.get(
@@ -32,6 +35,7 @@ function RoomManager() {
     [token]
   );
 
+  //xử lý search
   const handleSearch = (e) => {
     e.preventDefault();
     search(dataInputSearch);

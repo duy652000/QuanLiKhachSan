@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useMemo } from "react";
 
 function AddRoom() {
-
-
- /////////////////
  const [details, setDetails] = useState({
     name_room: "",
     typ_room: "",
@@ -14,7 +12,7 @@ function AddRoom() {
     description: ""
 });
 const [error, setError] = useState("");
-const token = JSON.parse(localStorage.getItem("token"));
+const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
 
 const history = useNavigate();
@@ -23,7 +21,8 @@ const handleAddService = (e) => {
   e.preventDefault();
   addRoom(details);
 };
-//call api
+
+//hàm thêm mới phòng
 async function addRoom(detail) {
   try {
     let res = await axios.post("http://localhost:8000/room/add", detail, {
@@ -34,7 +33,6 @@ async function addRoom(detail) {
     });
     res = await res;
     setError("");
-
     window.location="/room-manager";
     alert("Thêm phòng thành công !");
   } catch (error) {
@@ -42,7 +40,7 @@ async function addRoom(detail) {
   }
 
 }
-////////////////
+
 
 
 

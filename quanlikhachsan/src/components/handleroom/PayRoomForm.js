@@ -9,16 +9,14 @@ import { useCallback } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function PayRoomForm({ dataRoom }) {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
   const [loadingData, setLoadingData] = useState(false);
   const [service, setService] = useState([]);
 
   const data = dataRoom;
-
-  const idData = useMemo(() => data.id, [data]);
   const totalDate = (data?.day_out - data?.day_in) / 86400;
 
-  //get all service in bill
+  //lấy dữ liệu service theo id
   const getAllService = useCallback(
     async (id) => {
       let res = await axios.get(
@@ -53,6 +51,7 @@ function PayRoomForm({ dataRoom }) {
     }
   });
 
+  //Thanh toán
   const payBill = useCallback(
     async (id) => {
       let res = await axios.get(`http://localhost:8000/bill/pay/id=${id}`, {
@@ -67,6 +66,7 @@ function PayRoomForm({ dataRoom }) {
     [token]
   );
 
+  //xử lý thanh toán
   function handlePay(e) {
     e.preventDefault();
     payBill(data?.id);

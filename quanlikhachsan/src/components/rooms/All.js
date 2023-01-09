@@ -12,10 +12,11 @@ function All() {
     }, 5000);
   }, []);
   
-  //////////////////// get data
-  const { dataAllRoom } = useContext(AppContext);
+  ////////////////////
+  //lấy data room từ App context
+  const { roomData } = useContext(AppContext);
   const [loadingData, setLoadingData] = useState(false);
-  const data = dataAllRoom
+  const data = roomData
   ////////////////////
 
   return (

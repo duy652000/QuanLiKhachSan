@@ -14,10 +14,8 @@ function userName() {
 }
 
 function UserName() {
-
   return (
     <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-      {/* {username?username.toUpperCase():""} */}
       {userName().toUpperCase()}
     </span>
   );

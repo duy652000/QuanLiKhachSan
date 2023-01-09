@@ -6,6 +6,7 @@ import { memo } from "react";
 import { AppContext } from "../../Context/AppContext";
 
 function ChangeRoom({ dataRoomChange }) {
+  //lấy dữ liệu token
   const token = useMemo(() => JSON.parse(localStorage.getItem("token")), []);
 
   const data = dataRoomChange;
@@ -27,12 +28,14 @@ function ChangeRoom({ dataRoomChange }) {
         moment.unix(data?.day_in).format("DD")
       : 1;
 
+      //filter dữ liệu từ dữ liệu tổng
   const getDataRoom = roomData.filter(function (item) {
     if (item?.id === data?.room_id) {
       return item;
     }
   });
 
+    //filter dữ liệu từ dữ liệu tổng
   const getDataNewRoom = useCallback(
     (newName) => {
       const dataNew = roomData.filter(function (item) {
@@ -51,13 +54,13 @@ function ChangeRoom({ dataRoomChange }) {
     },
     [data]
   );
-
+  //filter dữ liệu từ dữ liệu tổng
   const getCustomerData = customerData.filter(function (item) {
     if (item?.id === data?.client_id) {
       return item;
     }
   });
-
+  //filter dữ liệu từ dữ liệu tổng
   const roomDataFree = roomData.filter(function (item) {
     if (item?.status === 1 && item?.price == getDataRoom[0]?.price) {
       return item;
@@ -66,11 +69,10 @@ function ChangeRoom({ dataRoomChange }) {
 
   const handleChangeRoom = (e) => {
     e.preventDefault();
-
     changeRoomBill(details);
   };
 
-  //get api by id
+  //hàm thay đổi phòng của bill
   const changeRoomBill = useCallback(
     async (details) => {
       let res = await axios.post(

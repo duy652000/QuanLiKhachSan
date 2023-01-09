@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import Moment from "react-moment";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AppContext } from "../Context/AppContext";
 import moment from "moment";
 import DetailsBill from "../components/bill/DetailsBill";
-import { Button } from "react-bootstrap";
 import { useCallback } from "react";
 import ReactPaginate from "react-paginate";
 
@@ -14,20 +12,21 @@ function Bill() {
   const { billData } = useContext(AppContext);
   const data = billData;
 
+
+
   //// phân trang
-
   const [itemOffset, setItemOffset] = useState(0);
+  //số item có trong 1 trang
   const itemsPerPage = 6;
-
   const endOffset = itemOffset + itemsPerPage;
+  //array của trang
   const currentItems = data?.slice(itemOffset, endOffset);
+  //đếm số trang
   const pageCount = Math.ceil(data?.length / itemsPerPage);
-
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
     setItemOffset(newOffset);
   };
-
   ////
 
   useEffect(() => {

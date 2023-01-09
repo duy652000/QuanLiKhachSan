@@ -13,10 +13,13 @@ function Login() {
     }
   });
 
+  //dữ liệu từ form
   const [details, setDetails] = useState({ email: "", password: "" });
+
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
+
   const [getToken, setGetToken] = useState();
   const[esxit,setEsxit] = useState(false)
 
@@ -41,9 +44,6 @@ function Login() {
       let token = res.access_token;
       setGetToken(JSON.stringify(token));
       alert("Đã gửi mail !");
-
-      // localStorage.setItem("token", JSON.stringify(token));
-      // window.location="/";
     } catch (error) {
       setErrorPass(error.response.data.password);
       setErrorEmail(error.response.data.email);

@@ -6,12 +6,15 @@ import ShowCustomer from "../components/customer/ShowCustomer";
 import UpdateCustomer from "../components/customer/UpdateCustomer";
 
 function Customer() {
+  //lấy dữn liệu token
   const token = JSON.parse(localStorage.getItem("token"));
+  //data search của input
   const[dataInputSearch,setDataInputSearch] = useState("")
+  // data search api
   const [dataSearch,setDataSearch] = useState([])
   const [stateTrue,setStateTrue] = useState(false)
 
-   //call api
+   //gọi api tìm kiếm
    const search = useCallback(async (data) => {
       let res = await axios.get(
         `http://localhost:8000/client/search?key=${data}`,
@@ -25,7 +28,7 @@ function Customer() {
       res = await res.data.data
       setDataSearch(res);
       setStateTrue(true)
-  }, [ token]);
+  }, [token]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -53,7 +56,6 @@ function Customer() {
                   const data = e.target.value;
                   setDataInputSearch(data);
                 }}
-                
                 value ={dataInputSearch==""?"":dataInputSearch}
               />
               <div className="input-group-append">
@@ -68,8 +70,6 @@ function Customer() {
       <p className="mb-4"></p>
 
       {/* <ShowUser/> */}
-
-
       <Routes>
         <Route path="" element={<ShowCustomer dataCustomerSearch={[dataSearch,stateTrue]}/>} />
         <Route path="add" element={<AddCustomer />} />
