@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { FadeLoader } from "react-spinners";
 
 import {
@@ -26,6 +26,8 @@ ChartJS.register(
 
 function Statistic() {
   const [staticRoom,setStaticRoom] = useState([])
+  const [staticValueRoom,setStaticValueRoom] = useState([])
+
   const token = JSON.parse(localStorage.getItem("token"));
   const getDataRoom = useAsync(async () => {
     let res = await axios.get(
@@ -40,23 +42,11 @@ function Statistic() {
     );
     res = await res
    
-    const dataOb=res.data
-    // console.log("dataob",dataOb.data)
-
-    // const arrayData = dataOb.forEach(element => {
-    //   return element
-    // });
-    // console.log("arrayData",arrayData)
-
-
-    // console.log("res",res)
-
-    // const arrayData = res.data.data.forEach(element => {
-    //   return element.name
-    // });
-    //     console.log("arrayData",arrayData)
-    const array = Object.keys(res.data.data);
-    setStaticRoom(array)
+    const dataOb=res.data.data
+    const arrayNameRoom = Object.keys(dataOb);
+    const arrayValueRoom = Object.values(dataOb);
+    setStaticRoom(arrayNameRoom)
+    setStaticValueRoom(arrayValueRoom)
     
    
 
@@ -144,9 +134,8 @@ function Statistic() {
       labels: staticRoom,
       datasets: [
         {
-          label: "Thống kê doanh số theo Phong",
-          data: [dataMonth, dataWeek, dataDay],
-
+          label: "Thống kê doanh số theo phòng",
+          data: staticValueRoom,
           borderColor: "rgb(53,162,235)",
           backgroundColor: "rgba(53,162,235,0.4)",
         },
@@ -213,10 +202,11 @@ function Statistic() {
       </div>
 
       <Bar options={chartOptions} data={chartData} />
-      {/* <Bar options={chartOptionsRoom} data={chartDataRoom} /> */}
+      <hr/>
+      <Bar options={chartOptionsRoom} data={chartDataRoom} />
 
     </div>
   );
 }
 
-export default Statistic;
+export default memo(Statistic) ;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,6 +22,11 @@ function OderRoomForm({ dataItem }) {
       return item;
     }
   });
+  useEffect(()=>{
+    setDayCome(dataItem[3]);
+    setDayGo(dataItem[4])
+  },[dataItem[3],dataItem[4]])
+
 
   const [idCustomer, setIdCustomer] = useState();
 
@@ -100,7 +105,7 @@ function OderRoomForm({ dataItem }) {
 
   const handleOderBill = (e) => {
     e.preventDefault();
-
+    // console.log("details",details)
     addBill(details);
   };
 
@@ -267,16 +272,16 @@ function OderRoomForm({ dataItem }) {
 
                     <input
                       type="date"
+                      disabled={true}
                       className="form-control col-sm-8"
                       id="ngayden"
                       name="ngayden"
                       placeholder="Điền ngày đến ..."
                       onChange={(e) => {
                         const dayCome = e.target.value;
-
                         setDayCome(dayCome);
                       }}
-                      defaultValue={dayCome}
+                      value={dayCome==""?"":dayCome}
                     />
                   </div>
 
@@ -286,6 +291,7 @@ function OderRoomForm({ dataItem }) {
                     </label>
 
                     <input
+                     disabled={true}
                       type="date"
                       className="form-control col-sm-8"
                       id="ngaydi"
@@ -295,7 +301,8 @@ function OderRoomForm({ dataItem }) {
                         const dayGo = e.target.value;
                         setDayGo(dayGo);
                       }}
-                      defaultValue={dayGo}
+                      value={dayGo==""?"":dayGo}
+               
                     />
                   </div>
                 </div>

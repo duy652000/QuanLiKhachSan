@@ -82,19 +82,16 @@ function Room() {
       res = await res.data.Rom;
       setDayIn(detailDay.from)
       setDayOut(detailDay.to)
+      
+
 
       if (url.pathname === "/room/free") {
         setItemFree(res);
-      
-
       } else if (url.pathname === "/room/booked") {
         setItemBooked(res);
-        
-       
       } else if (url.pathname === "/room/checkin") {
         setIsNullCheckIn(res ? false : true);
-        setItemCheckIn(res);
-       
+        setItemCheckIn(res); 
       } else if (url.pathname === "/room/clean") {
         setIsNullClean(res ? false : true);
         setItemClean(res);

@@ -78,10 +78,15 @@ function All() {
                          <div >
                           {(item?.typ_room) }
                         </div>
+                       
                      
                          {/* <!-- room capacity--> */}
                          <div>
                           Chứa: {(item?.capacity) }
+                        </div>
+                          {/* <!-- room status--> */}
+                          <div >Trạng Thái :
+                          {(item?.status)==0?"Ẩn":" Hiện" }
                         </div>
                       
                         

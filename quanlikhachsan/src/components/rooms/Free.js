@@ -10,6 +10,9 @@ function Free({ dataSortFree }) {
   const [idRoom, setIdRoom] = useState();
   const [nameRoom, setNameRoom] = useState();
   const [priceRoom, setPriceRoom] = useState();
+  const [dayIn,setDayIn]=useState("");
+  const [dayOut,setDayOut]=useState("");
+
 
   useEffect(() => {
     setLoadingData(true);
@@ -19,15 +22,13 @@ function Free({ dataSortFree }) {
   }, []);
 
   const [loadingData, setLoadingData] = useState(false);
-
-
   let dataSort = dataSortFree[0];
-  let dayIn = dataSortFree[1];
-  let dayOut = dataSortFree[2];
-
-
-
-
+  useEffect(()=>{
+    setDayIn(dataSortFree[1]);
+    setDayOut(dataSortFree[2]);
+},[dataSortFree[1],dataSortFree[2]])
+console.log(dayIn)
+console.log(dayOut)
 
 
   //get data
