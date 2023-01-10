@@ -43,10 +43,11 @@ function ServiceBill({ dataServiceRoom }) {
     }
   }, [data]);
 
+  console.log('serviceData',serviceData)
   const getDataNewService = useCallback(
     (newName) => {
       const dataNew = serviceData.filter(function (item) {
-        if (item?.name === newName) {
+        if (item?.name === newName&& item?.status==1) {
           return item;
         }
       });
