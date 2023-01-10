@@ -13,6 +13,7 @@ function ChangeRoom({ dataRoomChange }) {
 
   const { customerData, roomData } = useContext(AppContext);
   const [newDataRoom, setNewDataRoom] = useState([]);
+  const [errorRoom, setErrorRoom] = useState("");
   const [details, setDetails] = useState({
     bill: "",
     room: "",
@@ -28,14 +29,14 @@ function ChangeRoom({ dataRoomChange }) {
         moment.unix(data?.day_in).format("DD")
       : 1;
 
-      //filter dữ liệu từ dữ liệu tổng
+  //filter dữ liệu từ dữ liệu tổng
   const getDataRoom = roomData.filter(function (item) {
     if (item?.id === data?.room_id) {
       return item;
     }
   });
 
-    //filter dữ liệu từ dữ liệu tổng
+  //filter dữ liệu từ dữ liệu tổng
   const getDataNewRoom = useCallback(
     (newName) => {
       const dataNew = roomData.filter(function (item) {
@@ -75,20 +76,25 @@ function ChangeRoom({ dataRoomChange }) {
   //hàm thay đổi phòng của bill
   const changeRoomBill = useCallback(
     async (details) => {
-      let res = await axios.post(
-        `http://localhost:8000/bill/changeroom`,
-        details,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      try {
+        let res = await axios.post(
+          `http://localhost:8000/bill/changeroom`,
+          details,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-      res = await res.data.data;
-      window.location.reload("/room/checkin");
-      alert("Đổi phòng thành công !");
+        res = await res.data.data;
+        window.location.reload("/room/checkin");
+        alert("Đổi phòng thành công !");
+      } catch (error) {
+        setErrorRoom(JSON.parse(error.response.data).room[0]);
+        // console.log("error",JSON.parse(error.response.data).room[0])
+      }
     },
     [token]
   );
@@ -155,8 +161,12 @@ function ChangeRoom({ dataRoomChange }) {
                 </div>
               </div>
             </div>
-            <div className="line-page mb-3"></div>
+            <div className="line-page mb-3  "></div>
+            <div className="d-flex justify-content-between">
             <strong>Thông Tin Đổi Phòng</strong>
+            <p className="text-danger mr-5">{errorRoom}</p>
+            </div>
+
             <div className="line-page mt-3 mb-4"></div>
 
             <div className="row mb-4 d-flex mt-2">
