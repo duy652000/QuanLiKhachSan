@@ -10,14 +10,14 @@ function FormVertifi({ token }) {
   const [detailCode, setDetailCode] = useState({ code: "" });
   const tokenRe = JSON.parse(token);
 
-  const [time, setTime] = useState(238);
+  // const [time, setTime] = useState(238);
 
-  useEffect(() => {
-    var timer = setInterval(() => {
-      setTime(time - 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  });
+  // useEffect(() => {
+  //   var timer = setInterval(() => {
+  //     setTime(time - 1);
+  //   }, 1000);
+  //   return () => clearInterval(timer);
+  // });
 
   useEffect(() => {
     setTimeout(() => {
@@ -90,12 +90,12 @@ function FormVertifi({ token }) {
               <div className="d-flex justify-content-center">
                 <h6>Gửi đến email : ***@*** </h6>
               </div>
-              <div className="d-flex justify-content-center">
+              {/* <div className="d-flex justify-content-center">
                 <span className=" ">
                   Thời gian nhập mã :{" "}
                   <span className="text-danger font-weight-bold">{time}</span>
                 </span>
-              </div>
+              </div> */}
 
               <div className="form-group mt-4 d-flex justify-content-between">
                 <label htmlFor="code" className=" mr-5 col-sm">

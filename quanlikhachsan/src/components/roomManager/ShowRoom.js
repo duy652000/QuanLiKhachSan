@@ -161,10 +161,10 @@ function ShowService({ dataRoomSearch }) {
                     </td>
                     <td>{item.description}</td>
                     <td>
-                      <Moment format="DD/MM/YYYY">{item.created_at}</Moment>
+                      <Moment format="DD/MM/YYYY">{item?.created_at}</Moment>
                     </td>
                     <td>
-                      <Moment format="DD/MM/YYYY">{item.updated_at}</Moment>
+                      <Moment format="DD/MM/YYYY">{item?.updated_at}</Moment>
                     </td>
                     <td>
                       <div className="d-flex black">

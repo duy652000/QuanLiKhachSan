@@ -4,7 +4,6 @@ import "./App.css";
 import Login from "./pages/Login";
 import Protected from "./components/Protected";
 import Local from "./pages/Local";
-import { AppProvider } from "./Context/AppContext";
 import OverLoad from "./components/OverLoad";
 
 

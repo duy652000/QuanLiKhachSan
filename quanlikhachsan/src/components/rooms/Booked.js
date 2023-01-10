@@ -137,11 +137,11 @@ function Booked({ dataSortBooked }) {
 
                         {/* <!-- Product price--> */}
                         <p className="fw-bolder">
-                          Giá:
-                          {new Intl.NumberFormat("vi-VN", {
+                          {item.typ_room}
+                          {/* {new Intl.NumberFormat("vi-VN", {
                             style: "currency",
                             currency: "VND",
-                          }).format(item.price ?? 0)}
+                          }).format(item.price ?? 0)} */}
                         </p>
                       </div>
                     </div>

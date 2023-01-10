@@ -120,9 +120,6 @@ function Room() {
     } else return false;
   }).length;
 
-  // const countFreeRoom = itemFree.flat().length
-  // const countBookedRoom = itemBooked.flat().length
-
  
 
   return (
