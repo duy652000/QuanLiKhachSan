@@ -15,7 +15,6 @@ function Login() {
 
   //dữ liệu từ form
   const [details, setDetails] = useState({ email: "", password: "" });
-
   const [error, setError] = useState("");
   const [errorPass, setErrorPass] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
