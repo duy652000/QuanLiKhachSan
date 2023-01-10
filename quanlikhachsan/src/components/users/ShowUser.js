@@ -129,7 +129,7 @@ function ShowUser({dataUserSearch}) {
              
             ) : (currentItems.length>0 && currentItems.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
+                  <td>NV{item.id}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.phone}</td>
