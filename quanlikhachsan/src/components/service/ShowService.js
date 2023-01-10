@@ -122,7 +122,7 @@ function ShowService({ dataServiceSearch }) {
                 currentItems.length > 0 &&
                 currentItems.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.id}</td>
+                    <td>DV{item.id}</td>
                     <td>{item.name}</td>
                     <td>
                       {new Intl.NumberFormat("vi-VN", {

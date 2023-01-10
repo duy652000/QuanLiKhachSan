@@ -129,7 +129,7 @@ function ShowService({ dataRoomSearch }) {
                 currentItems.length > 0 &&
                 currentItems.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.id}</td>
+                    <td>PH{item.id}</td>
                     <td>{item.name_room}</td>
                     <td>{item.typ_room}</td>
 
