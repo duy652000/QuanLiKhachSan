@@ -17,7 +17,7 @@ function CheckIn({ dataSortCheckIn }) {
     setTimeout(() => {
       setLoadingData(false);
       return;
-    }, 0);
+    }, 3000);
   }, []);
 
   //lấy dữ liệu filter day

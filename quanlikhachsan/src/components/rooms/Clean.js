@@ -15,7 +15,7 @@ function Clean() {
     setLoadingData(true);
     setTimeout(() => {
       setLoadingData(false);
-    }, 1000);
+    }, 2000);
   }, []);
 
   //lấy dữ liệu từ clean room từ Appcontext
