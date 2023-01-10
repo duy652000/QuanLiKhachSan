@@ -79,8 +79,8 @@ function ShowCustomer({ dataCustomerSearch }) {
             <thead>
               <tr>
                 <th width="8%">Id</th>
-                <th>Tên</th>
                 <th>Họ và tên lót</th>
+                <th>Tên</th>
                 <th>Email</th>
                 <th>Số điện thoại </th>
                 <th>Trạng thái</th>
@@ -151,8 +151,9 @@ function ShowCustomer({ dataCustomerSearch }) {
                 currentItems.map((item) => (
                   <tr key={item.id}>
                     <td>KH{item.id}</td>
-                    <td>{item.firtname}</td>
                     <td>{item.lastname}</td>
+                    <td>{item.firtname}</td>
+                    
                     <td>{item.email}</td>
                     <td>{item.phone}</td>
                     <td>{item.status == 1 ? "Hoạt động" : "ẩn"}</td>
