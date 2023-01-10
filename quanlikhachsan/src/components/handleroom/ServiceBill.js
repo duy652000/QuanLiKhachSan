@@ -22,6 +22,12 @@ function ServiceBill({ dataServiceRoom }) {
     }
   });
 
+  const dataServiceNotHiden= serviceData.filter(function (item) {
+    if (item?.status===1) {
+      return item;
+    }
+  });
+
   const [details, setDetails] = useState({
     bill: "",
     service: "",
@@ -47,7 +53,7 @@ function ServiceBill({ dataServiceRoom }) {
   const getDataNewService = useCallback(
     (newName) => {
       const dataNew = serviceData.filter(function (item) {
-        if (item?.name === newName&& item?.status==1) {
+        if (item?.name === newName) {
           return item;
         }
       });
@@ -192,7 +198,7 @@ function ServiceBill({ dataServiceRoom }) {
                   <option value="DEFAULT" disabled>
                     Dịch Vụ
                   </option>
-                  {serviceData.map((item) => (
+                  {dataServiceNotHiden.map((item) => (
                     <option key={item?.id}>{item?.name}</option>
                   ))}
                 </select>
